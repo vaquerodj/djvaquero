@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>DJ Vaquero | Tour & SetUp</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+    <style>
+        /* VARIABLES OPTIMIZADAS */
+        :root {
+            --cyan: #00e5ff; --cyan-dim: rgba(0, 229, 255, 0.15);
+            --purple: #b052ff; --purple-dim: rgba(176, 82, 255, 0.2);
+            --bg-dark: #0a0a0f; --bg-panel: rgba(18, 18, 28, 0.65);
+            --text-main: #f8fafc; --text-muted: #94a3b8;
+            --border-glass: rgba(255, 255, 255, 0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent !important; margin: 0; padding: 0; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, var(--bg-dark) 60%);
+            color: var(--text-main); font-family: 'Outfit', sans-serif;
+            overflow-x: hidden; line-height: 1.5;
+        }
+
+        /* HEADER Y REDES SOCIALES (DISEÑO BONITO RESTAURADO) */
+        header { text-align: center; padding: 40px 20px 20px; animation: fadeInDown 1s ease forwards; }
+        
+        h1 { 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 10px; 
+            background: linear-gradient(to bottom, #ffffff 0%, var(--cyan) 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            margin-bottom: 5px;
+        }
+        .subtitle { color: var(--text-muted); font-size: 1rem; letter-spacing: 6px; text-transform: uppercase; font-weight: 400; }
+
+        .social-header { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; }
+        .social-link {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(0,0,0,0.4); border: 1px solid var(--border-glass);
+            color: var(--text-muted); font-size: 1.3rem; text-decoration: none;
+            overflow: hidden; backdrop-filter: blur(10px); transition: var(--transition-smooth);
+        }
+        .social-link::before { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 100%; transition: var(--transition-smooth); z-index: 1; }
+        .social-link i { position: relative; z-index: 2; transition: var(--transition-smooth); }
+        .social-link:hover { transform: translateY(-5px); border-color: transparent; color: #fff; }
+        
+        /* Colores de marca al pasar el ratón */
+        .social-link.ig:hover::before { top: 0; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .social-link.tk:hover::before { top: 0; background: #000; }
+        .social-link.tk:hover i { text-shadow: -2px 2px 0px var(--cyan), 2px -2px 0px #ff0050; }
+        .social-link.sc:hover::before { top: 0; background: #ff5500; }
+        .social-link.yt:hover::before { top: 0; background: #ff0000; }
+
+        /* CONTENEDORES PRINCIPALES */
+        .wrapper { max-width: 1600px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 40px; }
+        .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; min-height: 70vh; }
+        .panel { background: var(--bg-panel); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--border-glass); border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); overflow: hidden; display: flex; flex-direction: column; position: relative; }
+
+        /* MAPA ESTILOS (4 ESTADOS CORREGIDOS) */
+        .map-holder { width: 100%; height: 100%; min-height: 50vh; touch-action: none; cursor: grab; }
+        .map-holder:active { cursor: grabbing; }
+        svg { width: 100%; height: 100%; display: block; }
+        
+        /* 1. Desactivado */
+        svg path { fill: #0f0f16 !important; stroke: #2a2a3c !important; stroke-width: 0.8px !important; transition: 0.3s; }
+        svg path:hover { fill: #1c1c28 !important; cursor: pointer; }
+        /* 2. Activado (Con Bolo) */
+        svg path.activado { fill: var(--cyan-dim) !important; stroke: var(--cyan) !important; stroke-width: 1.5px !important; }
+        /* 3. Seleccionado (Sin Bolo) */
+        svg path.seleccionado { fill: var(--purple-dim) !important; stroke: var(--purple) !important; stroke-width: 2px !important; }
+        /* 4. Seleccionado (Con Bolo) */
+        svg path.activado.seleccionado { fill: var(--cyan) !important; stroke: #fff !important; stroke-width: 2.5px !important; }
+        
+        svg text { font-family: 'Outfit', sans-serif !important; font-weight: 600 !important; fill: #fff !important; font-size: 9px !important; pointer-events: none !important; user-select: none; }
+
+        .map-controls { position: absolute; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .map-controls button { width: 40px; height: 40px; border-radius: 12px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-glass); color: #fff; cursor: pointer; transition: 0.2s; }
+        .map-controls button:active { background: var(--cyan); color: #000; }
+
+        /* PANEL DE INFO LATERAL */
+        .info-content { padding: 30px; display: none; height: 100%; overflow-y: auto; }
+        .info-content.active { display: block; animation: fadeIn 0.4s; }
+        
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px; color: var(--text-muted); }
+        .empty-state i { font-size: 3rem; margin-bottom: 15px; opacity: 0.3; }
+
+        .town-title { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
+        .town-club { display: inline-block; padding: 6px 12px; background: var(--cyan-dim); color: var(--cyan); border-radius: 8px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 25px; border: 1px solid rgba(0,229,255,0.3); }
+
+        .data-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); border-radius: 16px; padding: 20px; margin-bottom: 15px; }
+        .data-card h4 { color: var(--purple); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+        /* TABS MULTIMEDIA */
+        .tabs { display: flex; border-bottom: 1px solid var(--border-glass); background: rgba(0,0,0,0.3); }
+        .tab-btn { flex: 1; padding: 15px; background: none; border: none; color: var(--text-muted); font-family: inherit; font-weight: 600; text-transform: uppercase; cursor: pointer; border-bottom: 2px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: #fff; border-bottom-color: var(--cyan); background: rgba(255,255,255,0.02); }
+
+        .tab-pane { display: none; padding: 20px; }
+        .tab-pane.active { display: block; animation: fadeIn 0.3s; }
+
+        .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; align-items: start; }
+        .media-grid iframe, .media-grid blockquote { width: 100% !important; margin: 0 !important; border-radius: 12px; overflow: hidden; background: #000; }
+
+        /* SECCIÓN SETUP */
+        .setup-section { margin-top: 40px; border-top: 1px solid var(--border-glass); padding-top: 40px; }
+        .setup-section h2 { text-align: center; font-size: 2.5rem; text-transform: uppercase; font-weight: 900; margin-bottom: 30px; }
+        .setup-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
+        .setup-svg-container { background: var(--bg-panel); border: 1px solid var(--border-glass); border-radius: 20px; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 400px; }
+        .setup-svg-container svg { width: 100%; height: auto; max-height: 600px; }
+        .setup-svg-container svg [data-componente] { cursor: pointer; transition: 0.3s; }
+        .setup-svg-container svg [data-componente]:hover { filter: drop-shadow(0 0 10px var(--cyan)); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* RESPONSIVE MÓVIL */
+        @media (max-width: 1024px) {
+            .grid-layout, .setup-grid { grid-template-columns: 1fr; }
+            .map-holder { height: 45vh; }
+            header { padding: 20px 10px; }
+            h1 { font-size: 2.2rem; }
+        }
+
+        /* MODAL ADMIN */
+        .admin-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 999; display: none; place-items: center; padding: 15px; }
+        .admin-box { background: var(--bg-dark); border: 1px solid var(--purple); width: 100%; max-width: 500px; border-radius: 20px; padding: 25px; }
+        .input-g { margin-bottom: 15px; }
+        .input-g label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; }
+        .input-g input, .input-g textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass); background: rgba(255,255,255,0.05); color: #fff; font-family: inherit; }
+        .btn { padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; text-transform: uppercase; }
+        .btn-cyan { background: var(--cyan); color: #000; }
+        .btn-red { background: transparent; border: 1px solid #ff4444; color: #ff4444; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="social-header">
+            <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="social-link ig"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="social-link tk"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-link sc"><i class="fa-brands fa-soundcloud"></i></a>
+            <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-link yt"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <h1 id="titulo-dj">DJ Vaquero</h1>
+        <div class="subtitle">Salamanca Tour & SetUp</div>
+    </header>
+
+    <div class="wrapper">
+        <div class="grid-layout">
+            <div class="panel map-panel">
+                <div class="map-holder" id="map-holder"></div>
+                <div class="map-controls">
+                    <button onclick="mapPanZoom && mapPanZoom.zoomIn()"><i class="fa-solid fa-plus"></i></button>
+                    <button onclick="mapPanZoom && mapPanZoom.zoomOut()"><i class="fa-solid fa-minus"></i></button>
+                    <button onclick="mapPanZoom && (mapPanZoom.resetZoom(), mapPanZoom.center())"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <div class="panel info-panel" id="scroll-target">
+                <div class="empty-state" id="state-empty">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <p>Selecciona un municipio en el mapa para ver la información.</p>
+                </div>
+                
+                <div class="empty-state" id="state-locked" style="display:none;">
+                    <i class="fa-solid fa-lock"></i>
+                    <h3 id="locked-title" style="margin-bottom: 10px;">Municipio</h3>
+                    <p>Aún no hay evento confirmado aquí. ¡Pronto más noticias!</p>
+                </div>
+
+                <div id="state-data" style="display:none; height: 100%; display: flex; flex-direction: column;">
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('info')">Datos</button>
+                        <button class="tab-btn" onclick="switchTab('media')">Multimedia</button>
+                    </div>
+                    
+                    <div class="tab-pane active" id="tab-info">
+                        <h2 class="town-title" id="ui-title">...</h2>
+                        <div class="town-club" id="ui-club">...</div>
+                        <div class="data-card"><h4><i class="fa-solid fa-calendar"></i> Fecha y Hito</h4><p id="ui-fechas">...</p></div>
+                        <div class="data-card"><h4><i class="fa-solid fa-comment-dots"></i> Reseña</h4><p id="ui-details">...</p></div>
+                    </div>
+
+                    <div class="tab-pane" id="tab-media">
+                        <div class="media-grid" id="ui-media"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="setup-section">
+            <h2><i class="fa-solid fa-sliders"></i> Mi SetUp Técnico</h2>
+            <div class="setup-grid">
+                <div class="setup-svg-container" id="setup-holder">
+                    <p style="color:var(--text-muted)">Cargando equipamiento...</p>
+                </div>
+                <div class="panel" style="padding: 30px;">
+                    <div class="empty-state" id="setup-empty">
+                        <i class="fa-solid fa-headphones"></i>
+                        <p>Toca un elemento del dibujo para conocer el equipo que utilizo.</p>
+                    </div>
+                    <div id="setup-data" style="display:none;">
+                        <h2 class="town-title" id="ui-setup-title" style="color:var(--cyan)">Componente</h2>
+                        <div class="data-card" style="margin-top:20px;">
+                            <h4>Especificaciones</h4>
+                            <p id="ui-setup-desc">Descripción del equipo...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="admin-modal" id="admin-modal">
+        <div class="admin-box">
+            <h3 style="color:var(--cyan); margin-bottom:15px;">Editar: <span id="admin-name"></span></h3>
+            <input type="hidden" id="admin-id">
+            <div class="input-g"><label>Nombre del Municipio</label><input type="text" id="in-nombre"></div>
+            <div class="input-g"><label>Sala</label><input type="text" id="in-sala"></div>
+            <div class="input-g"><label>Fecha</label><input type="text" id="in-fechas"></div>
+            <div class="input-g"><label>Reseña</label><textarea id="in-details" rows="2"></textarea></div>
+            <div class="input-g"><label>Códigos Embed (TikTok/IG)</label><textarea id="in-media" rows="3" placeholder="Pega los iframes o blockquotes aquí..."></textarea></div>
+            <button class="btn btn-cyan" onclick="guardarFirebase()">Publicar Bolo</button>
+            <button class="btn btn-red" onclick="borrarFirebase()">Eliminar Bolo</button>
+            <button class="btn" onclick="document.getElementById('admin-modal').style.display='none'" style="background:#333; color:#fff;">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN FIREBASE Y VARIABLES
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
+            authDomain: "djvaquero-851e8.firebaseapp.com",
+            projectId: "djvaquero-851e8",
+            databaseURL: "https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+        
+        let database;
+        window.addEventListener('load', () => {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            iniciarApp();
+        });
+
+        let mapPanZoom = null;
+        let modoAdmin = false;
+        let datosGlobales = {};
+        let selId = null;
+
+        // Base de datos del SetUp
+        const dbSetUp = {
+            "mesa": { titulo: "Pioneer DJ XDJ-XZ", desc: "Sistema Todo en Uno profesional de 4 canales. Calidad de sonido de club y efectos avanzados para mezclas perfectas." },
+            "altavoces": { titulo: "PA System", desc: "2x Cajas Activas de 1000W RMS para una pegada de graves contundente y agudos cristalinos en cualquier sala." },
+            "luces": { titulo: "Iluminación Inteligente", desc: "Cabezas móviles LED y barras pixel mapping controladas por DMX para un show visual sincronizado con la música." }
+        };
+
+        function iniciarApp() {
+            database.ref('bolos').on('value', snap => {
+                datosGlobales = snap.val() || {};
+                actualizarMapaCSS();
+            });
+
+            fetch('salamanca.svg').then(r=>r.text()).then(svg => {
+                document.getElementById('map-holder').innerHTML = svg;
+                prepararMapaSVG();
+            });
+
+            fetch('setup.svg').then(r=>r.text()).then(svg => {
+                document.getElementById('setup-holder').innerHTML = svg;
+                prepararSetUpSVG();
+            }).catch(e => {
+                document.getElementById('setup-holder').innerHTML = "<p>Añade un archivo llamado 'setup.svg' en la carpeta.</p>";
+            });
+        }
+
+        function prepararMapaSVG() {
+            const svgEl = document.querySelector('#map-holder svg');
+            svgEl.querySelectorAll('path').forEach((p, i) => {
+                let id = p.getAttribute('id') || p.getAttribute('name') || `Mun_${i}`;
+                p.setAttribute('data-id', id);
+            });
+
+            svgEl.addEventListener('click', e => {
+                const p = e.target.closest('path');
+                if(p) manejarClicMapa(p.getAttribute('data-id'), p);
+            });
+
+            setTimeout(() => {
+                mapPanZoom = svgPanZoom(svgEl, {
+                    zoomEnabled: true, controlIconsEnabled: false, fit: true, center: true, minZoom: 0.8, maxZoom: 15,
+                    customEventsHandler: {
+                        haltEventListeners: ['touchstart', 'touchend', 'touchmove'],
+                        init: function(opt) {
+                            this.h = Hammer(opt.svgElement);
+                            this.h.get('pinch').set({enable: true});
+                            let pX=0, pY=0, initScale=1;
+                            this.h.on('panstart panmove', ev => {
+                                if(ev.type==='panstart') { pX=0; pY=0; }
+                                opt.instance.panBy({x: ev.deltaX-pX, y: ev.deltaY-pY});
+                                pX=ev.deltaX; pY=ev.deltaY;
+                            });
+                            this.h.on('pinchstart pinchmove', ev => {
+                                if(ev.type==='pinchstart') initScale = opt.instance.getZoom();
+                                opt.instance.zoomAtPoint(initScale * ev.scale, {x: ev.center.x, y: ev.center.y});
+                            });
+                        },
+                        destroy: function(){ this.h.destroy(); }
+                    }
+                });
+            }, 200);
+        }
+
+        function actualizarMapaCSS() {
+            // 1. Asignar clases
+            document.querySelectorAll('#map-holder path').forEach(p => {
+                let id = p.getAttribute('data-id');
+                p.classList.toggle('activado', !!datosGlobales[id]);
+                p.classList.toggle('seleccionado', id === selId);
+            });
+
+            // 2. SOLUCIÓN AL BORDE RECORTADO: Mover los activados al frente del SVG
+            document.querySelectorAll('#map-holder path.activado').forEach(p => {
+                p.parentNode.appendChild(p);
+            });
+            
+            // 3. Asegurar que el que esté seleccionado ahora mismo, esté por encima de todos
+            let pathSeleccionado = document.querySelector('#map-holder path.seleccionado');
+            if(pathSeleccionado) {
+                pathSeleccionado.parentNode.appendChild(pathSeleccionado);
+            }
+        }
+
+        function manejarClicMapa(id, pathNode) {
+            selId = id;
+            actualizarMapaCSS(); // Esto también se encarga de traerlo al frente
+
+            if(modoAdmin) return abrirAdmin(id);
+
+            let d = datosGlobales[id];
+            document.getElementById('state-empty').style.display = 'none';
+            
+            if(d) {
+                document.getElementById('state-locked').style.display = 'none';
+                document.getElementById('state-data').style.display = 'flex';
+                
+                document.getElementById('ui-title').innerText = d.nombre || id.replace(/_/g,' ');
+                document.getElementById('ui-club').innerText = d.sala || '-';
+                document.getElementById('ui-fechas').innerText = d.fechas || '-';
+                document.getElementById('ui-details').innerText = d.detalles || '-';
+                
+                let mediaBox = document.getElementById('ui-media');
+                if(d.media) {
+                    mediaBox.innerHTML = d.media;
+                    cargarScriptsSociales(mediaBox);
+                } else {
+                    mediaBox.innerHTML = '<p style="color:#666">Sin multimedia.</p>';
+                }
+            } else {
+                document.getElementById('state-data').style.display = 'none';
+                document.getElementById('state-locked').style.display = 'flex';
+                document.getElementById('locked-title').innerText = id.replace(/_/g,' ');
+            }
+
+            if(window.innerWidth < 1024) document.getElementById('scroll-target').scrollIntoView({behavior:'smooth'});
+        }
+
+        // LÓGICA DEL SETUP
+        function prepararSetUpSVG() {
+            const svgEl = document.querySelector('#setup-holder svg');
+            if(!svgEl) return;
+            svgEl.addEventListener('click', e => {
+                let target = e.target.closest('[data-componente]');
+                if(target) mostrarInfoSetUp(target.getAttribute('data-componente'));
+            });
+        }
+
+        function mostrarInfoSetUp(id) {
+            let data = dbSetUp[id];
+            if(!data) return;
+            document.getElementById('setup-empty').style.display = 'none';
+            document.getElementById('setup-data').style.display = 'block';
+            document.getElementById('ui-setup-title').innerText = data.titulo;
+            document.getElementById('ui-setup-desc').innerText = data.desc;
+        }
+
+        function switchTab(t) {
+            document.querySelectorAll('.tab-btn, .tab-pane').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-'+t).classList.add('active');
+            if(t==='media') cargarScriptsSociales(document.getElementById('ui-media'));
+        }
+
+        function cargarScriptsSociales(container) {
+            if(!container) return;
+            setTimeout(() => {
+                if(window.instgrm) window.instgrm.Embeds.process();
+                if(container.querySelector('.tiktok-embed')) {
+                    if(!document.getElementById('tk-script')) {
+                        let s = document.createElement('script'); s.id='tk-script'; s.src="https://www.tiktok.com/embed.js";
+                        document.body.appendChild(s);
+                    } else if (window.tiktokEmbed) window.tiktokEmbed.load();
+                }
+            }, 100);
+        }
+
+        let toques = 0;
+        document.getElementById('titulo-dj').addEventListener('click', () => {
+            toques++; setTimeout(()=>toques=0, 2000);
+            if(toques===3 && prompt("PIN:")==="1524") { modoAdmin=true; alert("Modo Admin Activado"); }
+        });
+
+        function abrirAdmin(id) {
+            document.getElementById('admin-modal').style.display='grid';
+            let d = datosGlobales[id] || {};
+            document.getElementById('admin-id').value = id;
+            document.getElementById('admin-name').innerText = id.replace(/_/g,' ');
+            document.getElementById('in-nombre').value = d.nombre || id.replace(/_/g,' ');
+            document.getElementById('in-sala').value = d.sala || '';
+            document.getElementById('in-fechas').value = d.fechas || '';
+            document.getElementById('in-details').value = d.detalles || '';
+            document.getElementById('in-media').value = d.media || '';
+        }
+
+        function guardarFirebase() {
+            let id = document.getElementById('admin-id').value;
+            database.ref('bolos/'+id).set({
+                nombre: document.getElementById('in-nombre').value,
+                sala: document.getElementById('in-sala').value,
+                fechas: document.getElementById('in-fechas').value,
+                detalles: document.getElementById('in-details').value,
+                media: document.getElementById('in-media').value
+            }).then(() => document.getElementById('admin-modal').style.display='none');
+        }
+
+        function borrarFirebase() {
+            let id = document.getElementById('admin-id').value;
+            if(confirm("¿Borrar este evento?")) database.ref('bolos/'+id).remove().then(()=>document.getElementById('admin-modal').style.display='none');
+        }
+    </script>
+</body>
+</html>
