@@ -100,6 +100,7 @@
 </head>
 <body class="flex flex-col items-center min-h-screen pb-16">
 
+    <!-- HEADER & NAVEGACIÓN -->
     <header class="w-full max-w-[1600px] mx-auto pt-10 pb-8 px-6 md:px-10 relative z-20 flex flex-col md:flex-row justify-between items-end md:items-center">
         <div class="flex flex-col items-start mb-8 md:mb-0">
             <h1 id="site-title" class="premium-title text-5xl md:text-7xl select-none uppercase">DJ <span>Vaquero</span></h1>
@@ -120,6 +121,7 @@
         </div>
     </header>
 
+    <!-- SECCIÓN PRINCIPAL: TOUR -->
     <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 flex flex-col xl:flex-row gap-8 z-10">
         <section class="flex-[2] flex flex-col gap-5 relative">
             <div class="glass-panel p-5 flex flex-col sm:flex-row gap-5 justify-between items-center relative z-20">
@@ -136,6 +138,7 @@
             </div>
         </section>
 
+        <!-- PANEL DE EVENTOS -->
         <aside id="info-section-anchor" class="flex-1 glass-panel flex flex-col h-auto xl:h-[72vh] overflow-hidden group">
             <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent relative">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-djCyan/10 blur-3xl rounded-full pointer-events-none group-hover:bg-djCyan/20 transition-colors"></div>
@@ -144,28 +147,32 @@
                     <div class="w-2.5 h-2.5 rounded-full bg-gray-600"></div><span class="text-gray-400 text-xs font-bold tracking-widest uppercase">Selecciona una zona</span>
                 </div>
             </div>
-            <div id="info-events" class="flex-grow flex flex-col gap-5 p-8 overflow-y-auto hidden scroll-smooth"></div>
+            <div id="info-events" class="flex-grow flex flex-col gap-4 p-8 overflow-y-auto hidden scroll-smooth"></div>
             <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-10 text-gray-500 text-center">
                 <i class="fa-solid fa-compact-disc text-7xl mb-6 opacity-10"></i><p class="text-base font-medium">Explora el mapa para descubrir<br>las próximas fechas confirmadas.</p>
             </div>
         </aside>
     </main>
 
+    <!-- SECCIÓN SETUP INTERACTIVO -->
     <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-32 px-4 md:px-10 z-10">
         <div class="glass-panel p-5 mb-8 flex justify-between items-center max-w-sm inline-flex">
             <h2 class="font-display font-black text-2xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap"><i class="fa-solid fa-headphones text-djMagenta drop-shadow-[0_0_8px_rgba(232,28,255,0.5)]"></i> EQUIPO DJ</h2>
         </div>
         
         <div class="flex flex-col xl:flex-row gap-8">
+            <!-- Imagen Setup -->
             <div class="flex-[2] glass-panel p-8 flex justify-center items-center overflow-hidden relative min-h-[50vh]">
                 <div id="setup-image-wrapper" class="relative inline-block max-w-full bg-black/30 p-2 rounded-2xl border border-white/5">
                     <img src="setup.png" alt="Setup DJ" class="w-full h-auto max-h-[65vh] object-contain rounded-xl relative z-0 drop-shadow-2xl" id="setup-img">
                     <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+                    <!-- Contenedor Admin -->
                     <div id="admin-hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none z-40 hidden"></div>
                 </div>
                 <p id="setup-admin-hint" class="absolute bottom-4 right-6 text-djMagenta text-[11px] hidden font-bold tracking-widest uppercase bg-black/80 px-4 py-2 rounded-full border border-djMagenta/30 backdrop-blur-md z-50">MODO EDICIÓN ACTIVO: Clic para añadir • Arrastra para mover</p>
             </div>
             
+            <!-- Panel Detalle Componente -->
             <div class="flex-[1] glass-panel p-10 flex flex-col justify-center min-h-[350px] relative overflow-hidden group" id="setup-info-panel">
                 <div class="absolute -top-20 -right-20 w-64 h-64 bg-djMagenta/10 rounded-full blur-3xl pointer-events-none group-hover:bg-djMagenta/20 transition-all duration-700"></div>
                 
@@ -182,14 +189,17 @@
         </div>
     </div>
 
+    <!-- SECCIÓN MASHUPS -->
     <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-32 px-4 md:px-10 z-10">
         <div class="glass-panel p-5 mb-8 flex justify-between items-center max-w-md inline-flex">
             <h2 class="font-display font-black text-2xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap"><i class="fa-solid fa-compact-disc text-djYellow drop-shadow-[0_0_8px_rgba(245,212,66,0.5)]"></i> MASHUPS & EDITS</h2>
         </div>
         <div id="mashups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            </div>
+            <!-- Cargados por JS -->
+        </div>
     </div>
 
+    <!-- PANEL DE ADMINISTRADOR FLOTANTE -->
     <div id="admin-panel" class="hidden fixed top-24 left-6 md:left-10 w-[420px] max-w-[92vw] bg-djPanel/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] z-[100] flex flex-col overflow-hidden">
         <div id="admin-panel-header" class="bg-black/40 border-b border-white/10 p-5 flex justify-between items-center cursor-move touch-none">
             <div class="flex items-center gap-3 pointer-events-none">
@@ -207,6 +217,7 @@
 
         <div class="p-7 overflow-y-auto max-h-[70vh] relative custom-scrollbar">
             
+            <!-- PESTAÑA: TOUR -->
             <div id="admin-sec-tour" class="space-y-6">
                 <input type="hidden" id="admin-muni-id">
                 <input type="hidden" id="admin-editing-event-id">
@@ -235,6 +246,7 @@
                 </div>
             </div>
 
+            <!-- PESTAÑA: SETUP -->
             <div id="admin-sec-setup" class="space-y-6 hidden">
                 <div>
                     <label class="text-[10px] text-djMagenta font-bold tracking-widest uppercase block mb-2">Componente de Equipo</label>
@@ -259,8 +271,9 @@
                 </div>
             </div>
 
+            <!-- PESTAÑA: MASHUPS -->
             <div id="admin-sec-mashups" class="space-y-6 hidden">
-                <p class="text-[10px] text-gray-400 leading-relaxed p-3 bg-black/40 border border-white/5 rounded-xl">El reproductor buscará automáticamente el archivo <strong>mashupX.mp3</strong> en el servidor según el orden cronológico en el que lo guardes.</p>
+                <p class="text-[10px] text-djYellow leading-relaxed p-3 bg-black/40 border border-white/5 rounded-xl font-bold">¡NUEVO! Ahora sube el audio directamente aquí y se conectará automáticamente al reproductor de la web.</p>
                 <div>
                     <label class="text-[10px] text-djYellow font-bold tracking-widest uppercase block mb-2">Seleccionar Mashup</label>
                     <select id="admin-mash-select" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:outline-none focus:border-djYellow cursor-pointer transition-colors">
@@ -269,9 +282,18 @@
                 </div>
                 <div><label class="text-[10px] text-gray-400 font-bold tracking-widest uppercase block mb-2">Título</label>
                 <input type="text" id="admin-mash-title" placeholder="Ej: Reggaeton Old School Mix" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:border-djYellow focus:outline-none transition-colors"></div>
-                <div><label class="text-[10px] text-gray-400 font-bold tracking-widest uppercase block mb-2">Enlace de Descarga (Drive/Mega)</label>
-                <input type="text" id="admin-mash-dl" placeholder="URL Descarga" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:border-djYellow focus:outline-none transition-colors"></div>
+                <div><label class="text-[10px] text-gray-400 font-bold tracking-widest uppercase block mb-2">Enlace de Descarga Externa (Drive/Mega)</label>
+                <input type="text" id="admin-mash-dl" placeholder="URL Descarga (Opcional)" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:border-djYellow focus:outline-none transition-colors"></div>
                 
+                <div class="bg-black/30 p-4 rounded-xl border border-white/5">
+                    <label class="text-[10px] text-djCyan font-bold tracking-widest uppercase block mb-2"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Archivo de Audio (.mp3)</label>
+                    <input type="file" id="admin-mash-file" accept="audio/mpeg, audio/mp3" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-djYellow/10 file:text-djYellow hover:file:bg-djYellow/20 transition-colors cursor-pointer">
+                    <!-- Barra de progreso -->
+                    <div id="upload-progress" class="hidden w-full bg-black/50 rounded-full h-1.5 mt-4 border border-white/5 overflow-hidden">
+                        <div id="upload-bar" class="bg-gradient-to-r from-djYellow to-orange-400 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
                 <div class="pt-5 flex gap-3 border-t border-white/5">
                     <button id="btn-save-mash" class="flex-[2] bg-gradient-to-r from-djYellow to-orange-400 text-black font-black tracking-wider py-3 rounded-lg text-xs transition-transform hover:scale-[1.02]">GUARDAR MASHUP</button>
                     <button id="btn-delete-mash" class="flex-[1] bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/30 font-black tracking-wider py-3 rounded-lg text-xs hidden transition-colors">BORRAR</button>
@@ -283,7 +305,9 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref as dbRef, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        // Añadimos Firebase Storage para la música
+        import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
@@ -296,14 +320,15 @@
         };
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+        const storage = getStorage(app); // Inicializamos Storage
         
         let dbData = { municipalities: {}, components: {}, mashups: {} };
         let allMapElements = [];
         let currentSelectedMuniId = null;
         window.isDraggingMap = false;
 
-        // 1. ESCUCHAR FIREBASE
-        onValue(ref(db, '/'), (snapshot) => {
+        // 1. ESCUCHAR FIREBASE (Base de Datos)
+        onValue(dbRef(db, '/'), (snapshot) => {
             const data = snapshot.val() || {};
             if(data.municipalities) dbData.municipalities = data.municipalities;
             if(data.components) dbData.components = data.components; else dbData.components = {};
@@ -319,7 +344,7 @@
             if(adminMuniId) populateAdminEventsList(adminMuniId);
         });
 
-        // 2. ZOOM MEJORADO (Optimizado para móviles sin errores)
+        // 2. ZOOM MEJORADO
         function enableZoomPan(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
             const layer = document.getElementById(layerId);
@@ -327,7 +352,6 @@
             let initialPinchDistance = null, initialScale = 1;
 
             const clampAndTransform = () => {
-                // Aplicar transformación fluida
                 layer.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
                 if(scale > 3.5) layer.classList.add('show-labels'); else layer.classList.remove('show-labels');
             };
@@ -350,9 +374,9 @@
             window.addEventListener('mouseup', () => { panning = false; viewport.style.cursor = 'grab'; setTimeout(() => { window.isDraggingMap = false; }, 50); });
             window.addEventListener('mousemove', (e) => { if (!panning) return; window.isDraggingMap = true; pointX = e.clientX - startX; pointY = e.clientY - startY; clampAndTransform(); });
 
-            // Táctil (Optimizado para evitar el error de esquinas)
+            // Táctil 
             viewport.addEventListener('touchstart', (e) => {
-                if(e.cancelable) e.preventDefault(); // Evita scroll de página
+                if(e.cancelable) e.preventDefault(); 
                 if (e.touches.length === 2) {
                     initialPinchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
                     initialScale = scale;
@@ -370,16 +394,12 @@
                 if (e.touches.length === 2 && initialPinchDistance) {
                     const t1 = e.touches[0], t2 = e.touches[1];
                     const currentDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-                    
-                    // Calcular el centro del pinchazo para hacer zoom ahí
                     const rect = viewport.getBoundingClientRect();
                     const cx = ((t1.clientX + t2.clientX) / 2) - rect.left;
                     const cy = ((t1.clientY + t2.clientY) / 2) - rect.top;
-                    
                     const zoomFactor = currentDist / initialPinchDistance;
                     let newScale = Math.max(0.5, Math.min(initialScale * zoomFactor, 15));
                     
-                    // Matemáticas para mantener el centro estático
                     pointX = cx - (cx - pointX) * (newScale / scale);
                     pointY = cy - (cy - pointY) * (newScale / scale);
                     scale = newScale;
@@ -491,8 +511,17 @@
                 if(muni.events) {
                     Object.values(muni.events).forEach(ev => {
                         let mHtml = '';
-                        if(ev.media) ev.media.split(',').forEach(l => { if(l.trim()) mHtml += `<a href="${l.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white hover:text-djMagenta border border-white/10 text-xs font-bold rounded-full transition-colors"><i class="fa-solid fa-play"></i> MEDIA</a> `; });
-                        eDiv.innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-6 shadow-xl relative overflow-hidden backdrop-blur-sm"><div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-djMagenta to-transparent"></div><h4 class="text-2xl font-display font-black text-white mb-1.5 uppercase">${ev.place || 'Confirmado'}</h4><p class="text-xs text-djMagenta mb-4 font-bold tracking-widest uppercase"><i class="fa-regular fa-calendar mr-2"></i>${ev.date || 'Próximamente'}</p><p class="text-sm text-gray-300 bg-white/5 p-4 rounded-xl border border-white/5 leading-relaxed">${ev.details || '-'}</p><div>${mHtml}</div></div>`;
+                        if(ev.media) ev.media.split(',').forEach(l => { if(l.trim()) mHtml += `<a href="${l.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white hover:text-djMagenta border border-white/10 text-xs font-bold rounded-full transition-colors"><i class="fa-solid fa-play"></i> MEDIA</a> `; });
+                        
+                        // Diseño de tarjeta mejorado para que los textos se lean perfectamente
+                        eDiv.innerHTML += `
+                        <div class="bg-black/40 border border-white/5 rounded-2xl p-6 shadow-xl relative flex flex-col gap-2">
+                            <div class="absolute top-0 left-0 w-1.5 h-full bg-djMagenta rounded-l-2xl"></div>
+                            <h4 class="text-xl md:text-2xl font-display font-black text-white uppercase">${ev.place || 'Confirmado'}</h4>
+                            <p class="text-xs text-djMagenta font-bold tracking-widest uppercase"><i class="fa-regular fa-calendar mr-2"></i>${ev.date || 'Próximamente'}</p>
+                            ${ev.details ? `<p class="text-sm text-gray-300 mt-2 bg-black/20 p-4 rounded-xl border border-white/5 leading-relaxed">${ev.details}</p>` : ''}
+                            ${mHtml ? `<div class="mt-2">${mHtml}</div>` : ''}
+                        </div>`;
                     });
                 } else { eDiv.innerHTML = `<div class="bg-black/30 p-8 rounded-2xl border border-white/5 text-center"><p class="text-sm text-gray-400 font-medium">Próximamente más fechas.</p></div>`; }
                 eDiv.innerHTML += contactHTML;
@@ -527,7 +556,7 @@
         });
         document.addEventListener('click', (e) => { if(!sInput.contains(e.target) && !rList.contains(e.target)) rList.classList.add('hidden'); });
 
-        // 4. MASHUPS CON REPRODUCTOR WEB INTEGRADO
+        // 4. MASHUPS CON REPRODUCTOR WEB INTEGRADO (Con Firebase Storage)
         let currentAudio = null;
         window.toggleAudio = function(id) {
             const audioEl = document.getElementById(`audio-${id}`);
@@ -536,6 +565,11 @@
             const vis = document.getElementById(`visualizer-${id}`);
             const timeEl = document.getElementById(`time-${id}`);
             
+            if(!audioEl.src) {
+                alert("Aún no se ha subido el archivo de audio para este mashup.");
+                return;
+            }
+
             // Pausar si hay otro reproduciendo
             if (currentAudio && currentAudio !== audioEl) {
                 currentAudio.pause();
@@ -546,7 +580,7 @@
             }
             
             if (audioEl.paused) {
-                audioEl.play().catch(e => alert("Sube el archivo " + audioEl.getAttribute('src') + " a tu servidor/github primero."));
+                audioEl.play().catch(e => alert("Error al reproducir el audio."));
                 icon.className = 'fa-solid fa-pause mr-2 text-djYellow';
                 btnText.innerText = 'SONANDO';
                 vis.classList.remove('hidden');
@@ -554,7 +588,7 @@
                 
                 audioEl.ontimeupdate = () => {
                     const rem = audioEl.duration - audioEl.currentTime;
-                    if(!isNaN(rem)) {
+                    if(!isNaN(rem) && rem !== Infinity) {
                         const m = Math.floor(rem / 60), s = Math.floor(rem % 60).toString().padStart(2, '0');
                         timeEl.innerText = `-${m}:${s}`;
                     }
@@ -579,8 +613,10 @@
             const entries = Object.entries(dbData.mashups).sort((a,b) => a[0].localeCompare(b[0]));
             if(entries.length === 0) { grid.innerHTML = `<p class="text-gray-500 col-span-full font-medium">No hay mashups disponibles por ahora.</p>`; return; }
             
-            entries.forEach(([id, data], index) => {
-                const mp3Name = `mashup${index + 1}.mp3`; // Generación automática del archivo
+            entries.forEach(([id, data]) => {
+                const audioSource = data.audioUrl ? data.audioUrl : ''; // Coge la URL de Storage
+                const dlButton = data.dl ? `<a href="${data.dl}" target="_blank" class="w-full bg-gradient-to-r from-djYellow to-orange-400 hover:scale-[1.02] text-black py-3.5 rounded-xl text-center text-xs font-black tracking-widest transition-transform shadow-[0_10px_20px_rgba(245,212,66,0.2)]"><i class="fa-solid fa-download mr-2"></i> DESCARGAR</a>` : '';
+
                 grid.innerHTML += `
                 <div class="glass-panel bg-black/30 p-6 flex flex-col justify-between hover:border-djYellow/40 hover:shadow-[0_0_30px_rgba(245,212,66,0.1)] transition-all duration-300 hover:-translate-y-1 group">
                     <div>
@@ -588,17 +624,17 @@
                         <h4 class="font-display font-black text-xl text-white mb-3 leading-tight">${data.title}</h4>
                     </div>
                     
-                    <audio id="audio-${id}" src="${mp3Name}"></audio>
+                    <audio id="audio-${id}" src="${audioSource}"></audio>
                     
                     <div class="flex flex-col gap-3 mt-6 pt-6 border-t border-white/5">
                         <div class="flex items-center justify-between bg-black/40 p-1.5 pr-4 rounded-xl border border-white/5">
-                            <button onclick="window.toggleAudio('${id}')" class="bg-white/5 hover:bg-white/10 text-white py-2 px-4 rounded-lg text-xs font-black tracking-widest transition-colors flex items-center">
+                            <button onclick="window.toggleAudio('${id}')" class="bg-white/5 hover:bg-white/10 ${audioSource ? 'text-white' : 'text-gray-600 cursor-not-allowed'} py-2 px-4 rounded-lg text-xs font-black tracking-widest transition-colors flex items-center">
                                 <i id="icon-${id}" class="fa-solid fa-play mr-2"></i> <span id="btn-text-${id}">PREVIEW</span>
                             </button>
                             <div id="visualizer-${id}" class="hidden audio-bars ml-2"><span></span><span></span><span></span><span></span></div>
                             <span id="time-${id}" class="text-xs text-djYellow font-bold ml-auto tracking-widest font-display"></span>
                         </div>
-                        <a href="${data.dl}" target="_blank" class="w-full bg-gradient-to-r from-djYellow to-orange-400 hover:scale-[1.02] text-black py-3.5 rounded-xl text-center text-xs font-black tracking-widest transition-transform shadow-[0_10px_20px_rgba(245,212,66,0.2)]"><i class="fa-solid fa-download mr-2"></i> DESCARGAR</a>
+                        ${dlButton}
                     </div>
                 </div>`;
             });
@@ -654,7 +690,6 @@
         ah.addEventListener('mousedown', sDrag); window.addEventListener('mousemove', dDrag); window.addEventListener('mouseup', eDrag);
         ah.addEventListener('touchstart', sDrag, {passive:false}); window.addEventListener('touchmove', dDrag, {passive:false}); window.addEventListener('touchend', eDrag);
 
-        // TABS ADMIN
         const tabs = ['tour', 'setup', 'mashups'];
         const colors = { tour: 'djCyan', setup: 'djMagenta', mashups: 'djYellow' };
         tabs.forEach(t => {
@@ -683,7 +718,7 @@
             }
         }
 
-        // ADMIN: TOUR (Sin cambios)
+        // ADMIN: TOUR
         function populateAdminEventsList(mId) {
             const c = document.getElementById('admin-event-list-container'), l = document.getElementById('admin-event-list'), muni = dbData.municipalities[mId];
             l.innerHTML = '';
@@ -696,17 +731,17 @@
         }
         function resetAdminEventForm() { ['admin-editing-event-id','admin-event-place','admin-event-date','admin-event-details','admin-event-media'].forEach(id => document.getElementById(id).value = ''); document.getElementById('admin-event-form-title').innerHTML = '<i class="fa-solid fa-plus text-djCyan"></i> Añadir Evento'; document.getElementById('btn-add-event').innerHTML = 'GUARDAR'; document.getElementById('btn-cancel-edit').classList.add('hidden'); }
         window.editAdminEvent = function(mId, eId) { const ev = dbData.municipalities[mId].events[eId]; document.getElementById('admin-editing-event-id').value = eId; document.getElementById('admin-event-place').value = ev.place||''; document.getElementById('admin-event-date').value = ev.date||''; document.getElementById('admin-event-details').value = ev.details||''; document.getElementById('admin-event-media').value = ev.media||''; document.getElementById('admin-event-form-title').innerHTML = '<i class="fa-solid fa-pen text-djCyan"></i> Editar Evento'; document.getElementById('btn-add-event').innerHTML = 'ACTUALIZAR'; document.getElementById('btn-cancel-edit').classList.remove('hidden'); };
-        window.deleteAdminEvent = function(mId, eId) { if(confirm("¿Borrar evento?")) remove(ref(db, `municipalities/${mId}/events/${eId}`)).then(()=>loadMuniInfo(mId)); };
+        window.deleteAdminEvent = function(mId, eId) { if(confirm("¿Borrar evento?")) remove(dbRef(db, `municipalities/${mId}/events/${eId}`)).then(()=>loadMuniInfo(mId)); };
         document.getElementById('btn-cancel-edit').addEventListener('click', resetAdminEventForm);
         
         document.getElementById('btn-add-event').addEventListener('click', () => {
             const id = document.getElementById('admin-muni-id').value; if(!id) return alert("Selecciona municipio en mapa.");
-            update(ref(db, `municipalities/${id}`), { status: document.getElementById('admin-muni-status').value, name: document.getElementById('admin-muni-name').value.trim()||id });
+            update(dbRef(db, `municipalities/${id}`), { status: document.getElementById('admin-muni-status').value, name: document.getElementById('admin-muni-name').value.trim()||id });
             const place = document.getElementById('admin-event-place').value.trim(), eId = document.getElementById('admin-editing-event-id').value;
             if(place || eId) {
                 const payload = { place: place, date: document.getElementById('admin-event-date').value, details: document.getElementById('admin-event-details').value, media: document.getElementById('admin-event-media').value };
-                if(eId) update(ref(db, `municipalities/${id}/events/${eId}`), payload).then(()=>{resetAdminEventForm();loadMuniInfo(id);});
-                else push(ref(db, `municipalities/${id}/events`), payload).then(()=>{resetAdminEventForm();loadMuniInfo(id);});
+                if(eId) update(dbRef(db, `municipalities/${id}/events/${eId}`), payload).then(()=>{resetAdminEventForm();loadMuniInfo(id);});
+                else push(dbRef(db, `municipalities/${id}/events`), payload).then(()=>{resetAdminEventForm();loadMuniInfo(id);});
             } else loadMuniInfo(id);
             const btn = document.getElementById('btn-add-event'); btn.innerHTML = "¡OK!"; btn.classList.replace('from-djCyan','from-green-400'); btn.classList.replace('to-blue-500','to-green-600'); setTimeout(()=>{btn.innerHTML="GUARDAR";btn.classList.replace('from-green-400','from-djCyan');btn.classList.replace('to-green-600','to-blue-500');},1500);
         });
@@ -771,16 +806,16 @@
         document.getElementById('btn-save-comp').addEventListener('click', () => {
             let id = document.getElementById('admin-comp-select').value; if(id === 'NEW') id = `comp_${Date.now()}`;
             const t = document.getElementById('admin-comp-title').value; if(!t) return alert("Falta título.");
-            set(ref(db, `components/${id}`), { title: t, desc: document.getElementById('admin-comp-desc').value, points: currentAdminPoints }).then(() => {
+            set(dbRef(db, `components/${id}`), { title: t, desc: document.getElementById('admin-comp-desc').value, points: currentAdminPoints }).then(() => {
                 const b = document.getElementById('btn-save-comp'); b.innerHTML="¡OK!"; b.classList.replace('from-djMagenta','from-green-400'); b.classList.replace('to-purple-600','to-green-600'); setTimeout(()=>{b.innerHTML="GUARDAR EQUIPO";b.classList.replace('from-green-400','from-djMagenta');b.classList.replace('to-green-600','to-purple-600');},1500);
             });
         });
         document.getElementById('btn-delete-comp').addEventListener('click', () => {
             const id = document.getElementById('admin-comp-select').value;
-            if(id !== 'NEW' && confirm('¿Borrar componente completo?')) remove(ref(db, `components/${id}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; document.getElementById('admin-comp-select').dispatchEvent(new Event('change')); });
+            if(id !== 'NEW' && confirm('¿Borrar componente completo?')) remove(dbRef(db, `components/${id}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; document.getElementById('admin-comp-select').dispatchEvent(new Event('change')); });
         });
 
-        // ADMIN: MASHUPS (Simplificado sin Preview Link)
+        // ADMIN: MASHUPS CON SUBIDA DE ARCHIVO (STORAGE)
         function updateMashupDropdown() {
             const sel = document.getElementById('admin-mash-select'); const cv = sel.value;
             sel.innerHTML = '<option value="NEW">-- NUEVO MASHUP --</option>';
@@ -790,22 +825,100 @@
 
         document.getElementById('admin-mash-select').addEventListener('change', (e) => {
             const v = e.target.value;
-            if(v === 'NEW') { ['admin-mash-title','admin-mash-dl'].forEach(id => document.getElementById(id).value=''); document.getElementById('btn-delete-mash').classList.add('hidden'); }
-            else { const d = dbData.mashups[v]; document.getElementById('admin-mash-title').value=d.title||''; document.getElementById('admin-mash-dl').value=d.dl||''; document.getElementById('btn-delete-mash').classList.remove('hidden'); }
+            const fileInput = document.getElementById('admin-mash-file');
+            fileInput.value = ''; // Resetear archivo al cambiar
+            document.getElementById('upload-progress').classList.add('hidden');
+            
+            if(v === 'NEW') { 
+                ['admin-mash-title','admin-mash-dl'].forEach(id => document.getElementById(id).value=''); 
+                document.getElementById('btn-delete-mash').classList.add('hidden'); 
+            } else { 
+                const d = dbData.mashups[v]; 
+                document.getElementById('admin-mash-title').value=d.title||''; 
+                document.getElementById('admin-mash-dl').value=d.dl||''; 
+                document.getElementById('btn-delete-mash').classList.remove('hidden'); 
+            }
         });
 
-        document.getElementById('btn-save-mash').addEventListener('click', () => {
-            let id = document.getElementById('admin-mash-select').value; if(id === 'NEW') id = `mash_${Date.now()}`;
-            const t = document.getElementById('admin-mash-title').value, dl = document.getElementById('admin-mash-dl').value;
-            if(!t || !dl) return alert("Falta título o link de descarga.");
-            // Ya no guardamos el link de preview porque se autogenera
-            set(ref(db, `mashups/${id}`), { title: t, dl: dl }).then(() => {
-                const b = document.getElementById('btn-save-mash'); b.innerHTML="¡OK!"; b.classList.replace('from-djYellow','from-green-400'); b.classList.replace('to-orange-400','to-green-600'); setTimeout(()=>{b.innerHTML="GUARDAR MASHUP";b.classList.replace('from-green-400','from-djYellow');b.classList.replace('to-green-600','to-orange-400');},1500);
-            });
+        document.getElementById('btn-save-mash').addEventListener('click', async () => {
+            let id = document.getElementById('admin-mash-select').value; 
+            if(id === 'NEW') id = `mash_${Date.now()}`;
+            
+            const t = document.getElementById('admin-mash-title').value;
+            const dl = document.getElementById('admin-mash-dl').value;
+            const fileInput = document.getElementById('admin-mash-file');
+            
+            if(!t) return alert("Por favor, ponle un título al mashup.");
+            
+            const btn = document.getElementById('btn-save-mash');
+            const pBar = document.getElementById('upload-progress');
+            const pFill = document.getElementById('upload-bar');
+            
+            // Mantener la URL anterior si no se sube un archivo nuevo
+            let audioUrl = dbData.mashups[id] ? dbData.mashups[id].audioUrl : "";
+
+            // Función final para guardar en la BD
+            const saveToDB = () => {
+                set(dbRef(db, `mashups/${id}`), { title: t, dl: dl, audioUrl: audioUrl }).then(() => {
+                    btn.innerHTML="¡GUARDADO!";
+                    btn.disabled = false;
+                    btn.classList.replace('from-djYellow','from-green-400'); 
+                    btn.classList.replace('to-orange-400','to-green-600');
+                    pBar.classList.add('hidden');
+                    fileInput.value = '';
+                    setTimeout(() => {
+                        btn.innerHTML="GUARDAR MASHUP";
+                        btn.classList.replace('from-green-400','from-djYellow');
+                        btn.classList.replace('to-green-600','to-orange-400');
+                    }, 2000);
+                });
+            };
+
+            // Si hay archivo nuevo, súbelo a Firebase Storage primero
+            if(fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const sRef = storageRef(storage, `mashups/${id}.mp3`);
+                const uploadTask = uploadBytesResumable(sRef, file);
+
+                pBar.classList.remove('hidden');
+                btn.disabled = true;
+                btn.innerHTML = "SUBIENDO ARCHIVO... <i class='fa-solid fa-spinner fa-spin ml-2'></i>";
+
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        pFill.style.width = progress + '%';
+                    },
+                    (error) => {
+                        alert("Error al subir el archivo: " + error.message);
+                        btn.disabled = false;
+                        btn.innerHTML = "GUARDAR MASHUP";
+                        pBar.classList.add('hidden');
+                    },
+                    async () => {
+                        // ¡Subida completada! Obtenemos el link directo
+                        audioUrl = await getDownloadURL(uploadTask.snapshot.ref);
+                        saveToDB();
+                    }
+                );
+            } else {
+                saveToDB(); // Guarda solo los textos si no hay archivo
+            }
         });
+
         document.getElementById('btn-delete-mash').addEventListener('click', () => {
             const id = document.getElementById('admin-mash-select').value;
-            if(id !== 'NEW' && confirm('¿Borrar mashup?')) remove(ref(db, `mashups/${id}`)).then(()=>{ document.getElementById('admin-mash-select').value='NEW'; document.getElementById('admin-mash-select').dispatchEvent(new Event('change')); });
+            if(id !== 'NEW' && confirm('¿Borrar mashup definitivamente?')) {
+                // Borrar datos de la base de datos
+                remove(dbRef(db, `mashups/${id}`)).then(() => {
+                    // Intentar borrar también el archivo físico de Storage
+                    const sRef = storageRef(storage, `mashups/${id}.mp3`);
+                    deleteObject(sRef).catch(e => console.log("Archivo de audio no encontrado en Storage, o ya borrado."));
+                    
+                    document.getElementById('admin-mash-select').value='NEW'; 
+                    document.getElementById('admin-mash-select').dispatchEvent(new Event('change')); 
+                });
+            }
         });
 
     </script>
