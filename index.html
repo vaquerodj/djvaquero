@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DJ VAQUERO | CYBER-TOUR</title>
+    <title>DJ VAQUERO | Official Tour</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,15 +12,15 @@
             theme: {
                 extend: {
                     colors: {
-                        cyberBg: '#020203',
-                        cyberPanel: 'rgba(10, 10, 15, 0.75)',
-                        neonCyan: '#00e5ff',
-                        neonPurple: '#b517ff',
-                        neonPink: '#ff0055'
+                        stageBlack: '#0a0a0a',
+                        mixerDark: '#121212',
+                        mixerPanel: '#1a1a1a',
+                        ledPurple: '#9333ea',
+                        ledBlue: '#3b82f6',
+                        ledMagenta: '#e81cff'
                     },
                     fontFamily: {
-                        glitch: ['Oswald', 'sans-serif'],
-                        tech: ['JetBrains Mono', 'monospace'],
+                        display: ['Montserrat', 'sans-serif'],
                         body: ['Inter', 'sans-serif']
                     }
                 }
@@ -30,336 +29,289 @@
     </script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;700;800&family=Oswald:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* FONDOS ANIMADOS Y PARTICULAS CSS */
         body {
-            background-color: var(--cyberBg);
-            color: #fff;
+            background-color: var(--stageBlack);
+            color: #ffffff;
             overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            /* Luces de escenario desenfocadas de fondo */
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(181, 23, 255, 0.1), transparent 30%),
-                radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.1), transparent 30%);
+                radial-gradient(circle at 0% 0%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
             background-attachment: fixed;
         }
 
-        /* GRID ANIMADO EN EL FONDO */
-        .bg-grid {
-            position: fixed; inset: 0; z-index: -1;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-            animation: gridMove 20s linear infinite;
-            opacity: 0.3;
+        /* --- UI PREMIUM MUSICAL --- */
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
-        @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 0 40px; } }
 
-        /* TÍTULO GLITCH EXTREMO */
-        .glitch-wrapper {
-            position: relative;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .glitch-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(4rem, 10vw, 8rem);
+        .premium-title {
+            font-family: 'Montserrat', sans-serif;
             font-weight: 900;
-            line-height: 1;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5), 0 0 40px rgba(181, 23, 255, 0.5);
-            position: relative;
-            display: inline-block;
+            background: linear-gradient(to right, #ffffff, #a3a3a3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.03em;
             cursor: pointer;
+            position: relative;
             z-index: 10;
         }
-        .glitch-title::before, .glitch-title::after {
-            content: 'DJ VAQUERO';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            opacity: 0.8;
+
+        /* --- ANIMACIONES DE MÚSICA (ECUALIZADOR) --- */
+        .eq-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 30px;
         }
-        .glitch-title::before {
-            color: #00e5ff;
-            z-index: -1;
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        .eq-bar {
+            width: 6px;
+            background: linear-gradient(to top, var(--ledBlue), var(--ledMagenta));
+            border-radius: 3px;
+            animation: equalize 1.5s ease-in-out infinite alternate;
         }
-        .glitch-title::after {
-            color: #ff0055;
-            z-index: -2;
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
-            100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
-            40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 2px); }
-            60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, -2px); }
-            80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 1px); }
-            100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, -1px); }
+        .eq-bar:nth-child(1) { animation-delay: 0.1s; height: 40%; }
+        .eq-bar:nth-child(2) { animation-delay: 0.4s; height: 80%; }
+        .eq-bar:nth-child(3) { animation-delay: 0.2s; height: 60%; }
+        .eq-bar:nth-child(4) { animation-delay: 0.5s; height: 100%; }
+        .eq-bar:nth-child(5) { animation-delay: 0.3s; height: 50%; }
+
+        @keyframes equalize {
+            0% { height: 20%; }
+            100% { height: 100%; }
         }
 
-        /* PANELES CYBER-GLASS */
-        .glass-panel {
-            background: var(--cyberPanel);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.02);
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
+        /* Efecto Vinilo Girando */
+        .spin-slow {
+            animation: spin 8s linear infinite;
         }
-        /* Reflejo animado en paneles */
-        .glass-panel::after {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
-            transform: skewX(-20deg);
-            animation: glassShine 6s infinite;
-        }
-        @keyframes glassShine { 0% { left: -100%; } 20%, 100% { left: 200%; } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* CONTENEDOR DEL MAPA Y ESCÁNER */
+        /* --- CONTENEDOR DEL MAPA --- */
         .viewport-container {
-            width: 100%; height: 65vh;
+            width: 100%; height: 60vh;
             position: relative;
-            background: #040406;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 229, 255, 0.2);
-            box-shadow: 0 0 40px rgba(0, 229, 255, 0.1) inset;
+            background: #0d0d0d;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
             overflow: hidden;
-            cursor: crosshair;
+            cursor: grab;
         }
-        /* Línea láser de escaneo */
-        .scanner-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: #00e5ff;
-            box-shadow: 0 0 15px #00e5ff, 0 0 30px #00e5ff, 0 50px 50px -10px rgba(0, 229, 255, 0.2);
-            animation: scan 4s linear infinite;
-            z-index: 10; pointer-events: none;
-            opacity: 0.6;
-        }
-        @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+        .viewport-container:active { cursor: grabbing; }
 
         .zoom-layer {
             width: 100%; height: 100%;
             transform-origin: 0 0; transition: transform 0.05s linear;
         }
 
-        /* 🔥 LA MAGIA OSCURA PARA EL MAPA (Elimina el azul de image_72ec28) 🔥 */
+        /* --- ESTILOS DEL MAPA SVG (Adiós al azul) --- */
         .zoom-layer svg { 
             width: 100%; height: 100%; 
-            filter: drop-shadow(0 0 20px rgba(181, 23, 255, 0.3)); 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
         
         .muni-base {
-            fill: #08080c !important; /* Forzado a negro carbón */
-            stroke: rgba(255, 255, 255, 0.1) !important;
+            fill: #141414 !important; /* Gris muy oscuro, estilo hardware */
+            stroke: rgba(255, 255, 255, 0.04) !important;
             stroke-width: 0.5px !important;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            transition: all 0.3s ease !important;
             cursor: pointer;
             pointer-events: all;
         }
         
-        /* Hover súper reactivo */
         .muni-base:hover {
-            fill: #151520 !important;
-            stroke: #00e5ff !important;
-            stroke-width: 2px !important;
-            filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.8)) !important;
-            transform: scale(1.001); /* Micro-salto visual */
-            z-index: 100;
+            fill: #1f1f1f !important;
+            stroke: rgba(255, 255, 255, 0.3) !important;
+            stroke-width: 1px !important;
         }
 
-        /* Zonas conquistadas (Desbloqueadas) */
+        /* Zonas del Tour */
         .muni-unlocked {
-            fill: rgba(181, 23, 255, 0.3) !important;
-            stroke: #b517ff !important;
-            stroke-width: 1.5px !important;
-            animation: pulse-neon 3s infinite alternate;
+            fill: rgba(147, 51, 234, 0.4) !important; /* Morado escénico */
+            stroke: #9333ea !important;
+            stroke-width: 1px !important;
+            transition: all 0.3s ease !important;
         }
         .muni-unlocked:hover {
-            fill: rgba(181, 23, 255, 0.7) !important;
-            stroke: #00e5ff !important;
-            stroke-width: 2.5px !important;
-            filter: drop-shadow(0 0 25px rgba(0, 229, 255, 1)) !important;
+            fill: rgba(147, 51, 234, 0.8) !important;
+            stroke: #e81cff !important;
+            stroke-width: 2px !important;
+            filter: drop-shadow(0 0 10px rgba(232, 28, 255, 0.5)) !important;
         }
 
-        @keyframes pulse-neon {
-            0% { filter: drop-shadow(0 0 5px rgba(181, 23, 255, 0.2)); }
-            100% { filter: drop-shadow(0 0 20px rgba(181, 23, 255, 0.6)); }
-        }
+        /* Scrollbars UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9333ea; }
 
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.8); }
-        ::-webkit-scrollbar-thumb { background: #00e5ff; border-radius: 4px; box-shadow: 0 0 10px #00e5ff; }
-
-        /* Botón estilo Cyberpunk */
-        .cyber-btn {
-            background: linear-gradient(45deg, transparent 5%, #b517ff 5%);
-            border: 0; color: #fff; letter-spacing: 2px;
-            box-shadow: 6px 0px 0px #00e5ff;
-            outline: transparent; position: relative;
+        /* Botones Profesionales */
+        .pro-btn {
+            background: linear-gradient(to bottom, #27272a, #18181b);
+            border: 1px solid #3f3f46;
+            color: #e4e4e7;
             transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .cyber-btn:active { box-shadow: 2px 0px 0px #00e5ff; transform: translate(4px, 0px); }
+        .pro-btn:hover {
+            background: linear-gradient(to bottom, #9333ea, #7e22ce);
+            border-color: #a855f7;
+            color: white;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.4);
+        }
     </style>
 </head>
-<body class="flex flex-col items-center min-h-screen pb-10">
-    <div class="bg-grid"></div>
+<body class="flex flex-col items-center min-h-screen pb-12">
 
-    <!-- CABECERA ESPECTACULAR -->
-    <header class="w-full max-w-7xl mx-auto pt-16 pb-8 px-4 flex flex-col items-center justify-center text-center relative z-20">
-        <div class="glitch-wrapper">
-            <!-- TRIPLE CLIC AQUÍ PARA ABRIR ADMIN -->
-            <h1 id="site-title" class="glitch-title">DJ VAQUERO</h1>
+    <header class="w-full max-w-7xl mx-auto pt-16 pb-12 px-4 flex flex-col items-center justify-center text-center relative z-20">
+        <div class="eq-container mb-6 opacity-80">
+            <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
         </div>
-        <div class="flex items-center gap-4 mt-2">
-            <div class="w-12 h-0.5 bg-gradient-to-r from-transparent to-neonCyan"></div>
-            <p class="font-tech text-neonCyan tracking-[0.4em] text-sm md:text-xl uppercase drop-shadow-[0_0_8px_#00e5ff]">
-                Sistema Operativo de Gira
+        
+        <h1 id="site-title" class="premium-title text-6xl md:text-8xl select-none">
+            DJ VAQUERO
+        </h1>
+        
+        <div class="mt-4 flex items-center justify-center gap-4">
+            <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-gray-500"></div>
+            <p class="font-display text-gray-400 tracking-[0.3em] text-sm uppercase font-semibold">
+                Official Tour & Stage Setup
             </p>
-            <div class="w-12 h-0.5 bg-gradient-to-l from-transparent to-neonCyan"></div>
+            <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-gray-500"></div>
+        </div>
+
+        <div class="flex space-x-6 mt-8 text-xl text-gray-500">
+            <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://soundcloud.com/djvaquero" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-soundcloud"></i></a>
+            <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-youtube"></i></a>
         </div>
     </header>
 
-    <!-- SECCIÓN PRINCIPAL: TOUR Y SETUP CONTINUO -->
-    <main class="w-full max-w-[1700px] px-4 md:px-8 flex flex-col xl:flex-row gap-8 z-10">
+    <main class="w-full max-w-[1600px] px-4 md:px-8 flex flex-col xl:flex-row gap-6 z-10">
         
-        <!-- VISOR INTERACTIVO -->
         <section class="flex-[2] flex flex-col gap-4 relative">
-            
-            <!-- Barra de Controles Tech -->
-            <div class="glass-panel p-3 flex flex-col sm:flex-row gap-4 justify-between items-center">
-                <div class="flex gap-4 w-full sm:w-auto">
-                    <button onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="cyber-btn px-6 py-2 font-tech text-xs uppercase font-bold">
-                        VER HARDWARE
-                    </button>
-                    <button class="btn-reset-tour bg-white/5 hover:bg-neonCyan/20 border border-white/10 hover:border-neonCyan px-4 py-2 rounded transition-all text-xs font-tech text-gray-300 hover:text-neonCyan flex items-center">
-                        <i class="fa-solid fa-crosshairs mr-2"></i> CENTRAR
-                    </button>
-                </div>
+            <div class="glass-panel p-4 flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <h2 class="font-display font-bold text-xl text-white tracking-wide flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-ledPurple"></i> TOUR DATES
+                </h2>
                 
-                <div class="relative w-full sm:w-1/2">
-                    <input type="text" id="search-muni" placeholder="Escanear municipio..." class="w-full bg-black/50 border border-neonPurple/30 rounded pl-10 pr-4 py-2 text-white font-tech text-sm focus:outline-none focus:border-neonPurple focus:ring-1 focus:ring-neonPurple transition-all placeholder-gray-600">
-                    <i class="fa-solid fa-radar absolute left-3 top-1/2 -translate-y-1/2 text-neonPurple animate-spin" style="animation-duration: 3s;"></i>
+                <div class="flex-grow max-w-md relative">
+                    <input type="text" id="search-muni" placeholder="Buscar municipio o evento..." class="w-full bg-mixerDark border border-white/10 rounded-full pl-12 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-ledPurple transition-colors placeholder-gray-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="pro-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                        VER SETUP
+                    </button>
+                    <button class="btn-reset-tour bg-mixerDark hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-full transition-colors text-gray-400 hover:text-white" title="Centrar Mapa">
+                        <i class="fa-solid fa-compress"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Contenedor del Mapa -->
             <div class="viewport-container" id="tour-viewport">
-                <div class="scanner-line"></div>
                 <div class="zoom-layer" id="tour-layer">
-                    <!-- El SVG de salamanca.svg se inyecta y purifica aquí -->
-                </div>
+                    </div>
             </div>
-            
-            <div class="flex justify-between font-tech text-[10px] text-gray-500 uppercase tracking-widest px-2">
-                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> SATÉLITE EN LÍNEA</span>
-                <span>COORDENADAS LOCALES / INTERACCIÓN TÁCTIL ACTIVADA</span>
-            </div>
+            <p class="text-center text-gray-500 text-xs font-medium">Navega arrastrando el mapa. Utiliza la rueda del ratón o pellizca para hacer zoom.</p>
         </section>
 
-        <!-- PANEL DE DATOS LATERAL -->
-        <aside class="flex-1 glass-panel flex flex-col h-auto xl:h-[75vh] border-t-2 border-t-neonCyan relative overflow-hidden group">
-            <!-- Efecto resplandor en la esquina -->
-            <div class="absolute -top-20 -right-20 w-40 h-40 bg-neonCyan/20 blur-[50px] rounded-full group-hover:bg-neonPurple/30 transition-colors duration-700 pointer-events-none"></div>
-
-            <div class="p-8 pb-4 border-b border-white/10 bg-gradient-to-b from-white/5 to-transparent z-10">
-                <h3 id="info-title" class="text-3xl lg:text-4xl font-glitch text-white uppercase tracking-wider mb-1 drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]">
-                    ESPERANDO ENTRADA
+        <aside class="flex-1 glass-panel flex flex-col h-auto xl:h-[68vh] overflow-hidden">
+            <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent">
+                <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">
+                    GIRA OFICIAL
                 </h3>
-                <div id="info-status" class="flex items-center gap-2 mt-2">
-                    <div class="w-2 h-2 rounded-sm bg-gray-500 blink"></div>
-                    <span class="text-gray-400 font-tech text-[10px] tracking-widest uppercase">Haz clic en una zona del mapa</span>
+                <div id="info-status" class="flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                    <span class="text-gray-400 text-xs font-semibold tracking-wider uppercase">Selecciona una zona</span>
                 </div>
             </div>
 
-            <div id="info-events" class="flex-grow flex flex-col gap-4 p-6 overflow-y-auto hidden z-10"></div>
+            <div id="info-events" class="flex-grow flex flex-col gap-4 p-6 overflow-y-auto hidden"></div>
             
-            <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-8 text-gray-600 text-center font-tech z-10">
-                <div class="relative mb-4">
-                    <i class="fa-solid fa-satellite-dish text-6xl opacity-20"></i>
-                    <div class="absolute inset-0 border-2 border-dashed border-gray-600 rounded-full animate-[spin_10s_linear_infinite] scale-150 opacity-10"></div>
-                </div>
-                <p class="text-xs uppercase tracking-widest leading-relaxed">Analizando datos topográficos...<br>Selecciona un objetivo.</p>
+            <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-8 text-gray-500 text-center">
+                <i class="fa-solid fa-record-vinyl text-6xl mb-4 opacity-20 spin-slow"></i>
+                <p class="text-sm">Explora el mapa para descubrir<br>las próximas fechas del tour.</p>
             </div>
         </aside>
     </main>
 
-    <!-- SECCIÓN SETUP (Justo debajo) -->
-    <div id="sec-setup" class="w-full max-w-[1700px] mx-auto mt-20 px-4 md:px-8 mb-20 z-10">
-        <h2 class="font-glitch text-4xl text-neonPink uppercase tracking-wider mb-6 flex items-center gap-4 text-shadow-[0_0_15px_rgba(255,0,85,0.5)]">
-            <i class="fa-solid fa-microchip"></i> DIAGRAMA HARDWARE
-        </h2>
-        <div class="glass-panel p-1 border-t-2 border-t-neonPink">
+    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-24 px-4 md:px-8 z-10">
+        <div class="flex items-center gap-4 mb-6">
+            <h2 class="font-display text-3xl text-white font-bold uppercase tracking-wide">
+                STAGE SETUP
+            </h2>
+            <div class="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
+        </div>
+        
+        <div class="glass-panel p-2">
             <div class="viewport-container" id="setup-viewport" style="height: 50vh;">
                 <div class="zoom-layer" id="setup-layer">
-                    <!-- setup.svg -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
 
-    <!-- MODO ADMINISTRADOR FLOTANTE (DRAG & DROP) -->
-    <!-- Este panel reacciona directamente a los clics del mapa -->
-    <div id="admin-panel" class="hidden fixed top-20 right-10 w-[450px] bg-black/90 backdrop-blur-2xl border border-neonPurple/50 rounded-lg shadow-[0_0_50px_rgba(181,23,255,0.3)] z-[100] flex flex-col font-tech resize-y overflow-auto max-h-[80vh]">
-        <!-- Header del Admin (Arrastrable teóricamente) -->
-        <div class="bg-gradient-to-r from-neonPurple/20 to-transparent border-b border-neonPurple/30 p-3 flex justify-between items-center sticky top-0 z-20 backdrop-blur-md">
+    <div id="admin-panel" class="hidden fixed top-24 right-8 w-[400px] bg-mixerPanel border border-white/10 rounded-xl shadow-2xl z-[100] flex flex-col overflow-hidden">
+        <div class="bg-mixerDark border-b border-white/5 p-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <i class="fa-solid fa-terminal text-neonPurple animate-pulse"></i>
-                <span class="text-white font-bold text-xs tracking-widest">ROOT_ACCESS // EDIT MODE</span>
+                <i class="fa-solid fa-sliders text-white"></i>
+                <span class="text-white font-display font-bold text-sm tracking-wide">TOUR MANAGER</span>
             </div>
-            <button id="btn-close-admin" class="text-neonPurple hover:text-white transition-colors"><i class="fa-solid fa-power-off text-lg"></i></button>
+            <button id="btn-close-admin" class="text-gray-500 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
 
-        <div class="p-6 space-y-6">
-            <div class="bg-red-500/10 border border-red-500/30 p-3 rounded text-center">
-                <p class="text-[10px] text-red-400 uppercase font-bold animate-pulse">SELECCIONA CUALQUIER ZONA EN EL MAPA PARA EDITARLA DIRECTAMENTE</p>
-            </div>
+        <div class="p-6 space-y-5 overflow-y-auto max-h-[70vh]">
+            <p class="text-xs text-ledPurple font-semibold bg-ledPurple/10 p-3 rounded-lg border border-ledPurple/20">
+                <i class="fa-solid fa-hand-pointer mr-2"></i>Haz clic en cualquier municipio del mapa para seleccionarlo automáticamente.
+            </p>
 
             <div class="space-y-4">
                 <div>
-                    <label class="text-[10px] text-neonCyan uppercase font-bold block mb-1">ID OBJETIVO (Auto-rellenado)</label>
-                    <input type="text" id="admin-muni-id" readonly placeholder="Toca una zona..." class="w-full bg-black/50 border border-neonCyan/30 p-2 text-neonCyan focus:outline-none rounded text-sm font-bold shadow-[inset_0_0_10px_rgba(0,229,255,0.1)]">
+                    <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">ID del Municipio</label>
+                    <input type="text" id="admin-muni-id" readonly placeholder="Esperando selección..." class="w-full bg-stageBlack border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-ledPurple transition-colors">
                 </div>
 
                 <div>
-                    <label class="text-[10px] text-gray-400 uppercase block mb-1">Cifrado de Zona</label>
-                    <select id="admin-muni-status" class="w-full bg-black border border-white/20 p-2 text-white focus:border-neonPurple focus:outline-none rounded cursor-pointer text-sm">
-                        <option value="locked">[ 0 ] RESTRINGIDO (Rojo)</option>
-                        <option value="unlocked">[ 1 ] DESBLOQUEADO (Morado Activo)</option>
+                    <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Estado en el Tour</label>
+                    <select id="admin-muni-status" class="w-full bg-stageBlack border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-ledPurple cursor-pointer">
+                        <option value="locked">Bloqueado (Oculto)</option>
+                        <option value="unlocked">Desbloqueado (Activo)</option>
                     </select>
                 </div>
 
-                <div class="pt-4 border-t border-white/10">
-                    <label class="text-[10px] text-neonPurple uppercase font-bold block mb-3"><i class="fa-solid fa-plus"></i> INYECTAR EVENTO A ESTA ZONA</label>
-                    <input type="text" id="admin-event-place" placeholder="Discoteca / Festival..." class="w-full bg-[#0a0a0f] border border-white/10 p-2 text-white text-sm mb-2 rounded focus:border-neonPurple focus:bg-black transition-colors outline-none">
-                    <input type="date" id="admin-event-date" class="w-full bg-[#0a0a0f] border border-white/10 p-2 text-gray-400 text-sm mb-2 rounded focus:border-neonPurple focus:bg-black transition-colors outline-none">
-                    <textarea id="admin-event-details" placeholder="Descripción detallada..." class="w-full bg-[#0a0a0f] border border-white/10 p-2 text-white text-sm mb-2 rounded h-20 focus:border-neonPurple focus:bg-black transition-colors outline-none"></textarea>
-                    <input type="text" id="admin-event-media" placeholder="Links RRSS (separados por coma)" class="w-full bg-[#0a0a0f] border border-white/10 p-2 text-white text-sm mb-4 rounded focus:border-neonPurple focus:bg-black transition-colors outline-none">
+                <div class="pt-4 border-t border-white/5">
+                    <label class="text-xs text-white font-bold uppercase tracking-wider block mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-plus text-ledPurple"></i> Añadir Evento
+                    </label>
                     
-                    <button id="btn-add-event" class="w-full cyber-btn py-3 text-sm flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> SOBRESCRIBIR DATOS
+                    <div class="space-y-3">
+                        <input type="text" id="admin-event-place" placeholder="Lugar (Ej: Sala B, Festival...)" class="w-full bg-stageBlack border border-white/5 p-2.5 text-white text-sm rounded focus:border-ledPurple focus:bg-mixerDark transition-colors outline-none">
+                        <input type="date" id="admin-event-date" class="w-full bg-stageBlack border border-white/5 p-2.5 text-gray-400 text-sm rounded focus:border-ledPurple focus:bg-mixerDark transition-colors outline-none">
+                        <textarea id="admin-event-details" placeholder="Descripción (Sold out, VIP...)" class="w-full bg-stageBlack border border-white/5 p-2.5 text-white text-sm rounded h-24 focus:border-ledPurple focus:bg-mixerDark transition-colors outline-none resize-none"></textarea>
+                        <input type="text" id="admin-event-media" placeholder="Links RRSS (opcional, separados por coma)" class="w-full bg-stageBlack border border-white/5 p-2.5 text-white text-sm rounded focus:border-ledPurple focus:bg-mixerDark transition-colors outline-none">
+                    </div>
+                    
+                    <button id="btn-add-event" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-3 mt-5 rounded text-sm transition-colors shadow-lg flex justify-center items-center gap-2">
+                        GUARDAR DATOS
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPTS CORE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue, set, push, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -386,7 +338,7 @@
             }
         });
 
-        // ZOOM Y PANEO (Rueda, Touch, Mouse)
+        // ZOOM Y PANEO 
         function enableZoomPan(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
             const layer = document.getElementById(layerId);
@@ -407,7 +359,7 @@
             }, { passive: false });
 
             viewport.addEventListener('mousedown', (e) => { e.preventDefault(); startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; viewport.style.cursor = 'move'; });
-            window.addEventListener('mouseup', () => { panning = false; viewport.style.cursor = 'crosshair'; });
+            window.addEventListener('mouseup', () => { panning = false; viewport.style.cursor = 'grab'; });
             window.addEventListener('mousemove', (e) => { if (!panning) return; pointX = e.clientX - startX; pointY = e.clientY - startY; setTransform(); });
 
             viewport.addEventListener('touchstart', (e) => {
@@ -442,7 +394,7 @@
         enableZoomPan('setup-viewport', 'setup-layer');
         document.querySelector('.btn-reset-tour').addEventListener('click', resetTourZoom);
 
-        // 🔥 DESTRUCTOR DE ESTILOS SVG ORIGINALES (Evita el mapa azul) 🔥
+        // LIMPIEZA TOTAL DE ESTILOS DEL SVG 
         async function loadInlineSVG(url, containerId, isTour) {
             try {
                 const response = await fetch(url);
@@ -453,25 +405,22 @@
                 if(svgElement) {
                     svgElement.style.pointerEvents = 'none'; 
                     
-                    // Seleccionar TODAS las rutas o polígonos agresivamente
                     const elements = svgElement.querySelectorAll('path, polygon');
                     elements.forEach((el, index) => {
-                        // Limpiar basura del SVG original que provoca el azul claro
+                        // Eliminar cualquier rastro del color azul del diseño original
                         el.removeAttribute('fill');
                         el.removeAttribute('style'); 
                         el.removeAttribute('class');
                         el.removeAttribute('stroke');
                         
-                        // Asegurar que tenga un ID para ser clickeable/editable
                         if(!el.id) {
                             const genId = isTour ? `zona_${index}` : `hardware_${index}`;
                             el.setAttribute('id', genId);
                         }
 
                         el.classList.add('muni-base');
-                        el.style.pointerEvents = 'auto'; // Hace que el ratón lo detecte
+                        el.style.pointerEvents = 'auto'; 
                         
-                        // Lógica de Clic
                         el.addEventListener('click', (e) => {
                             e.stopPropagation();
                             if(isTour) loadMuniInfo(el.id); 
@@ -481,14 +430,13 @@
                     if(isTour) colorearMapa();
                 }
             } catch (err) {
-                console.error("Ejecuta el código en un Live Server local para cargar los SVG.", err);
+                console.error("Ejecuta el código en un servidor local (Live Server) para cargar los SVG.", err);
             }
         }
 
         loadInlineSVG('salamanca.svg', 'tour-layer', true);
         loadInlineSVG('setup.svg', 'setup-layer', false);
 
-        // COLOREAR SEGÚN BASE DE DATOS
         function colorearMapa() {
             const container = document.getElementById('tour-layer');
             for (const [id, data] of Object.entries(dbData.municipalities)) {
@@ -505,7 +453,6 @@
             }
         }
 
-        // MOSTRAR INFORMACIÓN DEL MUNICIPIO Y LLENAR PANEL ADMIN
         function loadMuniInfo(id) {
             const muni = dbData.municipalities[id];
             const cleanName = id.replace(/_/g, ' ');
@@ -515,13 +462,12 @@
             const eventsDiv = document.getElementById('info-events');
             const emptyDiv = document.getElementById('info-empty');
 
-            // ⚡ CONEXIÓN DIRECTA CON EL MODO ADMIN ⚡
-            // Al hacer clic, el input del Admin Panel se autocompleta.
+            // Autocompletar Admin Panel
             document.getElementById('admin-muni-id').value = id;
 
             if (muni && muni.status === 'unlocked') {
                 document.getElementById('admin-muni-status').value = 'unlocked';
-                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-neonPurple shadow-[0_0_10px_#b517ff] animate-ping"></div><span class="text-neonPurple font-tech text-xs font-bold tracking-widest uppercase">ENLACE ESTABLECIDO</span>`;
+                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-ledPurple shadow-[0_0_10px_#9333ea]"></div><span class="text-ledPurple text-xs font-bold tracking-wider uppercase">En Tour</span>`;
                 emptyDiv.classList.add('hidden');
                 eventsDiv.classList.remove('hidden');
                 eventsDiv.innerHTML = '';
@@ -532,31 +478,31 @@
                         if(ev.media) {
                             const links = ev.media.split(',');
                             links.forEach(link => {
-                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-neonCyan/10 hover:bg-neonCyan border border-neonCyan/40 hover:text-black text-neonCyan text-xs font-tech transition-all rounded shadow-[0_0_15px_rgba(0,229,255,0.2)]"><i class="fa-solid fa-play"></i> INICIAR REPRODUCCIÓN</a> `;
+                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white text-black hover:bg-gray-200 text-xs font-bold transition-colors rounded-full"><i class="fa-solid fa-play"></i> VER MEDIA</a> `;
                             });
                         }
 
                         eventsDiv.innerHTML += `
-                            <div class="bg-black/80 border-l-2 border-l-neonPurple rounded p-5 shadow-2xl relative overflow-hidden group">
-                                <div class="absolute inset-0 bg-gradient-to-r from-neonPurple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <h4 class="text-2xl font-glitch text-white mb-1 uppercase tracking-wide relative z-10">
-                                    ${ev.place || 'UBICACIÓN DESCONOCIDA'}
+                            <div class="bg-mixerDark border border-white/5 rounded-xl p-5 shadow-lg relative overflow-hidden group">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-ledPurple"></div>
+                                <h4 class="text-xl font-display font-bold text-white mb-1 uppercase tracking-wide">
+                                    ${ev.place || 'Lugar por confirmar'}
                                 </h4>
-                                <p class="text-[11px] font-tech text-neonCyan mb-3 tracking-widest relative z-10"><i class="fa-regular fa-clock mr-1"></i>${ev.date || 'TBD'}</p>
-                                <p class="text-sm text-gray-300 font-body leading-relaxed bg-white/5 p-3 rounded border border-white/5 relative z-10">${ev.details || 'Sin datos adicionales en la red.'}</p>
-                                <div class="relative z-10">${mediaHtml}</div>
+                                <p class="text-xs text-gray-400 mb-3 font-medium"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date || 'Fecha por confirmar'}</p>
+                                <p class="text-sm text-gray-300 leading-relaxed bg-black/30 p-3 rounded-lg border border-white/5">${ev.details || 'Sin detalles adicionales.'}</p>
+                                <div>${mediaHtml}</div>
                             </div>
                         `;
                     });
                 } else {
-                    eventsDiv.innerHTML = `<p class="font-tech text-xs text-gray-500 border border-dashed border-gray-700 p-6 text-center bg-black/50">ZONA ACTIVA. ESPERANDO ASIGNACIÓN DE EVENTO.</p>`;
+                    eventsDiv.innerHTML = `<div class="bg-mixerDark p-6 rounded-xl border border-white/5 text-center"><p class="text-sm text-gray-400">Zona confirmada en el tour. Fechas por anunciar.</p></div>`;
                 }
             } else {
                 document.getElementById('admin-muni-status').value = 'locked';
-                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-red-600 shadow-[0_0_10px_red]"></div><span class="text-red-500 font-tech text-xs font-bold tracking-widest uppercase">ACCESO DENEGADO</span>`;
+                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-500"></div><span class="text-gray-500 text-xs font-bold tracking-wider uppercase">Bloqueado</span>`;
                 emptyDiv.classList.add('hidden');
                 eventsDiv.classList.remove('hidden');
-                eventsDiv.innerHTML = `<div class="flex items-center justify-center h-full"><div class="text-center bg-red-500/5 border border-red-500/20 p-6 rounded relative overflow-hidden"><div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')] opacity-20"></div><i class="fa-solid fa-lock text-3xl text-red-500/50 mb-3"></i><p class="font-tech text-red-400/80 text-xs tracking-widest">TERRITORIO AÚN NO EXPLORADO</p></div></div>`;
+                eventsDiv.innerHTML = `<div class="flex items-center justify-center h-full"><div class="text-center bg-black/40 border border-white/5 p-6 rounded-xl"><i class="fa-solid fa-lock text-3xl text-gray-600 mb-3"></i><p class="text-gray-500 text-sm">Este municipio no forma parte del tour actualmente.</p></div></div>`;
             }
         }
 
@@ -571,21 +517,21 @@
                         loadMuniInfo(el.id);
                         const oldStroke = el.style.stroke;
                         const oldWidth = el.style.strokeWidth;
-                        el.style.stroke = "#fff"; el.style.strokeWidth = "8px";
-                        setTimeout(() => { el.style.stroke = oldStroke; el.style.strokeWidth = oldWidth; }, 800);
+                        el.style.stroke = "#ffffff"; el.style.strokeWidth = "3px";
+                        setTimeout(() => { el.style.stroke = oldStroke; el.style.strokeWidth = oldWidth; }, 1000);
                         break;
                     }
                 }
             }
         });
 
-        // ⚡ LÓGICA MODO ADMINISTRADOR (Triple Clic Título) ⚡
+        // LÓGICA MODO ADMINISTRADOR (Triple Clic Título)
         let clickCount = 0; let clickTimer;
         document.getElementById('site-title').addEventListener('click', () => {
             clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800);
             if(clickCount >= 3) {
                 clickCount = 0;
-                let pwd = prompt("SISTEMA DE SEGURIDAD. \nIntroduce PIN de anulación:");
+                let pwd = prompt("ACCESO RESTRINGIDO. \nIntroduce contraseña de Manager:");
                 if(pwd === "1524") {
                     document.getElementById('admin-panel').classList.remove('hidden');
                 }
@@ -594,15 +540,11 @@
 
         document.getElementById('btn-close-admin').onclick = () => document.getElementById('admin-panel').classList.add('hidden');
 
-        // BOTÓN: INYECTAR / ACTUALIZAR DATOS EN LA ZONA SELECCIONADA
+        // BOTÓN: AÑADIR EVENTO / ACTUALIZAR ZONA
         document.getElementById('btn-add-event').addEventListener('click', () => {
             const id = document.getElementById('admin-muni-id').value;
             if(!id) {
-                // Hacemos que la pantalla tiemble si falla
-                document.body.style.transform = "translateX(10px)";
-                setTimeout(() => document.body.style.transform = "translateX(-10px)", 50);
-                setTimeout(() => document.body.style.transform = "translateX(0)", 100);
-                return alert("ERROR CRÍTICO: Primero debes hacer clic en una zona del mapa para seleccionarla.");
+                return alert("Selecciona primero un municipio haciendo clic en el mapa.");
             }
             
             const status = document.getElementById('admin-muni-status').value;
@@ -621,18 +563,18 @@
                     document.getElementById('admin-event-details').value = ''; 
                     document.getElementById('admin-event-media').value = '';
                     loadMuniInfo(id);
-                    // Efecto visual de éxito
+                    
                     const btn = document.getElementById('btn-add-event');
                     const origHtml = btn.innerHTML;
-                    btn.innerHTML = "<i class='fa-solid fa-check'></i> DATOS INYECTADOS";
-                    btn.style.boxShadow = "6px 0px 0px #00ff88";
-                    setTimeout(() => { btn.innerHTML = origHtml; btn.style.boxShadow = "6px 0px 0px #00e5ff"; }, 2000);
+                    btn.innerHTML = "<i class='fa-solid fa-check'></i> GUARDADO";
+                    btn.classList.add('bg-green-500', 'text-white');
+                    setTimeout(() => { btn.innerHTML = origHtml; btn.classList.remove('bg-green-500', 'text-white'); }, 2000);
                 });
             } else { 
                 loadMuniInfo(id);
                 const btn = document.getElementById('btn-add-event');
                 const origHtml = btn.innerHTML;
-                btn.innerHTML = "<i class='fa-solid fa-lock-open'></i> ESTADO ACTUALIZADO";
+                btn.innerHTML = "<i class='fa-solid fa-check'></i> ESTADO ACTUALIZADO";
                 setTimeout(() => btn.innerHTML = origHtml, 2000);
             }
         });
