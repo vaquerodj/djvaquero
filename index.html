@@ -44,21 +44,35 @@
         .social-tk:hover { background: #000; color: #fff; transform: translateY(-3px); text-shadow: 2px 2px 0px #42e6f5, -2px -2px 0px #e81cff; }
         .social-sc:hover { background: #ff5500; color: white; transform: translateY(-3px); }
         .social-yt:hover { background: #ff0000; color: white; transform: translateY(-3px); }
+        
+        /* FIJACIÓN DE CALIDAD DE VECTOR ALTA PARA EL VIEWPORT DEL MAPA */
         .viewport-container { width: 100%; height: 50vh; min-height: 450px; position: relative; background: #06070a; border-radius: 16px; overflow: hidden; cursor: grab; touch-action: none; }
         @media (min-width: 768px) { .viewport-container { height: 60vh; } }
+        
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; }
-        .muni-base { fill: #13161c !important; stroke: rgba(255, 255, 255, 0.03) !important; stroke-width: 0.5px !important; transition: all 0.3s ease !important; cursor: pointer; }
+        
+        /* Reglas críticas de renderizado para evitar desenfoque en escalados extremos */
+        .zoom-layer svg {
+            width: 100%;
+            height: 100%;
+            shape-rendering: geometricPrecision !important;
+            text-rendering: geometricPrecision !important;
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: crisp-edges !important;
+        }
+
+        .muni-base { fill: #13161c !important; stroke: rgba(255, 255, 255, 0.05) !important; stroke-width: 0.6px !important; transition: fill 0.2s ease; cursor: pointer; vector-effect: non-scaling-stroke !important; }
         .muni-base:hover { fill: #1c2029 !important; }
-        .muni-unlocked { fill: #0f2d38 !important; stroke: #42e6f5 !important; stroke-width: 1px !important; transition: all 0.3s ease !important; cursor: pointer; }
+        .muni-unlocked { fill: #0f2d38 !important; stroke: #42e6f5 !important; stroke-width: 1.2px !important; transition: fill 0.2s ease; cursor: pointer; vector-effect: non-scaling-stroke !important; }
         .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.3) !important; }
-        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 2px !important; filter: drop-shadow(0 0 10px rgba(232, 28, 255, 0.5)); }
+        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 2px !important; filter: drop-shadow(0 0 8px rgba(232, 28, 255, 0.5)); vector-effect: non-scaling-stroke !important; }
+        
         .hotspot-dot { animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
         @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(66, 230, 245, 0.7); } 100% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 15px rgba(66, 230, 245, 0); } }
         .audio-bars { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
         .audio-bars span { width: 4px; background-color: #f5d442; border-radius: 2px; animation: bounce 0.4s infinite alternate; }
         .audio-bars span:nth-child(2) { animation-delay: 0.1s; height: 60%; }
         .audio-bars span:nth-child(3) { animation-delay: 0.2s; height: 80%; }
-        .audio-bars span:nth-child(4) { animation-delay: 0.3s; height: 100%; }
         @keyframes bounce { 0% { height: 20%; } 100% { height: 100%; } }
         .admin-setup-mode { cursor: crosshair !important; }
         .admin-drag-dot { cursor: grab !important; z-index: 50; }
@@ -325,7 +339,7 @@
 
         document.getElementById('btn-reset-map').onclick = () => { scale = 1; pointX = 0; pointY = 0; document.getElementById('tour-layer').style.transform = 'none'; };
 
-        // MAPA SVG
+        // MAPA SVG CREADO CON ATRIBUTOS DE ANTIALIASING AVANZADO
         async function loadInlineSVG(url, containerId) {
             const response = await fetch(url);
             document.getElementById(containerId).innerHTML = await response.text();
@@ -548,7 +562,7 @@
             } else loadMuniInfo(id);
         };
 
-        // LÓGICA EQUIPO ADMIN CON ARRASTRE MANUAL UNIFICADO (MOUSE & TOUCH)
+        // LÓGICA EQUIPO ADMIN
         let currentAdminPoints = [];
         function updateCompDropdown() {
             const sel = document.getElementById('admin-comp-select'); const cv = sel.value;
@@ -569,7 +583,6 @@
                 dot.className = "absolute w-6 h-6 bg-djMagenta rounded-full transform -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot flex items-center justify-center text-[10px] text-white font-bold select-none shadow-[0_0_15px_rgba(232,28,255,0.6)] animate-pulse";
                 dot.style.left = pt.x + '%'; dot.style.top = pt.y + '%'; dot.innerHTML = i + 1;
                 
-                // CONTROLADOR UNIFICADO EFICIENTE DE MANIPULACIÓN (MOUSE + TOUCH)
                 const onDragMove = (ev) => {
                     ev.preventDefault();
                     const img = document.getElementById('setup-img');
