@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DJ VAQUERO | Tour Oficial</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -18,7 +17,8 @@
                         djCyan: '#42e6f5',
                         djCyanDark: '#143d4a',
                         djGray: '#a1a1aa',
-                        djMagenta: '#e81cff'
+                        djMagenta: '#e81cff',
+                        djYellow: '#f5d442'
                     },
                     fontFamily: {
                         display: ['Montserrat', 'sans-serif'],
@@ -33,107 +33,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            background-color: #0f1115; 
-            color: #ffffff;
-            overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        body { background-color: #0f1115; color: #ffffff; overflow-x: hidden; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        /* --- UI FUTURISTA --- */
-        .glass-panel {
-            background: #161920;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        }
+        .glass-panel { background: #161920; border: 1px solid rgba(255, 255, 255, 0.03); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }
+        .premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; color: #42e6f5; letter-spacing: -0.02em; cursor: pointer; text-shadow: 0 0 25px rgba(66, 230, 245, 0.4); line-height: 1; }
 
-        .premium-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            color: #42e6f5; 
-            letter-spacing: -0.02em;
-            cursor: pointer;
-            text-shadow: 0 0 25px rgba(66, 230, 245, 0.4);
-            line-height: 1;
-        }
-
-        /* Iconos Sociales */
-        .social-icon {
-            display: flex; align-items: center; justify-content: center;
-            width: 40px; height: 40px;
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 50%; color: #a1a1aa;
-            transition: all 0.3s ease; border: 1px solid transparent;
-        }
+        .social-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.03); border-radius: 50%; color: #a1a1aa; transition: all 0.3s ease; border: 1px solid transparent; }
         .social-ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; box-shadow: 0 0 15px rgba(220, 39, 67, 0.5); }
         .social-tk:hover { background: #000; color: #fff; border-color: #333; text-shadow: 2px 2px 0px #42e6f5, -2px -2px 0px #e81cff; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
         .social-sc:hover { background: #ff5500; color: white; box-shadow: 0 0 15px rgba(255, 85, 0, 0.5); }
         .social-yt:hover { background: #ff0000; color: white; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
 
-        /* --- CONTENEDOR DEL MAPA --- */
-        .viewport-container {
-            width: 100%; height: 60vh;
-            position: relative;
-            background: #0b0c0f; 
-            border-radius: 12px;
-            overflow: hidden; cursor: grab;
-            touch-action: none; /* Prevenir scroll nativo al tocar el mapa */
-        }
+        .viewport-container { width: 100%; height: 50vh; min-height: 400px; position: relative; background: #0b0c0f; border-radius: 12px; overflow: hidden; cursor: grab; touch-action: none; }
+        @media (min-width: 768px) { .viewport-container { height: 60vh; } }
         .viewport-container:active { cursor: grabbing; }
 
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; transition: transform 0.05s linear; }
         .zoom-layer svg { width: 100%; height: 100%; }
         
-        /* ESTADOS DE LOS MUNICIPIOS */
-        .muni-base {
-            fill: #1c2029 !important; stroke: rgba(255, 255, 255, 0.05) !important;
-            stroke-width: 0.5px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all;
-        }
+        .muni-base { fill: #1c2029 !important; stroke: rgba(255, 255, 255, 0.05) !important; stroke-width: 0.5px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all; }
         .muni-base:hover { fill: #252a36 !important; stroke: rgba(255, 255, 255, 0.2) !important; }
+        .muni-unlocked { fill: #143d4a !important; stroke: #42e6f5 !important; stroke-width: 1px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all; }
+        .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.4) !important; stroke-width: 2px !important; }
+        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 3px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all; }
 
-        .muni-unlocked {
-            fill: #143d4a !important; stroke: #42e6f5 !important; stroke-width: 1px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all;
-        }
-        .muni-unlocked:hover {
-            fill: rgba(66, 230, 245, 0.4) !important; stroke-width: 2px !important; 
-        }
-
-        /* Novedad: ESTADO SELECCIONADO (Sin filter: drop-shadow para evitar glitch en móvil) */
-        .muni-selected {
-            fill: #e81cff !important; 
-            stroke: #ffffff !important; 
-            stroke-width: 3px !important; 
-            transition: all 0.3s ease !important;
-            cursor: pointer; pointer-events: all;
-        }
-
-        /* Nombres en el Mapa (Zoom) */
-        .muni-label {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2px;
-            font-weight: 800;
-            fill: rgba(255,255,255,0.7);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            text-anchor: middle;
-            dominant-baseline: middle;
-            text-shadow: 0px 0px 1px rgba(0,0,0,1);
-        }
+        .muni-label { font-family: 'Montserrat', sans-serif; font-size: 2px; font-weight: 800; fill: rgba(255,255,255,0.7); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; text-anchor: middle; dominant-baseline: middle; text-shadow: 0px 0px 1px rgba(0,0,0,1); }
         .show-labels .muni-label { opacity: 1; }
 
-        /* Setup Interactivo */
         .hotspot-dot { animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-        @keyframes pulse-ring { 
-            0% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(66, 230, 245, 0.7); }
-            100% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 15px rgba(66, 230, 245, 0); }
-        }
+        .hotspot-active .hotspot-dot { animation: none; background: #e81cff; box-shadow: 0 0 15px #e81cff; }
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(66, 230, 245, 0.7); } 100% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 15px rgba(66, 230, 245, 0); } }
         
         .admin-setup-mode { cursor: crosshair !important; }
+        
+        .nav-link { color: #a1a1aa; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; transition: color 0.3s; cursor: pointer; letter-spacing: 1px;}
+        .nav-link:hover { color: #42e6f5; }
 
-        /* Scrollbars UI */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #252a36; border-radius: 10px; }
@@ -142,78 +77,55 @@
 </head>
 <body class="flex flex-col items-center min-h-screen pb-12">
 
-    <!-- HEADER -->
-    <header class="w-full max-w-[1600px] mx-auto pt-8 pb-12 px-8 relative z-20 flex flex-col md:flex-row justify-between items-end md:items-center">
+    <!-- HEADER & NAVEGACIÓN -->
+    <header class="w-full max-w-[1600px] mx-auto pt-8 pb-8 px-8 relative z-20 flex flex-col md:flex-row justify-between items-end md:items-center">
         <div class="flex flex-col items-start mb-6 md:mb-0">
-            <h1 id="site-title" class="premium-title text-6xl md:text-7xl select-none uppercase">
-                DJ Vaquero
-            </h1>
-            <p class="font-display text-djGray tracking-[0.3em] text-xs uppercase font-bold mt-2 ml-1">
-                Tour Oficial & Equipo DJ
-            </p>
+            <h1 id="site-title" class="premium-title text-6xl md:text-7xl select-none uppercase">DJ Vaquero</h1>
+            <p class="font-display text-djGray tracking-[0.3em] text-xs uppercase font-bold mt-2 ml-1">Tour Oficial & Multimedia</p>
         </div>
-        
-        <div class="flex space-x-3">
-            <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc"><i class="fa-brands fa-soundcloud"></i></a>
-            <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube"></i></a>
+        <div class="flex flex-col items-end gap-4">
+            <div class="flex space-x-3">
+                <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc"><i class="fa-brands fa-soundcloud"></i></a>
+                <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <nav class="flex gap-4">
+                <a onclick="document.getElementById('sec-tour').scrollIntoView({behavior: 'smooth'})" class="nav-link">Tour</a>
+                <a onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="nav-link">Equipo</a>
+                <a onclick="document.getElementById('sec-mashups').scrollIntoView({behavior: 'smooth'})" class="nav-link text-djMagenta hover:text-white">Mashups</a>
+            </nav>
         </div>
     </header>
 
     <!-- SECCIÓN PRINCIPAL: TOUR -->
-    <main class="w-full max-w-[1600px] px-4 md:px-8 flex flex-col xl:flex-row gap-6 z-10">
-        
+    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-8 flex flex-col xl:flex-row gap-6 z-10">
         <section class="flex-[2] flex flex-col gap-4 relative">
             <div class="glass-panel p-4 flex flex-col sm:flex-row gap-4 justify-between items-center relative">
-                <h2 class="font-display font-bold text-xl text-white tracking-wide flex items-center gap-2 whitespace-nowrap">
-                    <i class="fa-solid fa-map-location-dot text-djCyan"></i> FECHAS DEL TOUR
-                </h2>
-                
+                <h2 class="font-display font-bold text-xl text-white tracking-wide flex items-center gap-2 whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> MAPA GIRA</h2>
                 <div class="flex-grow max-w-md relative w-full">
-                    <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar municipio..." class="w-full bg-[#0b0c0f] border border-white/5 rounded-full pl-12 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-djCyan transition-colors placeholder-gray-600">
+                    <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-[#0b0c0f] border border-white/5 rounded-full pl-12 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-djCyan transition-colors">
                     <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                    
-                    <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-[#161920] border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 hidden max-h-60 overflow-y-auto">
-                        <!-- Resultados -->
-                    </ul>
+                    <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-[#161920] border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 hidden max-h-60 overflow-y-auto"></ul>
                 </div>
-
-                <div class="flex gap-3">
-                    <button onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="bg-[#1c2029] hover:bg-djCyan hover:text-black text-white border border-white/5 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wide transition-all whitespace-nowrap">
-                        VER EQUIPO DJ
-                    </button>
-                    <button class="btn-reset-tour bg-[#1c2029] hover:bg-white/10 border border-white/5 px-4 py-2.5 rounded-full transition-colors text-gray-400 hover:text-white" title="Centrar Mapa">
-                        <i class="fa-solid fa-compress"></i>
-                    </button>
-                </div>
+                <button class="btn-reset-tour bg-[#1c2029] hover:bg-white/10 border border-white/5 px-4 py-2.5 rounded-full transition-colors text-gray-400 hover:text-white" title="Centrar Mapa"><i class="fa-solid fa-compress"></i></button>
             </div>
-
             <div class="viewport-container border border-white/5" id="tour-viewport">
-                <div class="zoom-layer" id="tour-layer">
-                    <!-- SVG -->
-                </div>
+                <div class="zoom-layer" id="tour-layer"></div>
             </div>
-            <p class="text-right text-gray-600 text-[10px] font-medium uppercase tracking-wider">Navega arrastrando el mapa. Haz zoom para ver los nombres.</p>
         </section>
 
         <!-- PANEL DE EVENTOS -->
         <aside id="info-section-anchor" class="flex-1 glass-panel flex flex-col h-auto xl:h-[68vh] overflow-hidden">
             <div class="p-8 pb-6 border-b border-white/5">
-                <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">
-                    GIRA OFICIAL
-                </h3>
+                <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">GIRA OFICIAL</h3>
                 <div id="info-status" class="flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full bg-gray-600"></div>
-                    <span class="text-gray-400 text-xs font-semibold tracking-wider uppercase">Selecciona una zona</span>
+                    <div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-xs font-semibold tracking-wider uppercase">Selecciona una zona</span>
                 </div>
             </div>
-
             <div id="info-events" class="flex-grow flex flex-col gap-4 p-6 overflow-y-auto hidden"></div>
-            
             <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-8 text-gray-600 text-center">
-                <i class="fa-solid fa-compact-disc text-6xl mb-4 opacity-20"></i>
-                <p class="text-sm">Explora el mapa para descubrir<br>las próximas fechas del tour.</p>
+                <i class="fa-solid fa-compact-disc text-6xl mb-4 opacity-20"></i><p class="text-sm">Explora el mapa para descubrir<br>las próximas fechas.</p>
             </div>
         </aside>
     </main>
@@ -221,34 +133,59 @@
     <!-- SECCIÓN SETUP INTERACTIVO -->
     <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-24 px-4 md:px-8 z-10">
         <div class="flex items-center gap-4 mb-6">
-            <h2 class="font-display text-3xl text-white font-bold uppercase tracking-wide">
-                EQUIPO DJ
-            </h2>
+            <h2 class="font-display text-3xl text-white font-bold uppercase tracking-wide">EQUIPO DJ</h2>
             <div class="h-[1px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
         </div>
         
-        <div class="glass-panel p-6 flex justify-center items-center overflow-hidden relative">
-            <div id="setup-image-wrapper" class="relative inline-block max-w-full">
-                <img src="setup.png" alt="Setup DJ" class="w-full h-auto max-h-[70vh] object-contain rounded-lg relative z-0" id="setup-img">
-                <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Imagen Setup -->
+            <div class="flex-[2] glass-panel p-6 flex justify-center items-center overflow-hidden relative">
+                <div id="setup-image-wrapper" class="relative inline-block max-w-full">
+                    <img src="setup.png" alt="Setup DJ" class="w-full h-auto max-h-[60vh] object-contain rounded-lg relative z-0" id="setup-img">
+                    <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+                </div>
+                <p id="setup-admin-hint" class="absolute bottom-2 right-4 text-djCyan text-[10px] hidden font-bold animate-pulse z-20 bg-black/50 px-2 py-1 rounded">MODO EDICIÓN: Clic en imagen añade punto.</p>
+            </div>
+            
+            <!-- Panel Detalle Componente -->
+            <div class="flex-[1] glass-panel p-8 flex flex-col justify-center min-h-[300px]" id="setup-info-panel">
+                <div class="text-center opacity-50 flex flex-col items-center" id="setup-default-msg">
+                    <i class="fa-solid fa-hand-pointer text-4xl mb-4"></i>
+                    <p class="font-display text-sm uppercase tracking-widest font-bold">Toca un punto de la imagen<br>para ver el equipo</p>
+                </div>
+                <div id="setup-detail-content" class="hidden">
+                    <div class="w-12 h-1 bg-djCyan mb-6 rounded"></div>
+                    <h3 id="setup-detail-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-4"></h3>
+                    <p id="setup-detail-desc" class="text-gray-300 text-sm leading-relaxed bg-[#0b0c0f] p-5 rounded-xl border border-white/5"></p>
+                </div>
             </div>
         </div>
-        <p id="setup-admin-hint" class="text-center text-djCyan text-xs mt-3 hidden font-bold animate-pulse">MODO EDICIÓN ACTIVADO: Haz clic en la imagen para mover/crear un hotspot.</p>
+    </div>
+
+    <!-- SECCIÓN MASHUPS -->
+    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-24 px-4 md:px-8 z-10">
+        <div class="flex items-center gap-4 mb-6">
+            <h2 class="font-display text-3xl text-white font-bold uppercase tracking-wide">MASHUPS & EDITS</h2>
+            <div class="h-[1px] flex-grow bg-gradient-to-r from-djMagenta/50 to-transparent"></div>
+        </div>
+        <div id="mashups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cargados por JS -->
+        </div>
     </div>
 
     <!-- PANEL DE ADMINISTRADOR FLOTANTE -->
-    <div id="admin-panel" class="hidden fixed top-24 left-8 w-[400px] max-w-[90vw] bg-djPanel border border-djCyan/30 rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.8)] z-[100] flex flex-col overflow-hidden">
+    <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-8 w-[420px] max-w-[95vw] bg-djPanel border border-djCyan/30 rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.8)] z-[100] flex flex-col overflow-hidden">
         <div id="admin-panel-header" class="bg-[#0b0c0f] border-b border-djCyan/20 p-4 flex justify-between items-center cursor-move touch-none">
             <div class="flex items-center gap-3 pointer-events-none">
-                <i class="fa-solid fa-sliders text-djCyan"></i>
-                <span class="text-djCyan font-display font-bold text-sm tracking-wide">PANEL MANAGER</span>
+                <i class="fa-solid fa-sliders text-djCyan"></i><span class="text-djCyan font-display font-bold text-sm tracking-wide">MANAGER</span>
             </div>
-            <button id="btn-close-admin" class="text-gray-500 hover:text-white transition-colors p-2 -mr-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <button id="btn-close-admin" class="text-gray-500 hover:text-white p-2 -mr-2"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
 
-        <div class="flex bg-[#0b0c0f]">
-            <button id="tab-btn-tour" class="flex-1 py-3 text-xs font-bold text-djCyan border-b-2 border-djCyan transition-colors">GIRA / MAPA</button>
-            <button id="tab-btn-setup" class="flex-1 py-3 text-xs font-bold text-gray-500 border-b-2 border-transparent hover:text-white transition-colors">SETUP INTERACTIVO</button>
+        <div class="flex bg-[#0b0c0f] overflow-x-auto text-[10px] md:text-xs">
+            <button id="tab-btn-tour" class="flex-1 py-3 font-bold text-djCyan border-b-2 border-djCyan transition-colors whitespace-nowrap px-2">GIRA</button>
+            <button id="tab-btn-setup" class="flex-1 py-3 font-bold text-gray-500 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap px-2">EQUIPO DJ</button>
+            <button id="tab-btn-mashups" class="flex-1 py-3 font-bold text-gray-500 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap px-2">MASHUPS</button>
         </div>
 
         <div class="p-6 overflow-y-auto max-h-[70vh] relative">
@@ -257,44 +194,27 @@
             <div id="admin-sec-tour" class="space-y-5">
                 <input type="hidden" id="admin-muni-id">
                 <input type="hidden" id="admin-editing-event-id">
-
-                <div>
-                    <label class="text-[10px] text-djCyan font-bold uppercase tracking-wider block mb-1.5">Nombre a mostrar (Público)</label>
-                    <input type="text" id="admin-muni-name" placeholder="Ej: Salamanca Capital..." class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djCyan transition-colors">
-                </div>
-
-                <div>
-                    <label class="text-[10px] text-djCyan font-bold uppercase tracking-wider block mb-1.5">Estado en el Tour</label>
-                    <select id="admin-muni-status" class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djCyan cursor-pointer">
-                        <option value="locked">Bloqueado (Oculto)</option>
-                        <option value="unlocked">Desbloqueado (Iluminado)</option>
-                    </select>
-                </div>
-
-                <!-- Lista de eventos para editar/borrar -->
+                <div><label class="text-[10px] text-djCyan font-bold uppercase block mb-1.5">Nombre (Público)</label>
+                <input type="text" id="admin-muni-name" placeholder="Ej: Salamanca..." class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:outline-none focus:border-djCyan"></div>
+                <div><label class="text-[10px] text-djCyan font-bold uppercase block mb-1.5">Estado</label>
+                <select id="admin-muni-status" class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:outline-none focus:border-djCyan cursor-pointer">
+                    <option value="locked">Oculto</option><option value="unlocked">Iluminado</option>
+                </select></div>
                 <div id="admin-event-list-container" class="hidden pt-4 border-t border-white/5">
-                    <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-2">Eventos Creados en este Municipio:</label>
+                    <label class="text-[10px] text-gray-400 font-bold uppercase block mb-2">Eventos en Municipio:</label>
                     <div id="admin-event-list" class="space-y-2 mb-2"></div>
                 </div>
-
                 <div class="pt-4 border-t border-white/5">
-                    <label id="admin-event-form-title" class="text-xs text-white font-bold uppercase tracking-wider block mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-calendar-plus text-djCyan"></i> Añadir Nuevo Evento
-                    </label>
+                    <label id="admin-event-form-title" class="text-xs text-white font-bold uppercase block mb-3"><i class="fa-solid fa-plus text-djCyan"></i> Añadir Evento</label>
                     <div class="space-y-3">
-                        <input type="text" id="admin-event-place" placeholder="Lugar (Sala, Festival...)" class="w-full bg-[#0b0c0f] border border-white/5 p-2.5 text-white text-sm rounded outline-none focus:border-djCyan">
-                        <input type="date" id="admin-event-date" class="w-full bg-[#0b0c0f] border border-white/5 p-2.5 text-gray-400 text-sm rounded outline-none [color-scheme:dark] focus:border-djCyan">
-                        <textarea id="admin-event-details" placeholder="Descripción..." class="w-full bg-[#0b0c0f] border border-white/5 p-2.5 text-white text-sm rounded h-20 outline-none resize-none focus:border-djCyan"></textarea>
-                        <input type="text" id="admin-event-media" placeholder="Links RRSS (opcional, separados por coma)" class="w-full bg-[#0b0c0f] border border-white/5 p-2.5 text-white text-sm rounded outline-none focus:border-djCyan">
+                        <input type="text" id="admin-event-place" placeholder="Lugar" class="w-full bg-[#0b0c0f] border border-white/5 p-2 text-white text-sm rounded outline-none focus:border-djCyan">
+                        <input type="date" id="admin-event-date" class="w-full bg-[#0b0c0f] border border-white/5 p-2 text-gray-400 text-sm rounded outline-none [color-scheme:dark]">
+                        <textarea id="admin-event-details" placeholder="Descripción" class="w-full bg-[#0b0c0f] border border-white/5 p-2 text-white text-sm rounded h-20 outline-none resize-none"></textarea>
+                        <input type="text" id="admin-event-media" placeholder="Links RRSS (por coma)" class="w-full bg-[#0b0c0f] border border-white/5 p-2 text-white text-sm rounded outline-none">
                     </div>
-                    
-                    <div class="flex gap-2 mt-5">
-                        <button id="btn-add-event" class="flex-1 bg-djCyan hover:bg-white text-black font-bold py-3 rounded text-sm transition-colors shadow-[0_0_15px_rgba(66,230,245,0.3)]">
-                            GUARDAR
-                        </button>
-                        <button id="btn-cancel-edit" class="hidden flex-none bg-[#252a36] hover:bg-white/10 text-white font-bold px-4 py-3 rounded text-sm transition-colors">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
+                    <div class="flex gap-2 mt-4">
+                        <button id="btn-add-event" class="flex-1 bg-djCyan text-black font-bold py-2.5 rounded text-sm transition-colors">GUARDAR</button>
+                        <button id="btn-cancel-edit" class="hidden flex-none bg-[#252a36] text-white px-4 py-2.5 rounded"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
             </div>
@@ -302,47 +222,52 @@
             <!-- PESTAÑA: SETUP -->
             <div id="admin-sec-setup" class="space-y-5 hidden">
                 <div>
-                    <label class="text-[10px] text-djMagenta font-bold uppercase tracking-wider block mb-1.5">Seleccionar Hotspot</label>
-                    <select id="admin-hs-select" class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta cursor-pointer">
-                        <option value="NEW">-- CREAR NUEVO HOTSPOT --</option>
+                    <label class="text-[10px] text-djMagenta font-bold uppercase block mb-1.5">Componente de Equipo</label>
+                    <select id="admin-comp-select" class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:outline-none focus:border-djMagenta cursor-pointer">
+                        <option value="NEW">-- NUEVO COMPONENTE --</option>
                     </select>
                 </div>
-
-                <div>
-                    <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Título del Elemento</label>
-                    <input type="text" id="admin-hs-title" placeholder="Ej: Mesa DJ..." class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta transition-colors">
-                </div>
-
-                <div>
-                    <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Descripción</label>
-                    <textarea id="admin-hs-desc" placeholder="Detalles técnicos..." class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm h-20 resize-none focus:outline-none focus:border-djMagenta transition-colors"></textarea>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="flex-1">
-                        <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Posición X (%)</label>
-                        <input type="number" step="0.1" id="admin-hs-x" class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta text-center">
-                    </div>
-                    <div class="flex-1">
-                        <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Posición Y (%)</label>
-                        <input type="number" step="0.1" id="admin-hs-y" class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta text-center">
-                    </div>
+                <div><label class="text-[10px] text-gray-400 font-bold uppercase block mb-1.5">Nombre</label>
+                <input type="text" id="admin-comp-title" placeholder="Ej: CDJ 3000..." class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:border-djMagenta"></div>
+                <div><label class="text-[10px] text-gray-400 font-bold uppercase block mb-1.5">Descripción</label>
+                <textarea id="admin-comp-desc" class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm h-20 resize-none focus:border-djMagenta"></textarea></div>
+                
+                <div class="bg-[#1c2029] p-3 rounded border border-white/5">
+                    <label class="text-[10px] text-djCyan font-bold uppercase block mb-2">Puntos en la imagen (Hotspots)</label>
+                    <p class="text-[10px] text-gray-400 mb-2 italic">Haz clic en la imagen del equipo para añadir un punto.</p>
+                    <ul id="admin-comp-points-list" class="space-y-1"></ul>
                 </div>
 
                 <div class="pt-4 flex gap-3 border-t border-white/5">
-                    <button id="btn-save-hs" class="flex-[2] bg-djMagenta hover:bg-white text-white hover:text-black font-bold py-3 rounded text-sm transition-colors shadow-[0_0_15px_rgba(232,28,255,0.3)]">
-                        GUARDAR PUNTO
-                    </button>
-                    <button id="btn-delete-hs" class="flex-[1] bg-red-600/20 text-red-500 hover:bg-red-600 hover:text-white border border-red-600/50 font-bold py-3 rounded text-sm transition-colors hidden">
-                        BORRAR
-                    </button>
+                    <button id="btn-save-comp" class="flex-[2] bg-djMagenta text-white font-bold py-2.5 rounded text-sm transition-colors">GUARDAR EQUIPO</button>
+                    <button id="btn-delete-comp" class="flex-[1] bg-red-600/20 text-red-500 border border-red-600/50 font-bold py-2.5 rounded text-sm hidden">BORRAR</button>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: MASHUPS -->
+            <div id="admin-sec-mashups" class="space-y-5 hidden">
+                <div>
+                    <label class="text-[10px] text-djYellow font-bold uppercase block mb-1.5">Seleccionar Mashup</label>
+                    <select id="admin-mash-select" class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:outline-none focus:border-djYellow cursor-pointer">
+                        <option value="NEW">-- NUEVO MASHUP --</option>
+                    </select>
+                </div>
+                <div><label class="text-[10px] text-gray-400 font-bold uppercase block mb-1.5">Título</label>
+                <input type="text" id="admin-mash-title" placeholder="Ej: Reggaeton Old School Mix" class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:border-djYellow"></div>
+                <div><label class="text-[10px] text-gray-400 font-bold uppercase block mb-1.5">Enlace Previsualización (Soundcloud/YT)</label>
+                <input type="text" id="admin-mash-preview" placeholder="Opcional" class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:border-djYellow"></div>
+                <div><label class="text-[10px] text-gray-400 font-bold uppercase block mb-1.5">Enlace de Descarga (Drive/Mega)</label>
+                <input type="text" id="admin-mash-dl" placeholder="URL Descarga" class="w-full bg-[#0b0c0f] border border-white/10 p-2 text-white rounded text-sm focus:border-djYellow"></div>
+                
+                <div class="pt-4 flex gap-3 border-t border-white/5">
+                    <button id="btn-save-mash" class="flex-[2] bg-djYellow text-black font-bold py-2.5 rounded text-sm transition-colors">GUARDAR MASHUP</button>
+                    <button id="btn-delete-mash" class="flex-[1] bg-red-600/20 text-red-500 border border-red-600/50 font-bold py-2.5 rounded text-sm hidden">BORRAR</button>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- SCRIPTS CORE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -359,36 +284,34 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         
-        let dbData = { municipalities: {} };
-        let hotspotsData = {};
+        let dbData = { municipalities: {}, components: {}, mashups: {} };
         let allMapElements = [];
         let currentSelectedMuniId = null;
-        
-        // Variable global para evitar clicks falsos al hacer swipe/drag en móviles
         window.isDraggingMap = false;
 
         // 1. ESCUCHAR FIREBASE
         onValue(ref(db, '/'), (snapshot) => {
             const data = snapshot.val() || {};
             if(data.municipalities) dbData.municipalities = data.municipalities;
-            if(data.hotspots) hotspotsData = data.hotspots; else hotspotsData = {};
+            if(data.components) dbData.components = data.components; else dbData.components = {};
+            if(data.mashups) dbData.mashups = data.mashups; else dbData.mashups = {};
             
             colorearMapa();
-            renderHotspots();
-            updateHotspotDropdown();
+            renderComponents();
+            renderMashups();
+            updateCompDropdown();
+            updateMashupDropdown();
             
-            // Si hay un municipio abierto en el admin, recargar su lista de eventos
             const adminMuniId = document.getElementById('admin-muni-id').value;
             if(adminMuniId) populateAdminEventsList(adminMuniId);
         });
 
-        // 2. ZOOM, PANEO Y SWIPE MÓVIL
+        // 2. ZOOM MEJORADO (CON PINCH CENTRADO)
         function enableZoomPan(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
             const layer = document.getElementById(layerId);
             let scale = 1, panning = false, pointX = 0, pointY = 0, startX = 0, startY = 0;
             
-            // Variables para móvil
             let initialPinchDistance = null;
             let initialScale = 1;
 
@@ -397,7 +320,6 @@
                 if(scale > 3.5) layer.classList.add('show-labels'); else layer.classList.remove('show-labels');
             };
 
-            // Rueda ratón PC
             viewport.addEventListener('wheel', (e) => {
                 e.preventDefault();
                 const xs = (e.clientX - viewport.getBoundingClientRect().left - pointX) / scale;
@@ -410,60 +332,55 @@
                 setTransform();
             }, { passive: false });
 
-            // Eventos PC
-            viewport.addEventListener('mousedown', (e) => { 
-                e.preventDefault(); startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; viewport.style.cursor = 'move'; 
-                window.isDraggingMap = false;
-            });
-            window.addEventListener('mouseup', () => { 
-                panning = false; viewport.style.cursor = 'grab'; 
-                setTimeout(() => { window.isDraggingMap = false; }, 50); // reset delay
-            });
-            window.addEventListener('mousemove', (e) => { 
-                if (!panning) return; 
-                window.isDraggingMap = true; // Si se mueve el ratón, es arrastre
-                pointX = e.clientX - startX; pointY = e.clientY - startY; 
-                setTransform(); 
-            });
+            viewport.addEventListener('mousedown', (e) => { e.preventDefault(); startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; viewport.style.cursor = 'move'; window.isDraggingMap = false; });
+            window.addEventListener('mouseup', () => { panning = false; viewport.style.cursor = 'grab'; setTimeout(() => { window.isDraggingMap = false; }, 50); });
+            window.addEventListener('mousemove', (e) => { if (!panning) return; window.isDraggingMap = true; pointX = e.clientX - startX; pointY = e.clientY - startY; setTransform(); });
 
-            // Eventos Móvil (Touch)
             viewport.addEventListener('touchstart', (e) => {
                 if (e.touches.length === 2) {
                     initialPinchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
                     initialScale = scale;
                     window.isDraggingMap = true;
                 } else if (e.touches.length === 1) {
-                    startX = e.touches[0].clientX - pointX;
-                    startY = e.touches[0].clientY - pointY;
-                    panning = true;
-                    window.isDraggingMap = false;
+                    startX = e.touches[0].clientX - pointX; startY = e.touches[0].clientY - pointY; panning = true; window.isDraggingMap = false;
                 }
             }, { passive: false });
 
             viewport.addEventListener('touchmove', (e) => {
                 if (e.touches.length === 2 && initialPinchDistance) {
-                    e.preventDefault(); // Prevenir scroll de la página
-                    const currentDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-                    const zoomFactor = currentDistance / initialPinchDistance;
-                    scale = Math.max(0.5, Math.min(initialScale * zoomFactor, 15));
+                    e.preventDefault(); 
+                    const t1 = e.touches[0], t2 = e.touches[1];
+                    const currentDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+                    const cx = (t1.clientX + t2.clientX) / 2;
+                    const cy = (t1.clientY + t2.clientY) / 2;
+                    
+                    const zoomFactor = currentDist / initialPinchDistance;
+                    let newScale = Math.max(0.5, Math.min(initialScale * zoomFactor, 15));
+                    
+                    const rect = viewport.getBoundingClientRect();
+                    const localCx = cx - rect.left;
+                    const localCy = cy - rect.top;
+                    
+                    pointX = localCx - (localCx - pointX) * (newScale / scale);
+                    pointY = localCy - (localCy - pointY) * (newScale / scale);
+                    scale = newScale;
+                    
+                    initialPinchDistance = currentDist;
+                    initialScale = scale;
                     setTransform();
                     window.isDraggingMap = true;
                 } else if (e.touches.length === 1 && panning) {
                     e.preventDefault();
                     const dx = e.touches[0].clientX - startX - pointX;
                     const dy = e.touches[0].clientY - startY - pointY;
-                    // Si se mueve más de 5px, se considera arrastre y no click
                     if(Math.abs(dx) > 5 || Math.abs(dy) > 5) window.isDraggingMap = true;
-                    pointX = e.touches[0].clientX - startX;
-                    pointY = e.touches[0].clientY - startY;
-                    setTransform();
+                    pointX = e.touches[0].clientX - startX; pointY = e.touches[0].clientY - startY; setTransform();
                 }
             }, { passive: false });
 
             viewport.addEventListener('touchend', (e) => {
                 if (e.touches.length < 2) initialPinchDistance = null;
                 if (e.touches.length === 0) panning = false;
-                // Dejamos un pequeño margen para que el evento click no se dispare
                 setTimeout(() => { if(!panning) window.isDraggingMap = false; }, 100);
             });
             
@@ -472,19 +389,14 @@
         const resetTourZoom = enableZoomPan('tour-viewport', 'tour-layer');
         document.querySelector('.btn-reset-tour').addEventListener('click', resetTourZoom);
 
-        // Auto-Scroll a la info en móviles
-        function scrollToInfo() {
+        function scrollToInfo(id) {
             if(window.innerWidth < 1024) {
-                const anchor = document.getElementById('info-section-anchor');
-                if(anchor) {
-                    const yOffset = -20;
-                    const y = anchor.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                    window.scrollTo({top: y, behavior: 'smooth'});
-                }
+                const anchor = document.getElementById(id);
+                if(anchor) window.scrollTo({top: anchor.getBoundingClientRect().top + window.pageYOffset - 20, behavior: 'smooth'});
             }
         }
 
-        // 3. CARGAR SVG Y FILTRAR ETIQUETAS
+        // 3. MAPA
         async function loadInlineSVG(url, containerId) {
             try {
                 const response = await fetch(url);
@@ -494,483 +406,292 @@
                 const svgElement = document.getElementById(containerId).querySelector('svg');
                 if(svgElement) {
                     svgElement.style.pointerEvents = 'none'; 
-                    
-                    const elements = svgElement.querySelectorAll('path, polygon');
-                    elements.forEach((el, index) => {
+                    svgElement.querySelectorAll('path, polygon').forEach((el, index) => {
                         el.removeAttribute('fill'); el.removeAttribute('style'); el.removeAttribute('class'); el.removeAttribute('stroke');
-                        
                         let originalId = el.id || `zona_${index}`;
-                        el.setAttribute('id', originalId);
-                        el.classList.add('muni-base');
-                        el.style.pointerEvents = 'auto'; 
+                        el.setAttribute('id', originalId); el.classList.add('muni-base'); el.style.pointerEvents = 'auto'; 
                         
                         let defaultName = originalId.replace(/_/g, ' ');
-                        
-                        // Solo etiquetas de zonas genéricas
-                        const regexZonaNumero = /^zona\s*\d+$/i;
-                        let isGeneric = regexZonaNumero.test(defaultName) || defaultName === originalId;
-                        
+                        let isGeneric = /^zona\s*\d+$/i.test(defaultName) || defaultName === originalId;
                         if(!isGeneric) {
                             try {
                                 const bbox = el.getBBox();
-                                const textNode = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                                textNode.setAttribute("x", bbox.x + bbox.width / 2);
-                                textNode.setAttribute("y", bbox.y + bbox.height / 2);
-                                textNode.setAttribute("class", "muni-label");
-                                textNode.textContent = defaultName;
-                                svgElement.appendChild(textNode);
+                                const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                                t.setAttribute("x", bbox.x + bbox.width/2); t.setAttribute("y", bbox.y + bbox.height/2);
+                                t.setAttribute("class", "muni-label"); t.textContent = defaultName; svgElement.appendChild(t);
                             } catch(e) {}
                         }
-
                         allMapElements.push({ id: originalId, defaultName: defaultName });
-
-                        // Click en path/municipio
                         el.addEventListener('click', (e) => {
-                            if (window.isDraggingMap) return; // IGNORAR CLICK SI SE HA ARRASTRADO EL MAPA
+                            if (window.isDraggingMap) return; 
                             e.stopPropagation(); 
-                            seleccionarMuniVisually(el.id);
-                            loadMuniInfo(el.id); 
-                            scrollToInfo();
+                            seleccionarMuniVisually(el.id); loadMuniInfo(el.id); scrollToInfo('info-section-anchor');
                         });
                     });
                     colorearMapa();
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) {}
         }
         loadInlineSVG('salamanca.svg', 'tour-layer');
 
         function seleccionarMuniVisually(id) {
-            if(currentSelectedMuniId) {
-                const oldEl = document.getElementById(currentSelectedMuniId);
-                if(oldEl) oldEl.classList.remove('muni-selected');
-            }
+            if(currentSelectedMuniId) { const o = document.getElementById(currentSelectedMuniId); if(o) o.classList.remove('muni-selected'); }
             currentSelectedMuniId = id;
-            const newEl = document.getElementById(id);
-            if(newEl) {
-                newEl.classList.add('muni-selected');
-                newEl.parentNode.appendChild(newEl);
-            }
+            const n = document.getElementById(id); if(n) { n.classList.add('muni-selected'); n.parentNode.appendChild(n); }
         }
 
         function colorearMapa() {
             const container = document.getElementById('tour-layer');
             if(!container) return;
             for (const [id, data] of Object.entries(dbData.municipalities)) {
-                const element = container.querySelector(`[id="${id}"]`);
-                if(element) {
-                    if(id === currentSelectedMuniId) continue;
-                    if(data.status === 'unlocked') {
-                        element.classList.remove('muni-base'); element.classList.add('muni-unlocked');
-                    } else {
-                        element.classList.remove('muni-unlocked'); element.classList.add('muni-base');
-                    }
+                const el = container.querySelector(`[id="${id}"]`);
+                if(el && id !== currentSelectedMuniId) {
+                    if(data.status === 'unlocked') { el.classList.remove('muni-base'); el.classList.add('muni-unlocked'); }
+                    else { el.classList.remove('muni-unlocked'); el.classList.add('muni-base'); }
                 }
             }
         }
 
-        // 4. CARGAR INFO MUNICIPIO Y GESTIÓN EN ADMIN
         function loadMuniInfo(id) {
             const muni = dbData.municipalities[id] || {};
-            let defaultName = id.replace(/_/g, ' ');
-            let displayName = muni.name ? muni.name : defaultName;
-            
+            let displayName = muni.name ? muni.name : id.replace(/_/g, ' ');
             document.getElementById('info-title').innerText = displayName;
             
-            // Llenar panel Admin
             document.getElementById('admin-muni-id').value = id;
             document.getElementById('admin-muni-name').value = displayName;
-            resetAdminEventForm();
-            populateAdminEventsList(id);
+            resetAdminEventForm(); populateAdminEventsList(id);
 
-            const statusDiv = document.getElementById('info-status');
-            const eventsDiv = document.getElementById('info-events');
-            const emptyDiv = document.getElementById('info-empty');
-
-            const contactBtnHTML = `
-                <div class="mt-6 pt-6 border-t border-white/5 flex flex-col items-center">
-                    <p class="text-xs text-gray-500 mb-3 font-medium">¿Eres de este municipio? ¡Lleva el tour allí!</p>
-                    <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="bg-white/5 hover:bg-djMagenta hover:text-white border border-white/10 text-white w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wide transition-all shadow-md">
-                        <i class="fa-solid fa-envelope mr-2"></i> CONTACTAR AHORA
-                    </a>
-                </div>
-            `;
+            const sDiv = document.getElementById('info-status'), eDiv = document.getElementById('info-events'), empDiv = document.getElementById('info-empty');
+            const contactHTML = `<div class="mt-6 pt-6 border-t border-white/5 flex flex-col items-center"><p class="text-xs text-gray-500 mb-3 font-medium">¿Llevamos la fiesta allí?</p><a href="https://www.instagram.com/djvaquero__/" target="_blank" class="bg-white/5 hover:bg-djMagenta hover:text-white border border-white/10 text-white w-full py-3 rounded-xl text-center text-xs font-bold uppercase transition-all shadow-md"><i class="fa-solid fa-envelope mr-2"></i> CONTACTAR AHORA</a></div>`;
 
             if (muni.status === 'unlocked') {
                 document.getElementById('admin-muni-status').value = 'unlocked';
-                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan shadow-[0_0_10px_#42e6f5]"></div><span class="text-djCyan text-xs font-bold tracking-wider uppercase">En Tour</span>`;
-                emptyDiv.classList.add('hidden'); eventsDiv.classList.remove('hidden');
-                eventsDiv.innerHTML = '';
-
+                sDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan shadow-[0_0_10px_#42e6f5]"></div><span class="text-djCyan text-xs font-bold uppercase">En Tour</span>`;
+                empDiv.classList.add('hidden'); eDiv.classList.remove('hidden'); eDiv.innerHTML = '';
                 if(muni.events) {
                     Object.values(muni.events).forEach(ev => {
-                        let mediaHtml = '';
-                        if(ev.media) {
-                            const links = ev.media.split(',');
-                            links.forEach(link => {
-                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#252a36] text-white hover:text-djMagenta border border-white/5 hover:border-djMagenta/50 text-xs font-bold transition-colors rounded-full"><i class="fa-solid fa-play"></i> MEDIA</a> `;
-                            });
-                        }
-
-                        eventsDiv.innerHTML += `
-                            <div class="bg-[#1c2029] border border-white/5 rounded-xl p-5 shadow-lg relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-1 h-full bg-djMagenta"></div>
-                                <h4 class="text-xl font-display font-bold text-white mb-1 uppercase tracking-wide">${ev.place || 'Lugar por confirmar'}</h4>
-                                <p class="text-xs text-djMagenta mb-3 font-medium"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date || 'Fecha por confirmar'}</p>
-                                <p class="text-sm text-gray-300 bg-[#0b0c0f] p-3 rounded-lg border border-white/5">${ev.details || 'Sin detalles.'}</p>
-                                <div>${mediaHtml}</div>
-                            </div>
-                        `;
+                        let mHtml = '';
+                        if(ev.media) ev.media.split(',').forEach(l => { if(l.trim()) mHtml += `<a href="${l.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#252a36] text-white hover:text-djMagenta border border-white/5 text-xs font-bold rounded-full"><i class="fa-solid fa-play"></i> MEDIA</a> `; });
+                        eDiv.innerHTML += `<div class="bg-[#1c2029] border border-white/5 rounded-xl p-5 shadow-lg relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full bg-djMagenta"></div><h4 class="text-xl font-display font-bold text-white mb-1 uppercase">${ev.place || 'Confirmado'}</h4><p class="text-xs text-djMagenta mb-3 font-medium"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date || 'Próximamente'}</p><p class="text-sm text-gray-300 bg-[#0b0c0f] p-3 rounded-lg border border-white/5">${ev.details || '-'}</p><div>${mHtml}</div></div>`;
                     });
-                } else {
-                    eventsDiv.innerHTML = `<div class="bg-[#1c2029] p-6 rounded-xl border border-white/5 text-center"><p class="text-sm text-gray-400">Zona confirmada en el tour. Próximamente fechas.</p></div>`;
-                }
-                eventsDiv.innerHTML += contactBtnHTML;
+                } else { eDiv.innerHTML = `<div class="bg-[#1c2029] p-6 rounded-xl border border-white/5 text-center"><p class="text-sm text-gray-400">Próximamente fechas.</p></div>`; }
+                eDiv.innerHTML += contactHTML;
             } else {
                 document.getElementById('admin-muni-status').value = 'locked';
-                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-500"></div><span class="text-gray-500 text-xs font-bold tracking-wider uppercase">Bloqueado</span>`;
-                emptyDiv.classList.add('hidden'); eventsDiv.classList.remove('hidden');
-                eventsDiv.innerHTML = `
-                    <div class="flex-grow flex flex-col items-center justify-center bg-[#0b0c0f] border border-white/5 p-6 rounded-xl text-center">
-                        <i class="fa-solid fa-lock text-3xl text-gray-700 mb-3"></i>
-                        <p class="text-gray-500 text-sm mb-4">Este municipio no forma parte del tour actualmente.</p>
-                    </div>
-                    ${contactBtnHTML}
-                `;
+                sDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-500"></div><span class="text-gray-500 text-xs font-bold uppercase">Bloqueado</span>`;
+                empDiv.classList.add('hidden'); eDiv.classList.remove('hidden');
+                eDiv.innerHTML = `<div class="flex-grow flex flex-col items-center justify-center bg-[#0b0c0f] border border-white/5 p-6 rounded-xl text-center"><i class="fa-solid fa-lock text-3xl text-gray-700 mb-3"></i><p class="text-gray-500 text-sm mb-4">No forma parte del tour actualmente.</p></div>${contactHTML}`;
             }
         }
 
-        // 5. BUSCADOR FILTRADO
-        const searchInput = document.getElementById('search-muni');
-        const resultsList = document.getElementById('search-results');
-
-        searchInput.addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase().trim();
-            resultsList.innerHTML = '';
-            
-            if(val.length < 2) { resultsList.classList.add('hidden'); return; }
-
+        const sInput = document.getElementById('search-muni'), rList = document.getElementById('search-results');
+        sInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase().trim(); rList.innerHTML = '';
+            if(val.length < 2) { rList.classList.add('hidden'); return; }
             let matches = allMapElements.filter(item => {
-                const muniData = dbData.municipalities[item.id];
-                // SOLO MOSTRAR MUNICIPIOS QUE TENGAN NOMBRE GUARDADO EN FIREBASE
-                if (!muniData || !muniData.name) return false;
-                
-                const customName = muniData.name.toLowerCase();
-                // Ignorar si el nombre guardado es literalmente el ID ("zona_x") o algo genérico como "zona 1"
-                if (customName === item.id.toLowerCase() || customName.startsWith("zona ")) return false;
-
-                return customName.includes(val);
-            });
-
-            matches = matches.slice(0, 6);
-
+                const md = dbData.municipalities[item.id];
+                if (!md || !md.name) return false;
+                const cn = md.name.toLowerCase();
+                if (cn === item.id.toLowerCase() || cn.startsWith("zona ")) return false;
+                return cn.includes(val);
+            }).slice(0, 6);
             if(matches.length > 0) {
-                resultsList.classList.remove('hidden');
-                matches.forEach(match => {
-                    const finalName = dbData.municipalities[match.id].name;
-                    
-                    const li = document.createElement('li');
-                    li.className = "px-4 py-3 hover:bg-[#252a36] text-white text-sm cursor-pointer border-b border-white/5 last:border-0 transition-colors flex items-center gap-2";
-                    li.innerHTML = `<i class="fa-solid fa-location-dot text-gray-500 text-xs"></i> ${finalName}`;
-                    
-                    li.onclick = () => {
-                        seleccionarMuniVisually(match.id);
-                        loadMuniInfo(match.id);
-                        scrollToInfo(); // Scroll móvil
-                        searchInput.value = '';
-                        resultsList.classList.add('hidden');
-                    };
-                    resultsList.appendChild(li);
+                rList.classList.remove('hidden');
+                matches.forEach(m => {
+                    const li = document.createElement('li'); li.className = "px-4 py-3 hover:bg-[#252a36] text-white text-sm cursor-pointer border-b border-white/5";
+                    li.innerHTML = `<i class="fa-solid fa-location-dot text-gray-500 text-xs mr-2"></i>${dbData.municipalities[m.id].name}`;
+                    li.onclick = () => { seleccionarMuniVisually(m.id); loadMuniInfo(m.id); scrollToInfo('info-section-anchor'); sInput.value = ''; rList.classList.add('hidden'); };
+                    rList.appendChild(li);
                 });
-            } else {
-                resultsList.classList.remove('hidden');
-                resultsList.innerHTML = `<li class="px-4 py-3 text-gray-500 text-sm italic">Sin resultados</li>`;
-            }
+            } else { rList.classList.remove('hidden'); rList.innerHTML = `<li class="px-4 py-3 text-gray-500 text-sm italic">Sin resultados</li>`; }
         });
+        document.addEventListener('click', (e) => { if(!sInput.contains(e.target) && !rList.contains(e.target)) rList.classList.add('hidden'); });
 
-        document.addEventListener('click', (e) => {
-            if(!searchInput.contains(e.target) && !resultsList.contains(e.target)) {
-                resultsList.classList.add('hidden');
-            }
-        });
-
-        // 6. HOTSPOTS SETUP DINÁMICOS
-        function renderHotspots() {
-            const container = document.getElementById('hotspots-container');
-            container.innerHTML = '';
-            
-            for (const [id, data] of Object.entries(hotspotsData)) {
-                container.innerHTML += `
-                <div class="absolute w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top: ${data.y}%; left: ${data.x}%;">
-                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
-                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
-                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
-                        <h5 class="text-djCyan font-black text-sm uppercase">${data.title}</h5>
-                        <p class="text-xs text-gray-300 mt-2">${data.desc}</p>
+        // 4. MASHUPS
+        function renderMashups() {
+            const grid = document.getElementById('mashups-grid'); grid.innerHTML = '';
+            const entries = Object.entries(dbData.mashups);
+            if(entries.length === 0) { grid.innerHTML = `<p class="text-gray-500 col-span-full">No hay mashups disponibles por ahora.</p>`; return; }
+            entries.forEach(([id, data]) => {
+                let btnPreview = data.preview ? `<a href="${data.preview}" target="_blank" class="flex-1 bg-white/5 hover:bg-white/10 text-white border border-white/10 py-3 rounded text-center text-xs font-bold transition-colors"><i class="fa-solid fa-play mr-2"></i> PREVIEW</a>` : '';
+                grid.innerHTML += `
+                <div class="glass-panel p-5 flex flex-col justify-between hover:border-djMagenta/30 transition-colors">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-djMagenta/20 flex items-center justify-center mb-4 text-djMagenta"><i class="fa-solid fa-music"></i></div>
+                        <h4 class="font-display font-bold text-lg text-white mb-2 leading-tight">${data.title}</h4>
+                    </div>
+                    <div class="flex gap-2 mt-4 pt-4 border-t border-white/5">
+                        ${btnPreview}
+                        <a href="${data.dl}" target="_blank" class="flex-1 bg-djMagenta/90 hover:bg-djMagenta text-white py-3 rounded text-center text-xs font-bold transition-colors shadow-lg"><i class="fa-solid fa-download mr-2"></i> DOWNLOAD</a>
                     </div>
                 </div>`;
-            }
+            });
         }
 
-        // 7. ADMINISTRADOR Y EVENTOS
-        let clickCount = 0; let clickTimer;
-        let activeAdminTab = 'tour';
-
-        document.getElementById('site-title').addEventListener('click', () => {
-            clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800);
-            if(clickCount >= 3) {
-                clickCount = 0;
-                let pwd = prompt("ACCESO MANAGER:\nContraseña:");
-                if(pwd === "1524") document.getElementById('admin-panel').classList.remove('hidden');
-            }
-        });
-        
-        document.getElementById('btn-close-admin').onclick = () => {
-            document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('setup-img').classList.remove('admin-setup-mode');
-            document.getElementById('setup-admin-hint').classList.add('hidden');
+        // 5. EQUIPO DJ (COMPONENTES)
+        window.selectComponent = function(compId, dotElement) {
+            document.querySelectorAll('.hotspot-active').forEach(el => el.classList.remove('hotspot-active'));
+            if(dotElement) dotElement.classList.add('hotspot-active');
+            
+            const comp = dbData.components[compId];
+            document.getElementById('setup-default-msg').classList.add('hidden');
+            document.getElementById('setup-detail-content').classList.remove('hidden');
+            document.getElementById('setup-detail-title').innerText = comp.title;
+            document.getElementById('setup-detail-desc').innerText = comp.desc;
+            scrollToInfo('setup-info-panel');
         };
 
-        // Arrastrar Panel Admin
-        const adminPanel = document.getElementById('admin-panel');
-        const adminHeader = document.getElementById('admin-panel-header');
-        let isDraggingPanel = false, panelStartX, panelStartY, initialLeft, initialTop;
-
-        const startDrag = (e) => {
-            if(e.target.closest('button')) return; // Ignorar botón X
-            isDraggingPanel = true;
-            panelStartX = e.clientX || e.touches[0].clientX; 
-            panelStartY = e.clientY || e.touches[0].clientY;
-            const rect = adminPanel.getBoundingClientRect();
-            initialLeft = rect.left; initialTop = rect.top;
-            adminPanel.style.position = 'fixed';
-            adminPanel.style.margin = '0';
-            adminPanel.style.transform = 'none';
-        };
-
-        const doDrag = (e) => {
-            if(!isDraggingPanel) return;
-            e.preventDefault();
-            const clientX = e.clientX || e.touches[0].clientX;
-            const clientY = e.clientY || e.touches[0].clientY;
-            const dx = clientX - panelStartX;
-            const dy = clientY - panelStartY;
-            adminPanel.style.left = `${initialLeft + dx}px`;
-            adminPanel.style.top = `${initialTop + dy}px`;
-        };
-
-        const stopDrag = () => { isDraggingPanel = false; };
-
-        adminHeader.addEventListener('mousedown', startDrag);
-        window.addEventListener('mousemove', doDrag);
-        window.addEventListener('mouseup', stopDrag);
-
-        adminHeader.addEventListener('touchstart', startDrag, {passive: false});
-        window.addEventListener('touchmove', doDrag, {passive: false});
-        window.addEventListener('touchend', stopDrag);
-
-        // Lógica de Pestañas
-        const btnTabTour = document.getElementById('tab-btn-tour');
-        const btnTabSetup = document.getElementById('tab-btn-setup');
-        const secTour = document.getElementById('admin-sec-tour');
-        const secSetup = document.getElementById('admin-sec-setup');
-
-        btnTabTour.addEventListener('click', () => {
-            activeAdminTab = 'tour';
-            btnTabTour.classList.replace('text-gray-500', 'text-djCyan'); btnTabTour.classList.replace('border-transparent', 'border-djCyan');
-            btnTabSetup.classList.replace('text-djMagenta', 'text-gray-500'); btnTabSetup.classList.replace('border-djMagenta', 'border-transparent');
-            secTour.classList.remove('hidden'); secSetup.classList.add('hidden');
-            document.getElementById('setup-img').classList.remove('admin-setup-mode');
-            document.getElementById('setup-admin-hint').classList.add('hidden');
-        });
-
-        btnTabSetup.addEventListener('click', () => {
-            activeAdminTab = 'setup';
-            btnTabSetup.classList.replace('text-gray-500', 'text-djMagenta'); btnTabSetup.classList.replace('border-transparent', 'border-djMagenta');
-            btnTabTour.classList.replace('text-djCyan', 'text-gray-500'); btnTabTour.classList.replace('border-djCyan', 'border-transparent');
-            secSetup.classList.remove('hidden'); secTour.classList.add('hidden');
-            
-            document.getElementById('setup-img').classList.add('admin-setup-mode');
-            document.getElementById('setup-admin-hint').classList.remove('hidden');
-            document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'});
-        });
-
-        // Eventos Admin: Listar, Editar, Borrar
-        function populateAdminEventsList(muniId) {
-            const listContainer = document.getElementById('admin-event-list-container');
-            const list = document.getElementById('admin-event-list');
-            list.innerHTML = '';
-            
-            const muni = dbData.municipalities[muniId];
-            if(muni && muni.events && Object.keys(muni.events).length > 0) {
-                listContainer.classList.remove('hidden');
-                Object.entries(muni.events).forEach(([evId, ev]) => {
-                    const el = document.createElement('div');
-                    el.className = "flex justify-between items-center bg-[#1c2029] p-2 rounded border border-white/10";
-                    el.innerHTML = `
-                        <span class="text-xs text-white truncate max-w-[180px]">${ev.place || 'Sin lugar'} - ${ev.date || ''}</span>
-                        <div class="flex gap-3">
-                            <button class="text-djCyan hover:text-white" onclick="window.editAdminEvent('${muniId}', '${evId}')"><i class="fa-solid fa-pen"></i></button>
-                            <button class="text-red-500 hover:text-white" onclick="window.deleteAdminEvent('${muniId}', '${evId}')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    `;
-                    list.appendChild(el);
-                });
-            } else {
-                listContainer.classList.add('hidden');
-            }
-        }
-
-        function resetAdminEventForm() {
-            document.getElementById('admin-editing-event-id').value = '';
-            document.getElementById('admin-event-place').value = '';
-            document.getElementById('admin-event-date').value = '';
-            document.getElementById('admin-event-details').value = '';
-            document.getElementById('admin-event-media').value = '';
-            document.getElementById('admin-event-form-title').innerHTML = '<i class="fa-solid fa-calendar-plus text-djCyan"></i> Añadir Nuevo Evento';
-            document.getElementById('btn-add-event').innerHTML = 'GUARDAR';
-            document.getElementById('btn-cancel-edit').classList.add('hidden');
-        }
-
-        window.editAdminEvent = function(muniId, evId) {
-            const ev = dbData.municipalities[muniId].events[evId];
-            document.getElementById('admin-editing-event-id').value = evId;
-            document.getElementById('admin-event-place').value = ev.place || '';
-            document.getElementById('admin-event-date').value = ev.date || '';
-            document.getElementById('admin-event-details').value = ev.details || '';
-            document.getElementById('admin-event-media').value = ev.media || '';
-            
-            document.getElementById('admin-event-form-title').innerHTML = '<i class="fa-solid fa-pen text-djMagenta"></i> Editando Evento';
-            document.getElementById('btn-add-event').innerHTML = 'ACTUALIZAR EVENTO';
-            document.getElementById('btn-cancel-edit').classList.remove('hidden');
-        };
-
-        window.deleteAdminEvent = function(muniId, evId) {
-            if(confirm("¿Seguro que quieres borrar este evento?")) {
-                remove(ref(db, `municipalities/${muniId}/events/${evId}`)).then(() => {
-                    loadMuniInfo(muniId);
-                });
-            }
-        };
-
-        document.getElementById('btn-cancel-edit').addEventListener('click', resetAdminEventForm);
-
-        // Guardar Municipio y Evento
-        document.getElementById('btn-add-event').addEventListener('click', () => {
-            const id = document.getElementById('admin-muni-id').value;
-            if(!id) return alert("Selecciona un municipio en el mapa primero.");
-            
-            const customName = document.getElementById('admin-muni-name').value.trim();
-            const status = document.getElementById('admin-muni-status').value;
-            
-            // Actualizar datos base del municipio
-            update(ref(db, `municipalities/${id}`), { status: status, name: customName || id });
-
-            const place = document.getElementById('admin-event-place').value.trim();
-            const editEvId = document.getElementById('admin-editing-event-id').value;
-
-            if(place || editEvId) {
-                const eventPayload = {
-                    place: place, 
-                    date: document.getElementById('admin-event-date').value,
-                    details: document.getElementById('admin-event-details').value, 
-                    media: document.getElementById('admin-event-media').value
-                };
-
-                if(editEvId) {
-                    // Actualizar existente
-                    update(ref(db, `municipalities/${id}/events/${editEvId}`), eventPayload).then(() => {
-                        resetAdminEventForm();
-                        loadMuniInfo(id);
-                    });
-                } else if(place) {
-                    // Crear nuevo
-                    push(ref(db, `municipalities/${id}/events`), eventPayload).then(() => {
-                        resetAdminEventForm();
-                        loadMuniInfo(id);
+        function renderComponents() {
+            const container = document.getElementById('hotspots-container');
+            container.innerHTML = '';
+            for (const [compId, comp] of Object.entries(dbData.components)) {
+                if(comp.points) {
+                    comp.points.forEach((pt, idx) => {
+                        container.innerHTML += `
+                        <div class="absolute w-6 h-6 z-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top: ${pt.y}%; left: ${pt.x}%;">
+                            <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute cursor-pointer" onclick="window.selectComponent('${compId}', this.parentElement)"></div>
+                            <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 pointer-events-none shadow-[0_0_10px_#42e6f5]"></div>
+                        </div>`;
                     });
                 }
-            } else {
-                loadMuniInfo(id);
             }
-            
-            const btn = document.getElementById('btn-add-event');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = "¡GUARDADO!"; btn.classList.replace('bg-djCyan', 'bg-green-400');
-            setTimeout(() => { btn.innerHTML = originalText; btn.classList.replace('bg-green-400', 'bg-djCyan'); }, 2000);
-        });
-
-        // --- ADMINISTRACIÓN DEL SETUP ---
-        function updateHotspotDropdown() {
-            const select = document.getElementById('admin-hs-select');
-            const currentVal = select.value;
-            select.innerHTML = '<option value="NEW">-- CREAR NUEVO HOTSPOT --</option>';
-            
-            for (const [id, data] of Object.entries(hotspotsData)) {
-                select.innerHTML += `<option value="${id}">${data.title}</option>`;
-            }
-            if(hotspotsData[currentVal]) select.value = currentVal;
         }
 
-        const hsSelect = document.getElementById('admin-hs-select');
-        const hsTitle = document.getElementById('admin-hs-title');
-        const hsDesc = document.getElementById('admin-hs-desc');
-        const hsX = document.getElementById('admin-hs-x');
-        const hsY = document.getElementById('admin-hs-y');
-        const btnDeleteHs = document.getElementById('btn-delete-hs');
-
-        hsSelect.addEventListener('change', (e) => {
-            const val = e.target.value;
-            if(val === 'NEW') {
-                hsTitle.value = ''; hsDesc.value = ''; hsX.value = ''; hsY.value = '';
-                btnDeleteHs.classList.add('hidden');
-            } else {
-                const data = hotspotsData[val];
-                hsTitle.value = data.title; hsDesc.value = data.desc;
-                hsX.value = data.x; hsY.value = data.y;
-                btnDeleteHs.classList.remove('hidden');
-            }
+        // 6. PANEL ADMIN GLOBAL
+        let clickCount = 0, clickTimer, activeAdminTab = 'tour';
+        document.getElementById('site-title').addEventListener('click', () => {
+            clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800);
+            if(clickCount >= 3) { clickCount = 0; if(prompt("Contraseña:") === "1524") document.getElementById('admin-panel').classList.remove('hidden'); }
         });
+        document.getElementById('btn-close-admin').onclick = () => {
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('setup-img').classList.remove('admin-setup-mode'); document.getElementById('setup-admin-hint').classList.add('hidden');
+        };
 
-        // Clic en la imagen para obtener coordenadas
-        document.getElementById('setup-image-wrapper').addEventListener('click', (e) => {
-            if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden')) {
-                const img = document.getElementById('setup-img');
-                const rect = img.getBoundingClientRect();
-                const xPos = ((e.clientX - rect.left) / rect.width) * 100;
-                const yPos = ((e.clientY - rect.top) / rect.height) * 100;
-                hsX.value = Math.max(0, Math.min(100, xPos)).toFixed(2);
-                hsY.value = Math.max(0, Math.min(100, yPos)).toFixed(2);
-            }
-        });
+        const ap = document.getElementById('admin-panel'), ah = document.getElementById('admin-panel-header');
+        let isDrag = false, pSx, pSy, iL, iT;
+        const sDrag = (e) => { if(e.target.closest('button')) return; isDrag = true; pSx = e.clientX||e.touches[0].clientX; pSy = e.clientY||e.touches[0].clientY; const r = ap.getBoundingClientRect(); iL = r.left; iT = r.top; ap.style.position='fixed'; ap.style.margin='0'; ap.style.transform='none'; };
+        const dDrag = (e) => { if(!isDrag) return; e.preventDefault(); ap.style.left = `${iL + ((e.clientX||e.touches[0].clientX) - pSx)}px`; ap.style.top = `${iT + ((e.clientY||e.touches[0].clientY) - pSy)}px`; };
+        const eDrag = () => { isDrag = false; };
+        ah.addEventListener('mousedown', sDrag); window.addEventListener('mousemove', dDrag); window.addEventListener('mouseup', eDrag);
+        ah.addEventListener('touchstart', sDrag, {passive:false}); window.addEventListener('touchmove', dDrag, {passive:false}); window.addEventListener('touchend', eDrag);
 
-        document.getElementById('btn-save-hs').addEventListener('click', () => {
-            let id = hsSelect.value;
-            if(id === 'NEW') id = `hs_${Date.now()}`;
-            
-            if(!hsTitle.value || !hsX.value || !hsY.value) {
-                return alert("Falta título o coordenadas (haz clic en la imagen para obtenerlas).");
-            }
-
-            const payload = {
-                title: hsTitle.value, desc: hsDesc.value,
-                x: parseFloat(hsX.value), y: parseFloat(hsY.value)
-            };
-
-            set(ref(db, `hotspots/${id}`), payload).then(() => {
-                const btn = document.getElementById('btn-save-hs');
-                btn.innerHTML = "¡PUNTO GUARDADO!"; btn.classList.replace('bg-djMagenta', 'bg-green-400');
-                setTimeout(() => { btn.innerHTML = "GUARDAR PUNTO"; btn.classList.replace('bg-green-400', 'bg-djMagenta'); }, 2000);
+        // TABS ADMIN
+        const tabs = ['tour', 'setup', 'mashups'];
+        const colors = { tour: 'djCyan', setup: 'djMagenta', mashups: 'djYellow' };
+        tabs.forEach(t => {
+            document.getElementById(`tab-btn-${t}`).addEventListener('click', () => {
+                activeAdminTab = t;
+                tabs.forEach(ot => {
+                    const btn = document.getElementById(`tab-btn-${ot}`), sec = document.getElementById(`admin-sec-${ot}`);
+                    if(ot === t) { btn.classList.replace('text-gray-500', `text-${colors[t]}`); btn.classList.replace('border-transparent', `border-${colors[t]}`); sec.classList.remove('hidden'); }
+                    else { btn.classList.replace(`text-${colors[ot]}`, 'text-gray-500'); btn.classList.replace(`border-${colors[ot]}`, 'border-transparent'); sec.classList.add('hidden'); }
+                });
+                if(t === 'setup') { document.getElementById('setup-img').classList.add('admin-setup-mode'); document.getElementById('setup-admin-hint').classList.remove('hidden'); document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'}); }
+                else { document.getElementById('setup-img').classList.remove('admin-setup-mode'); document.getElementById('setup-admin-hint').classList.add('hidden'); }
             });
         });
 
-        btnDeleteHs.addEventListener('click', () => {
-            const id = hsSelect.value;
-            if(id !== 'NEW' && confirm('¿Borrar este punto interactivo?')) {
-                remove(ref(db, `hotspots/${id}`)).then(() => {
-                    hsSelect.value = 'NEW';
-                    hsSelect.dispatchEvent(new Event('change'));
+        // ADMIN: TOUR (Igual que antes)
+        function populateAdminEventsList(mId) {
+            const c = document.getElementById('admin-event-list-container'), l = document.getElementById('admin-event-list'), muni = dbData.municipalities[mId];
+            l.innerHTML = '';
+            if(muni && muni.events && Object.keys(muni.events).length > 0) {
+                c.classList.remove('hidden');
+                Object.entries(muni.events).forEach(([eId, ev]) => {
+                    l.innerHTML += `<div class="flex justify-between items-center bg-[#1c2029] p-2 rounded border border-white/10"><span class="text-xs text-white truncate max-w-[150px]">${ev.place||'Sin lugar'}</span><div class="flex gap-2"><button class="text-djCyan hover:text-white" onclick="window.editAdminEvent('${mId}', '${eId}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-white" onclick="window.deleteAdminEvent('${mId}', '${eId}')"><i class="fa-solid fa-trash"></i></button></div></div>`;
                 });
+            } else c.classList.add('hidden');
+        }
+        function resetAdminEventForm() { ['admin-editing-event-id','admin-event-place','admin-event-date','admin-event-details','admin-event-media'].forEach(id => document.getElementById(id).value = ''); document.getElementById('admin-event-form-title').innerHTML = '<i class="fa-solid fa-plus text-djCyan"></i> Añadir Evento'; document.getElementById('btn-add-event').innerHTML = 'GUARDAR'; document.getElementById('btn-cancel-edit').classList.add('hidden'); }
+        window.editAdminEvent = function(mId, eId) { const ev = dbData.municipalities[mId].events[eId]; document.getElementById('admin-editing-event-id').value = eId; document.getElementById('admin-event-place').value = ev.place||''; document.getElementById('admin-event-date').value = ev.date||''; document.getElementById('admin-event-details').value = ev.details||''; document.getElementById('admin-event-media').value = ev.media||''; document.getElementById('admin-event-form-title').innerHTML = '<i class="fa-solid fa-pen text-djCyan"></i> Editar Evento'; document.getElementById('btn-add-event').innerHTML = 'ACTUALIZAR'; document.getElementById('btn-cancel-edit').classList.remove('hidden'); };
+        window.deleteAdminEvent = function(mId, eId) { if(confirm("¿Borrar evento?")) remove(ref(db, `municipalities/${mId}/events/${eId}`)).then(()=>loadMuniInfo(mId)); };
+        document.getElementById('btn-cancel-edit').addEventListener('click', resetAdminEventForm);
+        
+        document.getElementById('btn-add-event').addEventListener('click', () => {
+            const id = document.getElementById('admin-muni-id').value; if(!id) return alert("Selecciona municipio en mapa.");
+            update(ref(db, `municipalities/${id}`), { status: document.getElementById('admin-muni-status').value, name: document.getElementById('admin-muni-name').value.trim()||id });
+            const place = document.getElementById('admin-event-place').value.trim(), eId = document.getElementById('admin-editing-event-id').value;
+            if(place || eId) {
+                const payload = { place: place, date: document.getElementById('admin-event-date').value, details: document.getElementById('admin-event-details').value, media: document.getElementById('admin-event-media').value };
+                if(eId) update(ref(db, `municipalities/${id}/events/${eId}`), payload).then(()=>{resetAdminEventForm();loadMuniInfo(id);});
+                else push(ref(db, `municipalities/${id}/events`), payload).then(()=>{resetAdminEventForm();loadMuniInfo(id);});
+            } else loadMuniInfo(id);
+            const btn = document.getElementById('btn-add-event'); btn.innerHTML = "¡OK!"; btn.classList.replace('bg-djCyan','bg-green-400'); setTimeout(()=>{btn.innerHTML="GUARDAR";btn.classList.replace('bg-green-400','bg-djCyan');},1500);
+        });
+
+        // ADMIN: SETUP COMPONENTES (Múltiples Puntos)
+        let currentAdminPoints = [];
+        
+        function updateCompDropdown() {
+            const sel = document.getElementById('admin-comp-select'); const cv = sel.value;
+            sel.innerHTML = '<option value="NEW">-- NUEVO COMPONENTE --</option>';
+            for (const [id, data] of Object.entries(dbData.components)) sel.innerHTML += `<option value="${id}">${data.title}</option>`;
+            if(dbData.components[cv]) sel.value = cv;
+        }
+
+        function renderAdminPointsList() {
+            const ul = document.getElementById('admin-comp-points-list'); ul.innerHTML = '';
+            if(currentAdminPoints.length === 0) ul.innerHTML = '<li class="text-gray-600 text-[10px]">No hay puntos asignados.</li>';
+            currentAdminPoints.forEach((pt, i) => {
+                ul.innerHTML += `<li class="flex justify-between items-center bg-[#0b0c0f] p-1.5 rounded"><span class="text-djCyan">Punto ${i+1}: X:${pt.x}%, Y:${pt.y}%</span><button class="text-red-500 hover:text-white px-2" onclick="window.removeAdminPoint(${i})"><i class="fa-solid fa-times"></i></button></li>`;
+            });
+        }
+        window.removeAdminPoint = function(idx) { currentAdminPoints.splice(idx, 1); renderAdminPointsList(); };
+
+        document.getElementById('admin-comp-select').addEventListener('change', (e) => {
+            const v = e.target.value;
+            if(v === 'NEW') { document.getElementById('admin-comp-title').value=''; document.getElementById('admin-comp-desc').value=''; currentAdminPoints=[]; document.getElementById('btn-delete-comp').classList.add('hidden'); }
+            else { const d = dbData.components[v]; document.getElementById('admin-comp-title').value=d.title; document.getElementById('admin-comp-desc').value=d.desc; currentAdminPoints = d.points ? [...d.points] : []; document.getElementById('btn-delete-comp').classList.remove('hidden'); }
+            renderAdminPointsList();
+        });
+
+        document.getElementById('setup-image-wrapper').addEventListener('click', (e) => {
+            if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden')) {
+                const img = document.getElementById('setup-img'), r = img.getBoundingClientRect();
+                const x = ((e.clientX - r.left) / r.width) * 100, y = ((e.clientY - r.top) / r.height) * 100;
+                currentAdminPoints.push({ x: parseFloat(Math.max(0, Math.min(100, x)).toFixed(2)), y: parseFloat(Math.max(0, Math.min(100, y)).toFixed(2)) });
+                renderAdminPointsList();
             }
+        });
+
+        document.getElementById('btn-save-comp').addEventListener('click', () => {
+            let id = document.getElementById('admin-comp-select').value; if(id === 'NEW') id = `comp_${Date.now()}`;
+            const t = document.getElementById('admin-comp-title').value; if(!t) return alert("Falta título.");
+            set(ref(db, `components/${id}`), { title: t, desc: document.getElementById('admin-comp-desc').value, points: currentAdminPoints }).then(() => {
+                const b = document.getElementById('btn-save-comp'); b.innerHTML="¡OK!"; b.classList.replace('bg-djMagenta','bg-green-400'); setTimeout(()=>{b.innerHTML="GUARDAR EQUIPO";b.classList.replace('bg-green-400','bg-djMagenta');},1500);
+            });
+        });
+        document.getElementById('btn-delete-comp').addEventListener('click', () => {
+            const id = document.getElementById('admin-comp-select').value;
+            if(id !== 'NEW' && confirm('¿Borrar componente completo?')) remove(ref(db, `components/${id}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; document.getElementById('admin-comp-select').dispatchEvent(new Event('change')); });
+        });
+
+        // ADMIN: MASHUPS
+        function updateMashupDropdown() {
+            const sel = document.getElementById('admin-mash-select'); const cv = sel.value;
+            sel.innerHTML = '<option value="NEW">-- NUEVO MASHUP --</option>';
+            for (const [id, data] of Object.entries(dbData.mashups)) sel.innerHTML += `<option value="${id}">${data.title}</option>`;
+            if(dbData.mashups[cv]) sel.value = cv;
+        }
+
+        document.getElementById('admin-mash-select').addEventListener('change', (e) => {
+            const v = e.target.value;
+            if(v === 'NEW') { ['admin-mash-title','admin-mash-preview','admin-mash-dl'].forEach(id => document.getElementById(id).value=''); document.getElementById('btn-delete-mash').classList.add('hidden'); }
+            else { const d = dbData.mashups[v]; document.getElementById('admin-mash-title').value=d.title||''; document.getElementById('admin-mash-preview').value=d.preview||''; document.getElementById('admin-mash-dl').value=d.dl||''; document.getElementById('btn-delete-mash').classList.remove('hidden'); }
+        });
+
+        document.getElementById('btn-save-mash').addEventListener('click', () => {
+            let id = document.getElementById('admin-mash-select').value; if(id === 'NEW') id = `mash_${Date.now()}`;
+            const t = document.getElementById('admin-mash-title').value, dl = document.getElementById('admin-mash-dl').value;
+            if(!t || !dl) return alert("Falta título o link de descarga.");
+            set(ref(db, `mashups/${id}`), { title: t, preview: document.getElementById('admin-mash-preview').value, dl: dl }).then(() => {
+                const b = document.getElementById('btn-save-mash'); b.innerHTML="¡OK!"; b.classList.replace('bg-djYellow','bg-green-400'); setTimeout(()=>{b.innerHTML="GUARDAR MASHUP";b.classList.replace('bg-green-400','bg-djYellow');},1500);
+            });
+        });
+        document.getElementById('btn-delete-mash').addEventListener('click', () => {
+            const id = document.getElementById('admin-mash-select').value;
+            if(id !== 'NEW' && confirm('¿Borrar mashup?')) remove(ref(db, `mashups/${id}`)).then(()=>{ document.getElementById('admin-mash-select').value='NEW'; document.getElementById('admin-mash-select').dispatchEvent(new Event('change')); });
         });
 
     </script>
