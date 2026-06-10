@@ -3,169 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DJ VAQUERO | Official Site</title>
+    <title>DJ VAQUERO | Salamanca Tour</title>
     <link rel="icon" href="logo.png" type="image/png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     
     <style>
-        /* Estilos personalizados y tema oscuro */
         :root {
-            --neon-blue: #00f3ff;
+            --neon-cyan: #00f3ff;
             --neon-purple: #bc13fe;
+            --bg-dark: #0a0a0e;
         }
+
         body {
-            background-color: #0f0f13; /* Fondo oscuro DJ */
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 0%, rgba(188, 19, 254, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 100% 100%, rgba(0, 243, 255, 0.05) 0%, transparent 50%);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            overscroll-behavior-y: none; /* Evita pull-to-refresh en móviles */
         }
+
+        h1, h2, h3, .nav-btn { font-family: 'Rajdhani', sans-serif; }
+
+        /* Estética Glassmorphism Premium */
         .glass-panel {
-            background: rgba(25, 25, 30, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
-        .neon-text {
-            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-purple);
-        }
-        .svg-container {
+
+        .neon-text-purple { text-shadow: 0 0 10px rgba(188,19,254,0.7), 0 0 20px rgba(188,19,254,0.5); }
+        .neon-text-cyan { text-shadow: 0 0 10px rgba(0,243,255,0.7), 0 0 20px rgba(0,243,255,0.5); }
+
+        /* Contenedor del Mapa e interactividad SVG */
+        .viewport-container {
             width: 100%;
-            height: 60vh;
-            overflow: auto;
-            border-radius: 12px;
-            touch-action: pan-x pan-y; /* Permite scroll táctil */
+            height: 65vh;
+            overflow: hidden; /* Oculta lo que sale al hacer zoom */
             position: relative;
+            cursor: grab;
+            touch-action: none; /* Desactiva acciones por defecto del navegador para gestos */
         }
-        object {
+        .viewport-container:active { cursor: grabbing; }
+
+        .zoom-layer {
             width: 100%;
-            min-width: 800px; /* Para asegurar que el zoom funcione al hacer scroll */
-            transition: transform 0.3s ease;
+            height: 100%;
             transform-origin: 0 0;
+            transition: transform 0.1s ease-out; /* Suavidad al hacer scroll */
         }
-        /* Ocultar barra de scroll para estética */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #1a1a24; }
-        ::-webkit-scrollbar-thumb { background: #bc13fe; border-radius: 4px; }
+
+        /* Estilos inyectados al SVG */
+        .zoom-layer svg { width: 100%; height: 100%; drop-shadow: 0 0 10px rgba(255,255,255,0.1); }
+        .zoom-layer svg path, .zoom-layer svg g {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            stroke: rgba(255,255,255,0.2);
+            stroke-width: 1px;
+        }
+        .zoom-layer svg path:hover, .zoom-layer svg g:hover {
+            fill: rgba(0, 243, 255, 0.4) !important;
+            stroke: var(--neon-cyan);
+            stroke-width: 2px;
+            filter: drop-shadow(0 0 8px var(--neon-cyan));
+        }
+
+        /* Scrollbars elegantes */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(188,19,254,0.5); border-radius: 10px; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <header class="glass-panel sticky top-0 z-50 m-4 p-4 flex flex-col md:flex-row justify-between items-center">
-        <h1 id="site-title" class="text-3xl font-black tracking-widest neon-text cursor-pointer mb-4 md:mb-0">
-            DJ VAQUERO
-        </h1>
+    <header class="glass-panel mx-4 mt-4 p-5 flex flex-col md:flex-row justify-between items-center z-50 sticky top-4">
+        <div class="flex items-center gap-4">
+            <img src="logo.png" alt="DJ VAQUERO" class="w-12 h-12 object-contain hidden sm:block">
+            <h1 id="site-title" class="text-4xl font-bold tracking-widest text-white neon-text-purple cursor-pointer select-none">
+                DJ VAQUERO
+            </h1>
+        </div>
         
-        <div class="flex space-x-6 text-xl">
-            <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="hover:text-[#E1306C] transition-colors"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="hover:text-[#69C9D0] transition-colors"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://soundcloud.com/djvaquero" target="_blank" class="hover:text-[#ff5500] transition-colors"><i class="fa-brands fa-soundcloud"></i></a>
-            <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="hover:text-[#FF0000] transition-colors"><i class="fa-brands fa-youtube"></i></a>
+        <div class="flex space-x-5 text-2xl mt-4 md:mt-0">
+            <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="text-gray-400 hover:text-[#E1306C] transition-all transform hover:scale-110"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="text-gray-400 hover:text-white transition-all transform hover:scale-110"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://soundcloud.com/djvaquero" target="_blank" class="text-gray-400 hover:text-[#ff5500] transition-all transform hover:scale-110"><i class="fa-brands fa-soundcloud"></i></a>
+            <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="text-gray-400 hover:text-[#FF0000] transition-all transform hover:scale-110"><i class="fa-brands fa-youtube"></i></a>
         </div>
     </header>
 
-    <nav class="flex justify-center space-x-4 mb-6 px-4">
-        <button id="btn-tour" class="px-6 py-2 rounded-full font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transition-transform hover:scale-105">SALAMANCA TOUR</button>
-        <button id="btn-setup" class="px-6 py-2 rounded-full font-bold glass-panel hover:bg-gray-700 transition-colors">SETUP</button>
+    <nav class="flex justify-center gap-4 my-6 px-4 z-40">
+        <button id="btn-tour" class="nav-btn px-8 py-3 rounded-full text-lg font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_15px_rgba(188,19,254,0.5)] transition-all transform hover:scale-105">
+            SALAMANCA TOUR
+        </button>
+        <button id="btn-setup" class="nav-btn px-8 py-3 rounded-full text-lg font-bold glass-panel text-gray-300 hover:text-white transition-all transform hover:scale-105">
+            MY SETUP
+        </button>
     </nav>
 
-    <main id="sec-tour" class="flex-grow flex flex-col px-4 md:px-10 pb-10 w-full max-w-7xl mx-auto">
+    <main id="sec-tour" class="flex-grow flex flex-col lg:flex-row gap-6 px-4 md:px-8 pb-10 w-full max-w-[1400px] mx-auto animate-fade-in">
         
-        <div class="flex flex-col md:flex-row justify-between mb-4 gap-4">
-            <div class="relative w-full md:w-1/3">
-                <input type="text" id="search-muni" placeholder="Buscar municipio..." class="w-full glass-panel px-4 py-2 text-white focus:outline-none focus:border-purple-500">
-                <i class="fa-solid fa-magnifying-glass absolute right-4 top-3 text-gray-400"></i>
-            </div>
-            <div class="flex space-x-2">
-                <button id="zoom-in-tour" class="glass-panel px-4 py-2 hover:bg-gray-700"><i class="fa-solid fa-plus"></i></button>
-                <button id="zoom-out-tour" class="glass-panel px-4 py-2 hover:bg-gray-700"><i class="fa-solid fa-minus"></i></button>
-            </div>
-        </div>
-
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="svg-container glass-panel lg:w-2/3" id="map-wrapper">
-                <object id="map-svg" data="salamanca.svg" type="image/svg+xml"></object>
-            </div>
-
-            <div class="glass-panel p-6 lg:w-1/3 flex flex-col h-fit">
-                <h2 id="info-title" class="text-2xl font-bold mb-2 text-purple-400">Selecciona un municipio</h2>
-                <div id="info-status" class="mb-4">
-                    <span class="px-2 py-1 bg-gray-700 text-xs rounded uppercase tracking-wider text-gray-300">Esperando selección</span>
+        <div class="flex-1 flex flex-col gap-4">
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <div class="relative w-full sm:w-2/3">
+                    <input type="text" id="search-muni" placeholder="Busca un municipio..." class="w-full glass-panel pl-12 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-500 transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-purple-400"></i>
                 </div>
-                <div id="info-content" class="text-gray-300 hidden">
-                    <p class="mb-2"><i class="fa-solid fa-location-dot mr-2"></i><strong class="text-white">Lugar:</strong> <span id="info-place"></span></p>
-                    <p class="mb-2"><i class="fa-solid fa-calendar mr-2"></i><strong class="text-white">Fecha:</strong> <span id="info-date"></span></p>
-                    <p class="mb-4"><i class="fa-solid fa-circle-info mr-2"></i><strong class="text-white">Detalles:</strong> <span id="info-details"></span></p>
-                    
-                    <h3 class="text-xl font-bold mt-4 mb-2 border-b border-gray-600 pb-1">MEDIA <i class="fa-brands fa-tiktok text-sm"></i></h3>
-                    <div id="info-media" class="flex flex-col gap-2">
-                        </div>
+                <div class="flex gap-2 w-full sm:w-auto justify-end">
+                    <button class="btn-reset-zoom glass-panel px-4 py-3 hover:bg-white/10 transition-colors text-sm font-bold text-gray-300"><i class="fa-solid fa-expand mr-2"></i>CENTRAR</button>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <main id="sec-setup" class="hidden flex-grow flex flex-col px-4 md:px-10 pb-10 w-full max-w-7xl mx-auto">
-        <div class="flex justify-end mb-4">
-            <div class="flex space-x-2">
-                <button id="zoom-in-setup" class="glass-panel px-4 py-2 hover:bg-gray-700"><i class="fa-solid fa-plus"></i></button>
-                <button id="zoom-out-setup" class="glass-panel px-4 py-2 hover:bg-gray-700"><i class="fa-solid fa-minus"></i></button>
+            <div class="viewport-container glass-panel" id="tour-viewport">
+                <div class="zoom-layer" id="tour-layer">
+                    </div>
             </div>
+            <p class="text-center text-xs text-gray-500"><i class="fa-solid fa-hand-pointer"></i> Arrastra para mover. Usa la rueda del ratón o pellizca para hacer zoom.</p>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="svg-container glass-panel lg:w-2/3" id="setup-wrapper">
-                <object id="setup-svg" data="setup.svg" type="image/svg+xml"></object>
+        <aside class="glass-panel p-6 lg:w-[400px] flex flex-col h-[75vh] overflow-y-auto">
+            <div id="info-header" class="mb-6 border-b border-white/10 pb-4">
+                <h2 id="info-title" class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 uppercase tracking-wide">
+                    Selecciona en el mapa
+                </h2>
+                <div id="info-status" class="mt-2">
+                    <span class="px-3 py-1 bg-white/5 text-gray-400 text-sm rounded-full border border-gray-600"><i class="fa-solid fa-location-crosshairs mr-1"></i> Esperando...</span>
+                </div>
             </div>
+
+            <div id="info-events" class="flex-grow flex flex-col gap-4 text-gray-300 hidden">
+                </div>
             
-            <div class="glass-panel p-6 lg:w-1/3 flex flex-col h-fit">
-                <h2 id="setup-title" class="text-2xl font-bold mb-2 text-blue-400">Selecciona un componente</h2>
-                <div id="setup-content" class="text-gray-300 mt-4">
-                    <p id="setup-specs">Haz clic en altavoces, mesa, etc. para ver especificaciones.</p>
-                </div>
+            <div id="info-empty" class="flex-grow flex flex-col items-center justify-center text-gray-500 text-center opacity-50">
+                <i class="fa-solid fa-map-location-dot text-5xl mb-3"></i>
+                <p>Navega por el mapa para ver los eventos confirmados.</p>
             </div>
-        </div>
+        </aside>
     </main>
 
-    <div id="admin-panel" class="hidden fixed inset-0 bg-black bg-opacity-90 z-[100] flex justify-center items-center p-4 overflow-y-auto">
-        <div class="glass-panel p-6 w-full max-w-2xl bg-gray-900 border-red-500 border-2">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-red-500"><i class="fa-solid fa-lock-open"></i> MODO ADMIN</h2>
-                <button id="btn-close-admin" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+    <main id="sec-setup" class="hidden flex-grow flex flex-col lg:flex-row gap-6 px-4 md:px-8 pb-10 w-full max-w-[1400px] mx-auto">
+        <div class="flex-1 flex flex-col gap-4">
+            <div class="flex justify-end">
+                <button class="btn-reset-zoom glass-panel px-4 py-3 hover:bg-white/10 transition-colors text-sm font-bold text-gray-300"><i class="fa-solid fa-expand mr-2"></i>CENTRAR</button>
+            </div>
+            <div class="viewport-container glass-panel" id="setup-viewport">
+                <div class="zoom-layer" id="setup-layer">
+                    </div>
+            </div>
+        </div>
+        
+        <aside class="glass-panel p-6 lg:w-[400px] flex flex-col h-fit">
+            <h2 id="setup-title" class="text-3xl font-bold text-cyan-400 mb-2 font-rajdhani tracking-wide">MY GEAR</h2>
+            <div class="w-full h-px bg-gradient-to-r from-cyan-500 to-transparent mb-4"></div>
+            <div id="setup-content" class="text-gray-300">
+                <p id="setup-specs" class="leading-relaxed whitespace-pre-line text-lg">
+                    Haz clic en los altavoces, mesa, iluminación o máquinas de humo para ver sus especificaciones técnicas.
+                </p>
+            </div>
+        </aside>
+    </main>
+
+    <div id="admin-panel" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex justify-center items-center p-4 overflow-y-auto">
+        <div class="glass-panel p-8 w-full max-w-4xl bg-[#111116] border border-red-500/50 shadow-[0_0_30px_rgba(255,0,0,0.2)]">
+            <div class="flex justify-between items-center mb-6 border-b border-red-500/30 pb-4">
+                <h2 class="text-3xl font-bold text-red-500 font-rajdhani tracking-wider"><i class="fa-solid fa-shield-halved mr-2"></i> TERMINAL ADMIN</h2>
+                <button id="btn-close-admin" class="text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-3xl"></i></button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="font-bold text-purple-400 mb-2">Editar Municipio</h3>
-                    <input type="text" id="admin-muni-id" placeholder="ID/Nombre del Municipio" class="w-full p-2 mb-2 bg-gray-800 rounded">
-                    <select id="admin-muni-status" class="w-full p-2 mb-2 bg-gray-800 rounded">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <h3 class="font-bold text-purple-400 text-xl mb-4"><i class="fa-solid fa-map"></i> Gestión de Municipios</h3>
+                    
+                    <label class="text-xs text-gray-400 uppercase">ID del Municipio (Exacto al mapa)</label>
+                    <input type="text" id="admin-muni-id" placeholder="Ej: Salamanca_Capital" class="w-full p-3 mb-4 bg-black/50 rounded-lg text-white border border-white/10 focus:border-purple-500 outline-none">
+                    
+                    <label class="text-xs text-gray-400 uppercase">Estado General</label>
+                    <select id="admin-muni-status" class="w-full p-3 mb-4 bg-black/50 rounded-lg text-white border border-white/10 outline-none">
                         <option value="locked">Bloqueado</option>
                         <option value="unlocked">Desbloqueado</option>
                     </select>
-                    <input type="text" id="admin-muni-place" placeholder="Lugar del evento" class="w-full p-2 mb-2 bg-gray-800 rounded">
-                    <input type="date" id="admin-muni-date" class="w-full p-2 mb-2 bg-gray-800 rounded text-gray-400">
-                    <textarea id="admin-muni-details" placeholder="Detalles extra" class="w-full p-2 mb-2 bg-gray-800 rounded"></textarea>
-                    <input type="text" id="admin-muni-media" placeholder="URL TikTok/Reel (separado por comas)" class="w-full p-2 mb-4 bg-gray-800 rounded">
-                    <button id="btn-save-muni" class="w-full bg-purple-600 hover:bg-purple-700 p-2 rounded font-bold">Guardar Municipio</button>
+
+                    <div class="bg-black/30 p-3 rounded-lg border border-purple-500/30">
+                        <h4 class="text-sm font-bold text-white mb-2">Añadir Nuevo Evento a este Municipio</h4>
+                        <input type="text" id="admin-event-place" placeholder="Discoteca / Plaza" class="w-full p-2 mb-2 bg-black/50 rounded text-sm text-white">
+                        <input type="date" id="admin-event-date" class="w-full p-2 mb-2 bg-black/50 rounded text-sm text-gray-300">
+                        <textarea id="admin-event-details" placeholder="Detalles (Sold out, especial...)" class="w-full p-2 mb-2 bg-black/50 rounded text-sm text-white h-20"></textarea>
+                        <input type="text" id="admin-event-media" placeholder="URLs TikTok/Reel (separadas por coma)" class="w-full p-2 mb-3 bg-black/50 rounded text-sm text-white">
+                        
+                        <button id="btn-add-event" class="w-full bg-purple-600/80 hover:bg-purple-500 p-2 rounded-lg font-bold transition-colors">
+                            <i class="fa-solid fa-plus mr-2"></i> Añadir Evento
+                        </button>
+                    </div>
                 </div>
 
-                <div>
-                    <h3 class="font-bold text-blue-400 mb-2">Editar Componente Setup</h3>
-                    <input type="text" id="admin-setup-id" placeholder="ID/Nombre Componente" class="w-full p-2 mb-2 bg-gray-800 rounded">
-                    <input type="text" id="admin-setup-name" placeholder="Nombre a mostrar" class="w-full p-2 mb-2 bg-gray-800 rounded">
-                    <textarea id="admin-setup-specs" placeholder="Especificaciones" class="w-full p-2 mb-4 bg-gray-800 rounded h-32"></textarea>
-                    <button id="btn-save-setup" class="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded font-bold">Guardar Componente</button>
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <h3 class="font-bold text-cyan-400 text-xl mb-4"><i class="fa-solid fa-sliders"></i> Gestión de Setup</h3>
+                    
+                    <label class="text-xs text-gray-400 uppercase">ID del Componente (Exacto al SVG)</label>
+                    <input type="text" id="admin-setup-id" placeholder="Ej: altavoz_izq" class="w-full p-3 mb-4 bg-black/50 rounded-lg text-white border border-white/10 focus:border-cyan-500 outline-none">
+                    
+                    <label class="text-xs text-gray-400 uppercase">Nombre a mostrar</label>
+                    <input type="text" id="admin-setup-name" placeholder="Pioneer CDJ-3000..." class="w-full p-3 mb-4 bg-black/50 rounded-lg text-white border border-white/10 outline-none">
+                    
+                    <label class="text-xs text-gray-400 uppercase">Especificaciones</label>
+                    <textarea id="admin-setup-specs" placeholder="Potencia, canales, características..." class="w-full p-3 mb-4 bg-black/50 rounded-lg text-white border border-white/10 outline-none h-40"></textarea>
+                    
+                    <button id="btn-save-setup" class="w-full bg-cyan-600/80 hover:bg-cyan-500 p-3 rounded-lg font-bold transition-colors mt-auto">
+                        <i class="fa-solid fa-floppy-disk mr-2"></i> Guardar Componente
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script type="module">
-        // 1. IMPORTAR FIREBASE
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, set, update, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onValue, set, push, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+        // 1. CONFIGURACIÓN FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
             authDomain: "djvaquero-851e8.firebaseapp.com",
@@ -175,203 +237,296 @@
             messagingSenderId: "943264468873",
             appId: "1:943264468873:web:30725455620a5f737bdb58"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Variables de Estado Local
+        // Estado Global
         let dbData = { municipalities: {}, setup: {} };
-        let currentSection = 'tour'; // 'tour' o 'setup'
-        let tourZoom = 1;
-        let setupZoom = 1;
+        let activeSection = 'tour';
 
-        // 2. OBTENER DATOS DE FIREBASE EN TIEMPO REAL
+        // 2. SINCRONIZACIÓN FIREBASE
         onValue(ref(db, '/'), (snapshot) => {
             const data = snapshot.val();
             if(data) {
                 if(data.municipalities) dbData.municipalities = data.municipalities;
                 if(data.setup) dbData.setup = data.setup;
-                
-                // Actualizar UI si se hacen cambios desde admin
                 colorearMapa();
             }
         });
 
-        // 3. NAVEGACIÓN TABS
+        // 3. SISTEMA DE ZOOM Y PANEO (Rueda y Táctil Multi-touch)
+        function enableZoomPan(viewportId, layerId) {
+            const viewport = document.getElementById(viewportId);
+            const layer = document.getElementById(layerId);
+            
+            let scale = 1, panning = false, pointX = 0, pointY = 0, startX = 0, startY = 0;
+            let initialDistance = null;
+
+            const setTransform = () => {
+                layer.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+            };
+
+            // Rueda de ratón
+            viewport.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const xs = (e.clientX - viewport.getBoundingClientRect().left - pointX) / scale;
+                const ys = (e.clientY - viewport.getBoundingClientRect().top - pointY) / scale;
+                const delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+                
+                (delta > 0) ? (scale *= 1.15) : (scale /= 1.15);
+                scale = Math.max(0.5, Math.min(scale, 10)); // Límites de zoom
+                
+                pointX = (e.clientX - viewport.getBoundingClientRect().left) - xs * scale;
+                pointY = (e.clientY - viewport.getBoundingClientRect().top) - ys * scale;
+                setTransform();
+            }, { passive: false });
+
+            // Ratón arrastrar
+            viewport.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                startX = e.clientX - pointX;
+                startY = e.clientY - pointY;
+                panning = true;
+            });
+            window.addEventListener('mouseup', () => panning = false);
+            window.addEventListener('mousemove', (e) => {
+                if (!panning) return;
+                pointX = e.clientX - startX;
+                pointY = e.clientY - startY;
+                setTransform();
+            });
+
+            // Táctil (Arrastrar y Pellizcar)
+            viewport.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    startX = e.touches[0].clientX - pointX;
+                    startY = e.touches[0].clientY - pointY;
+                    panning = true;
+                } else if (e.touches.length === 2) {
+                    panning = false;
+                    initialDistance = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                }
+            }, { passive: false });
+
+            viewport.addEventListener('touchmove', (e) => {
+                e.preventDefault(); // Evita scroll de la página
+                if (e.touches.length === 1 && panning) {
+                    pointX = e.touches[0].clientX - startX;
+                    pointY = e.touches[0].clientY - startY;
+                    setTransform();
+                } else if (e.touches.length === 2 && initialDistance) {
+                    const currentDistance = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                    
+                    const containerRect = viewport.getBoundingClientRect();
+                    // Aproximar centro del pellizco
+                    const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - containerRect.left;
+                    const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - containerRect.top;
+
+                    const xs = (centerX - pointX) / scale;
+                    const ys = (centerY - pointY) / scale;
+
+                    const scaleChange = currentDistance / initialDistance;
+                    scale *= scaleChange;
+                    scale = Math.max(0.5, Math.min(scale, 10));
+
+                    pointX = centerX - xs * scale;
+                    pointY = centerY - ys * scale;
+
+                    initialDistance = currentDistance;
+                    setTransform();
+                }
+            }, { passive: false });
+
+            viewport.addEventListener('touchend', (e) => {
+                if (e.touches.length < 2) initialDistance = null;
+                if (e.touches.length === 0) panning = false;
+            });
+
+            // Resetear
+            return () => { scale = 1; pointX = 0; pointY = 0; setTransform(); };
+        }
+
+        const resetTourZoom = enableZoomPan('tour-viewport', 'tour-layer');
+        const resetSetupZoom = enableZoomPan('setup-viewport', 'setup-layer');
+
+        document.querySelectorAll('.btn-reset-zoom').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if(activeSection === 'tour') resetTourZoom();
+                else resetSetupZoom();
+            });
+        });
+
+        // 4. CARGAR E INYECTAR SVG
+        async function loadInlineSVG(url, containerId, isTour) {
+            try {
+                const response = await fetch(url);
+                const svgText = await response.text();
+                document.getElementById(containerId).innerHTML = svgText;
+                
+                // Extraer SVG e interactividad
+                const svgElement = document.getElementById(containerId).querySelector('svg');
+                if(svgElement) {
+                    // Prevenir que el SVG en sí bloquee el paneo
+                    svgElement.style.pointerEvents = 'none'; 
+                    
+                    const elements = svgElement.querySelectorAll('[id]');
+                    elements.forEach(el => {
+                        el.style.pointerEvents = 'auto'; // Permitir click en paths
+                        el.addEventListener('click', (e) => {
+                            e.stopPropagation(); // Evitar interferencias
+                            const id = el.getAttribute('id');
+                            if(isTour) loadMuniInfo(id);
+                            else loadSetupInfo(id);
+                        });
+                        el.addEventListener('touchstart', (e) => { e.stopPropagation(); }); // Movil tap
+                    });
+                    if(isTour) colorearMapa();
+                }
+            } catch (err) {
+                console.error("Error cargando SVG (Recuerda abrir en Live Server):", err);
+                document.getElementById(containerId).innerHTML = `<p class="p-4 text-red-500">Error: Abre el archivo usando un servidor local (Live Server) para cargar ${url}</p>`;
+            }
+        }
+
+        loadInlineSVG('salamanca.svg', 'tour-layer', true);
+        loadInlineSVG('setup.svg', 'setup-layer', false);
+
+        // 5. NAVEGACIÓN Y TABS
         const btnTour = document.getElementById('btn-tour');
         const btnSetup = document.getElementById('btn-setup');
         const secTour = document.getElementById('sec-tour');
         const secSetup = document.getElementById('sec-setup');
 
-        btnTour.addEventListener('click', () => {
-            secTour.classList.remove('hidden');
-            secSetup.classList.add('hidden');
-            btnTour.className = "px-6 py-2 rounded-full font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transition-transform hover:scale-105";
-            btnSetup.className = "px-6 py-2 rounded-full font-bold glass-panel hover:bg-gray-700 transition-colors";
-        });
+        function switchTab(toTour) {
+            activeSection = toTour ? 'tour' : 'setup';
+            if(toTour) {
+                secTour.classList.remove('hidden'); secSetup.classList.add('hidden');
+                btnTour.className = "nav-btn px-8 py-3 rounded-full text-lg font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_15px_rgba(188,19,254,0.5)] transition-all transform hover:scale-105";
+                btnSetup.className = "nav-btn px-8 py-3 rounded-full text-lg font-bold glass-panel text-gray-300 hover:text-white transition-all transform hover:scale-105";
+            } else {
+                secSetup.classList.remove('hidden'); secTour.classList.add('hidden');
+                btnSetup.className = "nav-btn px-8 py-3 rounded-full text-lg font-bold bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-[0_0_15px_rgba(0,243,255,0.5)] transition-all transform hover:scale-105";
+                btnTour.className = "nav-btn px-8 py-3 rounded-full text-lg font-bold glass-panel text-gray-300 hover:text-white transition-all transform hover:scale-105";
+            }
+        }
+        btnTour.addEventListener('click', () => switchTab(true));
+        btnSetup.addEventListener('click', () => switchTab(false));
 
-        btnSetup.addEventListener('click', () => {
-            secSetup.classList.remove('hidden');
-            secTour.classList.add('hidden');
-            btnSetup.className = "px-6 py-2 rounded-full font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transition-transform hover:scale-105";
-            btnTour.className = "px-6 py-2 rounded-full font-bold glass-panel hover:bg-gray-700 transition-colors";
-        });
-
-        // 4. LÓGICA DE MAPAS Y SVG
-        // Función para aplicar zoom
-        function applyZoom(objId, scale) {
-            const obj = document.getElementById(objId);
-            obj.style.transform = `scale(${scale})`;
+        // 6. LÓGICA DE DATOS
+        function colorearMapa() {
+            const container = document.getElementById('tour-layer');
+            for (const [id, data] of Object.entries(dbData.municipalities)) {
+                const element = container.querySelector(`[id="${id}"]`);
+                if(element) {
+                    if(data.status === 'unlocked') {
+                        element.style.fill = 'rgba(188, 19, 254, 0.7)'; // Púrpura neón
+                        element.style.stroke = 'var(--neon-purple)';
+                    } else {
+                        element.style.fill = 'rgba(20, 20, 30, 0.8)'; // Oscuro
+                        element.style.stroke = 'rgba(255,255,255,0.1)';
+                    }
+                }
+            }
         }
 
-        document.getElementById('zoom-in-tour').onclick = () => { tourZoom += 0.2; applyZoom('map-svg', tourZoom); };
-        document.getElementById('zoom-out-tour').onclick = () => { tourZoom = Math.max(0.5, tourZoom - 0.2); applyZoom('map-svg', tourZoom); };
-        
-        document.getElementById('zoom-in-setup').onclick = () => { setupZoom += 0.2; applyZoom('setup-svg', setupZoom); };
-        document.getElementById('zoom-out-setup').onclick = () => { setupZoom = Math.max(0.5, setupZoom - 0.2); applyZoom('setup-svg', setupZoom); };
-
-        // Interacción con SVG (Detectar clics en los SVG)
-        function initSVGInteraction(svgObjId, isTour) {
-            const obj = document.getElementById(svgObjId);
-            obj.addEventListener('load', () => {
-                const svgDoc = obj.contentDocument;
-                if(!svgDoc) return; // Protegido por CORS si no está en servidor
-                
-                // Se asume que todos los paths o grupos que importan tienen ID
-                const elements = svgDoc.querySelectorAll('[id]');
-                elements.forEach(el => {
-                    // Estilo de cursor
-                    el.style.cursor = 'pointer';
-                    el.addEventListener('click', (e) => {
-                        const id = el.getAttribute('id');
-                        if(isTour) loadMuniInfo(id);
-                        else loadSetupInfo(id);
-                    });
-                });
-                if(isTour) colorearMapa(); // Colorear al inicio
-            });
-        }
-        initSVGInteraction('map-svg', true);
-        initSVGInteraction('setup-svg', false);
-
-        // 5. CARGAR INFORMACIÓN UI
         function loadMuniInfo(id) {
             const muni = dbData.municipalities[id];
-            document.getElementById('info-title').innerText = id.replace(/_/g, ' '); // Remplazar guiones bajos por espacios
+            const cleanName = id.replace(/_/g, ' ');
+            document.getElementById('info-title').innerText = cleanName;
             
             const statusDiv = document.getElementById('info-status');
-            const contentDiv = document.getElementById('info-content');
+            const eventsDiv = document.getElementById('info-events');
+            const emptyDiv = document.getElementById('info-empty');
+
+            // Preparar auto-relleno Admin
+            document.getElementById('admin-muni-id').value = id;
 
             if (muni && muni.status === 'unlocked') {
-                statusDiv.innerHTML = '<span class="px-2 py-1 bg-green-600 text-white text-xs rounded uppercase tracking-wider">¡Desbloqueado!</span>';
-                contentDiv.classList.remove('hidden');
-                
-                document.getElementById('info-place').innerText = muni.place || 'N/A';
-                document.getElementById('info-date').innerText = muni.date || 'N/A';
-                document.getElementById('info-details').innerText = muni.details || 'Sin detalles.';
-                
-                // Cargar Media
-                const mediaContainer = document.getElementById('info-media');
-                mediaContainer.innerHTML = '';
-                if(muni.media) {
-                    const links = muni.media.split(',');
-                    links.forEach(link => {
-                        if(link.trim() !== '') {
-                            mediaContainer.innerHTML += `<a href="${link.trim()}" target="_blank" class="text-blue-400 hover:text-blue-300 underline text-sm truncate"><i class="fa-solid fa-link"></i> Ver contenido multimedia</a>`;
+                document.getElementById('admin-muni-status').value = 'unlocked';
+                statusDiv.innerHTML = `<span class="px-3 py-1 bg-purple-600/20 text-purple-400 border border-purple-500 rounded-full text-sm font-bold shadow-[0_0_10px_rgba(188,19,254,0.3)]"><i class="fa-solid fa-unlock"></i> Desbloqueado</span>`;
+                emptyDiv.classList.add('hidden');
+                eventsDiv.classList.remove('hidden');
+                eventsDiv.innerHTML = '';
+
+                if(muni.events) {
+                    Object.values(muni.events).forEach(ev => {
+                        let mediaHtml = '';
+                        if(ev.media) {
+                            const links = ev.media.split(',');
+                            links.forEach(link => {
+                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-block mt-2 px-3 py-1 bg-black/50 hover:bg-white/10 rounded border border-white/20 text-xs text-cyan-400 transition-colors"><i class="fa-brands fa-tiktok mr-1"></i> Ver Media</a> `;
+                            });
                         }
+
+                        eventsDiv.innerHTML += `
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-4 transition-all hover:bg-white/10">
+                                <h4 class="text-xl font-bold text-white flex justify-between">
+                                    <span><i class="fa-solid fa-location-dot text-purple-500 mr-2"></i>${ev.place || 'Lugar TBD'}</span>
+                                </h4>
+                                <p class="text-sm text-cyan-300 font-bold mt-1"><i class="fa-regular fa-calendar mr-2"></i>${ev.date || 'Fecha TBD'}</p>
+                                <p class="text-sm text-gray-400 mt-3 bg-black/30 p-2 rounded">${ev.details || 'Sin detalles adicionales.'}</p>
+                                ${mediaHtml}
+                            </div>
+                        `;
                     });
+                } else {
+                    eventsDiv.innerHTML = `<p class="text-gray-500 italic">No hay eventos registrados aún en este municipio.</p>`;
                 }
             } else {
-                statusDiv.innerHTML = '<span class="px-2 py-1 bg-red-600 text-white text-xs rounded uppercase tracking-wider"><i class="fa-solid fa-lock"></i> Bloqueado</span>';
-                contentDiv.classList.add('hidden');
-            }
-
-            // Auto-rellenar Admin si está abierto
-            document.getElementById('admin-muni-id').value = id;
-            if(muni) {
-                document.getElementById('admin-muni-status').value = muni.status || 'locked';
-                document.getElementById('admin-muni-place').value = muni.place || '';
-                document.getElementById('admin-muni-date').value = muni.date || '';
-                document.getElementById('admin-muni-details').value = muni.details || '';
-                document.getElementById('admin-muni-media').value = muni.media || '';
-            } else {
                 document.getElementById('admin-muni-status').value = 'locked';
-                document.getElementById('admin-muni-place').value = '';
-                document.getElementById('admin-muni-date').value = '';
-                document.getElementById('admin-muni-details').value = '';
-                document.getElementById('admin-muni-media').value = '';
+                statusDiv.innerHTML = `<span class="px-3 py-1 bg-black/50 text-gray-500 border border-gray-700 rounded-full text-sm"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
+                emptyDiv.classList.add('hidden');
+                eventsDiv.classList.remove('hidden');
+                eventsDiv.innerHTML = `<p class="text-center text-gray-500 my-10 border border-dashed border-gray-600 p-6 rounded-xl">Este municipio aún no ha sido desbloqueado en el tour.</p>`;
             }
         }
 
         function loadSetupInfo(id) {
             const comp = dbData.setup[id];
             document.getElementById('setup-title').innerText = comp ? comp.name : id.replace(/_/g, ' ');
-            document.getElementById('setup-specs').innerText = comp ? comp.specs : 'Especificaciones no disponibles. (Bloqueado/No configurado)';
+            document.getElementById('setup-specs').innerHTML = comp ? comp.specs.replace(/\n/g, '<br>') : 'Especificaciones no disponibles.';
             
-            // Auto-rellenar Admin
             document.getElementById('admin-setup-id').value = id;
             document.getElementById('admin-setup-name').value = comp ? comp.name : '';
             document.getElementById('admin-setup-specs').value = comp ? comp.specs : '';
         }
 
-        function colorearMapa() {
-            const obj = document.getElementById('map-svg');
-            const svgDoc = obj.contentDocument;
-            if(!svgDoc) return;
-
-            // Recorrer los ids en la BBDD
-            for (const [id, data] of Object.entries(dbData.municipalities)) {
-                const element = svgDoc.getElementById(id);
-                if(element) {
-                    if(data.status === 'unlocked') {
-                        element.style.fill = '#bc13fe'; // Neon Purple para desbloqueados
-                        element.style.opacity = '0.8';
-                    } else {
-                        element.style.fill = '#333344'; // Oscuro bloqueado
-                    }
-                }
-            }
-        }
-
-        // Buscador de Municipios
+        // Buscador
         document.getElementById('search-muni').addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
             if(val.length > 2) {
-                // Lógica simple: Si coincide con ID, cargar
-                const obj = document.getElementById('map-svg').contentDocument;
-                if(obj) {
-                    const elements = obj.querySelectorAll('[id]');
-                    elements.forEach(el => {
-                        if(el.id.toLowerCase().includes(val)) {
-                            // Cargar el primero que coincida
-                            loadMuniInfo(el.id);
-                            // Resaltar visualmente (opcional)
-                            el.style.stroke = "white";
-                            el.style.strokeWidth = "3px";
-                            setTimeout(() => el.style.stroke = "none", 2000);
-                        }
-                    });
+                const container = document.getElementById('tour-layer');
+                const elements = container.querySelectorAll('[id]');
+                for(let el of elements) {
+                    if(el.id.toLowerCase().includes(val)) {
+                        loadMuniInfo(el.id);
+                        // Resaltar visualmente
+                        const oldStroke = el.style.stroke;
+                        el.style.stroke = "white";
+                        el.style.strokeWidth = "3px";
+                        setTimeout(() => el.style.stroke = oldStroke, 1500);
+                        break; // Cargar solo el primero
+                    }
                 }
             }
         });
 
-        // 6. MODO ADMINISTRADOR (Contraseña 1524, triple clic)
-        let clickCount = 0;
-        let clickTimer;
-        
+        // 7. MODO ADMIN
+        let clickCount = 0; let clickTimer;
         document.getElementById('site-title').addEventListener('click', () => {
             clickCount++;
             clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => { clickCount = 0; }, 1000); // Reset tras 1 segundo
-            
+            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
             if(clickCount >= 3) {
                 clickCount = 0;
-                let password = prompt("Introduce contraseña de administrador:");
-                if(password === "1524") {
-                    document.getElementById('admin-panel').classList.remove('hidden');
-                } else if (password !== null) {
-                    alert("Contraseña incorrecta.");
-                }
+                let pwd = prompt("Terminal Root | Pass:");
+                if(pwd === "1524") document.getElementById('admin-panel').classList.remove('hidden');
             }
         });
 
@@ -379,34 +534,51 @@
             document.getElementById('admin-panel').classList.add('hidden');
         };
 
-        // Guardar Datos en Firebase
-        document.getElementById('btn-save-muni').addEventListener('click', () => {
+        // Guardar Evento (Añade a array) y actualizar Estado
+        document.getElementById('btn-add-event').addEventListener('click', () => {
             const id = document.getElementById('admin-muni-id').value;
-            if(!id) return alert("Introduce un ID de municipio.");
+            if(!id) return alert("Selecciona o escribe un ID de municipio primero.");
             
-            const data = {
-                status: document.getElementById('admin-muni-status').value,
-                place: document.getElementById('admin-muni-place').value,
-                date: document.getElementById('admin-muni-date').value,
-                details: document.getElementById('admin-muni-details').value,
-                media: document.getElementById('admin-muni-media').value
-            };
+            const status = document.getElementById('admin-muni-status').value;
+            
+            // 1. Actualizar estado del municipio
+            update(ref(db, `municipalities/${id}`), { status: status });
 
-            set(ref(db, 'municipalities/' + id), data)
-                .then(() => alert('Municipio guardado!'))
-                .catch((err) => alert('Error: ' + err));
+            // 2. Si hay datos de evento, crear uno nuevo
+            const place = document.getElementById('admin-event-place').value;
+            if(place) {
+                const newEvent = {
+                    place: place,
+                    date: document.getElementById('admin-event-date').value,
+                    details: document.getElementById('admin-event-details').value,
+                    media: document.getElementById('admin-event-media').value
+                };
+                
+                push(ref(db, `municipalities/${id}/events`), newEvent)
+                    .then(() => {
+                        alert('¡Evento añadido y municipio actualizado!');
+                        document.getElementById('admin-event-place').value = '';
+                        document.getElementById('admin-event-details').value = '';
+                        document.getElementById('admin-event-media').value = '';
+                        loadMuniInfo(id); // Recargar UI
+                    })
+                    .catch((err) => alert('Error: ' + err));
+            } else {
+                alert('Estado del municipio actualizado.');
+            }
         });
 
+        // Guardar Setup
         document.getElementById('btn-save-setup').addEventListener('click', () => {
             const id = document.getElementById('admin-setup-id').value;
-            if(!id) return alert("Introduce un ID de componente.");
+            if(!id) return alert("Introduce ID del componente.");
             
             const data = {
                 name: document.getElementById('admin-setup-name').value,
                 specs: document.getElementById('admin-setup-specs').value
             };
 
-            set(ref(db, 'setup/' + id), data)
+            set(ref(db, `setup/${id}`), data)
                 .then(() => alert('Componente guardado!'))
                 .catch((err) => alert('Error: ' + err));
         });
