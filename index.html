@@ -72,7 +72,7 @@
     <script>
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
         window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
-        window.onload = () => { window.scrollTo(0, 0); };
+        window.addEventListener('load', () => { window.scrollTo(0, 0); });
     </script>
 </head>
 <body class="flex flex-col items-center min-h-screen pb-16">
@@ -139,7 +139,7 @@
                     <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
                     <div id="admin-hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none z-40 hidden"></div>
                 </div>
-                <p id="setup-admin-hint" class="absolute bottom-4 right-6 text-djMagenta text-[11px] hidden font-bold tracking-widest uppercase bg-black/80 px-4 py-2 rounded-full border border-djMagenta/30 backdrop-blur-md z-50">MODO EDICIÓN ACTIVO: Clic para añadir • Arrastra para mover libremente</p>
+                <p id="setup-admin-hint" class="absolute bottom-4 right-6 text-djMagenta text-[11px] hidden font-bold tracking-widest uppercase bg-black/80 px-4 py-2 rounded-full border border-djMagenta/30 backdrop-blur-md z-50">MODO EDICIÓN ACTIVO: Clic para añadir • Arrastra para mover libremente con el ratón o dedo</p>
             </div>
             
             <div class="flex-[1] glass-panel p-10 flex flex-col justify-center min-h-[350px] relative overflow-hidden" id="setup-info-panel">
@@ -480,7 +480,7 @@
             });
         }
 
-        // PANEL DE SELECCIÓN DE ADMINISTRADOR
+        // PANEL DE CONTROL DE ADMINISTRADOR
         let clickCount = 0, clickTimer, activeAdminTab = 'tour';
         document.getElementById('site-title').addEventListener('click', () => {
             clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800);
@@ -548,7 +548,7 @@
             } else loadMuniInfo(id);
         };
 
-        // LÓGICA EQUIPO ADMIN CON ARRASTRE MANUAL (MOUSE & TOUCH)
+        // LÓGICA EQUIPO ADMIN CON ARRASTRE MANUAL UNIFICADO (MOUSE & TOUCH)
         let currentAdminPoints = [];
         function updateCompDropdown() {
             const sel = document.getElementById('admin-comp-select'); const cv = sel.value;
@@ -566,10 +566,10 @@
                 ul.innerHTML += `<li class="flex justify-between items-center bg-black/40 p-1 px-2 rounded border border-white/5 text-[11px]"><span class="text-djCyan">Punto ${i+1}</span><button class="text-red-500" onclick="window.removeAdminPoint(${i})"><i class="fa-solid fa-times"></i></button></li>`;
                 
                 const dot = document.createElement('div');
-                dot.className = "absolute w-6 h-6 bg-djMagenta rounded-full transform -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot flex items-center justify-center text-[10px] text-white font-bold select-none shadow-[0_0_15px_rgba(232,28,255,0.6)]";
+                dot.className = "absolute w-6 h-6 bg-djMagenta rounded-full transform -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot flex items-center justify-center text-[10px] text-white font-bold select-none shadow-[0_0_15px_rgba(232,28,255,0.6)] animate-pulse";
                 dot.style.left = pt.x + '%'; dot.style.top = pt.y + '%'; dot.innerHTML = i + 1;
                 
-                // SISTEMA INTERACTIVO ARRASTRABLE INTEGRADO DE MANERA EFICIENTE
+                // CONTROLADOR UNIFICADO EFICIENTE DE MANIPULACIÓN (MOUSE + TOUCH)
                 const onDragMove = (ev) => {
                     ev.preventDefault();
                     const img = document.getElementById('setup-img');
