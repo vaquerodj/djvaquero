@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es" class="dark flex flex-col min-h-screen">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DJ VAQUERO | Salamanca Tour</title>
+    <title>DJ VAQUERO | Official Tour & Setup</title>
     <link rel="icon" href="logo.png" type="image/png">
     
     <!-- Tailwind CSS -->
@@ -14,72 +14,75 @@
             theme: {
                 extend: {
                     colors: {
-                        djblack: '#050507',
-                        djgray: '#111116',
-                        djcyan: '#00e5ff',
-                        djpurple: '#b517ff'
+                        darkBg: '#030305',
+                        panelBg: '#0a0a0f',
+                        neonCyan: '#00f0ff',
+                        neonPurple: '#d900ff'
                     },
                     fontFamily: {
-                        heading: ['Montserrat', 'sans-serif'],
-                        mono: ['Roboto Mono', 'monospace'],
-                        sans: ['Inter', 'sans-serif']
+                        display: ['Oswald', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
     
-    <!-- FontAwesome & Google Fonts -->
+    <!-- Google Fonts & FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:ital,wght@0,700;0,900;1,900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&family=Oswald:wght@500;700;900&display=swap" rel="stylesheet">
     
     <style>
         body {
-            background-color: #030305;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(181, 23, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.08), transparent 25%);
+            background-color: var(--darkBg);
             color: #ffffff;
             overflow-x: hidden;
             overscroll-behavior-y: none;
+            /* Luces de fondo dinámicas */
+            background-image: 
+                radial-gradient(circle at 20% 0%, rgba(217, 0, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 100%, rgba(0, 240, 255, 0.1) 0%, transparent 40%);
         }
 
-        /* Paneles Premium High-Contrast */
-        .glass-panel {
-            background: linear-gradient(145deg, rgba(15, 15, 20, 0.9), rgba(5, 5, 8, 0.95));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-        }
-
-        /* Textos Neón */
-        .neon-text-main {
-            text-shadow: 0 0 20px rgba(181, 23, 255, 0.6), 0 0 40px rgba(181, 23, 255, 0.3);
-        }
-        .text-gradient {
-            background: linear-gradient(to right, #fff, #b517ff);
+        /* Título Principal Ultra-Premium */
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #ffffff 30%, #888888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(217, 0, 255, 0.4));
+            letter-spacing: -0.02em;
         }
 
-        /* Contenedor del Mapa - Estilo Radar Digital */
+        /* Paneles de Cristal (Glassmorphism) */
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(15, 15, 20, 0.8), rgba(5, 5, 8, 0.95));
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+        }
+
+        /* Visor Interactivo (Mapa y Setup) */
         .viewport-container {
             width: 100%;
-            height: 65vh;
+            height: 60vh;
             overflow: hidden;
             position: relative;
             cursor: grab;
             touch-action: none;
             background-color: #050507;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            border-radius: 12px;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.9);
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            border-radius: 20px;
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .viewport-container:active { cursor: grabbing; }
 
@@ -90,238 +93,248 @@
             transition: transform 0.05s linear;
         }
 
-        /* 
-           Sobreescritura forzada del SVG (Cura el problema de los mapas azules)
-           ¡Es imperativo usar !important para vencer los estilos incrustados en el SVG! 
-        */
-        .zoom-layer svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px rgba(0,0,0,0.8)); }
+        /* FORZAR ESTILOS DEL SVG DESDE CSS */
+        .zoom-layer svg { width: 100%; height: 100%; filter: drop-shadow(0 0 15px rgba(0,0,0,1)); }
         
         .muni-base {
-            fill: #0a0a0e !important;
-            stroke: rgba(255,255,255,0.15) !important;
+            fill: #0c0c11 !important;
+            stroke: rgba(255, 255, 255, 0.1) !important;
             stroke-width: 0.5px !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition: all 0.3s ease !important;
             cursor: pointer;
         }
         
-        /* Efecto Hover sobre municipios bloqueados */
+        /* Efecto Hover sobre TODOS los municipios */
         .muni-base:hover {
-            fill: #181822 !important;
-            stroke: #00e5ff !important;
+            fill: #1a1a24 !important;
+            stroke: #00f0ff !important;
             stroke-width: 1.5px !important;
-            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5)) !important;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.6)) !important;
         }
 
         /* Municipios Desbloqueados */
         .muni-unlocked {
-            fill: rgba(181, 23, 255, 0.65) !important;
-            stroke: #b517ff !important;
-            stroke-width: 1px !important;
+            fill: rgba(217, 0, 255, 0.4) !important;
+            stroke: #d900ff !important;
+            stroke-width: 1.2px !important;
+            cursor: pointer;
+            transition: all 0.3s ease !important;
         }
         
-        /* Efecto Hover sobre municipios desbloqueados */
         .muni-unlocked:hover {
-            fill: rgba(181, 23, 255, 0.9) !important;
-            stroke: #00e5ff !important;
+            fill: rgba(217, 0, 255, 0.8) !important;
+            stroke: #00f0ff !important;
             stroke-width: 2px !important;
-            filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.8)) !important;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.8)) !important;
         }
 
         /* Scrollbars UI */
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); }
-        ::-webkit-scrollbar-thumb { background: #b517ff; border-radius: 4px; }
-        
-        /* Animaciones personalizadas */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(181, 23, 255, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(181, 23, 255, 0.8); }
+        ::-webkit-scrollbar-thumb { background: #d900ff; border-radius: 10px; }
+
+        /* Separador de Sección */
+        .section-divider {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, rgba(217, 0, 255, 0.5), transparent);
+            margin: 4rem 0;
+            position: relative;
         }
-        .active-tab {
-            background: linear-gradient(90deg, #6b21a8, #b517ff);
-            animation: pulse-glow 2s infinite;
-            border-color: #b517ff;
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px;
+            background: #d900ff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #d900ff;
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col items-center">
 
-    <!-- HEADER PREMIUM -->
-    <header class="glass-panel mx-4 mt-6 p-4 px-8 flex flex-col md:flex-row justify-between items-center z-50 sticky top-4 border-b-2 border-b-djpurple/50">
-        <div class="flex items-center gap-5">
-            <div class="relative w-14 h-14 bg-black rounded-full border border-white/10 flex items-center justify-center overflow-hidden shadow-[0_0_15px_rgba(181,23,255,0.4)] hidden sm:flex">
-                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain z-10">
-                <div class="absolute inset-0 bg-djpurple/20 animate-pulse"></div>
-            </div>
-            <h1 id="site-title" class="text-4xl md:text-5xl font-heading font-black tracking-[0.2em] text-white neon-text-main cursor-pointer select-none">
-                DJ VAQUERO
-            </h1>
-        </div>
+    <!-- HERO SECTION (Reemplaza al menú superior) -->
+    <header class="w-full max-w-7xl mx-auto pt-16 pb-12 px-4 flex flex-col items-center justify-center text-center relative z-10">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-neonPurple/20 blur-[120px] rounded-full pointer-events-none"></div>
         
-        <div class="flex space-x-6 text-xl mt-4 md:mt-0 text-gray-400">
-            <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="hover:text-[#E1306C] hover:scale-125 transition-all duration-300"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="hover:text-white hover:drop-shadow-[0_0_8px_#00e5ff] hover:scale-125 transition-all duration-300"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://soundcloud.com/djvaquero" target="_blank" class="hover:text-[#ff5500] hover:scale-125 transition-all duration-300"><i class="fa-brands fa-soundcloud"></i></a>
-            <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="hover:text-[#FF0000] hover:scale-125 transition-all duration-300"><i class="fa-brands fa-youtube"></i></a>
+        <img src="logo.png" alt="Logo" class="w-24 h-24 object-contain mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        
+        <h1 id="site-title" class="hero-title text-6xl md:text-8xl lg:text-9xl mb-2 cursor-pointer select-none">
+            DJ VAQUERO
+        </h1>
+        <p class="font-mono text-neonCyan tracking-[0.5em] text-sm md:text-lg uppercase mb-8 opacity-80">
+            Salamanca Tour & Official Setup
+        </p>
+
+        <!-- Redes Sociales -->
+        <div class="flex space-x-8 text-2xl text-gray-400">
+            <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="hover:text-[#E1306C] hover:-translate-y-1 hover:scale-110 transition-all duration-300"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="hover:text-white hover:drop-shadow-[0_0_10px_#00f0ff] hover:-translate-y-1 hover:scale-110 transition-all duration-300"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://soundcloud.com/djvaquero" target="_blank" class="hover:text-[#ff5500] hover:-translate-y-1 hover:scale-110 transition-all duration-300"><i class="fa-brands fa-soundcloud"></i></a>
+            <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="hover:text-[#FF0000] hover:-translate-y-1 hover:scale-110 transition-all duration-300"><i class="fa-brands fa-youtube"></i></a>
         </div>
     </header>
 
-    <!-- NAVEGACIÓN -->
-    <nav class="flex justify-center gap-4 my-8 px-4 z-40 font-heading">
-        <button id="btn-tour" class="active-tab px-10 py-3 rounded-md text-sm md:text-base font-bold text-white uppercase tracking-widest transition-all border border-transparent">
-            Salamanca Tour
-        </button>
-        <button id="btn-setup" class="glass-panel px-10 py-3 rounded-md text-sm md:text-base font-bold text-gray-400 hover:text-white uppercase tracking-widest hover:border-white/30 transition-all">
-            My Setup
-        </button>
-    </nav>
-
-    <!-- SECCIÓN: SALAMANCA TOUR -->
-    <main id="sec-tour" class="flex-grow flex flex-col lg:flex-row gap-8 px-4 md:px-8 pb-12 w-full max-w-[1600px] mx-auto">
+    <!-- SECCIÓN 1: SALAMANCA TOUR -->
+    <main class="w-full max-w-[1600px] px-4 md:px-8 flex flex-col lg:flex-row gap-8 z-10">
         
-        <!-- Área del Mapa -->
-        <div class="flex-1 flex flex-col gap-5">
-            <!-- Controles High-Tech -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center glass-panel p-3">
+        <!-- Contenedor Mapa -->
+        <section class="flex-1 flex flex-col gap-5 relative">
+            <h2 class="font-display text-3xl text-white uppercase tracking-wider flex items-center gap-3">
+                <i class="fa-solid fa-map-location-dot text-neonPurple"></i> Salamanca Tour
+            </h2>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white/5 border border-white/5 rounded-xl p-2 backdrop-blur-sm">
                 <div class="relative w-full sm:w-2/3">
-                    <input type="text" id="search-muni" placeholder="Localizar municipio..." class="w-full bg-black/50 border border-white/10 rounded-md pl-12 pr-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-djcyan focus:ring-1 focus:ring-djcyan transition-all">
-                    <i class="fa-solid fa-crosshairs absolute left-4 top-1/2 -translate-y-1/2 text-djcyan"></i>
+                    <input type="text" id="search-muni" placeholder="Buscar entre más de 350 municipios..." class="w-full bg-transparent pl-12 pr-4 py-3 text-white font-mono text-sm focus:outline-none focus:text-neonCyan transition-all placeholder-gray-600">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
                 </div>
-                <button class="btn-reset-zoom w-full sm:w-auto bg-white/5 border border-white/10 hover:bg-white/10 hover:border-djcyan px-6 py-3 rounded-md transition-all text-xs font-mono tracking-widest text-white flex items-center justify-center">
-                    <i class="fa-solid fa-expand mr-2 text-djcyan"></i> RE-CENTRAR
+                <button class="btn-reset-tour w-full sm:w-auto bg-neonPurple/10 hover:bg-neonPurple/20 border border-neonPurple/30 px-6 py-3 rounded-lg transition-all text-xs font-mono tracking-widest text-neonPurple flex items-center justify-center">
+                    <i class="fa-solid fa-compress mr-2"></i> CENTRAR
                 </button>
             </div>
 
             <!-- Visor del Mapa -->
-            <div class="viewport-container border border-white/10" id="tour-viewport">
+            <div class="viewport-container" id="tour-viewport">
                 <div class="zoom-layer" id="tour-layer">
-                    <!-- salamanca.svg se inyecta aquí -->
+                    <!-- salamanca.svg inyectado aquí -->
                 </div>
             </div>
-            
-            <div class="flex justify-between text-[10px] text-gray-500 font-mono tracking-widest uppercase px-2">
-                <span><i class="fa-solid fa-satellite-dish mr-1 text-djpurple"></i> Señal Activa</span>
-                <span>Scroll/Pellizcar: Zoom | Arrastrar: Mover</span>
-            </div>
-        </div>
+            <p class="text-center font-mono text-[10px] text-gray-500 tracking-widest uppercase">Utiliza el ratón o dos dedos para hacer zoom y navegar por el mapa.</p>
+        </section>
 
-        <!-- Panel Lateral: Datos del Evento -->
-        <aside class="glass-panel p-0 lg:w-[450px] flex flex-col h-[75vh] overflow-hidden border-t-4 border-t-djpurple">
-            <div id="info-header" class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent">
-                <h2 id="info-title" class="text-3xl font-heading font-black text-white uppercase tracking-wider mb-3 leading-tight text-gradient">
-                    SISTEMA EN ESPERA
-                </h2>
-                <div id="info-status" class="flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full bg-gray-500 animate-pulse"></div>
-                    <span class="text-gray-400 font-mono text-xs tracking-widest uppercase">Selecciona objetivo</span>
+        <!-- Panel Lateral: Eventos -->
+        <aside class="glass-panel lg:w-[450px] flex flex-col h-auto lg:h-[75vh] overflow-hidden border-t-4 border-t-neonPurple relative">
+            <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent">
+                <h3 id="info-title" class="text-4xl font-display font-black text-white uppercase tracking-wider mb-2 leading-tight drop-shadow-lg">
+                    SELECCIONA ZONA
+                </h3>
+                <div id="info-status" class="flex items-center gap-2 mt-2">
+                    <div class="w-2 h-2 rounded-full bg-gray-600 animate-pulse"></div>
+                    <span class="text-gray-400 font-mono text-xs tracking-widest uppercase">Esperando interacción...</span>
                 </div>
             </div>
 
-            <!-- Eventos -->
-            <div id="info-events" class="flex-grow flex flex-col gap-5 p-6 overflow-y-auto hidden">
-                <!-- Tarjetas generadas dinámicamente -->
-            </div>
+            <!-- Contenedor de Eventos -->
+            <div id="info-events" class="flex-grow flex flex-col gap-4 p-6 overflow-y-auto hidden"></div>
             
+            <!-- Estado Vacío -->
             <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-8 text-gray-600 text-center font-mono">
-                <i class="fa-solid fa-radar text-6xl mb-4 opacity-20"></i>
-                <p class="text-sm">Escaneando mapa en busca de confirmaciones...</p>
+                <i class="fa-solid fa-compact-disc text-6xl mb-4 opacity-10"></i>
+                <p class="text-sm">Explora el mapa para descubrir los eventos de la gira.</p>
             </div>
         </aside>
     </main>
 
-    <!-- SECCIÓN: SETUP -->
-    <main id="sec-setup" class="hidden flex-grow flex flex-col lg:flex-row gap-8 px-4 md:px-8 pb-12 w-full max-w-[1600px] mx-auto">
-        <div class="flex-1 flex flex-col gap-5">
-            <div class="flex justify-end glass-panel p-3">
-                <button class="btn-reset-zoom bg-white/5 border border-white/10 hover:bg-white/10 hover:border-djcyan px-6 py-3 rounded-md transition-all text-xs font-mono tracking-widest text-white">
-                    <i class="fa-solid fa-expand mr-2 text-djcyan"></i> RE-CENTRAR SETUP
+    <div class="section-divider"></div>
+
+    <!-- SECCIÓN 2: SETUP -->
+    <main class="w-full max-w-[1600px] px-4 md:px-8 pb-20 flex flex-col lg:flex-row-reverse gap-8 z-10">
+        
+        <!-- Contenedor Setup -->
+        <section class="flex-1 flex flex-col gap-5 relative">
+            <div class="flex justify-between items-end">
+                <h2 class="font-display text-3xl text-white uppercase tracking-wider flex items-center gap-3">
+                    <i class="fa-solid fa-sliders text-neonCyan"></i> Technical Setup
+                </h2>
+                <button class="btn-reset-setup bg-neonCyan/10 hover:bg-neonCyan/20 border border-neonCyan/30 px-6 py-2 rounded-lg transition-all text-xs font-mono tracking-widest text-neonCyan flex items-center justify-center">
+                    <i class="fa-solid fa-compress mr-2"></i> CENTRAR
                 </button>
             </div>
-            <div class="viewport-container border border-white/10" id="setup-viewport">
+            
+            <div class="viewport-container" id="setup-viewport">
                 <div class="zoom-layer" id="setup-layer">
-                    <!-- setup.svg -->
+                    <!-- setup.svg inyectado aquí -->
                 </div>
             </div>
-        </div>
+        </section>
         
-        <aside class="glass-panel p-8 lg:w-[450px] flex flex-col border-t-4 border-t-djcyan">
-            <h2 id="setup-title" class="text-4xl font-heading font-black text-djcyan uppercase tracking-widest mb-6">TECH SPECS</h2>
-            <div class="bg-black/40 border border-white/5 rounded-lg p-6 flex-grow">
+        <!-- Panel Lateral: Info Setup -->
+        <aside class="glass-panel lg:w-[450px] flex flex-col border-t-4 border-t-neonCyan p-8">
+            <h3 id="setup-title" class="text-4xl font-display font-black text-neonCyan uppercase tracking-widest mb-6">SYSTEM OFFLINE</h3>
+            <div class="bg-black/50 border border-white/5 rounded-xl p-6 flex-grow shadow-inner">
                 <p id="setup-specs" class="font-mono text-sm leading-relaxed text-gray-300 whitespace-pre-line">
-                    > INICIANDO DIAGNÓSTICO...
-                    > Selecciona un componente en el diagrama para extraer los datos técnicos.
+                    > INICIANDO DIAGNÓSTICO DE HARDWARE...
+                    > Selecciona un altavoz, mesa de mezclas o iluminación en el diagrama para ver especificaciones.
                 </p>
             </div>
         </aside>
     </main>
 
-    <!-- MODO ADMINISTRADOR -->
+    <!-- MODO ADMINISTRADOR (Contraseña: 1524) -->
     <div id="admin-panel" class="hidden fixed inset-0 bg-black/95 backdrop-blur-3xl z-[100] flex justify-center items-center p-4 overflow-y-auto font-mono">
-        <div class="w-full max-w-5xl bg-djgray border border-red-500/30 rounded-xl shadow-[0_0_50px_rgba(255,0,0,0.15)] relative overflow-hidden">
-            <!-- Barra de título de terminal -->
-            <div class="bg-black border-b border-red-500/30 p-4 flex justify-between items-center">
+        <div class="w-full max-w-6xl glass-panel border-red-500/50 shadow-[0_0_80px_rgba(255,0,0,0.15)] relative overflow-hidden flex flex-col">
+            <!-- Cabecera Terminal -->
+            <div class="bg-black border-b border-red-500/30 p-4 flex justify-between items-center sticky top-0 z-10">
                 <div class="flex gap-2 items-center">
                     <div class="w-3 h-3 rounded-full bg-red-500"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span class="ml-4 text-red-500 font-bold tracking-widest">root@djvaquero:~#</span>
+                    <span class="ml-4 text-red-500 font-bold tracking-widest text-sm">root@djvaquero:~/admin_panel#</span>
                 </div>
-                <button id="btn-close-admin" class="text-gray-500 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <button id="btn-close-admin" class="text-gray-500 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-2xl"></i></button>
             </div>
 
-            <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <!-- Panel DB Tour -->
+            <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-12 overflow-y-auto">
+                <!-- Panel Municipio -->
                 <div>
-                    <h3 class="text-djpurple font-bold text-lg mb-6 border-b border-djpurple/30 pb-2">_UPDATE_MUNICIPALITY</h3>
+                    <h3 class="text-neonPurple font-bold text-xl mb-6 border-b border-neonPurple/30 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-database"></i> _DB_MUNICIPALITIES
+                    </h3>
                     
-                    <div class="space-y-4">
-                        <div>
-                            <label class="text-[10px] text-gray-500 uppercase">TARGET ID</label>
-                            <input type="text" id="admin-muni-id" placeholder="Ej: Salamanca" class="w-full bg-black border border-white/10 p-3 text-white text-sm focus:border-djpurple focus:outline-none rounded">
+                    <div class="space-y-5">
+                        <div class="bg-neonPurple/5 border border-neonPurple/20 p-4 rounded-lg">
+                            <label class="text-xs text-neonPurple uppercase font-bold block mb-2">1. SELECCIONA MUNICIPIO (Haz clic en el mapa o escribe ID)</label>
+                            <input type="text" id="admin-muni-id" placeholder="ID exacto del municipio..." class="w-full bg-black border border-white/20 p-3 text-white focus:border-neonPurple focus:outline-none rounded">
                         </div>
+
                         <div>
-                            <label class="text-[10px] text-gray-500 uppercase">STATUS LOCK</label>
-                            <select id="admin-muni-status" class="w-full bg-black border border-white/10 p-3 text-white text-sm focus:border-djpurple focus:outline-none rounded appearance-none">
-                                <option value="locked">[ 0 ] BLOQUEADO</option>
-                                <option value="unlocked">[ 1 ] DESBLOQUEADO</option>
+                            <label class="text-[10px] text-gray-500 uppercase block mb-1">Estado de la zona</label>
+                            <select id="admin-muni-status" class="w-full bg-black border border-white/10 p-3 text-white focus:border-neonPurple focus:outline-none rounded appearance-none cursor-pointer">
+                                <option value="locked">[ 0 ] BLOQUEADO (No visible)</option>
+                                <option value="unlocked">[ 1 ] DESBLOQUEADO (Tour Activo)</option>
                             </select>
                         </div>
 
-                        <div class="bg-black/50 border border-djcyan/20 p-5 rounded mt-6 relative">
-                            <div class="absolute -top-3 left-4 bg-djgray px-2 text-djcyan text-[10px] font-bold">ADD_NEW_EVENT</div>
+                        <div class="bg-black/60 border border-white/10 p-6 rounded-lg mt-6 relative shadow-lg">
+                            <div class="absolute -top-3 left-4 bg-[#0a0a0f] px-3 text-white border border-white/10 text-xs font-bold rounded-full">2. AÑADIR NUEVO EVENTO</div>
                             
-                            <input type="text" id="admin-event-place" placeholder="Venue / Club Name" class="w-full bg-black border border-white/5 p-2 text-white text-sm mb-3 rounded">
-                            <input type="date" id="admin-event-date" class="w-full bg-black border border-white/5 p-2 text-gray-400 text-sm mb-3 rounded">
-                            <textarea id="admin-event-details" placeholder="Información adicional (Sold out, VIP...)" class="w-full bg-black border border-white/5 p-2 text-white text-sm mb-3 rounded h-24"></textarea>
-                            <input type="text" id="admin-event-media" placeholder="URLs TikTok/Reels (coma separadas)" class="w-full bg-black border border-white/5 p-2 text-white text-sm mb-4 rounded">
+                            <input type="text" id="admin-event-place" placeholder="Lugar (Ej: Discoteca, Plaza Mayor...)" class="w-full bg-black border border-white/5 p-3 text-white text-sm mb-3 rounded focus:border-neonPurple outline-none transition-colors">
+                            <input type="date" id="admin-event-date" class="w-full bg-black border border-white/5 p-3 text-gray-400 text-sm mb-3 rounded focus:border-neonPurple outline-none transition-colors">
+                            <textarea id="admin-event-details" placeholder="Detalles extra (Entradas agotadas, info VIP...)" class="w-full bg-black border border-white/5 p-3 text-white text-sm mb-3 rounded h-24 focus:border-neonPurple outline-none transition-colors"></textarea>
+                            <input type="text" id="admin-event-media" placeholder="URLs de TikTok/Reels (separadas por coma)" class="w-full bg-black border border-white/5 p-3 text-white text-sm mb-5 rounded focus:border-neonPurple outline-none transition-colors">
                             
-                            <button id="btn-add-event" class="w-full bg-djpurple hover:bg-djcyan text-white p-3 rounded font-bold transition-colors uppercase tracking-widest text-sm">
-                                Execute Insert
+                            <button id="btn-add-event" class="w-full bg-neonPurple hover:bg-white hover:text-black text-white p-4 rounded font-bold transition-all uppercase tracking-widest text-sm shadow-[0_0_15px_rgba(217,0,255,0.4)] hover:shadow-[0_0_20px_#fff]">
+                                Guardar / Actualizar Municipio
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Panel DB Setup -->
+                <!-- Panel Setup -->
                 <div>
-                    <h3 class="text-djcyan font-bold text-lg mb-6 border-b border-djcyan/30 pb-2">_UPDATE_HARDWARE</h3>
+                    <h3 class="text-neonCyan font-bold text-xl mb-6 border-b border-neonCyan/30 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip"></i> _DB_HARDWARE
+                    </h3>
                     
-                    <div class="space-y-4">
-                        <div>
-                            <label class="text-[10px] text-gray-500 uppercase">COMPONENT ID</label>
-                            <input type="text" id="admin-setup-id" class="w-full bg-black border border-white/10 p-3 text-white text-sm focus:border-djcyan focus:outline-none rounded">
+                    <div class="space-y-5">
+                        <div class="bg-neonCyan/5 border border-neonCyan/20 p-4 rounded-lg">
+                            <label class="text-xs text-neonCyan uppercase font-bold block mb-2">1. ID DEL COMPONENTE (Clic en Setup SVG)</label>
+                            <input type="text" id="admin-setup-id" placeholder="Ej: altavoz_l..." class="w-full bg-black border border-white/20 p-3 text-white focus:border-neonCyan focus:outline-none rounded">
                         </div>
                         <div>
-                            <label class="text-[10px] text-gray-500 uppercase">DISPLAY NAME</label>
-                            <input type="text" id="admin-setup-name" class="w-full bg-black border border-white/10 p-3 text-white text-sm focus:border-djcyan focus:outline-none rounded">
+                            <label class="text-[10px] text-gray-500 uppercase block mb-1">Nombre Público</label>
+                            <input type="text" id="admin-setup-name" placeholder="Ej: Pioneer XDJ-RX3" class="w-full bg-black border border-white/10 p-3 text-white focus:border-neonCyan focus:outline-none rounded">
                         </div>
                         <div>
-                            <label class="text-[10px] text-gray-500 uppercase">TECH SPECS</label>
-                            <textarea id="admin-setup-specs" class="w-full bg-black border border-white/10 p-3 text-white text-sm focus:border-djcyan focus:outline-none rounded h-48"></textarea>
+                            <label class="text-[10px] text-gray-500 uppercase block mb-1">Especificaciones Técnicas</label>
+                            <textarea id="admin-setup-specs" placeholder="Potencia, características..." class="w-full bg-black border border-white/10 p-3 text-white focus:border-neonCyan focus:outline-none rounded h-48"></textarea>
                         </div>
                         
-                        <button id="btn-save-setup" class="w-full bg-transparent border border-djcyan text-djcyan hover:bg-djcyan hover:text-black p-3 rounded font-bold transition-colors uppercase tracking-widest text-sm mt-4">
-                            Save Configuration
+                        <button id="btn-save-setup" class="w-full bg-transparent border-2 border-neonCyan text-neonCyan hover:bg-neonCyan hover:text-black p-4 rounded font-bold transition-all uppercase tracking-widest text-sm mt-4 shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_20px_rgba(0,240,255,0.6)]">
+                            Guardar Componente
                         </button>
                     </div>
                 </div>
@@ -329,11 +342,12 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- LOGICA Y FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue, set, push, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+        // Configuración Firebase Original
         const firebaseConfig = {
             apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
             authDomain: "djvaquero-851e8.firebaseapp.com",
@@ -347,8 +361,8 @@
         const db = getDatabase(app);
 
         let dbData = { municipalities: {}, setup: {} };
-        let activeSection = 'tour';
 
+        // Sincronización en tiempo real
         onValue(ref(db, '/'), (snapshot) => {
             const data = snapshot.val();
             if(data) {
@@ -358,7 +372,7 @@
             }
         });
 
-        // LÓGICA DE ZOOM Y PANEO (Rueda y Táctil Multi-touch)
+        // SISTEMA DE ZOOM Y PANEO UNIVERSAL
         function enableZoomPan(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
             const layer = document.getElementById(layerId);
@@ -366,6 +380,7 @@
 
             const setTransform = () => layer.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
 
+            // Rueda Ratón
             viewport.addEventListener('wheel', (e) => {
                 e.preventDefault();
                 const xs = (e.clientX - viewport.getBoundingClientRect().left - pointX) / scale;
@@ -378,10 +393,12 @@
                 setTransform();
             }, { passive: false });
 
-            viewport.addEventListener('mousedown', (e) => { e.preventDefault(); startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; });
-            window.addEventListener('mouseup', () => panning = false);
+            // Ratón
+            viewport.addEventListener('mousedown', (e) => { e.preventDefault(); startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; viewport.style.cursor = 'grabbing'; });
+            window.addEventListener('mouseup', () => { panning = false; viewport.style.cursor = 'grab'; });
             window.addEventListener('mousemove', (e) => { if (!panning) return; pointX = e.clientX - startX; pointY = e.clientY - startY; setTransform(); });
 
+            // Táctil (Móvil)
             viewport.addEventListener('touchstart', (e) => {
                 if (e.touches.length === 1) { startX = e.touches[0].clientX - pointX; startY = e.touches[0].clientY - pointY; panning = true; }
                 else if (e.touches.length === 2) { panning = false; initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); }
@@ -407,17 +424,17 @@
             }, { passive: false });
 
             viewport.addEventListener('touchend', (e) => { if (e.touches.length < 2) initialDistance = null; if (e.touches.length === 0) panning = false; });
+            
             return () => { scale = 1; pointX = 0; pointY = 0; setTransform(); };
         }
 
         const resetTourZoom = enableZoomPan('tour-viewport', 'tour-layer');
         const resetSetupZoom = enableZoomPan('setup-viewport', 'setup-layer');
 
-        document.querySelectorAll('.btn-reset-zoom').forEach(btn => {
-            btn.addEventListener('click', () => { if(activeSection === 'tour') resetTourZoom(); else resetSetupZoom(); });
-        });
+        document.querySelector('.btn-reset-tour').addEventListener('click', resetTourZoom);
+        document.querySelector('.btn-reset-setup').addEventListener('click', resetSetupZoom);
 
-        // INYECCIÓN Y PREPARACIÓN DE SVG
+        // INYECCIÓN DE SVG DIRECTA (Detecta cualquier path/municipio con ID)
         async function loadInlineSVG(url, containerId, isTour) {
             try {
                 const response = await fetch(url);
@@ -426,56 +443,38 @@
                 
                 const svgElement = document.getElementById(containerId).querySelector('svg');
                 if(svgElement) {
-                    svgElement.style.pointerEvents = 'none'; 
+                    svgElement.style.pointerEvents = 'none'; // Evita bugs de paneo
                     
+                    // Seleccionar todos los elementos que tengan ID dentro del SVG
                     const elements = svgElement.querySelectorAll('[id]');
                     elements.forEach(el => {
-                        el.style.pointerEvents = 'auto';
-                        // Limpiar estilos incrustados molestos y asignar clase base
+                        el.style.pointerEvents = 'auto'; // Hace clickeable el municipio/componente
+                        
+                        // Reseteo de estilos basura del SVG original
                         el.removeAttribute('fill');
                         el.removeAttribute('stroke');
                         el.removeAttribute('class');
                         el.classList.add('muni-base');
                         
+                        // Lógica de clic
                         el.addEventListener('click', (e) => {
                             e.stopPropagation();
-                            if(isTour) loadMuniInfo(el.id); else loadSetupInfo(el.id);
+                            if(isTour) loadMuniInfo(el.id); 
+                            else loadSetupInfo(el.id);
                         });
                         el.addEventListener('touchstart', (e) => e.stopPropagation(), {passive: true});
                     });
                     if(isTour) colorearMapa();
                 }
             } catch (err) {
-                console.error("Usa Live Server:", err);
+                console.error("Abre el index.html mediante un servidor local (Live Server):", err);
             }
         }
 
         loadInlineSVG('salamanca.svg', 'tour-layer', true);
         loadInlineSVG('setup.svg', 'setup-layer', false);
 
-        // TABS
-        const btnTour = document.getElementById('btn-tour');
-        const btnSetup = document.getElementById('btn-setup');
-        
-        function switchTab(toTour) {
-            activeSection = toTour ? 'tour' : 'setup';
-            if(toTour) {
-                document.getElementById('sec-tour').classList.remove('hidden'); document.getElementById('sec-setup').classList.add('hidden');
-                btnTour.className = "active-tab px-10 py-3 rounded-md text-sm md:text-base font-bold text-white uppercase tracking-widest transition-all border border-transparent";
-                btnSetup.className = "glass-panel px-10 py-3 rounded-md text-sm md:text-base font-bold text-gray-400 hover:text-white uppercase tracking-widest hover:border-white/30 transition-all";
-            } else {
-                document.getElementById('sec-setup').classList.remove('hidden'); document.getElementById('sec-tour').classList.add('hidden');
-                btnSetup.className = "active-tab px-10 py-3 rounded-md text-sm md:text-base font-bold text-white uppercase tracking-widest transition-all border border-transparent";
-                btnSetup.style.background = "linear-gradient(90deg, #0088aa, #00e5ff)"; // Variante cian para tab setup
-                btnSetup.style.borderColor = "#00e5ff";
-                btnTour.className = "glass-panel px-10 py-3 rounded-md text-sm md:text-base font-bold text-gray-400 hover:text-white uppercase tracking-widest hover:border-white/30 transition-all";
-                btnTour.style = "";
-            }
-        }
-        btnTour.addEventListener('click', () => switchTab(true));
-        btnSetup.addEventListener('click', () => switchTab(false));
-
-        // PINTAR MAPA BASADO EN ESTADO (Evitando estilos en línea fijos)
+        // PINTAR MAPA BASADO EN LA DB
         function colorearMapa() {
             const container = document.getElementById('tour-layer');
             for (const [id, data] of Object.entries(dbData.municipalities)) {
@@ -492,7 +491,7 @@
             }
         }
 
-        // CARGAR INFO MUNI (Estilo Cyberpunk Cards)
+        // CARGAR INFORMACIÓN AL HACER CLIC
         function loadMuniInfo(id) {
             const muni = dbData.municipalities[id];
             const cleanName = id.replace(/_/g, ' ');
@@ -502,11 +501,12 @@
             const eventsDiv = document.getElementById('info-events');
             const emptyDiv = document.getElementById('info-empty');
 
+            // ⚡ Autocompletar Admin Panel si el usuario hace clic en el mapa
             document.getElementById('admin-muni-id').value = id;
 
             if (muni && muni.status === 'unlocked') {
                 document.getElementById('admin-muni-status').value = 'unlocked';
-                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-djpurple shadow-[0_0_10px_#b517ff]"></div><span class="text-djpurple font-mono text-xs font-bold tracking-widest uppercase">ZONA ACTIVA</span>`;
+                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-neonPurple shadow-[0_0_10px_#d900ff]"></div><span class="text-neonPurple font-mono text-xs font-bold tracking-widest uppercase">TERRITORIO CONQUISTADO</span>`;
                 emptyDiv.classList.add('hidden');
                 eventsDiv.classList.remove('hidden');
                 eventsDiv.innerHTML = '';
@@ -517,44 +517,45 @@
                         if(ev.media) {
                             const links = ev.media.split(',');
                             links.forEach(link => {
-                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-3 px-3 py-1 bg-black hover:bg-djcyan/20 border border-djcyan/50 text-djcyan text-xs font-mono transition-colors rounded"><i class="fa-brands fa-tiktok"></i> ACCESS MEDIA</a> `;
+                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-white/5 hover:bg-neonCyan/20 border border-neonCyan/40 text-neonCyan text-xs font-mono transition-all rounded shadow-md"><i class="fa-brands fa-tiktok text-sm"></i> VER REEL / TIKTOK</a> `;
                             });
                         }
 
                         eventsDiv.innerHTML += `
-                            <div class="bg-black/60 border-l-2 border-l-djpurple border border-white/5 rounded p-5 hover:bg-black transition-colors shadow-lg">
-                                <h4 class="text-xl font-heading font-bold text-white flex justify-between items-center mb-1">
-                                    ${ev.place || 'TBD'}
+                            <div class="bg-black/60 border-l-4 border-l-neonPurple rounded-lg p-5 shadow-lg border border-white/5">
+                                <h4 class="text-2xl font-display font-bold text-white mb-1 uppercase tracking-wide">
+                                    ${ev.place || 'Lugar TBD'}
                                 </h4>
-                                <p class="text-xs font-mono text-djcyan mb-3 tracking-widest">${ev.date || 'TBD'}</p>
-                                <p class="text-sm text-gray-300 font-sans leading-relaxed bg-white/5 p-3 border border-white/5 rounded">${ev.details || 'No data.'}</p>
+                                <p class="text-xs font-mono text-neonCyan mb-4 tracking-widest"><i class="fa-regular fa-calendar mr-2"></i>${ev.date || 'Fecha TBD'}</p>
+                                <p class="text-sm text-gray-300 font-sans leading-relaxed bg-white/5 p-4 rounded-md border border-white/5">${ev.details || 'Sin detalles adicionales.'}</p>
                                 ${mediaHtml}
                             </div>
                         `;
                     });
                 } else {
-                    eventsDiv.innerHTML = `<p class="font-mono text-sm text-gray-500 border border-dashed border-gray-600 p-4">_NO_EVENTS_FOUND_</p>`;
+                    eventsDiv.innerHTML = `<p class="font-mono text-sm text-gray-500 border border-dashed border-gray-600 p-6 text-center rounded-lg">MUNICIPIO DESBLOQUEADO, PERO AÚN SIN EVENTOS CREADOS.</p>`;
                 }
             } else {
                 document.getElementById('admin-muni-status').value = 'locked';
-                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_10px_red]"></div><span class="text-red-500 font-mono text-xs font-bold tracking-widest uppercase">ACCESO DENEGADO</span>`;
+                statusDiv.innerHTML = `<div class="w-2 h-2 rounded-full bg-red-600 shadow-[0_0_10px_red]"></div><span class="text-red-500 font-mono text-xs font-bold tracking-widest uppercase">ZONA RESTRINGIDA</span>`;
                 emptyDiv.classList.add('hidden');
                 eventsDiv.classList.remove('hidden');
-                eventsDiv.innerHTML = `<div class="flex items-center justify-center h-full"><p class="text-center font-mono text-gray-500 text-sm border border-red-500/20 bg-red-500/5 p-6 rounded">ZONA BLOQUEADA HASTA NUEVO AVISO.</p></div>`;
+                eventsDiv.innerHTML = `<div class="flex items-center justify-center h-full"><p class="text-center font-mono text-gray-400 text-sm border border-red-500/20 bg-red-500/5 p-6 rounded-lg w-full">ESTE MUNICIPIO AÚN NO FORMA PARTE DEL TOUR.</p></div>`;
             }
         }
 
         function loadSetupInfo(id) {
             const comp = dbData.setup[id];
             document.getElementById('setup-title').innerText = comp ? comp.name : id.replace(/_/g, ' ');
-            document.getElementById('setup-specs').innerHTML = comp ? `> DATOS EXTRAÍDOS:\n\n${comp.specs.replace(/\n/g, '<br>')}` : '> ERROR 404: Módulo no configurado en la BBDD.';
+            document.getElementById('setup-specs').innerHTML = comp ? `> EXTRACCIÓN DE DATOS:\n\n${comp.specs.replace(/\n/g, '<br>')}` : '> ERROR: Componente sin registrar en la BBDD.';
             
+            // ⚡ Autocompletar Admin Panel Setup
             document.getElementById('admin-setup-id').value = id;
             document.getElementById('admin-setup-name').value = comp ? comp.name : '';
             document.getElementById('admin-setup-specs').value = comp ? comp.specs : '';
         }
 
-        // BUSCADOR
+        // BUSCADOR EN TIEMPO REAL
         document.getElementById('search-muni').addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
             if(val.length > 2) {
@@ -563,53 +564,76 @@
                 for(let el of elements) {
                     if(el.id.toLowerCase().includes(val)) {
                         loadMuniInfo(el.id);
+                        // Feedback Visual de Búsqueda
                         const oldStroke = el.style.stroke;
-                        el.style.stroke = "#b517ff";
-                        el.style.strokeWidth = "4px";
-                        setTimeout(() => el.style.stroke = oldStroke, 1500);
+                        el.style.stroke = "#d900ff";
+                        el.style.strokeWidth = "5px";
+                        setTimeout(() => el.style.stroke = oldStroke, 2000);
                         break;
                     }
                 }
             }
         });
 
-        // ADMIN
+        // MODO ADMIN: LÓGICA DE APERTURA (Triple Clic en el Título Principal)
         let clickCount = 0; let clickTimer;
         document.getElementById('site-title').addEventListener('click', () => {
             clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
             if(clickCount >= 3) {
                 clickCount = 0;
-                let pwd = prompt("AUTH REQUIRED:");
+                let pwd = prompt("ACCESO ADMINISTRADOR REQUERIDO. \nIntroduce PIN:");
                 if(pwd === "1524") document.getElementById('admin-panel').classList.remove('hidden');
             }
         });
 
         document.getElementById('btn-close-admin').onclick = () => document.getElementById('admin-panel').classList.add('hidden');
 
+        // MODO ADMIN: GUARDAR / ACTUALIZAR MUNICIPIO
         document.getElementById('btn-add-event').addEventListener('click', () => {
             const id = document.getElementById('admin-muni-id').value;
-            if(!id) return alert("ID Required");
+            if(!id) return alert("❌ Por favor, selecciona un municipio en el mapa o escribe su ID primero.");
+            
             const status = document.getElementById('admin-muni-status').value;
+            
+            // Actualiza bloqueo/desbloqueo
             update(ref(db, `municipalities/${id}`), { status: status });
 
             const place = document.getElementById('admin-event-place').value;
+            // Si el admin escribió un lugar, se asume que quiere añadir un evento
             if(place) {
                 push(ref(db, `municipalities/${id}/events`), {
-                    place: place, date: document.getElementById('admin-event-date').value,
-                    details: document.getElementById('admin-event-details').value, media: document.getElementById('admin-event-media').value
+                    place: place, 
+                    date: document.getElementById('admin-event-date').value,
+                    details: document.getElementById('admin-event-details').value, 
+                    media: document.getElementById('admin-event-media').value
                 }).then(() => {
-                    alert('SUCCESS');
-                    document.getElementById('admin-event-place').value = ''; document.getElementById('admin-event-details').value = ''; document.getElementById('admin-event-media').value = '';
+                    alert('✅ EVENTO AÑADIDO Y MUNICIPIO ACTUALIZADO CON ÉXITO');
+                    // Limpiar campos de evento
+                    document.getElementById('admin-event-place').value = ''; 
+                    document.getElementById('admin-event-date').value = '';
+                    document.getElementById('admin-event-details').value = ''; 
+                    document.getElementById('admin-event-media').value = '';
+                    // Recargar UI
                     loadMuniInfo(id);
                 });
-            } else { alert('STATUS UPDATED'); }
+            } else { 
+                alert('✅ ESTADO DEL MUNICIPIO ACTUALIZADO'); 
+                loadMuniInfo(id);
+            }
         });
 
+        // MODO ADMIN: GUARDAR SETUP
         document.getElementById('btn-save-setup').addEventListener('click', () => {
             const id = document.getElementById('admin-setup-id').value;
-            if(!id) return alert("ID Required");
-            set(ref(db, `setup/${id}`), { name: document.getElementById('admin-setup-name').value, specs: document.getElementById('admin-setup-specs').value })
-                .then(() => alert('SAVED'));
+            if(!id) return alert("❌ Selecciona un componente del Setup.");
+            
+            set(ref(db, `setup/${id}`), { 
+                name: document.getElementById('admin-setup-name').value, 
+                specs: document.getElementById('admin-setup-specs').value 
+            }).then(() => {
+                alert('✅ COMPONENTE GUARDADO');
+                loadSetupInfo(id);
+            });
         });
     </script>
 </body>
