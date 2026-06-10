@@ -17,7 +17,8 @@
                         djPanel: '#161920',
                         djCyan: '#42e6f5',
                         djCyanDark: '#143d4a',
-                        djGray: '#a1a1aa'
+                        djGray: '#a1a1aa',
+                        djMagenta: '#e81cff'
                     },
                     fontFamily: {
                         display: ['Montserrat', 'sans-serif'],
@@ -47,7 +48,6 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
-        /* Título impactante y compacto */
         .premium-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
@@ -84,24 +84,34 @@
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; transition: transform 0.05s linear; }
         .zoom-layer svg { width: 100%; height: 100%; }
         
+        /* ESTADOS DE LOS MUNICIPIOS */
         .muni-base {
             fill: #1c2029 !important; stroke: rgba(255, 255, 255, 0.05) !important;
             stroke-width: 0.5px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all;
         }
         .muni-base:hover { fill: #252a36 !important; stroke: rgba(255, 255, 255, 0.2) !important; }
 
-        /* Zonas del Tour */
         .muni-unlocked {
-            fill: #143d4a !important; stroke: #42e6f5 !important; stroke-width: 1px !important; transition: all 0.3s ease !important;
+            fill: #143d4a !important; stroke: #42e6f5 !important; stroke-width: 1px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all;
         }
         .muni-unlocked:hover {
             fill: rgba(66, 230, 245, 0.4) !important; stroke-width: 2px !important; filter: drop-shadow(0 0 8px rgba(66, 230, 245, 0.6)) !important;
         }
 
+        /* Novedad: ESTADO SELECCIONADO (Magenta) */
+        .muni-selected {
+            fill: #e81cff !important; 
+            stroke: #ffffff !important; 
+            stroke-width: 2px !important; 
+            filter: drop-shadow(0 0 12px rgba(232, 28, 255, 0.8)) !important; 
+            transition: all 0.3s ease !important;
+            cursor: pointer; pointer-events: all;
+        }
+
         /* Nombres en el Mapa (Zoom) */
         .muni-label {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2px; /* Ajustado para la escala del SVG */
+            font-size: 2px;
             font-weight: 800;
             fill: rgba(255,255,255,0.7);
             pointer-events: none;
@@ -119,6 +129,8 @@
             0% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(66, 230, 245, 0.7); }
             100% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 15px rgba(66, 230, 245, 0); }
         }
+        
+        .admin-setup-mode { cursor: crosshair !important; }
 
         /* Scrollbars UI */
         ::-webkit-scrollbar { width: 6px; }
@@ -129,9 +141,8 @@
 </head>
 <body class="flex flex-col items-center min-h-screen pb-12">
 
-    <!-- HEADER COMPACTO Y LLAMATIVO -->
+    <!-- HEADER -->
     <header class="w-full max-w-[1600px] mx-auto pt-8 pb-12 px-8 relative z-20 flex flex-col md:flex-row justify-between items-end md:items-center">
-        <!-- Título -->
         <div class="flex flex-col items-start mb-6 md:mb-0">
             <h1 id="site-title" class="premium-title text-6xl md:text-7xl select-none uppercase">
                 DJ Vaquero
@@ -141,7 +152,6 @@
             </p>
         </div>
         
-        <!-- RRSS con Hover Branding -->
         <div class="flex space-x-3">
             <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok"></i></a>
@@ -153,21 +163,18 @@
     <!-- SECCIÓN PRINCIPAL: TOUR -->
     <main class="w-full max-w-[1600px] px-4 md:px-8 flex flex-col xl:flex-row gap-6 z-10">
         
-        <!-- VISOR DEL MAPA -->
         <section class="flex-[2] flex flex-col gap-4 relative">
             <div class="glass-panel p-4 flex flex-col sm:flex-row gap-4 justify-between items-center relative">
                 <h2 class="font-display font-bold text-xl text-white tracking-wide flex items-center gap-2 whitespace-nowrap">
                     <i class="fa-solid fa-map-location-dot text-djCyan"></i> TOUR DATES
                 </h2>
                 
-                <!-- Buscador Autocompletado -->
                 <div class="flex-grow max-w-md relative w-full">
                     <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar municipio..." class="w-full bg-[#0b0c0f] border border-white/5 rounded-full pl-12 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-djCyan transition-colors placeholder-gray-600">
                     <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
                     
-                    <!-- Resultados Búsqueda -->
                     <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-[#161920] border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 hidden max-h-60 overflow-y-auto">
-                        <!-- Se llena con JS -->
+                        <!-- Resultados -->
                     </ul>
                 </div>
 
@@ -183,7 +190,7 @@
 
             <div class="viewport-container border border-white/5" id="tour-viewport">
                 <div class="zoom-layer" id="tour-layer">
-                    <!-- SVG inyectado -->
+                    <!-- SVG -->
                 </div>
             </div>
             <p class="text-right text-gray-600 text-[10px] font-medium uppercase tracking-wider">Navega arrastrando el mapa. Utiliza la rueda para hacer zoom y ver nombres.</p>
@@ -220,72 +227,15 @@
         </div>
         
         <div class="glass-panel p-6 flex justify-center items-center overflow-hidden relative">
-            <div class="relative inline-block max-w-full">
-                <!-- Imagen Base -->
-                <img src="setup.jpg" alt="Setup DJ" class="w-full h-auto max-h-[70vh] object-contain rounded-lg shadow-2xl relative z-0">
+            <div id="setup-image-wrapper" class="relative inline-block max-w-full">
+                <!-- Imagen Actualizada a setup.png -->
+                <img src="setup.png" alt="Setup DJ" class="w-full h-auto max-h-[70vh] object-contain rounded-lg relative z-0" id="setup-img">
                 
-                <!-- HOTSPOTS (Puntos Interactivos) -->
-                <!-- PA / Altavoz Izquierdo -->
-                <div class="absolute top-[35%] left-[8%] w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2">
-                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
-                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
-                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
-                        <h5 class="text-djCyan font-black text-sm uppercase">Sistemas PA ALTO</h5>
-                        <p class="text-xs text-gray-300 mt-2">Altavoces autoamplificados de alto rendimiento. Graves profundos y agudos cristalinos para abarcar grandes multitudes.</p>
-                    </div>
-                </div>
-
-                <!-- PA / Altavoz Derecho -->
-                <div class="absolute top-[35%] left-[92%] w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2">
-                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
-                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
-                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
-                        <h5 class="text-djCyan font-black text-sm uppercase">Sistemas PA ALTO</h5>
-                        <p class="text-xs text-gray-300 mt-2">Cobertura estéreo total para garantizar que el sonido llegue con la misma potencia a cada rincón de la plaza o sala.</p>
-                    </div>
-                </div>
-
-                <!-- Puente de Luces -->
-                <div class="absolute top-[18%] left-[50%] w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2">
-                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
-                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
-                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
-                        <h5 class="text-djCyan font-black text-sm uppercase">Puente de Iluminación</h5>
-                        <p class="text-xs text-gray-300 mt-2">Focos LED RGB rítmicos, efectos estroboscópicos y bola disco central automatizada al ritmo de la sesión.</p>
-                    </div>
-                </div>
-
-                <!-- Cabina / Mesa -->
-                <div class="absolute top-[60%] left-[50%] w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2">
-                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
-                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
-                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
-                        <h5 class="text-djCyan font-black text-sm uppercase">Cabina DJ Pro</h5>
-                        <p class="text-xs text-gray-300 mt-2">Controladora profesional de última generación, portátil HP para gestión de software y mesa panelada personalizada.</p>
-                    </div>
-                </div>
-
-                <!-- Máquina de Humo -->
-                <div class="absolute top-[75%] left-[34%] w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2">
-                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
-                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
-                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
-                        <h5 class="text-djCyan font-black text-sm uppercase">Máquina de Humo</h5>
-                        <p class="text-xs text-gray-300 mt-2">Generador de niebla de alta densidad. Esencial para potenciar el impacto visual de los láseres y focos LED.</p>
-                    </div>
-                </div>
-
-                <!-- Subwoofer -->
-                <div class="absolute top-[65%] left-[70%] w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2">
-                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
-                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
-                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
-                        <h5 class="text-djCyan font-black text-sm uppercase">Subwoofer Activo</h5>
-                        <p class="text-xs text-gray-300 mt-2">Refuerzo de subgraves para sentir el bombo en el pecho. Completa el espectro de frecuencias del equipo principal.</p>
-                    </div>
-                </div>
+                <!-- Contenedor de Hotspots Dinámicos -->
+                <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
             </div>
         </div>
+        <p id="setup-admin-hint" class="text-center text-djCyan text-xs mt-3 hidden font-bold animate-pulse">MODO EDICIÓN ACTIVADO: Haz clic en la imagen para mover/crear un hotspot.</p>
     </div>
 
     <!-- PANEL DE ADMINISTRADOR -->
@@ -293,13 +243,21 @@
         <div class="bg-[#0b0c0f] border-b border-djCyan/20 p-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <i class="fa-solid fa-sliders text-djCyan"></i>
-                <span class="text-djCyan font-display font-bold text-sm tracking-wide">TOUR MANAGER</span>
+                <span class="text-djCyan font-display font-bold text-sm tracking-wide">PANEL MANAGER</span>
             </div>
             <button id="btn-close-admin" class="text-gray-500 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
 
-        <div class="p-6 space-y-5 overflow-y-auto max-h-[70vh]">
-            <div class="space-y-4">
+        <!-- Pestañas Admin -->
+        <div class="flex bg-[#0b0c0f]">
+            <button id="tab-btn-tour" class="flex-1 py-3 text-xs font-bold text-djCyan border-b-2 border-djCyan transition-colors">GIRA / MAPA</button>
+            <button id="tab-btn-setup" class="flex-1 py-3 text-xs font-bold text-gray-500 border-b-2 border-transparent hover:text-white transition-colors">SETUP INTERACTIVO</button>
+        </div>
+
+        <div class="p-6 overflow-y-auto max-h-[70vh]">
+            
+            <!-- CONTENIDO PESTAÑA: TOUR -->
+            <div id="admin-sec-tour" class="space-y-5">
                 <input type="hidden" id="admin-muni-id">
 
                 <div>
@@ -319,7 +277,6 @@
                     <label class="text-xs text-white font-bold uppercase tracking-wider block mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-calendar-plus text-djCyan"></i> Añadir Evento
                     </label>
-                    
                     <div class="space-y-3">
                         <input type="text" id="admin-event-place" placeholder="Lugar (Sala, Festival...)" class="w-full bg-[#0b0c0f] border border-white/5 p-2.5 text-white text-sm rounded outline-none focus:border-djCyan">
                         <input type="date" id="admin-event-date" class="w-full bg-[#0b0c0f] border border-white/5 p-2.5 text-gray-400 text-sm rounded outline-none [color-scheme:dark] focus:border-djCyan">
@@ -328,17 +285,59 @@
                     </div>
                     
                     <button id="btn-add-event" class="w-full bg-djCyan hover:bg-white text-black font-bold py-3 mt-5 rounded text-sm transition-colors shadow-[0_0_15px_rgba(66,230,245,0.3)]">
-                        GUARDAR CONFIGURACIÓN
+                        GUARDAR MUNICIPIO
                     </button>
                 </div>
             </div>
+
+            <!-- CONTENIDO PESTAÑA: SETUP -->
+            <div id="admin-sec-setup" class="space-y-5 hidden">
+                <div>
+                    <label class="text-[10px] text-djMagenta font-bold uppercase tracking-wider block mb-1.5">Seleccionar Hotspot</label>
+                    <select id="admin-hs-select" class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta cursor-pointer">
+                        <option value="NEW">-- CREAR NUEVO HOTSPOT --</option>
+                        <!-- Opciones dinámicas -->
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Título del Elemento</label>
+                    <input type="text" id="admin-hs-title" placeholder="Ej: Mesa DJ..." class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta transition-colors">
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Descripción</label>
+                    <textarea id="admin-hs-desc" placeholder="Detalles técnicos..." class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm h-20 resize-none focus:outline-none focus:border-djMagenta transition-colors"></textarea>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Posición X (%)</label>
+                        <input type="number" step="0.1" id="admin-hs-x" class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta text-center">
+                    </div>
+                    <div class="flex-1">
+                        <label class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1.5">Posición Y (%)</label>
+                        <input type="number" step="0.1" id="admin-hs-y" class="w-full bg-[#0b0c0f] border border-white/10 p-2.5 text-white rounded text-sm focus:outline-none focus:border-djMagenta text-center">
+                    </div>
+                </div>
+
+                <div class="pt-4 flex gap-3 border-t border-white/5">
+                    <button id="btn-save-hs" class="flex-[2] bg-djMagenta hover:bg-white text-white hover:text-black font-bold py-3 rounded text-sm transition-colors shadow-[0_0_15px_rgba(232,28,255,0.3)]">
+                        GUARDAR PUNTOS
+                    </button>
+                    <button id="btn-delete-hs" class="flex-[1] bg-red-600/20 text-red-500 hover:bg-red-600 hover:text-white border border-red-600/50 font-bold py-3 rounded text-sm transition-colors hidden">
+                        BORRAR
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <!-- SCRIPTS CORE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, update, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
@@ -353,31 +352,30 @@
         const db = getDatabase(app);
         
         let dbData = { municipalities: {} };
-        let allMapElements = []; // Almacenará la lista maestra para el buscador
+        let hotspotsData = {};
+        let allMapElements = [];
+        let currentSelectedMuniId = null;
 
         // 1. ESCUCHAR FIREBASE
         onValue(ref(db, '/'), (snapshot) => {
-            const data = snapshot.val();
-            if(data && data.municipalities) {
-                dbData.municipalities = data.municipalities;
-                colorearMapa();
-            }
+            const data = snapshot.val() || {};
+            if(data.municipalities) dbData.municipalities = data.municipalities;
+            if(data.hotspots) hotspotsData = data.hotspots; else hotspotsData = {};
+            
+            colorearMapa();
+            renderHotspots();
+            updateHotspotDropdown();
         });
 
-        // 2. ZOOM, PANEO Y NOMBRES DE MUNICIPIOS
+        // 2. ZOOM Y PANEO
         function enableZoomPan(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
             const layer = document.getElementById(layerId);
-            let scale = 1, panning = false, pointX = 0, pointY = 0, startX = 0, startY = 0, initialDistance = null;
+            let scale = 1, panning = false, pointX = 0, pointY = 0, startX = 0, startY = 0;
 
             const setTransform = () => {
                 layer.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
-                // Controlar opacidad de nombres basado en zoom (si scale > 3.5 se muestran)
-                if(scale > 3.5) {
-                    layer.classList.add('show-labels');
-                } else {
-                    layer.classList.remove('show-labels');
-                }
+                if(scale > 3.5) layer.classList.add('show-labels'); else layer.classList.remove('show-labels');
             };
 
             viewport.addEventListener('wheel', (e) => {
@@ -396,15 +394,12 @@
             window.addEventListener('mouseup', () => { panning = false; viewport.style.cursor = 'grab'; });
             window.addEventListener('mousemove', (e) => { if (!panning) return; pointX = e.clientX - startX; pointY = e.clientY - startY; setTransform(); });
             
-            // Toques móviles omitidos por brevedad visual (funcionan igual)
-            
             return () => { scale = 1; pointX = 0; pointY = 0; setTransform(); };
         }
-
         const resetTourZoom = enableZoomPan('tour-viewport', 'tour-layer');
         document.querySelector('.btn-reset-tour').addEventListener('click', resetTourZoom);
 
-        // 3. CARGA DEL SVG Y CREACIÓN DE ETIQUETAS DE TEXTO
+        // 3. CARGAR SVG Y FILTRAR ETIQUETAS
         async function loadInlineSVG(url, containerId) {
             try {
                 const response = await fetch(url);
@@ -424,11 +419,13 @@
                         el.classList.add('muni-base');
                         el.style.pointerEvents = 'auto'; 
                         
-                        // Generar Nombre de Etiqueta (Ignorar si es "zona_X" o "Municipio XXX")
                         let defaultName = originalId.replace(/_/g, ' ');
-                        let isGeneric = defaultName.toLowerCase().includes('zona') || defaultName.toLowerCase().match(/municipio \d+/);
                         
-                        // Añadir etiqueta de texto en el centro geométrico del polígono
+                        // LOGICA ACTUALIZADA DE FILTRADO DE NOMBRES
+                        // Ocultar solo si se llama "zona [numero]" o su ID es igual a su nombre.
+                        const regexZonaNumero = /^zona\s*\d+$/i;
+                        let isGeneric = regexZonaNumero.test(defaultName) || defaultName === originalId;
+                        
                         if(!isGeneric) {
                             try {
                                 const bbox = el.getBBox();
@@ -438,15 +435,15 @@
                                 textNode.setAttribute("class", "muni-label");
                                 textNode.textContent = defaultName;
                                 svgElement.appendChild(textNode);
-                            } catch(e) {} // Evita error si getBBox falla en elementos invisibles
+                            } catch(e) {}
                         }
 
-                        // Guardar en índice maestro
                         allMapElements.push({ id: originalId, defaultName: defaultName });
 
-                        // Eventos
                         el.addEventListener('click', (e) => {
-                            e.stopPropagation(); loadMuniInfo(el.id); 
+                            e.stopPropagation(); 
+                            seleccionarMuniVisually(el.id);
+                            loadMuniInfo(el.id); 
                         });
                     });
                     colorearMapa();
@@ -455,12 +452,31 @@
         }
         loadInlineSVG('salamanca.svg', 'tour-layer');
 
+        function seleccionarMuniVisually(id) {
+            // Limpiar selección anterior
+            if(currentSelectedMuniId) {
+                const oldEl = document.getElementById(currentSelectedMuniId);
+                if(oldEl) oldEl.classList.remove('muni-selected');
+            }
+            // Aplicar nueva
+            currentSelectedMuniId = id;
+            const newEl = document.getElementById(id);
+            if(newEl) {
+                newEl.classList.add('muni-selected');
+                // Traer al frente en el SVG para que el borde se vea bien
+                newEl.parentNode.appendChild(newEl);
+            }
+        }
+
         function colorearMapa() {
             const container = document.getElementById('tour-layer');
             if(!container) return;
             for (const [id, data] of Object.entries(dbData.municipalities)) {
                 const element = container.querySelector(`[id="${id}"]`);
                 if(element) {
+                    // Mantener la clase selected si es el actual
+                    if(id === currentSelectedMuniId) continue;
+
                     if(data.status === 'unlocked') {
                         element.classList.remove('muni-base'); element.classList.add('muni-unlocked');
                     } else {
@@ -470,7 +486,7 @@
             }
         }
 
-        // 4. CARGAR INFORMACIÓN Y BOTÓN CONTACTO
+        // 4. CARGAR INFO MUNICIPIO
         function loadMuniInfo(id) {
             const muni = dbData.municipalities[id] || {};
             let defaultName = id.replace(/_/g, ' ');
@@ -484,11 +500,10 @@
             const eventsDiv = document.getElementById('info-events');
             const emptyDiv = document.getElementById('info-empty');
 
-            // Generar botón de contacto genérico para este pueblo
             const contactBtnHTML = `
                 <div class="mt-6 pt-6 border-t border-white/5 flex flex-col items-center">
                     <p class="text-xs text-gray-500 mb-3 font-medium">¿Eres de este municipio? ¡Lleva el tour allí!</p>
-                    <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="bg-white/5 hover:bg-djCyan hover:text-black border border-white/10 text-white w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wide transition-all shadow-md">
+                    <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="bg-white/5 hover:bg-djMagenta hover:text-white border border-white/10 text-white w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wide transition-all shadow-md">
                         <i class="fa-solid fa-envelope mr-2"></i> CONTACTAR AHORA
                     </a>
                 </div>
@@ -506,15 +521,15 @@
                         if(ev.media) {
                             const links = ev.media.split(',');
                             links.forEach(link => {
-                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#252a36] text-white hover:text-djCyan border border-white/5 hover:border-djCyan/50 text-xs font-bold transition-colors rounded-full"><i class="fa-solid fa-play"></i> MEDIA</a> `;
+                                if(link.trim()) mediaHtml += `<a href="${link.trim()}" target="_blank" class="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#252a36] text-white hover:text-djMagenta border border-white/5 hover:border-djMagenta/50 text-xs font-bold transition-colors rounded-full"><i class="fa-solid fa-play"></i> MEDIA</a> `;
                             });
                         }
 
                         eventsDiv.innerHTML += `
                             <div class="bg-[#1c2029] border border-white/5 rounded-xl p-5 shadow-lg relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-1 h-full bg-djCyan"></div>
+                                <div class="absolute top-0 left-0 w-1 h-full bg-djMagenta"></div>
                                 <h4 class="text-xl font-display font-bold text-white mb-1 uppercase tracking-wide">${ev.place || 'Lugar por confirmar'}</h4>
-                                <p class="text-xs text-djCyan mb-3 font-medium"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date || 'Fecha por confirmar'}</p>
+                                <p class="text-xs text-djMagenta mb-3 font-medium"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date || 'Fecha por confirmar'}</p>
                                 <p class="text-sm text-gray-300 bg-[#0b0c0f] p-3 rounded-lg border border-white/5">${ev.details || 'Sin detalles.'}</p>
                                 <div>${mediaHtml}</div>
                             </div>
@@ -538,7 +553,7 @@
             }
         }
 
-        // 5. BUSCADOR AUTOCOMPLETADO MÁXIMO 6 RESULTADOS
+        // 5. BUSCADOR
         const searchInput = document.getElementById('search-muni');
         const resultsList = document.getElementById('search-results');
 
@@ -546,19 +561,14 @@
             const val = e.target.value.toLowerCase().trim();
             resultsList.innerHTML = '';
             
-            if(val.length < 2) {
-                resultsList.classList.add('hidden');
-                return;
-            }
+            if(val.length < 2) { resultsList.classList.add('hidden'); return; }
 
-            // Buscar coincidencias
             let matches = allMapElements.filter(item => {
                 const muniData = dbData.municipalities[item.id] || {};
                 const customName = (muniData.name || "").toLowerCase();
                 return item.id.toLowerCase().includes(val) || item.defaultName.toLowerCase().includes(val) || customName.includes(val);
             });
 
-            // Limitar a máximo 6 resultados
             matches = matches.slice(0, 6);
 
             if(matches.length > 0) {
@@ -572,17 +582,10 @@
                     li.innerHTML = `<i class="fa-solid fa-location-dot text-gray-500 text-xs"></i> ${finalName}`;
                     
                     li.onclick = () => {
+                        seleccionarMuniVisually(match.id);
                         loadMuniInfo(match.id);
                         searchInput.value = '';
                         resultsList.classList.add('hidden');
-                        
-                        // Resaltar visualmente en el mapa
-                        const el = document.getElementById(match.id);
-                        if(el) {
-                            const oldStroke = el.style.stroke;
-                            el.style.stroke = "#42e6f5"; el.style.strokeWidth = "3px";
-                            setTimeout(() => { el.style.stroke = oldStroke; el.style.strokeWidth = ""; }, 1500);
-                        }
                     };
                     resultsList.appendChild(li);
                 });
@@ -592,15 +595,34 @@
             }
         });
 
-        // Ocultar buscador al hacer clic fuera
         document.addEventListener('click', (e) => {
             if(!searchInput.contains(e.target) && !resultsList.contains(e.target)) {
                 resultsList.classList.add('hidden');
             }
         });
 
-        // 6. ADMINISTRADOR
+        // 6. HOTSPOTS SETUP DINÁMICOS
+        function renderHotspots() {
+            const container = document.getElementById('hotspots-container');
+            container.innerHTML = '';
+            
+            for (const [id, data] of Object.entries(hotspotsData)) {
+                container.innerHTML += `
+                <div class="absolute w-6 h-6 group cursor-help z-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top: ${data.y}%; left: ${data.x}%;">
+                    <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute"></div>
+                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 shadow-[0_0_10px_#42e6f5]"></div>
+                    <div class="absolute hidden group-hover:block bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#0b0c0f] border border-djCyan/30 p-4 rounded-xl w-56 shadow-2xl">
+                        <h5 class="text-djCyan font-black text-sm uppercase">${data.title}</h5>
+                        <p class="text-xs text-gray-300 mt-2">${data.desc}</p>
+                    </div>
+                </div>`;
+            }
+        }
+
+        // 7. ADMINISTRADOR Y PESTAÑAS
         let clickCount = 0; let clickTimer;
+        let activeAdminTab = 'tour';
+
         document.getElementById('site-title').addEventListener('click', () => {
             clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800);
             if(clickCount >= 3) {
@@ -609,8 +631,41 @@
                 if(pwd === "1524") document.getElementById('admin-panel').classList.remove('hidden');
             }
         });
-        document.getElementById('btn-close-admin').onclick = () => document.getElementById('admin-panel').classList.add('hidden');
+        
+        document.getElementById('btn-close-admin').onclick = () => {
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('setup-img').classList.remove('admin-setup-mode');
+            document.getElementById('setup-admin-hint').classList.add('hidden');
+        };
 
+        // Lógica de Pestañas
+        const btnTabTour = document.getElementById('tab-btn-tour');
+        const btnTabSetup = document.getElementById('tab-btn-setup');
+        const secTour = document.getElementById('admin-sec-tour');
+        const secSetup = document.getElementById('admin-sec-setup');
+
+        btnTabTour.addEventListener('click', () => {
+            activeAdminTab = 'tour';
+            btnTabTour.classList.replace('text-gray-500', 'text-djCyan'); btnTabTour.classList.replace('border-transparent', 'border-djCyan');
+            btnTabSetup.classList.replace('text-djMagenta', 'text-gray-500'); btnTabSetup.classList.replace('border-djMagenta', 'border-transparent');
+            secTour.classList.remove('hidden'); secSetup.classList.add('hidden');
+            document.getElementById('setup-img').classList.remove('admin-setup-mode');
+            document.getElementById('setup-admin-hint').classList.add('hidden');
+        });
+
+        btnTabSetup.addEventListener('click', () => {
+            activeAdminTab = 'setup';
+            btnTabSetup.classList.replace('text-gray-500', 'text-djMagenta'); btnTabSetup.classList.replace('border-transparent', 'border-djMagenta');
+            btnTabTour.classList.replace('text-djCyan', 'text-gray-500'); btnTabTour.classList.replace('border-djCyan', 'border-transparent');
+            secSetup.classList.remove('hidden'); secTour.classList.add('hidden');
+            
+            // Activar cursor de punto de mira para la foto
+            document.getElementById('setup-img').classList.add('admin-setup-mode');
+            document.getElementById('setup-admin-hint').classList.remove('hidden');
+            document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'});
+        });
+
+        // Evento Guardar Municipio
         document.getElementById('btn-add-event').addEventListener('click', () => {
             const id = document.getElementById('admin-muni-id').value;
             if(!id) return alert("Selecciona un municipio.");
@@ -634,8 +689,87 @@
             
             const btn = document.getElementById('btn-add-event');
             btn.innerHTML = "¡GUARDADO!"; btn.classList.replace('bg-djCyan', 'bg-green-400');
-            setTimeout(() => { btn.innerHTML = "GUARDAR CONFIGURACIÓN"; btn.classList.replace('bg-green-400', 'bg-djCyan'); }, 2000);
+            setTimeout(() => { btn.innerHTML = "GUARDAR MUNICIPIO"; btn.classList.replace('bg-green-400', 'bg-djCyan'); }, 2000);
         });
+
+        // --- ADMINISTRACIÓN DEL SETUP ---
+        function updateHotspotDropdown() {
+            const select = document.getElementById('admin-hs-select');
+            const currentVal = select.value;
+            select.innerHTML = '<option value="NEW">-- CREAR NUEVO HOTSPOT --</option>';
+            
+            for (const [id, data] of Object.entries(hotspotsData)) {
+                select.innerHTML += `<option value="${id}">${data.title}</option>`;
+            }
+            if(hotspotsData[currentVal]) select.value = currentVal;
+        }
+
+        const hsSelect = document.getElementById('admin-hs-select');
+        const hsTitle = document.getElementById('admin-hs-title');
+        const hsDesc = document.getElementById('admin-hs-desc');
+        const hsX = document.getElementById('admin-hs-x');
+        const hsY = document.getElementById('admin-hs-y');
+        const btnDeleteHs = document.getElementById('btn-delete-hs');
+
+        hsSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if(val === 'NEW') {
+                hsTitle.value = ''; hsDesc.value = ''; hsX.value = ''; hsY.value = '';
+                btnDeleteHs.classList.add('hidden');
+            } else {
+                const data = hotspotsData[val];
+                hsTitle.value = data.title; hsDesc.value = data.desc;
+                hsX.value = data.x; hsY.value = data.y;
+                btnDeleteHs.classList.remove('hidden');
+            }
+        });
+
+        // Clic en la imagen para obtener coordenadas (Solo en modo admin setup)
+        document.getElementById('setup-image-wrapper').addEventListener('click', (e) => {
+            if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden')) {
+                const img = document.getElementById('setup-img');
+                const rect = img.getBoundingClientRect();
+                
+                // Calcular porcentajes relativos a la imagen visible
+                const xPos = ((e.clientX - rect.left) / rect.width) * 100;
+                const yPos = ((e.clientY - rect.top) / rect.height) * 100;
+
+                // Restringir a 0-100 por si hacen clic en un borde del wrapper
+                hsX.value = Math.max(0, Math.min(100, xPos)).toFixed(2);
+                hsY.value = Math.max(0, Math.min(100, yPos)).toFixed(2);
+            }
+        });
+
+        document.getElementById('btn-save-hs').addEventListener('click', () => {
+            let id = hsSelect.value;
+            if(id === 'NEW') id = `hs_${Date.now()}`;
+            
+            if(!hsTitle.value || !hsX.value || !hsY.value) {
+                return alert("Falta título o coordenadas (haz clic en la imagen para obtenerlas).");
+            }
+
+            const payload = {
+                title: hsTitle.value, desc: hsDesc.value,
+                x: parseFloat(hsX.value), y: parseFloat(hsY.value)
+            };
+
+            set(ref(db, `hotspots/${id}`), payload).then(() => {
+                const btn = document.getElementById('btn-save-hs');
+                btn.innerHTML = "¡PUNTO GUARDADO!"; btn.classList.replace('bg-djMagenta', 'bg-green-400');
+                setTimeout(() => { btn.innerHTML = "GUARDAR PUNTOS"; btn.classList.replace('bg-green-400', 'bg-djMagenta'); }, 2000);
+            });
+        });
+
+        btnDeleteHs.addEventListener('click', () => {
+            const id = hsSelect.value;
+            if(id !== 'NEW' && confirm('¿Borrar este punto interactivo?')) {
+                remove(ref(db, `hotspots/${id}`)).then(() => {
+                    hsSelect.value = 'NEW';
+                    hsSelect.dispatchEvent(new Event('change'));
+                });
+            }
+        });
+
     </script>
 </body>
 </html>
