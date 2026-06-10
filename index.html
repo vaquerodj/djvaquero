@@ -43,6 +43,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05); 
             border-radius: 20px; 
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05); 
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
         }
         
         .premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; color: transparent; background: linear-gradient(135deg, #ffffff, #a1a1aa); -webkit-background-clip: text; background-clip: text; letter-spacing: -0.02em; cursor: pointer; line-height: 1; }
@@ -58,7 +59,7 @@
         @media (min-width: 768px) { .viewport-container { height: 60vh; } }
         .viewport-container:active { cursor: grabbing; }
 
-        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; transition: transform 0.05s linear; }
+        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; transition: transform 0.05s linear; will-change: transform; }
         .zoom-layer svg { width: 100%; height: 100%; }
         
         .muni-base { fill: #13161c !important; stroke: rgba(255, 255, 255, 0.03) !important; stroke-width: 0.5px !important; transition: all 0.4s ease !important; cursor: pointer; pointer-events: all; }
@@ -74,6 +75,14 @@
         .hotspot-active .hotspot-dot { animation: none; background: #e81cff; box-shadow: 0 0 20px #e81cff; }
         @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(66, 230, 245, 0.7); } 100% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 15px rgba(66, 230, 245, 0); } }
         
+        /* Reproductor Animado */
+        .audio-bars { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
+        .audio-bars span { width: 4px; background-color: #f5d442; border-radius: 2px; animation: bounce 0.4s infinite alternate; }
+        .audio-bars span:nth-child(2) { animation-delay: 0.1s; height: 60%; }
+        .audio-bars span:nth-child(3) { animation-delay: 0.2s; height: 80%; }
+        .audio-bars span:nth-child(4) { animation-delay: 0.3s; height: 100%; }
+        @keyframes bounce { 0% { height: 20%; } 100% { height: 100%; box-shadow: 0 0 8px rgba(245, 212, 66, 0.8); } }
+
         .admin-setup-mode { cursor: crosshair !important; }
         .admin-drag-dot { cursor: grab !important; z-index: 50; }
         .admin-drag-dot:active { cursor: grabbing !important; transform: scale(1.2) translate(-40%, -40%) !important; transition: transform 0.1s; }
@@ -91,7 +100,6 @@
 </head>
 <body class="flex flex-col items-center min-h-screen pb-16">
 
-    <!-- HEADER & NAVEGACIÓN -->
     <header class="w-full max-w-[1600px] mx-auto pt-10 pb-8 px-6 md:px-10 relative z-20 flex flex-col md:flex-row justify-between items-end md:items-center">
         <div class="flex flex-col items-start mb-8 md:mb-0">
             <h1 id="site-title" class="premium-title text-5xl md:text-7xl select-none uppercase">DJ <span>Vaquero</span></h1>
@@ -104,36 +112,35 @@
                 <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
                 <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
             </div>
-            <nav class="flex gap-6 bg-white/5 px-6 py-3 rounded-full border border-white/5 backdrop-blur-md">
-                <a onclick="document.getElementById('sec-tour').scrollIntoView({behavior: 'smooth'})" class="nav-link">Tour</a>
-                <a onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="nav-link">Equipo</a>
-                <a onclick="document.getElementById('sec-mashups').scrollIntoView({behavior: 'smooth'})" class="nav-link">Mashups</a>
+            <nav class="flex gap-6 bg-white/5 px-6 py-3 rounded-full border border-white/5 backdrop-blur-md shadow-lg">
+                <a onclick="document.getElementById('sec-tour').scrollIntoView({behavior: 'smooth'})" class="nav-link hover:scale-105">Tour</a>
+                <a onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="nav-link hover:scale-105">Equipo</a>
+                <a onclick="document.getElementById('sec-mashups').scrollIntoView({behavior: 'smooth'})" class="nav-link hover:scale-105">Mashups</a>
             </nav>
         </div>
     </header>
 
-    <!-- SECCIÓN PRINCIPAL: TOUR -->
     <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 flex flex-col xl:flex-row gap-8 z-10">
         <section class="flex-[2] flex flex-col gap-5 relative">
             <div class="glass-panel p-5 flex flex-col sm:flex-row gap-5 justify-between items-center relative z-20">
-                <h2 class="font-display font-black text-2xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> MAPA GIRA</h2>
+                <h2 class="font-display font-black text-2xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan drop-shadow-[0_0_8px_rgba(66,230,245,0.5)]"></i> MAPA GIRA</h2>
                 <div class="flex-grow max-w-md relative w-full">
                     <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-[#06070a]/80 border border-white/10 rounded-full pl-12 pr-4 py-3 text-white text-sm focus:outline-none focus:border-djCyan focus:bg-[#06070a] transition-all shadow-inner">
                     <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
                     <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-[#161920] border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 hidden max-h-60 overflow-y-auto backdrop-blur-xl"></ul>
                 </div>
-                <button class="btn-reset-tour bg-[#1c2029] hover:bg-djCyan hover:text-black border border-white/10 px-5 py-3 rounded-full transition-all text-gray-400 font-bold" title="Centrar Mapa"><i class="fa-solid fa-compress"></i></button>
+                <button class="btn-reset-tour bg-[#1c2029] hover:bg-djCyan hover:text-black border border-white/10 px-5 py-3 rounded-full transition-all text-gray-400 font-bold hover:shadow-[0_0_15px_rgba(66,230,245,0.4)]" title="Centrar Mapa"><i class="fa-solid fa-compress"></i></button>
             </div>
-            <div class="viewport-container border border-white/5" id="tour-viewport">
+            <div class="viewport-container border border-white/5 shadow-2xl" id="tour-viewport">
                 <div class="zoom-layer" id="tour-layer"></div>
             </div>
         </section>
 
-        <!-- PANEL DE EVENTOS -->
-        <aside id="info-section-anchor" class="flex-1 glass-panel flex flex-col h-auto xl:h-[72vh] overflow-hidden">
-            <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent">
-                <h3 id="info-title" class="text-4xl font-display font-black text-white uppercase tracking-tight mb-3">GIRA OFICIAL</h3>
-                <div id="info-status" class="flex items-center gap-2">
+        <aside id="info-section-anchor" class="flex-1 glass-panel flex flex-col h-auto xl:h-[72vh] overflow-hidden group">
+            <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent relative">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-djCyan/10 blur-3xl rounded-full pointer-events-none group-hover:bg-djCyan/20 transition-colors"></div>
+                <h3 id="info-title" class="text-4xl font-display font-black text-white uppercase tracking-tight mb-3 relative z-10">GIRA OFICIAL</h3>
+                <div id="info-status" class="flex items-center gap-2 relative z-10">
                     <div class="w-2.5 h-2.5 rounded-full bg-gray-600"></div><span class="text-gray-400 text-xs font-bold tracking-widest uppercase">Selecciona una zona</span>
                 </div>
             </div>
@@ -144,35 +151,30 @@
         </aside>
     </main>
 
-    <!-- SECCIÓN SETUP INTERACTIVO -->
     <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-32 px-4 md:px-10 z-10">
-        <div class="flex items-center gap-6 mb-10">
-            <h2 class="font-display text-4xl text-white font-black uppercase tracking-wide">EQUIPO DJ</h2>
-            <div class="h-[2px] flex-grow bg-gradient-to-r from-white/10 to-transparent"></div>
+        <div class="glass-panel p-5 mb-8 flex justify-between items-center max-w-sm inline-flex">
+            <h2 class="font-display font-black text-2xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap"><i class="fa-solid fa-headphones text-djMagenta drop-shadow-[0_0_8px_rgba(232,28,255,0.5)]"></i> EQUIPO DJ</h2>
         </div>
         
         <div class="flex flex-col xl:flex-row gap-8">
-            <!-- Imagen Setup -->
             <div class="flex-[2] glass-panel p-8 flex justify-center items-center overflow-hidden relative min-h-[50vh]">
-                <div id="setup-image-wrapper" class="relative inline-block max-w-full">
+                <div id="setup-image-wrapper" class="relative inline-block max-w-full bg-black/30 p-2 rounded-2xl border border-white/5">
                     <img src="setup.png" alt="Setup DJ" class="w-full h-auto max-h-[65vh] object-contain rounded-xl relative z-0 drop-shadow-2xl" id="setup-img">
                     <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
-                    <!-- Contenedor separado para los puntos arrastrables del Admin -->
                     <div id="admin-hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none z-40 hidden"></div>
                 </div>
                 <p id="setup-admin-hint" class="absolute bottom-4 right-6 text-djMagenta text-[11px] hidden font-bold tracking-widest uppercase bg-black/80 px-4 py-2 rounded-full border border-djMagenta/30 backdrop-blur-md z-50">MODO EDICIÓN ACTIVO: Clic para añadir • Arrastra para mover</p>
             </div>
             
-            <!-- Panel Detalle Componente -->
-            <div class="flex-[1] glass-panel p-10 flex flex-col justify-center min-h-[350px] relative overflow-hidden" id="setup-info-panel">
-                <div class="absolute -top-20 -right-20 w-64 h-64 bg-djCyan/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="flex-[1] glass-panel p-10 flex flex-col justify-center min-h-[350px] relative overflow-hidden group" id="setup-info-panel">
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-djMagenta/10 rounded-full blur-3xl pointer-events-none group-hover:bg-djMagenta/20 transition-all duration-700"></div>
                 
                 <div class="text-center opacity-40 flex flex-col items-center transition-all duration-500" id="setup-default-msg">
                     <i class="fa-solid fa-hand-pointer text-5xl mb-6"></i>
                     <p class="font-display text-sm uppercase tracking-widest font-bold">Toca un punto de la imagen<br>para explorar el equipo</p>
                 </div>
                 <div id="setup-detail-content" class="hidden relative z-10 transition-all duration-500">
-                    <div class="w-16 h-1.5 bg-gradient-to-r from-djCyan to-blue-500 mb-8 rounded-full"></div>
+                    <div class="w-16 h-1.5 bg-gradient-to-r from-djMagenta to-purple-600 mb-8 rounded-full shadow-[0_0_10px_rgba(232,28,255,0.5)]"></div>
                     <h3 id="setup-detail-title" class="text-4xl font-display font-black text-white uppercase tracking-tight mb-6"></h3>
                     <p id="setup-detail-desc" class="text-gray-300 text-base leading-relaxed bg-black/40 p-6 rounded-2xl border border-white/5 backdrop-blur-sm shadow-inner"></p>
                 </div>
@@ -180,18 +182,14 @@
         </div>
     </div>
 
-    <!-- SECCIÓN MASHUPS -->
     <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-32 px-4 md:px-10 z-10">
-        <div class="flex items-center gap-6 mb-10">
-            <h2 class="font-display text-4xl text-white font-black uppercase tracking-wide">MASHUPS & EDITS</h2>
-            <div class="h-[2px] flex-grow bg-gradient-to-r from-djMagenta/50 to-transparent"></div>
+        <div class="glass-panel p-5 mb-8 flex justify-between items-center max-w-md inline-flex">
+            <h2 class="font-display font-black text-2xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap"><i class="fa-solid fa-compact-disc text-djYellow drop-shadow-[0_0_8px_rgba(245,212,66,0.5)]"></i> MASHUPS & EDITS</h2>
         </div>
         <div id="mashups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            <!-- Cargados por JS -->
-        </div>
+            </div>
     </div>
 
-    <!-- PANEL DE ADMINISTRADOR FLOTANTE -->
     <div id="admin-panel" class="hidden fixed top-24 left-6 md:left-10 w-[420px] max-w-[92vw] bg-djPanel/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] z-[100] flex flex-col overflow-hidden">
         <div id="admin-panel-header" class="bg-black/40 border-b border-white/10 p-5 flex justify-between items-center cursor-move touch-none">
             <div class="flex items-center gap-3 pointer-events-none">
@@ -203,13 +201,12 @@
 
         <div class="flex bg-black/20 overflow-x-auto text-[11px] font-bold tracking-wider">
             <button id="tab-btn-tour" class="flex-1 py-4 text-djCyan border-b-2 border-djCyan transition-colors whitespace-nowrap px-2">GIRA</button>
-            <button id="tab-btn-setup" class="flex-1 py-4 text-gray-500 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap px-2">EQUIPO DJ</button>
+            <button id="tab-btn-setup" class="flex-1 py-4 text-gray-500 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap px-2">EQUIPO</button>
             <button id="tab-btn-mashups" class="flex-1 py-4 text-gray-500 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap px-2">MASHUPS</button>
         </div>
 
         <div class="p-7 overflow-y-auto max-h-[70vh] relative custom-scrollbar">
             
-            <!-- PESTAÑA: TOUR -->
             <div id="admin-sec-tour" class="space-y-6">
                 <input type="hidden" id="admin-muni-id">
                 <input type="hidden" id="admin-editing-event-id">
@@ -238,7 +235,6 @@
                 </div>
             </div>
 
-            <!-- PESTAÑA: SETUP -->
             <div id="admin-sec-setup" class="space-y-6 hidden">
                 <div>
                     <label class="text-[10px] text-djMagenta font-bold tracking-widest uppercase block mb-2">Componente de Equipo</label>
@@ -263,8 +259,8 @@
                 </div>
             </div>
 
-            <!-- PESTAÑA: MASHUPS -->
             <div id="admin-sec-mashups" class="space-y-6 hidden">
+                <p class="text-[10px] text-gray-400 leading-relaxed p-3 bg-black/40 border border-white/5 rounded-xl">El reproductor buscará automáticamente el archivo <strong>mashupX.mp3</strong> en el servidor según el orden cronológico en el que lo guardes.</p>
                 <div>
                     <label class="text-[10px] text-djYellow font-bold tracking-widest uppercase block mb-2">Seleccionar Mashup</label>
                     <select id="admin-mash-select" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:outline-none focus:border-djYellow cursor-pointer transition-colors">
@@ -273,8 +269,6 @@
                 </div>
                 <div><label class="text-[10px] text-gray-400 font-bold tracking-widest uppercase block mb-2">Título</label>
                 <input type="text" id="admin-mash-title" placeholder="Ej: Reggaeton Old School Mix" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:border-djYellow focus:outline-none transition-colors"></div>
-                <div><label class="text-[10px] text-gray-400 font-bold tracking-widest uppercase block mb-2">Enlace Preview (Soundcloud/YT)</label>
-                <input type="text" id="admin-mash-preview" placeholder="Opcional" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:border-djYellow focus:outline-none transition-colors"></div>
                 <div><label class="text-[10px] text-gray-400 font-bold tracking-widest uppercase block mb-2">Enlace de Descarga (Drive/Mega)</label>
                 <input type="text" id="admin-mash-dl" placeholder="URL Descarga" class="w-full bg-black/50 border border-white/10 p-3 text-white rounded-lg text-sm focus:border-djYellow focus:outline-none transition-colors"></div>
                 
@@ -325,73 +319,82 @@
             if(adminMuniId) populateAdminEventsList(adminMuniId);
         });
 
-        // 2. ZOOM MEJORADO
+        // 2. ZOOM MEJORADO (Optimizado para móviles sin errores)
         function enableZoomPan(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
             const layer = document.getElementById(layerId);
             let scale = 1, panning = false, pointX = 0, pointY = 0, startX = 0, startY = 0;
             let initialPinchDistance = null, initialScale = 1;
 
-            const setTransform = () => {
+            const clampAndTransform = () => {
+                // Aplicar transformación fluida
                 layer.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
                 if(scale > 3.5) layer.classList.add('show-labels'); else layer.classList.remove('show-labels');
             };
 
             viewport.addEventListener('wheel', (e) => {
                 e.preventDefault();
-                const xs = (e.clientX - viewport.getBoundingClientRect().left - pointX) / scale;
-                const ys = (e.clientY - viewport.getBoundingClientRect().top - pointY) / scale;
+                const rect = viewport.getBoundingClientRect();
+                const xs = (e.clientX - rect.left - pointX) / scale;
+                const ys = (e.clientY - rect.top - pointY) / scale;
                 const delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
                 (delta > 0) ? (scale *= 1.15) : (scale /= 1.15);
                 scale = Math.max(0.5, Math.min(scale, 15));
-                pointX = (e.clientX - viewport.getBoundingClientRect().left) - xs * scale;
-                pointY = (e.clientY - viewport.getBoundingClientRect().top) - ys * scale;
-                setTransform();
+                pointX = (e.clientX - rect.left) - xs * scale;
+                pointY = (e.clientY - rect.top) - ys * scale;
+                clampAndTransform();
             }, { passive: false });
 
+            // PC Mouse
             viewport.addEventListener('mousedown', (e) => { e.preventDefault(); startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; viewport.style.cursor = 'move'; window.isDraggingMap = false; });
             window.addEventListener('mouseup', () => { panning = false; viewport.style.cursor = 'grab'; setTimeout(() => { window.isDraggingMap = false; }, 50); });
-            window.addEventListener('mousemove', (e) => { if (!panning) return; window.isDraggingMap = true; pointX = e.clientX - startX; pointY = e.clientY - startY; setTransform(); });
+            window.addEventListener('mousemove', (e) => { if (!panning) return; window.isDraggingMap = true; pointX = e.clientX - startX; pointY = e.clientY - startY; clampAndTransform(); });
 
+            // Táctil (Optimizado para evitar el error de esquinas)
             viewport.addEventListener('touchstart', (e) => {
+                if(e.cancelable) e.preventDefault(); // Evita scroll de página
                 if (e.touches.length === 2) {
                     initialPinchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
                     initialScale = scale;
                     window.isDraggingMap = true;
                 } else if (e.touches.length === 1) {
-                    startX = e.touches[0].clientX - pointX; startY = e.touches[0].clientY - pointY; panning = true; window.isDraggingMap = false;
+                    startX = e.touches[0].clientX - pointX; 
+                    startY = e.touches[0].clientY - pointY; 
+                    panning = true; 
+                    window.isDraggingMap = false;
                 }
             }, { passive: false });
 
             viewport.addEventListener('touchmove', (e) => {
+                if(e.cancelable) e.preventDefault();
                 if (e.touches.length === 2 && initialPinchDistance) {
-                    e.preventDefault(); 
                     const t1 = e.touches[0], t2 = e.touches[1];
                     const currentDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-                    const cx = (t1.clientX + t2.clientX) / 2;
-                    const cy = (t1.clientY + t2.clientY) / 2;
+                    
+                    // Calcular el centro del pinchazo para hacer zoom ahí
+                    const rect = viewport.getBoundingClientRect();
+                    const cx = ((t1.clientX + t2.clientX) / 2) - rect.left;
+                    const cy = ((t1.clientY + t2.clientY) / 2) - rect.top;
                     
                     const zoomFactor = currentDist / initialPinchDistance;
                     let newScale = Math.max(0.5, Math.min(initialScale * zoomFactor, 15));
                     
-                    const rect = viewport.getBoundingClientRect();
-                    const localCx = cx - rect.left;
-                    const localCy = cy - rect.top;
-                    
-                    pointX = localCx - (localCx - pointX) * (newScale / scale);
-                    pointY = localCy - (localCy - pointY) * (newScale / scale);
+                    // Matemáticas para mantener el centro estático
+                    pointX = cx - (cx - pointX) * (newScale / scale);
+                    pointY = cy - (cy - pointY) * (newScale / scale);
                     scale = newScale;
                     
                     initialPinchDistance = currentDist;
                     initialScale = scale;
-                    setTransform();
+                    clampAndTransform();
                     window.isDraggingMap = true;
                 } else if (e.touches.length === 1 && panning) {
-                    e.preventDefault();
                     const dx = e.touches[0].clientX - startX - pointX;
                     const dy = e.touches[0].clientY - startY - pointY;
-                    if(Math.abs(dx) > 5 || Math.abs(dy) > 5) window.isDraggingMap = true;
-                    pointX = e.touches[0].clientX - startX; pointY = e.touches[0].clientY - startY; setTransform();
+                    if(Math.abs(dx) > 3 || Math.abs(dy) > 3) window.isDraggingMap = true;
+                    pointX = e.touches[0].clientX - startX; 
+                    pointY = e.touches[0].clientY - startY; 
+                    clampAndTransform();
                 }
             }, { passive: false });
 
@@ -401,7 +404,7 @@
                 setTimeout(() => { if(!panning) window.isDraggingMap = false; }, 100);
             });
             
-            return () => { scale = 1; pointX = 0; pointY = 0; setTransform(); };
+            return () => { scale = 1; pointX = 0; pointY = 0; clampAndTransform(); };
         }
         const resetTourZoom = enableZoomPan('tour-viewport', 'tour-layer');
         document.querySelector('.btn-reset-tour').addEventListener('click', resetTourZoom);
@@ -524,22 +527,78 @@
         });
         document.addEventListener('click', (e) => { if(!sInput.contains(e.target) && !rList.contains(e.target)) rList.classList.add('hidden'); });
 
-        // 4. MASHUPS
+        // 4. MASHUPS CON REPRODUCTOR WEB INTEGRADO
+        let currentAudio = null;
+        window.toggleAudio = function(id) {
+            const audioEl = document.getElementById(`audio-${id}`);
+            const btnText = document.getElementById(`btn-text-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            const vis = document.getElementById(`visualizer-${id}`);
+            const timeEl = document.getElementById(`time-${id}`);
+            
+            // Pausar si hay otro reproduciendo
+            if (currentAudio && currentAudio !== audioEl) {
+                currentAudio.pause();
+                const prevId = currentAudio.id.replace('audio-', '');
+                document.getElementById(`icon-${prevId}`).className = 'fa-solid fa-play mr-2';
+                document.getElementById(`btn-text-${prevId}`).innerText = 'PREVIEW';
+                document.getElementById(`visualizer-${prevId}`).classList.add('hidden');
+            }
+            
+            if (audioEl.paused) {
+                audioEl.play().catch(e => alert("Sube el archivo " + audioEl.getAttribute('src') + " a tu servidor/github primero."));
+                icon.className = 'fa-solid fa-pause mr-2 text-djYellow';
+                btnText.innerText = 'SONANDO';
+                vis.classList.remove('hidden');
+                currentAudio = audioEl;
+                
+                audioEl.ontimeupdate = () => {
+                    const rem = audioEl.duration - audioEl.currentTime;
+                    if(!isNaN(rem)) {
+                        const m = Math.floor(rem / 60), s = Math.floor(rem % 60).toString().padStart(2, '0');
+                        timeEl.innerText = `-${m}:${s}`;
+                    }
+                };
+                audioEl.onended = () => {
+                    icon.className = 'fa-solid fa-play mr-2';
+                    btnText.innerText = 'PREVIEW';
+                    vis.classList.add('hidden');
+                    timeEl.innerText = '';
+                };
+            } else {
+                audioEl.pause();
+                icon.className = 'fa-solid fa-play mr-2';
+                btnText.innerText = 'PREVIEW';
+                vis.classList.add('hidden');
+            }
+        };
+
         function renderMashups() {
             const grid = document.getElementById('mashups-grid'); grid.innerHTML = '';
-            const entries = Object.entries(dbData.mashups);
+            // Ordenar por ID para asegurar un orden cronológico estable
+            const entries = Object.entries(dbData.mashups).sort((a,b) => a[0].localeCompare(b[0]));
             if(entries.length === 0) { grid.innerHTML = `<p class="text-gray-500 col-span-full font-medium">No hay mashups disponibles por ahora.</p>`; return; }
-            entries.forEach(([id, data]) => {
-                let btnPreview = data.preview ? `<a href="${data.preview}" target="_blank" class="flex-1 bg-white/5 hover:bg-white/10 text-white border border-white/10 py-3.5 rounded-xl text-center text-xs font-black tracking-widest transition-colors"><i class="fa-solid fa-play mr-2"></i> PREVIEW</a>` : '';
+            
+            entries.forEach(([id, data], index) => {
+                const mp3Name = `mashup${index + 1}.mp3`; // Generación automática del archivo
                 grid.innerHTML += `
-                <div class="glass-panel p-6 flex flex-col justify-between hover:border-djMagenta/40 transition-all hover:-translate-y-1 group">
+                <div class="glass-panel bg-black/30 p-6 flex flex-col justify-between hover:border-djYellow/40 hover:shadow-[0_0_30px_rgba(245,212,66,0.1)] transition-all duration-300 hover:-translate-y-1 group">
                     <div>
-                        <div class="w-12 h-12 rounded-full bg-djMagenta/10 flex items-center justify-center mb-5 text-djMagenta group-hover:scale-110 transition-transform group-hover:bg-djMagenta/20"><i class="fa-solid fa-music text-lg"></i></div>
+                        <div class="w-12 h-12 rounded-full bg-djYellow/10 flex items-center justify-center mb-5 text-djYellow group-hover:scale-110 transition-transform group-hover:bg-djYellow/20 shadow-[0_0_15px_rgba(245,212,66,0.1)]"><i class="fa-solid fa-music text-lg"></i></div>
                         <h4 class="font-display font-black text-xl text-white mb-3 leading-tight">${data.title}</h4>
                     </div>
-                    <div class="flex gap-3 mt-6 pt-6 border-t border-white/5">
-                        ${btnPreview}
-                        <a href="${data.dl}" target="_blank" class="flex-1 bg-gradient-to-r from-djMagenta to-purple-600 hover:scale-[1.02] text-white py-3.5 rounded-xl text-center text-xs font-black tracking-widest transition-transform shadow-[0_10px_20px_rgba(232,28,255,0.2)]"><i class="fa-solid fa-download mr-2"></i> BAJAR</a>
+                    
+                    <audio id="audio-${id}" src="${mp3Name}"></audio>
+                    
+                    <div class="flex flex-col gap-3 mt-6 pt-6 border-t border-white/5">
+                        <div class="flex items-center justify-between bg-black/40 p-1.5 pr-4 rounded-xl border border-white/5">
+                            <button onclick="window.toggleAudio('${id}')" class="bg-white/5 hover:bg-white/10 text-white py-2 px-4 rounded-lg text-xs font-black tracking-widest transition-colors flex items-center">
+                                <i id="icon-${id}" class="fa-solid fa-play mr-2"></i> <span id="btn-text-${id}">PREVIEW</span>
+                            </button>
+                            <div id="visualizer-${id}" class="hidden audio-bars ml-2"><span></span><span></span><span></span><span></span></div>
+                            <span id="time-${id}" class="text-xs text-djYellow font-bold ml-auto tracking-widest font-display"></span>
+                        </div>
+                        <a href="${data.dl}" target="_blank" class="w-full bg-gradient-to-r from-djYellow to-orange-400 hover:scale-[1.02] text-black py-3.5 rounded-xl text-center text-xs font-black tracking-widest transition-transform shadow-[0_10px_20px_rgba(245,212,66,0.2)]"><i class="fa-solid fa-download mr-2"></i> DESCARGAR</a>
                     </div>
                 </div>`;
             });
@@ -561,16 +620,15 @@
         function renderComponents() {
             const container = document.getElementById('hotspots-container');
             container.innerHTML = '';
-            // Solo renderiza los componentes estáticos si no estamos editando el setup
             if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden')) return;
 
             for (const [compId, comp] of Object.entries(dbData.components)) {
                 if(comp.points) {
                     comp.points.forEach((pt, idx) => {
                         container.innerHTML += `
-                        <div class="absolute w-7 h-7 z-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top: ${pt.y}%; left: ${pt.x}%;">
-                            <div class="w-full h-full bg-djCyan rounded-full hotspot-dot absolute cursor-pointer border border-white/50" onclick="window.selectComponent('${compId}', this.parentElement)"></div>
-                            <div class="w-3 h-3 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_0_10px_#42e6f5]"></div>
+                        <div class="absolute w-7 h-7 z-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto hover:scale-110 transition-transform" style="top: ${pt.y}%; left: ${pt.x}%;">
+                            <div class="w-full h-full bg-djMagenta rounded-full hotspot-dot absolute cursor-pointer border border-white/50" onclick="window.selectComponent('${compId}', this.parentElement)"></div>
+                            <div class="w-3 h-3 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_0_10px_#e81cff]"></div>
                         </div>`;
                     });
                 }
@@ -614,22 +672,18 @@
         function toggleSetupAdminMode(isActive) {
             const img = document.getElementById('setup-img'), hint = document.getElementById('setup-admin-hint'), dragContainer = document.getElementById('admin-hotspots-container');
             if(isActive) {
-                img.classList.add('admin-setup-mode'); 
-                hint.classList.remove('hidden'); 
-                dragContainer.classList.remove('hidden');
-                document.getElementById('hotspots-container').classList.add('hidden'); // Ocultar visualizador normal
+                img.classList.add('admin-setup-mode'); hint.classList.remove('hidden'); dragContainer.classList.remove('hidden');
+                document.getElementById('hotspots-container').classList.add('hidden');
                 document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'});
-                renderAdminPointsList(); // Dibujar puntos arrastrables
+                renderAdminPointsList();
             } else {
-                img.classList.remove('admin-setup-mode'); 
-                hint.classList.add('hidden'); 
-                dragContainer.classList.add('hidden');
+                img.classList.remove('admin-setup-mode'); hint.classList.add('hidden'); dragContainer.classList.add('hidden');
                 document.getElementById('hotspots-container').classList.remove('hidden');
-                renderComponents(); // Restaurar visualizador
+                renderComponents();
             }
         }
 
-        // ADMIN: TOUR
+        // ADMIN: TOUR (Sin cambios)
         function populateAdminEventsList(mId) {
             const c = document.getElementById('admin-event-list-container'), l = document.getElementById('admin-event-list'), muni = dbData.municipalities[mId];
             l.innerHTML = '';
@@ -657,9 +711,8 @@
             const btn = document.getElementById('btn-add-event'); btn.innerHTML = "¡OK!"; btn.classList.replace('from-djCyan','from-green-400'); btn.classList.replace('to-blue-500','to-green-600'); setTimeout(()=>{btn.innerHTML="GUARDAR";btn.classList.replace('from-green-400','from-djCyan');btn.classList.replace('to-green-600','to-blue-500');},1500);
         });
 
-        // ADMIN: SETUP COMPONENTES (PUNTOS ARRASTRABLES)
+        // ADMIN: SETUP
         let currentAdminPoints = [];
-        
         function updateCompDropdown() {
             const sel = document.getElementById('admin-comp-select'); const cv = sel.value;
             sel.innerHTML = '<option value="NEW">-- NUEVO COMPONENTE --</option>';
@@ -671,48 +724,30 @@
             const ul = document.getElementById('admin-comp-points-list'); ul.innerHTML = '';
             if(currentAdminPoints.length === 0) ul.innerHTML = '<li class="text-gray-500 text-[10px] italic">No hay puntos asignados.</li>';
             
-            const dragContainer = document.getElementById('admin-hotspots-container');
-            dragContainer.innerHTML = '';
+            const dragContainer = document.getElementById('admin-hotspots-container'); dragContainer.innerHTML = '';
 
             currentAdminPoints.forEach((pt, i) => {
-                // Info List Sidebar
                 ul.innerHTML += `<li class="flex justify-between items-center bg-black/40 p-2 rounded-lg border border-white/5"><span class="text-djCyan font-medium">Punto ${i+1}: X:${pt.x}%, Y:${pt.y}%</span><button class="text-red-500 hover:text-white px-2 transition-colors" onclick="window.removeAdminPoint(${i})"><i class="fa-solid fa-times"></i></button></li>`;
                 
-                // Draggable Point on Image
                 const dot = document.createElement('div');
-                dot.className = "absolute w-7 h-7 bg-djMagenta rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_20px_#e81cff] border-2 border-white admin-drag-dot flex items-center justify-center text-[10px] font-black pointer-events-auto";
-                dot.style.left = pt.x + '%';
-                dot.style.top = pt.y + '%';
-                dot.innerHTML = i + 1;
+                dot.className = "absolute w-7 h-7 bg-djMagenta rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_20px_#e81cff] border-2 border-white admin-drag-dot flex items-center justify-center text-[10px] font-black pointer-events-auto text-white";
+                dot.style.left = pt.x + '%'; dot.style.top = pt.y + '%'; dot.innerHTML = i + 1;
                 
                 const startDragPoint = (e) => {
                     e.preventDefault(); e.stopPropagation();
                     const img = document.getElementById('setup-img'), rect = img.getBoundingClientRect();
-                    
                     const movePoint = (ev) => {
                         ev.preventDefault();
-                        const cx = ev.touches ? ev.touches[0].clientX : ev.clientX;
-                        const cy = ev.touches ? ev.touches[0].clientY : ev.clientY;
+                        const cx = ev.touches ? ev.touches[0].clientX : ev.clientX; const cy = ev.touches ? ev.touches[0].clientY : ev.clientY;
                         let x = ((cx - rect.left) / rect.width) * 100, y = ((cy - rect.top) / rect.height) * 100;
                         x = Math.max(0, Math.min(100, x)); y = Math.max(0, Math.min(100, y));
-                        
                         dot.style.left = x + '%'; dot.style.top = y + '%';
                         currentAdminPoints[i] = { x: parseFloat(x.toFixed(2)), y: parseFloat(y.toFixed(2)) };
                     };
-                    
-                    const endDragPoint = () => {
-                        document.removeEventListener('mousemove', movePoint); document.removeEventListener('mouseup', endDragPoint);
-                        document.removeEventListener('touchmove', movePoint); document.removeEventListener('touchend', endDragPoint);
-                        renderAdminPointsList(); // Refresh sidebar list
-                    };
-                    
-                    document.addEventListener('mousemove', movePoint); document.addEventListener('mouseup', endDragPoint);
-                    document.addEventListener('touchmove', movePoint, {passive: false}); document.addEventListener('touchend', endDragPoint);
+                    const endDragPoint = () => { document.removeEventListener('mousemove', movePoint); document.removeEventListener('mouseup', endDragPoint); document.removeEventListener('touchmove', movePoint); document.removeEventListener('touchend', endDragPoint); renderAdminPointsList(); };
+                    document.addEventListener('mousemove', movePoint); document.addEventListener('mouseup', endDragPoint); document.addEventListener('touchmove', movePoint, {passive: false}); document.addEventListener('touchend', endDragPoint);
                 };
-                
-                dot.addEventListener('mousedown', startDragPoint);
-                dot.addEventListener('touchstart', startDragPoint, {passive: false});
-                dragContainer.appendChild(dot);
+                dot.addEventListener('mousedown', startDragPoint); dot.addEventListener('touchstart', startDragPoint, {passive: false}); dragContainer.appendChild(dot);
             });
         }
         window.removeAdminPoint = function(idx) { currentAdminPoints.splice(idx, 1); renderAdminPointsList(); };
@@ -724,7 +759,6 @@
             renderAdminPointsList();
         });
 
-        // Añadir nuevo punto al hacer clic en la imagen (solo si no se está arrastrando)
         document.getElementById('setup-image-wrapper').addEventListener('mousedown', (e) => {
             if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden') && !e.target.classList.contains('admin-drag-dot')) {
                 const img = document.getElementById('setup-img'), r = img.getBoundingClientRect();
@@ -746,7 +780,7 @@
             if(id !== 'NEW' && confirm('¿Borrar componente completo?')) remove(ref(db, `components/${id}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; document.getElementById('admin-comp-select').dispatchEvent(new Event('change')); });
         });
 
-        // ADMIN: MASHUPS
+        // ADMIN: MASHUPS (Simplificado sin Preview Link)
         function updateMashupDropdown() {
             const sel = document.getElementById('admin-mash-select'); const cv = sel.value;
             sel.innerHTML = '<option value="NEW">-- NUEVO MASHUP --</option>';
@@ -756,15 +790,16 @@
 
         document.getElementById('admin-mash-select').addEventListener('change', (e) => {
             const v = e.target.value;
-            if(v === 'NEW') { ['admin-mash-title','admin-mash-preview','admin-mash-dl'].forEach(id => document.getElementById(id).value=''); document.getElementById('btn-delete-mash').classList.add('hidden'); }
-            else { const d = dbData.mashups[v]; document.getElementById('admin-mash-title').value=d.title||''; document.getElementById('admin-mash-preview').value=d.preview||''; document.getElementById('admin-mash-dl').value=d.dl||''; document.getElementById('btn-delete-mash').classList.remove('hidden'); }
+            if(v === 'NEW') { ['admin-mash-title','admin-mash-dl'].forEach(id => document.getElementById(id).value=''); document.getElementById('btn-delete-mash').classList.add('hidden'); }
+            else { const d = dbData.mashups[v]; document.getElementById('admin-mash-title').value=d.title||''; document.getElementById('admin-mash-dl').value=d.dl||''; document.getElementById('btn-delete-mash').classList.remove('hidden'); }
         });
 
         document.getElementById('btn-save-mash').addEventListener('click', () => {
             let id = document.getElementById('admin-mash-select').value; if(id === 'NEW') id = `mash_${Date.now()}`;
             const t = document.getElementById('admin-mash-title').value, dl = document.getElementById('admin-mash-dl').value;
             if(!t || !dl) return alert("Falta título o link de descarga.");
-            set(ref(db, `mashups/${id}`), { title: t, preview: document.getElementById('admin-mash-preview').value, dl: dl }).then(() => {
+            // Ya no guardamos el link de preview porque se autogenera
+            set(ref(db, `mashups/${id}`), { title: t, dl: dl }).then(() => {
                 const b = document.getElementById('btn-save-mash'); b.innerHTML="¡OK!"; b.classList.replace('from-djYellow','from-green-400'); b.classList.replace('to-orange-400','to-green-600'); setTimeout(()=>{b.innerHTML="GUARDAR MASHUP";b.classList.replace('from-green-400','from-djYellow');b.classList.replace('to-green-600','to-orange-400');},1500);
             });
         });
