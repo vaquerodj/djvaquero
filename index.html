@@ -46,22 +46,20 @@
         
         .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; }
         @media (min-width: 1024px) { .viewport-container { height: 68vh; } }
-        /* Eliminado will-change: transform para evitar rasterizado y vista borrosa en el zoom SVG */
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
         .zoom-layer svg { width: 100%; height: 100%; shape-rendering: geometricPrecision !important; text-rendering: geometricPrecision !important; }
         
         path, polygon { vector-effect: non-scaling-stroke !important; }
         
-        /* ESTILOS DE MAPA ACTUALIZADOS */
-        .muni-base { fill: #0d1014 !important; stroke: rgba(255, 255, 255, 0.03) !important; stroke-width: 0.5px !important; transition: all 0.3s ease; cursor: pointer; }
-        .muni-base:hover { fill: #1a202a !important; stroke: rgba(255,255,255,0.1) !important; }
+        /* ESTILOS DE MAPA ACTUALIZADOS: Sin animaciones, grosor uniforme inicial */
+        .muni-base { fill: #0d1014 !important; stroke: rgba(255, 255, 255, 0.15) !important; stroke-width: 0.75px !important; transition: all 0.3s ease; cursor: pointer; }
+        .muni-base:hover { fill: #1a202a !important; stroke: rgba(255,255,255,0.3) !important; }
         
-        @keyframes dashFlow { to { stroke-dashoffset: -100; } }
-        .muni-unlocked { fill: #0a1f26 !important; stroke: #42e6f5 !important; stroke-width: 1.5px !important; stroke-dasharray: 4 6; animation: dashFlow 4s linear infinite; transition: all 0.3s ease; cursor: pointer; }
+        .muni-unlocked { fill: #0a1f26 !important; stroke: #42e6f5 !important; stroke-width: 0.75px !important; transition: all 0.3s ease; cursor: pointer; }
         .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.15) !important; filter: drop-shadow(0 0 10px rgba(66,230,245,0.3)); }
         
-        @keyframes neonGlow { 0% { fill: rgba(232, 28, 255, 0.6); filter: drop-shadow(0 0 10px rgba(232, 28, 255, 0.5)); } 100% { fill: rgba(232, 28, 255, 0.9); filter: drop-shadow(0 0 20px rgba(232, 28, 255, 0.9)); } }
-        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 2px !important; stroke-dasharray: none !important; animation: neonGlow 1.5s infinite alternate ease-in-out !important; }
+        /* Estilo seleccionado limpio, sin animaciones */
+        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 1.5px !important; transition: all 0.3s ease; filter: drop-shadow(0 0 10px rgba(232, 28, 255, 0.4)) !important; }
         
         .comp-polygon { fill: rgba(232, 28, 255, 0.04); stroke: rgba(232, 28, 255, 0.25); stroke-width: 0.5px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .comp-polygon:hover, .comp-polygon.hotspot-active { fill: rgba(232, 28, 255, 0.22); stroke: #e81cff; stroke-width: 1px; filter: drop-shadow(0 0 8px rgba(232, 28, 255, 0.6)); }
@@ -81,30 +79,34 @@
 <body class="flex flex-col items-center min-h-screen pb-24 relative">
     <div class="ambient-bg"><div class="ambient-glow-1"></div><div class="ambient-glow-2"></div></div>
 
-    <header class="w-full max-w-[1600px] mx-auto pt-12 pb-8 px-6 md:px-10 relative z-20 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div class="flex flex-col items-start">
-            <h1 id="site-title" class="premium-title text-5xl md:text-7xl select-none uppercase transition-transform active:scale-95">DJ <span>Vaquero</span></h1>
-            <p class="text-djCyan font-display font-extrabold text-xs md:text-sm tracking-wider mt-2 bg-djCyan/10 px-3 py-1 rounded-md border border-djCyan/20 animate-pulse">EL DJ QUE TU EVENTO NECESITA</p>
-        </div>
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full md:w-auto justify-between md:justify-end">
-            <nav class="flex gap-6 bg-white/[0.03] px-8 py-4 rounded-full border border-white/5 backdrop-blur-xl shadow-2xl order-2 sm:order-1">
-                <a onclick="document.getElementById('sec-tour').scrollIntoView({behavior: 'smooth'})" class="nav-link active">Tour</a>
-                <a onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="nav-link">Equipo</a>
-                <a onclick="document.getElementById('sec-mashups').scrollIntoView({behavior: 'smooth'})" class="nav-link">Mashups</a>
-            </nav>
-            <div class="flex space-x-3 order-1 sm:order-2">
-                <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
-                <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok text-lg"></i></a>
-                <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
-                <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
+    <!-- Contenedor Sticky para Desktop -->
+    <div class="w-full z-[60] md:sticky md:top-0 md:bg-[#06070a]/90 md:backdrop-blur-xl md:border-b md:border-white/5 md:shadow-2xl pt-8 pb-4 md:pt-6 md:pb-6 transition-all">
+        <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div class="flex flex-col items-start">
+                <h1 id="site-title" class="premium-title text-5xl md:text-6xl lg:text-7xl select-none uppercase transition-transform active:scale-95">DJ <span>Vaquero</span></h1>
+                <p class="text-djCyan font-display font-extrabold text-xs md:text-sm tracking-wider mt-2 bg-djCyan/10 px-3 py-1 rounded-md border border-djCyan/20 animate-pulse">EL DJ QUE TU EVENTO NECESITA</p>
             </div>
-        </div>
-    </header>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                <nav class="flex gap-6 bg-white/[0.03] px-8 py-4 rounded-full border border-white/5 backdrop-blur-xl shadow-2xl order-2 sm:order-1">
+                    <a onclick="document.getElementById('sec-tour').scrollIntoView({behavior: 'smooth'})" class="nav-link active">Tour</a>
+                    <a onclick="document.getElementById('sec-setup').scrollIntoView({behavior: 'smooth'})" class="nav-link">Equipo</a>
+                    <a onclick="document.getElementById('sec-mashups').scrollIntoView({behavior: 'smooth'})" class="nav-link">Mashups</a>
+                </nav>
+                <div class="flex space-x-3 order-1 sm:order-2">
+                    <a href="https://www.instagram.com/djvaquero__/" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="https://www.tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok text-lg"></i></a>
+                    <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
+                    <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
+                </div>
+            </div>
+        </header>
+    </div>
 
-    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 flex flex-col lg:flex-row gap-8 z-10 scroll-mt-6">
+    <!-- Ajustado scroll-mt-32 para compensar la cabecera sticky en enlaces -->
+    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-8 z-10 scroll-mt-32">
         <section class="flex-[2] flex flex-col gap-5 relative">
             <div class="glass-panel p-5 flex flex-col sm:flex-row gap-4 justify-between items-center relative z-20">
-                <h2 class="font-display font-black text-xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap uppercase"><i class="fa-solid fa-map-location-dot text-djCyan animate-pulse"></i> Salamanca Tour</h2>
+                <h2 class="font-display font-black text-xl text-white tracking-wide flex items-center gap-3 whitespace-nowrap uppercase"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
                 <div class="flex-grow max-w-md relative w-full">
                     <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar municipio o zona..." class="w-full bg-black/40 border border-white/10 rounded-full pl-12 pr-4 py-3.5 text-white text-sm focus:outline-none focus:border-djCyan focus:ring-1 focus:ring-djCyan transition-all">
                     <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
@@ -117,7 +119,7 @@
             </div>
         </section>
 
-        <aside id="info-section-anchor" class="flex-1 glass-panel flex flex-col h-auto lg:h-[80vh] overflow-hidden scroll-mt-6">
+        <aside id="info-section-anchor" class="flex-1 glass-panel flex flex-col h-auto lg:h-[80vh] overflow-hidden scroll-mt-32">
             <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent">
                 <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">GIRA OFICIAL</h3>
                 <div id="info-status" class="flex items-center gap-2">
@@ -126,12 +128,12 @@
             </div>
             <div id="info-events" class="flex-grow flex flex-col gap-4 p-8 overflow-y-auto hidden"></div>
             <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-12 text-gray-600 text-center">
-                <i class="fa-solid fa-compact-disc text-6xl mb-6 opacity-20 animate-spin" style="animation-duration: 8s;"></i><p class="text-sm font-medium leading-relaxed">Explora e interactúa con el mapa<br>para descubrir las fechas de la zona.</p>
+                <i class="fa-solid fa-compact-disc text-6xl mb-6 opacity-20"></i><p class="text-sm font-medium leading-relaxed">Explora e interactúa con el mapa<br>para descubrir las fechas de la zona.</p>
             </div>
         </aside>
     </main>
 
-    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-6">
+    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-32">
         <div class="glass-panel p-4 px-6 mb-8 inline-flex items-center">
             <h2 class="font-display font-black text-xl text-white tracking-wide flex items-center gap-3 uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2>
         </div>
@@ -155,7 +157,7 @@
         </div>
     </div>
 
-    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-6">
+    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-32">
         <div class="glass-panel p-4 px-6 mb-8 inline-flex items-center">
             <h2 class="font-display font-black text-xl text-white tracking-wide flex items-center gap-3 uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups & Edits</h2>
         </div>
@@ -378,12 +380,16 @@
         function seleccionarMunicipioEnMapa(id) {
             if(currentSelectedMuniId) { 
                 const prev = document.getElementById(currentSelectedMuniId); 
-                if(prev) prev.classList.remove('muni-selected'); 
+                if(prev) {
+                    // Restaurar la clase en base a su estado
+                    const prevData = dbData.municipalities[currentSelectedMuniId] || {};
+                    prev.className.baseVal = (prevData.status === 'unlocked') ? 'muni-unlocked' : 'muni-base';
+                }
             }
             currentSelectedMuniId = id; 
             const el = document.getElementById(id);
             if(el) {
-                el.classList.add('muni-selected'); 
+                el.className.baseVal = 'muni-selected'; 
                 el.parentNode.appendChild(el);
             }
             loadMuniInfo(id);
@@ -429,7 +435,11 @@
             }
             eDiv.innerHTML += `<div class="mt-4 pt-4 border-t border-white/5"><a href="https://www.instagram.com/djvaquero__/" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 hover:from-purple-600 hover:to-djMagenta text-white w-full py-3.5 rounded-xl text-center text-xs font-black tracking-widest uppercase transition-all shadow-lg shadow-purple-900/20">CONTRATACIÓN DIRECTA</a></div>`;
             
-            document.getElementById('info-section-anchor').scrollIntoView({behavior:'smooth', block:'start'});
+            // Compensa la cabecera sticky en el scroll
+            const offset = 140; 
+            const el = document.getElementById('info-section-anchor');
+            const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({top: top, behavior: 'smooth'});
         }
 
         const sInput = document.getElementById('search-muni'), rList = document.getElementById('search-results');
