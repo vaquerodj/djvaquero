@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" class="dark">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DJ VAQUERO | Tour Oficial</title>
@@ -46,15 +46,22 @@
         
         .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; }
         @media (min-width: 1024px) { .viewport-container { height: 68vh; } }
-        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; touch-action: none; }
+        /* Eliminado will-change: transform para evitar rasterizado y vista borrosa en el zoom SVG */
+        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
         .zoom-layer svg { width: 100%; height: 100%; shape-rendering: geometricPrecision !important; text-rendering: geometricPrecision !important; }
         
         path, polygon { vector-effect: non-scaling-stroke !important; }
-        .muni-base { fill: #11141a !important; stroke: rgba(255, 255, 255, 0.06) !important; stroke-width: 0.7px !important; transition: all 0.25s ease; cursor: pointer; }
-        .muni-base:hover { fill: #181d26 !important; stroke: rgba(255,255,255,0.2) !important; }
-        .muni-unlocked { fill: #0a232c !important; stroke: #42e6f5 !important; stroke-width: 1.2px !important; transition: all 0.25s ease; cursor: pointer; }
-        .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.25) !important; filter: drop-shadow(0 0 8px rgba(66,230,245,0.3)); }
-        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 2px !important; filter: drop-shadow(0 0 12px rgba(232, 28, 255, 0.6)) !important; }
+        
+        /* ESTILOS DE MAPA ACTUALIZADOS */
+        .muni-base { fill: #0d1014 !important; stroke: rgba(255, 255, 255, 0.03) !important; stroke-width: 0.5px !important; transition: all 0.3s ease; cursor: pointer; }
+        .muni-base:hover { fill: #1a202a !important; stroke: rgba(255,255,255,0.1) !important; }
+        
+        @keyframes dashFlow { to { stroke-dashoffset: -100; } }
+        .muni-unlocked { fill: #0a1f26 !important; stroke: #42e6f5 !important; stroke-width: 1.5px !important; stroke-dasharray: 4 6; animation: dashFlow 4s linear infinite; transition: all 0.3s ease; cursor: pointer; }
+        .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.15) !important; filter: drop-shadow(0 0 10px rgba(66,230,245,0.3)); }
+        
+        @keyframes neonGlow { 0% { fill: rgba(232, 28, 255, 0.6); filter: drop-shadow(0 0 10px rgba(232, 28, 255, 0.5)); } 100% { fill: rgba(232, 28, 255, 0.9); filter: drop-shadow(0 0 20px rgba(232, 28, 255, 0.9)); } }
+        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 2px !important; stroke-dasharray: none !important; animation: neonGlow 1.5s infinite alternate ease-in-out !important; }
         
         .comp-polygon { fill: rgba(232, 28, 255, 0.04); stroke: rgba(232, 28, 255, 0.25); stroke-width: 0.5px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .comp-polygon:hover, .comp-polygon.hotspot-active { fill: rgba(232, 28, 255, 0.22); stroke: #e81cff; stroke-width: 1px; filter: drop-shadow(0 0 8px rgba(232, 28, 255, 0.6)); }
@@ -62,11 +69,6 @@
         @keyframes neonPulse { 0%, 100% { filter: drop-shadow(0 0 3px rgba(66,230,245,0.4)); } 50% { filter: drop-shadow(0 0 10px rgba(66,230,245,0.8)); } }
         .animate-neon { animation: neonPulse 2s infinite ease-in-out; }
 
-        .audio-bars { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
-        .audio-bars span { width: 3px; background-color: #f5d442; border-radius: 2px; animation: bounce 0.4s infinite alternate; }
-        .audio-bars span:nth-child(2) { animation-delay: 0.12s; height: 60%; }
-        .audio-bars span:nth-child(3) { animation-delay: 0.24s; height: 80%; }
-        @keyframes bounce { 0% { height: 20%; } 100% { height: 100%; } }
         .admin-setup-mode { cursor: crosshair !important; }
         .admin-drag-dot { cursor: grab !important; z-index: 50; touch-action: none; }
         .admin-drag-dot:active { cursor: grabbing !important; }
@@ -83,7 +85,6 @@
         <div class="flex flex-col items-start">
             <h1 id="site-title" class="premium-title text-5xl md:text-7xl select-none uppercase transition-transform active:scale-95">DJ <span>Vaquero</span></h1>
             <p class="text-djCyan font-display font-extrabold text-xs md:text-sm tracking-wider mt-2 bg-djCyan/10 px-3 py-1 rounded-md border border-djCyan/20 animate-pulse">EL DJ QUE TU EVENTO NECESITA</p>
-            <p class="font-display text-gray-500 tracking-[0.45em] text-[10px] md:text-xs uppercase font-black mt-2 ml-1">Tour Oficial & Multimedia</p>
         </div>
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full md:w-auto justify-between md:justify-end">
             <nav class="flex gap-6 bg-white/[0.03] px-8 py-4 rounded-full border border-white/5 backdrop-blur-xl shadow-2xl order-2 sm:order-1">
@@ -181,7 +182,7 @@
                 <input type="text" id="admin-muni-name" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djCyan"></div>
                 <div><label class="text-[10px] text-djCyan font-bold block mb-1 uppercase">Estado Visual del Mapa</label>
                 <select id="admin-muni-status" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djCyan">
-                    <option value="locked">Oculto (Gris apagado)</option><option value="unlocked">Iluminado (En Gira)</option>
+                    <option value="locked">Oculto (Gris apagado)</option><option value="unlocked">Iluminado (Activo en Gira)</option>
                 </select></div>
                 <div id="admin-event-list-container" class="hidden pt-3 border-t border-white/5"><div id="admin-event-list" class="space-y-1.5"></div></div>
                 <div class="pt-3 border-t border-white/5 space-y-3">
@@ -226,13 +227,8 @@
                 <input type="text" id="admin-mash-title" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none"></div>
                 <div><label class="text-[10px] text-gray-400 font-bold block mb-1 uppercase">Enlace Directo de Descarga</label>
                 <input type="text" id="admin-mash-dl" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none"></div>
-                <div class="bg-black/30 p-3 rounded-xl border border-white/5 space-y-2">
-                    <label class="text-[10px] text-djYellow font-bold block uppercase"><i class="fa-solid fa-music mr-1"></i>Archivo Audio (.mp3)</label>
-                    <input type="file" id="admin-mash-file" accept="audio/mpeg, audio/mp3" class="w-full text-xs text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:bg-djYellow/10 file:text-djYellow cursor-pointer">
-                    <div id="upload-progress" class="hidden w-full bg-black/50 rounded-full h-1 border border-white/5 overflow-hidden">
-                        <div id="upload-bar" class="bg-djYellow h-full w-0 transition-all duration-300"></div>
-                    </div>
-                </div>
+                <div><label class="text-[10px] text-djYellow font-bold block mb-1 uppercase">URL de SoundCloud</label>
+                <input type="text" id="admin-mash-sc" placeholder="Ej: https://soundcloud.com/djvaquero/..." class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none"></div>
                 <div class="pt-3 flex gap-2 border-t border-white/5">
                     <button id="btn-save-mash" class="w-full bg-gradient-to-r from-djYellow to-orange-400 text-black font-black py-2.5 rounded-lg text-xs">GUARDAR TRACK</button>
                     <button id="btn-delete-mash" class="bg-red-500/10 text-red-500 border border-red-500/20 font-black py-2.5 rounded-lg text-xs hidden px-3">BORRAR</button>
@@ -244,7 +240,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref as dbRef, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-        import { getStorage, ref as sStorageRef, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
@@ -258,7 +253,6 @@
         
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const storage = getStorage(app);
         
         let dbData = { municipalities: {}, components: {}, mashups: {} };
         let currentSelectedMuniId = null;
@@ -425,7 +419,7 @@
                     Object.values(muni.events).forEach(ev => {
                         let mHtml = '';
                         if(ev.media) ev.media.split(',').forEach(l => { if(l.trim()) mHtml += `<a href="${l.trim()}" target="_blank" class="inline-flex mt-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-[11px] font-bold rounded-full border border-white/10 transition-all"><i class="fa-solid fa-up-right-from-square text-djMagenta mr-1.5"></i>VER INFO</a> `; });
-                        eDiv.innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative flex flex-col gap-1 transition-all hover:bg-black/50"><div class="absolute top-0 left-0 w-1 h-full bg-djMagenta rounded-l-2xl shadow-[0_0_8px_#e81cff]"></div><h4 class="text-lg font-display font-black text-white">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1 leading-relaxed">${ev.details}</p>`:''}${mHtml}</div>`;
+                        eDiv.innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative flex flex-col gap-1 transition-all hover:bg-black/50"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl shadow-[0_0_8px_#42e6f5]"></div><h4 class="text-lg font-display font-black text-white">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1 leading-relaxed">${ev.details}</p>`:''}${mHtml}</div>`;
                     });
                 } else eDiv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Próximamente nuevas fechas.</p>`;
             } else {
@@ -455,55 +449,27 @@
         });
         document.addEventListener('click', (e) => { if(!sInput.contains(e.target)) rList.classList.add('hidden'); });
 
-        let currentAudio = null;
-        window.toggleAudio = function(id) {
-            const audio = document.getElementById(`audio-${id}`);
-            const btnText = document.getElementById(`btn-text-${id}`);
-            const icon = document.getElementById(`icon-${id}`);
-            const vis = document.getElementById(`visualizer-${id}`);
-            const timeEl = document.getElementById(`time-${id}`);
-            if(!audio.src) return alert("El archivo aún no se ha subido correctamente.");
-            
-            if (currentAudio && currentAudio !== audio) {
-                currentAudio.pause();
-                const pId = currentAudio.id.replace('audio-', '');
-                document.getElementById(`icon-${pId}`).className = 'fa-solid fa-play mr-2';
-                document.getElementById(`btn-text-${pId}`).innerText = 'PREVIEW';
-                document.getElementById(`visualizer-${pId}`).classList.add('hidden');
-            }
-            if (audio.paused) {
-                audio.play().catch(() => alert("Error al reproducir pista de audio."));
-                icon.className = 'fa-solid fa-pause mr-2 text-djYellow'; btnText.innerText = 'SONANDO'; vis.classList.remove('hidden');
-                currentAudio = audio;
-                audio.ontimeupdate = () => {
-                    const rem = audio.duration - audio.currentTime;
-                    if(!isNaN(rem)) { const m = Math.floor(rem / 60), s = Math.floor(rem % 60).toString().padStart(2, '0'); timeEl.innerText = `-${m}:${s}`; }
-                };
-                audio.onended = () => { icon.className = 'fa-solid fa-play mr-2'; btnText.innerText = 'PREVIEW'; vis.classList.add('hidden'); timeEl.innerText = ''; };
-            } else { audio.pause(); icon.className = 'fa-solid fa-play mr-2'; btnText.innerText = 'PREVIEW'; vis.classList.add('hidden'); }
-        };
-
         function renderMashups() {
             const grid = document.getElementById('mashups-grid'); grid.innerHTML = '';
             const entries = Object.entries(dbData.mashups).sort((a,b) => a[0].localeCompare(b[0]));
             if(entries.length === 0) { grid.innerHTML = `<p class="text-gray-500 text-xs p-2">Cargando catálogo musical...</p>`; return; }
             entries.forEach(([id, data]) => {
+                const scEmbedUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(data.scUrl || '')}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true`;
+                
                 grid.innerHTML += `
-                <div class="glass-panel bg-black/20 p-6 flex flex-col justify-between hover:border-djYellow/20 transition-all group relative overflow-hidden">
+                <div class="glass-panel bg-black/20 p-6 flex flex-col justify-between hover:border-djYellow/20 transition-all group relative overflow-hidden gap-4">
                     <div>
                         <div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow group-hover:scale-110 transition-transform"><i class="fa-solid fa-music"></i></div>
                         <h4 class="font-display font-black text-md text-white tracking-wide">${data.title}</h4>
                     </div>
-                    <audio id="audio-${id}" src="${data.audioUrl || ''}"></audio>
-                    <div class="flex flex-col gap-2 mt-5 pt-4 border-t border-white/5">
-                        <div class="flex items-center justify-between bg-black/40 p-2 rounded-xl border border-white/5">
-                            <button onclick="window.toggleAudio('${id}')" class="bg-white/5 hover:bg-white/10 py-1.5 px-3 rounded-lg text-[10px] font-black flex items-center tracking-wider transition-colors">
-                                <i id="icon-${id}" class="fa-solid fa-play mr-2"></i><span id="btn-text-${id}">PREVIEW</span>
-                            </button>
-                            <div id="visualizer-${id}" class="hidden audio-bars"><span></span><span></span><span></span></div>
-                            <span id="time-${id}" class="text-[11px] text-djYellow font-bold font-display mr-1"></span>
-                        </div>
-                        ${data.dl ? `<a href="${data.dl}" target="_blank" class="w-full bg-gradient-to-r from-djYellow to-orange-400 text-black py-2.5 rounded-xl text-center text-[10px] font-black tracking-widest block transition-all active:scale-95"><i class="fa-solid fa-download mr-1"></i> DESCARGAR PACK</a>` : ''}
+                    
+                    ${data.scUrl ? `
+                    <div class="w-full h-32 rounded-lg overflow-hidden border border-white/5">
+                        <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" src="${scEmbedUrl}"></iframe>
+                    </div>` : '<p class="text-xs text-gray-500 italic">No hay previsualización disponible.</p>'}
+                    
+                    <div class="mt-2 pt-4 border-t border-white/5">
+                        ${data.dl ? `<a href="${data.dl}" target="_blank" class="w-full bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black tracking-widest block transition-all active:scale-95"><i class="fa-solid fa-download mr-1.5"></i> DESCARGAR PACK</a>` : ''}
                     </div>
                 </div>`;
             });
@@ -712,10 +678,17 @@
         }
 
         document.getElementById('admin-mash-select').onchange = (e) => {
-            const v = e.target.value; document.getElementById('admin-mash-file').value = '';
-            document.getElementById('upload-progress').classList.add('hidden');
-            if(v === 'NEW') { ['admin-mash-title','admin-mash-dl'].forEach(id => document.getElementById(id).value=''); document.getElementById('btn-delete-mash').classList.add('hidden'); }
-            else { const d = dbData.mashups[v]; document.getElementById('admin-mash-title').value=d.title||''; document.getElementById('admin-mash-dl').value=d.dl||''; document.getElementById('btn-delete-mash').classList.remove('hidden'); }
+            const v = e.target.value;
+            if(v === 'NEW') { 
+                ['admin-mash-title','admin-mash-dl','admin-mash-sc'].forEach(id => document.getElementById(id).value=''); 
+                document.getElementById('btn-delete-mash').classList.add('hidden'); 
+            } else { 
+                const d = dbData.mashups[v]; 
+                document.getElementById('admin-mash-title').value=d.title||''; 
+                document.getElementById('admin-mash-dl').value=d.dl||''; 
+                document.getElementById('admin-mash-sc').value=d.scUrl||''; 
+                document.getElementById('btn-delete-mash').classList.remove('hidden'); 
+            }
         };
 
         document.getElementById('btn-save-mash').addEventListener('click', async () => {
@@ -723,45 +696,30 @@
             if(id === 'NEW') id = `mash_${Date.now()}`;
             const title = document.getElementById('admin-mash-title').value.trim();
             const dl = document.getElementById('admin-mash-dl').value.trim();
-            const fileInput = document.getElementById('admin-mash-file');
+            const scUrl = document.getElementById('admin-mash-sc').value.trim();
+            
             if(!title) return alert("Asigna un título al track.");
             
             const btn = document.getElementById('btn-save-mash');
-            const pBar = document.getElementById('upload-progress');
-            const pFill = document.getElementById('upload-bar');
-            let audioUrl = dbData.mashups[id] ? (dbData.mashups[id].audioUrl || "") : "";
-
-            if(fileInput.files.length > 0) {
-                pBar.classList.remove('hidden'); btn.disabled = true; btn.innerHTML = "SUBIENDO MP3... <i class='fa-solid fa-spinner fa-spin ml-2'></i>";
-                const file = fileInput.files[0];
-                const storageReference = sStorageRef(storage, `mashups/${id}.mp3`);
-                const uploadTask = uploadBytesResumable(storageReference, file);
-                
-                uploadTask.on('state_changed', 
-                    (snap) => { pFill.style.width = ((snap.bytesTransferred / snap.totalBytes) * 100) + '%'; },
-                    (err) => { alert("Error Firebase Storage: " + err.message); btn.disabled = false; btn.innerText = "GUARDAR TRACK"; pBar.classList.add('hidden'); },
-                    async () => { 
-                        try {
-                            audioUrl = await getDownloadURL(uploadTask.snapshot.ref); 
-                            await set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, audioUrl: audioUrl });
-                            btn.innerText = "¡PROCESADO CON ÉXITO!"; btn.disabled = false; pBar.classList.add('hidden'); fileInput.value = '';
-                            setTimeout(() => { btn.innerText = "GUARDAR TRACK"; }, 2000);
-                        } catch (ex) {
-                            alert("Error al sincronizar BD: " + ex.message);
-                            btn.disabled = false; btn.innerText = "GUARDAR TRACK";
-                        }
-                    }
-                );
-            } else {
-                await set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, audioUrl: audioUrl });
-                btn.innerText = "¡CAMBIOS GUARDADOS!"; setTimeout(() => { btn.innerText = "GUARDAR TRACK"; }, 2000);
+            btn.disabled = true; btn.innerHTML = "GUARDANDO... <i class='fa-solid fa-spinner fa-spin ml-2'></i>";
+            
+            try {
+                await set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, scUrl: scUrl });
+                btn.innerText = "¡CAMBIOS GUARDADOS!"; 
+                setTimeout(() => { btn.innerText = "GUARDAR TRACK"; btn.disabled = false; }, 2000);
+            } catch (ex) {
+                alert("Error al sincronizar BD: " + ex.message);
+                btn.disabled = false; btn.innerText = "GUARDAR TRACK";
             }
         });
 
         document.getElementById('btn-delete-mash').onclick = () => {
             const id = document.getElementById('admin-mash-select').value;
             if(id !== 'NEW' && confirm('¿Eliminar track por completo?')) {
-                remove(dbRef(db, `mashups/${id}`)).then(() => { deleteObject(sStorageRef(storage, `mashups/${id}.mp3`)).catch(()=>{}); document.getElementById('admin-mash-select').value='NEW'; document.getElementById('admin-mash-select').dispatchEvent(new Event('change')); });
+                remove(dbRef(db, `mashups/${id}`)).then(() => { 
+                    document.getElementById('admin-mash-select').value='NEW'; 
+                    document.getElementById('admin-mash-select').dispatchEvent(new Event('change')); 
+                });
             }
         };
     </script>
