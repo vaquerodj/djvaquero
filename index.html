@@ -41,7 +41,6 @@
         .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; }
         @media (min-width: 1024px) { .viewport-container { height: 68vh; } }
         
-        /* CORRECCIÓN DE NITIDEZ: Se elimina will-change para evitar la pixelación por caché de texturas */
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
         .zoom-layer svg { width: 100%; height: 100%; text-rendering: geometricPrecision; shape-rendering: geometricPrecision; }
         
@@ -52,13 +51,12 @@
         .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 0.7px !important; filter: drop-shadow(0 0 12px rgba(232, 28, 255, 0.6)) !important; }
         .muni-label { text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 800; fill: rgba(255,255,255,0.9); pointer-events: none; transition: opacity 0.15s ease-out; paint-order: stroke; stroke: #040508; stroke-width: 3px; stroke-linejoin: round; text-rendering: geometricPrecision; }
 
-        .hotspot-dot { animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse-ring { 0%, 100% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 2px rgba(232,28,255,0.5)); } 50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px rgba(232,28,255,1)); } }
-        .hotspot-active { border: 2px solid #ffffff !important; box-shadow: 0 0 15px #e81cff !important; }
-        
+        /* ESTILOS DE HOTZONES */
+        .hotzone { position: absolute; cursor: pointer; border: 2px solid transparent; border-radius: 8px; transition: all 0.2s ease; z-index: 10; }
+        .hotzone:hover { border-color: rgba(66,230,245,0.6); background: rgba(66,230,245,0.1); }
+        .hotzone-active { border-color: #e81cff !important; background: rgba(232,28,255,0.2) !important; box-shadow: 0 0 15px rgba(232,28,255,0.4); }
+        .admin-zone { border: 2px dashed #e81cff; background: rgba(232,28,255,0.2); pointer-events: none; }
         .admin-setup-mode { cursor: crosshair !important; }
-        .admin-drag-dot { cursor: grab !important; z-index: 50; touch-action: none; }
-        .admin-drag-dot:active { cursor: grabbing !important; }
         
         .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; transition: all 0.3s; cursor: pointer; letter-spacing: 2px; position: relative; }
         .nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
@@ -136,13 +134,13 @@
             <div id="setup-overlay-info" class="hidden w-full lg:w-96 glass-panel p-6 bg-[#0c0f15]/90 border border-white/10 shadow-2xl flex-col shrink-0">
                 <div class="flex justify-between items-center mb-3">
                     <div class="w-10 h-1 bg-gradient-to-r from-djMagenta to-purple-600 rounded-full shadow-[0_0_8px_#e81cff]"></div>
-                    <button onclick="document.getElementById('setup-overlay-info').classList.replace('flex','hidden'); document.querySelectorAll('.hotspot-dot').forEach(h=>h.classList.remove('hotspot-active'));" class="text-gray-400 hover:text-white p-1 text-xs"><i class="fa-solid fa-xmark text-sm"></i></button>
+                    <button onclick="document.getElementById('setup-overlay-info').classList.replace('flex','hidden'); document.querySelectorAll('.hotzone').forEach(h=>h.classList.remove('hotzone-active'));" class="text-gray-400 hover:text-white p-1 text-xs"><i class="fa-solid fa-xmark text-sm"></i></button>
                 </div>
                 <h3 id="setup-overlay-title" class="text-xl font-display font-black text-white uppercase tracking-tight mb-2"></h3>
                 <p id="setup-overlay-desc" class="text-gray-400 text-xs leading-relaxed"></p>
             </div>
         </div>
-        <p id="setup-admin-hint" class="mt-4 text-center text-djMagenta text-[10px] hidden font-bold tracking-widest uppercase bg-black/40 px-5 py-2.5 rounded-full border border-djMagenta/20 backdrop-blur-md animate-pulse">MODO EDICIÓN: Clic en la imagen para añadir • Arrastra para mover</p>
+        <p id="setup-admin-hint" class="mt-4 text-center text-djMagenta text-[10px] hidden font-bold tracking-widest uppercase bg-black/40 px-5 py-2.5 rounded-full border border-djMagenta/20 backdrop-blur-md animate-pulse">MODO EDICIÓN: Clic y arrastra sobre la imagen para dibujar zonas (Hotzones)</p>
     </div>
 
     <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-6">
@@ -215,6 +213,7 @@
             const aMuniId = document.getElementById('admin-muni-id').value; if(aMuniId) populateAdminEventsList(aMuniId);
         });
 
+        /* --- MOTOR DE MAPA --- */
         function updateTransform() {
             document.getElementById('tour-layer').style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
             updateMapLabels();
@@ -224,96 +223,39 @@
 
         function updateMapLabels() {
             if(!mapLabels.length) return;
-            
             const MIN_ZOOM_THRESHOLD = 2.0; 
-            if (scale < MIN_ZOOM_THRESHOLD) {
-                mapLabels.forEach(lbl => lbl.textNode.style.opacity = '0');
-                return;
-            }
+            if (scale < MIN_ZOOM_THRESHOLD) { mapLabels.forEach(lbl => lbl.textNode.style.opacity = '0'); return; }
 
-            const targetScreenFontSize = 11; 
-            const fSize = targetScreenFontSize / scale;
-            
+            const fSize = 11 / scale;
             mapLabels.forEach(lbl => {
                 let name = dbData.municipalities[lbl.id]?.name;
-                
-                if (!name && lbl.id.startsWith('zona_')) {
-                    lbl.skip = true;
-                    lbl.textNode.style.opacity = '0';
-                    return;
-                }
-                
+                if (!name && lbl.id.startsWith('zona_')) { lbl.skip = true; lbl.textNode.style.opacity = '0'; return; }
                 lbl.skip = false;
                 if (!name) name = lbl.id.replace(/_/g, ' ').toUpperCase(); 
-                
                 if(lbl.textNode.textContent !== name) lbl.textNode.textContent = name;
                 lbl.textNode.setAttribute('font-size', `${fSize}px`);
             });
 
-            const vW = viewport.clientWidth;
-            const vH = viewport.clientHeight;
-            const viewportRect = viewport.getBoundingClientRect();
-            const occupied = [];
+            const vW = viewport.clientWidth, vH = viewport.clientHeight, viewportRect = viewport.getBoundingClientRect(), occupied = [];
 
             mapLabels.forEach(lbl => {
                 if (lbl.skip) return;
-
                 const rect = lbl.textNode.getBoundingClientRect();
-                const screenX = rect.left - viewportRect.left + rect.width / 2;
-                const screenY = rect.top - viewportRect.top + rect.height / 2;
+                const screenX = rect.left - viewportRect.left + rect.width / 2, screenY = rect.top - viewportRect.top + rect.height / 2;
+                if (screenX < -20 || screenX > vW + 20 || screenY < -20 || screenY > vH + 20) { lbl.textNode.style.opacity = '0'; return; }
 
-                const padding = 20;
-                if (screenX < -padding || screenX > vW + padding || screenY < -padding || screenY > vH + padding) {
-                    lbl.textNode.style.opacity = '0';
-                    return;
-                }
-
-                const margin = 2; 
-                const r = { l: rect.left, r: rect.right, t: rect.top, b: rect.bottom };
+                const margin = 2, r = { l: rect.left, r: rect.right, t: rect.top, b: rect.bottom };
+                let overlap = occupied.some(o => (r.l - margin) < o.r && (r.r + margin) > o.l && (r.t - margin) < o.b && (r.b + margin) > o.t);
                 
-                let overlap = occupied.some(o => 
-                    (r.l - margin) < o.r && (r.r + margin) > o.l && 
-                    (r.t - margin) < o.b && (r.b + margin) > o.t
-                );
-                
-                if(!overlap) {
-                    lbl.textNode.style.opacity = '1'; 
-                    occupied.push(r);
-                } else {
-                    lbl.textNode.style.opacity = '0';
-                }
+                if(!overlap) { lbl.textNode.style.opacity = '1'; occupied.push(r); } else { lbl.textNode.style.opacity = '0'; }
             });
         }
 
         let panning = false, startX = 0, startY = 0, startDist = 0;
-        
-        viewport.addEventListener('wheel', (e) => {
-            e.preventDefault(); const r = viewport.getBoundingClientRect(), xs = (e.clientX - r.left - pointX) / scale, ys = (e.clientY - r.top - pointY) / scale;
-            scale = Math.max(0.6, Math.min((e.deltaY < 0 ? scale * 1.1 : scale / 1.1), 10));
-            pointX = (e.clientX - r.left) - xs * scale; pointY = (e.clientY - r.top) - ys * scale;
-            requestTransformUpdate();
-        }, { passive: false });
-
+        viewport.addEventListener('wheel', (e) => { e.preventDefault(); const r = viewport.getBoundingClientRect(), xs = (e.clientX - r.left - pointX) / scale, ys = (e.clientY - r.top - pointY) / scale; scale = Math.max(0.6, Math.min((e.deltaY < 0 ? scale * 1.1 : scale / 1.1), 10)); pointX = (e.clientX - r.left) - xs * scale; pointY = (e.clientY - r.top) - ys * scale; requestTransformUpdate(); }, { passive: false });
         viewport.addEventListener('mousedown', (e) => { startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; isMovingLayer = false; });
-        window.addEventListener('mousemove', (e) => { if(!panning) return; isMovingLayer = true; pointX = e.clientX - startX; pointY = e.clientY - startY; requestTransformUpdate(); });
-        window.addEventListener('mouseup', () => panning = false);
-
-        viewport.addEventListener('touchstart', (e) => {
-            if(e.touches.length === 1) { startX = e.touches[0].clientX - pointX; startY = e.touches[0].clientY - pointY; panning = true; isMovingLayer = false; }
-            else if(e.touches.length === 2) { panning = false; startDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); }
-        }, { passive: true });
-
-        viewport.addEventListener('touchmove', (e) => {
-            if(panning && e.touches.length === 1) {
-                isMovingLayer = true; pointX = e.touches[0].clientX - startX; pointY = e.touches[0].clientY - startY; requestTransformUpdate();
-            } else if(e.touches.length === 2) {
-                e.preventDefault(); const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-                const r = viewport.getBoundingClientRect(), midX = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - r.left, midY = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - r.top;
-                const xs = (midX - pointX) / scale, ys = (midY - pointY) / scale;
-                scale = Math.max(0.6, Math.min(scale * (dist / startDist), 10));
-                pointX = midX - xs * scale; pointY = midY - ys * scale; startDist = dist; requestTransformUpdate();
-            }
-        }, { passive: false });
+        viewport.addEventListener('touchstart', (e) => { if(e.touches.length === 1) { startX = e.touches[0].clientX - pointX; startY = e.touches[0].clientY - pointY; panning = true; isMovingLayer = false; } else if(e.touches.length === 2) { panning = false; startDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); } }, { passive: true });
+        viewport.addEventListener('touchmove', (e) => { if(panning && e.touches.length === 1) { isMovingLayer = true; pointX = e.touches[0].clientX - startX; pointY = e.touches[0].clientY - startY; requestTransformUpdate(); } else if(e.touches.length === 2) { e.preventDefault(); const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); const r = viewport.getBoundingClientRect(), midX = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - r.left, midY = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - r.top; const xs = (midX - pointX) / scale, ys = (midY - pointY) / scale; scale = Math.max(0.6, Math.min(scale * (dist / startDist), 10)); pointX = midX - xs * scale; pointY = midY - ys * scale; startDist = dist; requestTransformUpdate(); } }, { passive: false });
         viewport.addEventListener('touchend', () => panning = false);
 
         document.getElementById('btn-reset-map').onclick = () => { scale = 1; pointX = 0; pointY = 0; requestTransformUpdate(); };
@@ -324,22 +266,15 @@
             if(!svg) return;
             svg.style.pointerEvents = 'none';
             const lblGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            
             svg.querySelectorAll('path, polygon').forEach((el, i) => {
                 let id = el.id || `zona_${i}`; el.setAttribute('id', id);
                 el.className.baseVal = 'muni-base'; el.style.pointerEvents = 'auto';
                 el.addEventListener('click', (e) => { if(!isMovingLayer) { e.stopPropagation(); seleccionarMuni(id); }});
-                
-                const b = el.getBBox();
-                const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                t.setAttribute('x', b.x + b.width/2); t.setAttribute('y', b.y + b.height/2);
-                t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle');
-                t.setAttribute('class', 'muni-label'); t.style.opacity = '0';
-                lblGroup.appendChild(t);
-                mapLabels.push({ textNode: t, cx: b.x + b.width/2, cy: b.y + b.height/2, area: b.width * b.height, id: id });
+                const b = el.getBBox(), t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                t.setAttribute('x', b.x + b.width/2); t.setAttribute('y', b.y + b.height/2); t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle'); t.setAttribute('class', 'muni-label'); t.style.opacity = '0';
+                lblGroup.appendChild(t); mapLabels.push({ textNode: t, cx: b.x + b.width/2, cy: b.y + b.height/2, area: b.width * b.height, id: id });
             });
-            svg.appendChild(lblGroup);
-            mapLabels.sort((a, b) => b.area - a.area);
+            svg.appendChild(lblGroup); mapLabels.sort((a, b) => b.area - a.area);
             colorearMapa(); updateMapLabels();
         });
 
@@ -352,10 +287,7 @@
 
         function colorearMapa() {
             const c = document.getElementById('tour-layer'); if(!c) return;
-            Object.entries(dbData.municipalities).forEach(([id, d]) => {
-                const el = c.querySelector(`[id="${id}"]`);
-                if(el && id !== currentSelectedMuniId) el.className.baseVal = d.status === 'unlocked' ? 'muni-unlocked' : 'muni-base';
-            });
+            Object.entries(dbData.municipalities).forEach(([id, d]) => { const el = c.querySelector(`[id="${id}"]`); if(el && id !== currentSelectedMuniId) el.className.baseVal = d.status === 'unlocked' ? 'muni-unlocked' : 'muni-base'; });
         }
 
         function loadMuniInfo(id) {
@@ -393,6 +325,7 @@
         });
         document.addEventListener('click', e => { if(!sInp.contains(e.target)) rLst.classList.add('hidden'); });
 
+        /* --- MASHUPS --- */
         function renderMashups() {
             const grid = document.getElementById('mashups-grid'); grid.innerHTML = '';
             const e = Object.entries(dbData.mashups).sort((a,b)=>a[0].localeCompare(b[0]));
@@ -400,60 +333,155 @@
             e.forEach(([id, d]) => grid.innerHTML += `<div class="glass-panel bg-black/20 p-6 flex flex-col justify-between hover:border-djYellow/20 transition-all group overflow-hidden"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow group-hover:scale-110 transition-transform"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4>${d.scUrl?`<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false" class="w-full mt-4 rounded-xl border border-white/5"></iframe>`:`<div class="bg-black/30 p-4 text-center text-xs text-gray-500 rounded-xl mt-4 border border-white/5 italic">Preview no config</div>`}</div>${d.dl?`<div class="mt-5 pt-4 border-t border-white/5"><a href="${d.dl}" target="_blank" class="w-full bg-gradient-to-r from-djYellow to-orange-400 text-black py-2.5 rounded-xl text-center text-[10px] font-black tracking-widest block transition-all active:scale-95"><i class="fa-solid fa-download mr-1"></i> DESCARGAR</a></div>`:''}</div>`);
         }
 
+        /* --- EQUIPO DJ Y HOTZONES --- */
         window.selectComp = function(id, el) {
-            document.querySelectorAll('.hotspot-dot').forEach(h => h.classList.remove('hotspot-active')); if(el) el.querySelector('.hotspot-dot').classList.add('hotspot-active');
+            document.querySelectorAll('.hotzone').forEach(h => h.classList.remove('hotzone-active')); 
+            if(el) el.classList.add('hotzone-active');
             const c = dbData.components[id], box = document.getElementById('setup-overlay-info');
-            if(c) { box.classList.remove('hidden'); box.classList.add('flex'); document.getElementById('setup-overlay-title').innerText = c.title; document.getElementById('setup-overlay-desc').innerText = c.desc; }
+            if(c) { 
+                box.classList.remove('hidden'); box.classList.add('flex'); 
+                document.getElementById('setup-overlay-title').innerText = c.title; 
+                document.getElementById('setup-overlay-desc').innerText = c.desc; 
+                // Auto-scroll suave solo para dispositivos móviles (pantallas pequeñas)
+                if (window.innerWidth < 1024) {
+                    box.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                }
+            }
         };
 
         function renderComponents() {
             const c = document.getElementById('hotspots-container'); c.innerHTML = '';
             if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden')) return;
-            Object.entries(dbData.components).forEach(([id, d]) => d.points?.forEach(pt => c.innerHTML += `<div class="absolute w-6 h-6 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top:${pt.y}%; left:${pt.x}%;"><div class="w-full h-full bg-djMagenta rounded-full hotspot-dot cursor-pointer border border-white/20 shadow-lg" onclick="window.selectComp('${id}', this.parentElement)"></div></div>`));
+            Object.entries(dbData.components).forEach(([id, d]) => {
+                let zones = d.zones || [];
+                // Retrocompatibilidad: Si tienes puntos viejos, los renderiza como mini-zonas para que no rompa
+                if(!zones.length && d.points) zones = d.points.map(pt => ({x: pt.x - 2, y: pt.y - 2, w: 4, h: 4})); 
+                zones.forEach(z => {
+                    c.innerHTML += `<div class="hotzone pointer-events-auto" style="left:${z.x}%; top:${z.y}%; width:${z.w}%; height:${z.h}%;" onclick="window.selectComp('${id}', this)"></div>`;
+                });
+            });
         }
 
+        /* --- LÓGICA DE ADMINISTRADOR --- */
         let clickCnt = 0; document.getElementById('site-title').onclick = () => { if(++clickCnt >= 3) { clickCnt = 0; if(prompt("Pass:")==="1524") document.getElementById('admin-panel').classList.remove('hidden'); } setTimeout(()=>clickCnt=0, 800); };
         document.getElementById('btn-close-admin').onclick = () => { document.getElementById('admin-panel').classList.add('hidden'); toggleAdminMode(false); };
         
         ['tour','setup','mashups'].forEach(t => document.getElementById(`tab-btn-${t}`).onclick = () => { activeAdminTab = t; ['tour','setup','mashups'].forEach(ot => { document.getElementById(`tab-btn-${ot}`).className = ot===t ? `flex-1 py-3.5 text-${{tour:'djCyan',setup:'djMagenta',mashups:'djYellow'}[t]} border-b-2 border-current` : 'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white'; document.getElementById(`admin-sec-${ot}`).classList[ot===t?'remove':'add']('hidden'); }); toggleAdminMode(t==='setup'); });
 
-        const ap = document.getElementById('admin-panel'), ah = document.getElementById('admin-panel-header'); let isD = false, oX, oY, oL, oT;
-        ah.onmousedown = e => { if(e.target.closest('button')) return; isD=true; oX=e.clientX; oY=e.clientY; const r=ap.getBoundingClientRect(); oL=r.left; oT=r.top; ap.style.margin=0; };
-        window.onmousemove = e => { if(isD) { ap.style.left = `${oL+(e.clientX-oX)}px`; ap.style.top = `${oT+(e.clientY-oY)}px`; }}; window.onmouseup = () => isD=false;
+        const ap = document.getElementById('admin-panel'), ah = document.getElementById('admin-panel-header'); let isDragPanel = false, pX, pY, pL, pT;
+        ah.onmousedown = e => { if(e.target.closest('button')) return; isDragPanel=true; pX=e.clientX; pY=e.clientY; const r=ap.getBoundingClientRect(); pL=r.left; pT=r.top; ap.style.margin=0; };
+        
+        // Controlador unificado de movimiento del ratón
+        window.addEventListener('mousemove', e => { 
+            if(isDragPanel) { ap.style.left = `${pL+(e.clientX-pX)}px`; ap.style.top = `${pT+(e.clientY-pY)}px`; }
+            if(isDrawingZ && drawDiv) {
+                const r = setupImg.getBoundingClientRect();
+                let cX = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+                let cY = Math.max(0, Math.min(100, ((e.clientY - r.top) / r.height) * 100));
+                let x = Math.min(stX, cX), y = Math.min(stY, cY), w = Math.abs(cX - stX), h = Math.abs(cY - stY);
+                drawDiv.style.left = x+'%'; drawDiv.style.top = y+'%'; drawDiv.style.width = w+'%'; drawDiv.style.height = h+'%';
+            }
+        }); 
+        window.addEventListener('mouseup', e => { 
+            isDragPanel=false; 
+            if(isDrawingZ && drawDiv) {
+                isDrawingZ = false;
+                const r = setupImg.getBoundingClientRect();
+                let cX = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+                let cY = Math.max(0, Math.min(100, ((e.clientY - r.top) / r.height) * 100));
+                let x = Math.min(stX, cX), y = Math.min(stY, cY), w = Math.abs(cX - stX), h = Math.abs(cY - stY);
+                if(w > 1 && h > 1) currZones.push({x: parseFloat(x.toFixed(1)), y: parseFloat(y.toFixed(1)), w: parseFloat(w.toFixed(1)), h: parseFloat(h.toFixed(1))});
+                drawDiv.remove(); drawDiv = null; renderAdminZones();
+            }
+        });
 
-        function toggleAdminMode(act) { const i=document.getElementById('setup-img'), h=document.getElementById('setup-admin-hint'), d=document.getElementById('admin-hotspots-container'); if(act){ i.classList.add('admin-setup-mode'); h.classList.remove('hidden'); d.classList.remove('hidden'); document.getElementById('hotspots-container').classList.add('hidden'); document.getElementById('setup-overlay-info').classList.replace('flex','hidden'); renderAdminPoints(); } else { i.classList.remove('admin-setup-mode'); h.classList.add('hidden'); d.classList.add('hidden'); document.getElementById('hotspots-container').classList.remove('hidden'); renderComponents(); } }
+        function toggleAdminMode(act) { const i=document.getElementById('setup-img'), h=document.getElementById('setup-admin-hint'), d=document.getElementById('admin-hotspots-container'); if(act){ i.classList.add('admin-setup-mode'); h.classList.remove('hidden'); d.classList.remove('hidden'); document.getElementById('hotspots-container').classList.add('hidden'); document.getElementById('setup-overlay-info').classList.replace('flex','hidden'); renderAdminZones(); } else { i.classList.remove('admin-setup-mode'); h.classList.add('hidden'); d.classList.add('hidden'); document.getElementById('hotspots-container').classList.remove('hidden'); renderComponents(); } }
 
         function populateAdminEventsList(mId) { const c=document.getElementById('admin-event-list-container'), l=document.getElementById('admin-event-list'), m=dbData.municipalities[mId]; l.innerHTML=''; if(m?.events) { c.classList.remove('hidden'); Object.entries(m.events).forEach(([eId, ev]) => l.innerHTML += `<div class="flex justify-between items-center bg-black/40 p-2 rounded border border-white/5 text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan" onclick="window.editEv('${mId}','${eId}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500" onclick="if(confirm('¿Eliminar?')) remove(ref(db, 'municipalities/${mId}/events/${eId}')).then(()=>loadMuniInfo('${mId}'))"><i class="fa-solid fa-trash"></i></button></div></div>`); } else c.classList.add('hidden'); }
         function resetAdminEventForm() { ['admin-editing-event-id','admin-event-place','admin-event-date','admin-event-details','admin-event-media'].forEach(id=>document.getElementById(id).value=''); document.getElementById('admin-event-form-title').innerHTML='<i class="fa-solid fa-plus text-djCyan mr-1"></i> Añadir Fecha'; document.getElementById('btn-add-event').innerText='GUARDAR'; document.getElementById('btn-cancel-edit').classList.add('hidden'); }
         window.editEv = (mId, eId) => { const ev=dbData.municipalities[mId].events[eId]; document.getElementById('admin-editing-event-id').value=eId; document.getElementById('admin-event-place').value=ev.place; document.getElementById('admin-event-date').value=ev.date; document.getElementById('admin-event-details').value=ev.details||''; document.getElementById('admin-event-media').value=ev.media||''; document.getElementById('btn-cancel-edit').classList.remove('hidden'); };
         document.getElementById('btn-cancel-edit').onclick = resetAdminEventForm;
-        
         document.getElementById('btn-add-event').onclick = () => { const id=document.getElementById('admin-muni-id').value; if(!id) return alert("Selecciona mapa"); update(dbRef(db, `municipalities/${id}`), { status: document.getElementById('admin-muni-status').value, name: document.getElementById('admin-muni-name').value||id }); const p=document.getElementById('admin-event-place').value, eId=document.getElementById('admin-editing-event-id').value; if(p||eId) { const pd={ place:p, date:document.getElementById('admin-event-date').value, details:document.getElementById('admin-event-details').value, media:document.getElementById('admin-event-media').value }; (eId ? update(dbRef(db, `municipalities/${id}/events/${eId}`), pd) : push(dbRef(db, `municipalities/${id}/events`), pd)).then(()=>{resetAdminEventForm();loadMuniInfo(id);}); } else loadMuniInfo(id); };
 
-        let currPts = [];
+        let currZones = [], isDrawingZ = false, stX = 0, stY = 0, drawDiv = null;
+        const setupImg = document.getElementById('setup-img');
+
+        // Eventos táctiles y de ratón para dibujar Hotzones
+        setupImg.addEventListener('mousedown', e => {
+            if(activeAdminTab!=='setup' || document.getElementById('admin-panel').classList.contains('hidden')) return;
+            e.preventDefault();
+            const r = setupImg.getBoundingClientRect();
+            stX = ((e.clientX - r.left) / r.width) * 100; stY = ((e.clientY - r.top) / r.height) * 100;
+            isDrawingZ = true;
+            drawDiv = document.createElement('div'); drawDiv.className = 'absolute border-2 border-djMagenta bg-djMagenta/20 pointer-events-none z-50';
+            document.getElementById('admin-hotspots-container').appendChild(drawDiv);
+        });
+
+        setupImg.addEventListener('touchstart', e => {
+            if(activeAdminTab!=='setup' || document.getElementById('admin-panel').classList.contains('hidden') || e.touches.length !== 1) return;
+            const r = setupImg.getBoundingClientRect();
+            stX = ((e.touches[0].clientX - r.left) / r.width) * 100; stY = ((e.touches[0].clientY - r.top) / r.height) * 100;
+            isDrawingZ = true;
+            drawDiv = document.createElement('div'); drawDiv.className = 'absolute border-2 border-djMagenta bg-djMagenta/20 pointer-events-none z-50';
+            document.getElementById('admin-hotspots-container').appendChild(drawDiv);
+        }, {passive: true});
+
+        window.addEventListener('touchmove', e => {
+            if(isDrawingZ && drawDiv && e.touches.length === 1) {
+                const r = setupImg.getBoundingClientRect();
+                let cX = Math.max(0, Math.min(100, ((e.touches[0].clientX - r.left) / r.width) * 100));
+                let cY = Math.max(0, Math.min(100, ((e.touches[0].clientY - r.top) / r.height) * 100));
+                let x = Math.min(stX, cX), y = Math.min(stY, cY), w = Math.abs(cX - stX), h = Math.abs(cY - stY);
+                drawDiv.style.left = x+'%'; drawDiv.style.top = y+'%'; drawDiv.style.width = w+'%'; drawDiv.style.height = h+'%';
+            }
+        }, {passive: false});
+
+        window.addEventListener('touchend', e => {
+            if(isDrawingZ && drawDiv) {
+                isDrawingZ = false;
+                let x = parseFloat(drawDiv.style.left), y = parseFloat(drawDiv.style.top), w = parseFloat(drawDiv.style.width), h = parseFloat(drawDiv.style.height);
+                if(w > 1 && h > 1) currZones.push({x: parseFloat(x.toFixed(1)), y: parseFloat(y.toFixed(1)), w: parseFloat(w.toFixed(1)), h: parseFloat(h.toFixed(1))});
+                drawDiv.remove(); drawDiv = null; renderAdminZones();
+            }
+        });
+
         function updateAdminDropdowns() {
             const cS=document.getElementById('admin-comp-select'), mS=document.getElementById('admin-mash-select'), cV=cS.value, mV=mS.value;
             cS.innerHTML='<option value="NEW">-- NUEVO --</option>'; Object.entries(dbData.components).forEach(([id, d])=>cS.innerHTML+=`<option value="${id}">${d.title}</option>`); if(dbData.components[cV]) cS.value=cV;
             mS.innerHTML='<option value="NEW">-- NUEVO --</option>'; Object.entries(dbData.mashups).forEach(([id, d])=>mS.innerHTML+=`<option value="${id}">${d.title}</option>`); if(dbData.mashups[mV]) mS.value=mV;
         }
 
-        function renderAdminPoints() {
+        function renderAdminZones() {
             const ul=document.getElementById('admin-comp-points-list'), dC=document.getElementById('admin-hotspots-container'); ul.innerHTML=''; dC.innerHTML='';
-            if(!currPts.length) ul.innerHTML='<li class="text-gray-500 text-[10px]">Clic en imagen para añadir</li>';
-            currPts.forEach((pt, i) => {
-                ul.innerHTML+=`<li class="flex justify-between items-center bg-black/40 p-1 px-2 rounded border border-white/5 text-[11px]">Punto ${i+1}<button class="text-red-500" onclick="currPts.splice(${i},1);renderAdminPoints();"><i class="fa-solid fa-times"></i></button></li>`;
-                const dt=document.createElement('div'); dt.className="absolute w-7 h-7 bg-djMagenta rounded-full transform -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot flex items-center justify-center text-[10px] text-white pointer-events-auto shadow-lg"; dt.style.left=pt.x+'%'; dt.style.top=pt.y+'%'; dt.innerHTML=i+1;
-                const m = e => { e.preventDefault(); const img=document.getElementById('setup-img'), r=img.getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY, x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; currPts[i]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}; };
-                const up = () => { window.removeEventListener('mousemove', m); window.removeEventListener('mouseup', up); window.removeEventListener('touchmove', m); window.removeEventListener('touchend', up); renderAdminPoints(); };
-                dt.onmousedown = e => { e.stopPropagation(); window.addEventListener('mousemove', m); window.addEventListener('mouseup', up); };
-                dt.ontouchstart = e => { e.stopPropagation(); window.addEventListener('touchmove', m, {passive:false}); window.addEventListener('touchmove', e => e.preventDefault(), {passive:false}); window.addEventListener('touchend', up); };
-                dC.appendChild(dt);
+            if(!currZones.length) ul.innerHTML='<li class="text-gray-500 text-[10px]">Arrastra sobre la imagen para crear zonas</li>';
+            currZones.forEach((z, i) => {
+                ul.innerHTML+=`<li class="flex justify-between items-center bg-black/40 p-1 px-2 rounded border border-white/5 text-[11px]">Zona ${i+1}<button class="text-red-500" onclick="currZones.splice(${i},1);renderAdminZones();"><i class="fa-solid fa-times"></i></button></li>`;
+                const div=document.createElement('div'); div.className="absolute admin-zone z-50 flex items-center justify-center text-[10px] text-white font-bold";
+                div.style.left=z.x+'%'; div.style.top=z.y+'%'; div.style.width=z.w+'%'; div.style.height=z.h+'%'; div.innerHTML=i+1;
+                dC.appendChild(div);
             });
         }
-        document.getElementById('admin-comp-select').onchange = e => { const v=e.target.value; if(v==='NEW') { ['admin-comp-title','admin-comp-desc'].forEach(id=>document.getElementById(id).value=''); currPts=[]; document.getElementById('btn-delete-comp').classList.add('hidden'); } else { const d=dbData.components[v]; document.getElementById('admin-comp-title').value=d.title; document.getElementById('admin-comp-desc').value=d.desc; currPts=d.points?[...d.points]:[]; document.getElementById('btn-delete-comp').classList.remove('hidden'); } renderAdminPoints(); };
-        document.getElementById('setup-image-wrapper').onclick = e => { if(activeAdminTab==='setup' && !document.getElementById('admin-panel').classList.contains('hidden') && !e.target.classList.contains('admin-drag-dot') && e.target.id === 'setup-img') { const r=e.target.getBoundingClientRect(); currPts.push({x:parseFloat((((e.clientX-r.left)/r.width)*100).toFixed(1)),y:parseFloat((((e.clientY-r.top)/r.height)*100).toFixed(1))}); renderAdminPoints(); } };
-        document.getElementById('btn-save-comp').onclick = () => set(dbRef(db, `components/${document.getElementById('admin-comp-select').value==='NEW'?`comp_${Date.now()}`:document.getElementById('admin-comp-select').value}`), { title: document.getElementById('admin-comp-title').value, desc: document.getElementById('admin-comp-desc').value, points: currPts });
-        document.getElementById('btn-delete-comp').onclick = () => confirm('¿Borrar?') && remove(dbRef(db, `components/${document.getElementById('admin-comp-select').value}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; renderAdminPoints(); });
+        
+        document.getElementById('admin-comp-select').onchange = e => { 
+            const v=e.target.value; 
+            if(v==='NEW') { 
+                ['admin-comp-title','admin-comp-desc'].forEach(id=>document.getElementById(id).value=''); 
+                currZones=[]; document.getElementById('btn-delete-comp').classList.add('hidden'); 
+            } else { 
+                const d=dbData.components[v]; 
+                document.getElementById('admin-comp-title').value=d.title; 
+                document.getElementById('admin-comp-desc').value=d.desc; 
+                // Retrocompatibilidad con datos antiguos al cargar
+                if(d.zones) currZones = [...d.zones];
+                else if(d.points) currZones = d.points.map(pt => ({x: pt.x-2, y: pt.y-2, w: 4, h: 4}));
+                else currZones = [];
+                document.getElementById('btn-delete-comp').classList.remove('hidden'); 
+            } 
+            renderAdminZones(); 
+        };
+
+        document.getElementById('btn-save-comp').onclick = () => set(dbRef(db, `components/${document.getElementById('admin-comp-select').value==='NEW'?`comp_${Date.now()}`:document.getElementById('admin-comp-select').value}`), { title: document.getElementById('admin-comp-title').value, desc: document.getElementById('admin-comp-desc').value, zones: currZones });
+        document.getElementById('btn-delete-comp').onclick = () => confirm('¿Borrar componente?') && remove(dbRef(db, `components/${document.getElementById('admin-comp-select').value}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; renderAdminZones(); });
 
         document.getElementById('admin-mash-select').onchange = e => { const v=e.target.value; if(v==='NEW') { ['admin-mash-title','admin-mash-sc-url','admin-mash-dl'].forEach(i=>document.getElementById(i).value=''); document.getElementById('btn-delete-mash').classList.add('hidden'); } else { const d=dbData.mashups[v]; document.getElementById('admin-mash-title').value=d.title||''; document.getElementById('admin-mash-sc-url').value=d.scUrl||''; document.getElementById('admin-mash-dl').value=d.dl||''; document.getElementById('btn-delete-mash').classList.remove('hidden'); } };
         document.getElementById('btn-save-mash').onclick = () => set(dbRef(db, `mashups/${document.getElementById('admin-mash-select').value==='NEW'?`mash_${Date.now()}`:document.getElementById('admin-mash-select').value}`), { title: document.getElementById('admin-mash-title').value, scUrl: document.getElementById('admin-mash-sc-url').value, dl: document.getElementById('admin-mash-dl').value }).then(()=>{ const b=document.getElementById('btn-save-mash'); b.innerText="¡GUARDADO!"; setTimeout(()=>b.innerText="GUARDAR",2000); });
