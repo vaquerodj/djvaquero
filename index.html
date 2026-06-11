@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DJ VAQUERO | Tour Oficial</title>
-    
     <link rel="icon" type="image/png" href="logo.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,69 +26,46 @@
             }
         }
     </script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
-    
     <style>
         body { background-color: #06070a; color: #ffffff; overflow-x: hidden; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        /* Fondo animado sutil de ambiente club */
         .ambient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
         .ambient-glow-1 { position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(66,230,245,0.04) 0%, transparent 70%); animation: floatGlow 12s infinite alternate ease-in-out; }
         .ambient-glow-2 { position: absolute; bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(232,28,255,0.04) 0%, transparent 70%); animation: floatGlow 18s infinite alternate-reverse ease-in-out; }
         @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(5%, 5%) scale(1.1); } }
-
         .glass-panel { background: rgba(15, 18, 25, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 24px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .glass-panel:hover { border-color: rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); }
-        
         .premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; color: transparent; background: linear-gradient(135deg, #ffffff 30%, #a1a1aa 100%); -webkit-background-clip: text; background-clip: text; letter-spacing: -0.03em; line-height: 1; }
         .premium-title span { color: #42e6f5; text-shadow: 0 0 30px rgba(66, 230, 245, 0.5); }
-        
         .social-icon { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; background: rgba(255, 255, 255, 0.02); border-radius: 50%; color: #a1a1aa; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
         .social-ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; transform: translateY(-4px) scale(1.05); box-shadow: 0 10px 20px rgba(220,39,67,0.3); }
         .social-tk:hover { background: #000; color: #fff; transform: translateY(-4px) scale(1.05); border-color: #42e6f5; box-shadow: 0 10px 20px rgba(66,230,245,0.2); }
         .social-sc:hover { background: #ff5500; color: white; transform: translateY(-4px) scale(1.05); box-shadow: 0 10px 20px rgba(255,85,0,0.3); }
         .social-yt:hover { background: #ff0000; color: white; transform: translateY(-4px) scale(1.05); box-shadow: 0 10px 20px rgba(255,0,0,0.3); }
         
-        /* CONTENEDOR OPTIMIZADO PARA MÓVILES Y NITIDEZ VECTORIAL */
-        .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; touch-action: none; }
+        /* CONTENEDOR TÁCTIL FIJO - ELIMINADO EL RUIDO DE IMAGEN SOBRE EL SVG */
+        .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; }
         @media (min-width: 1024px) { .viewport-container { height: 68vh; } }
+        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; touch-action: none; }
+        .zoom-layer svg { width: 100%; height: 100%; shape-rendering: geometricPrecision !important; text-rendering: geometricPrecision !important; }
         
-        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; }
-        
-        /* Forzado de renderizado anti-aliasing puro para evitar borrosidad */
-        .zoom-layer svg {
-            width: 100%;
-            height: 100%;
-            shape-rendering: geometricPrecision !important;
-            text-rendering: geometricPrecision !important;
-            image-rendering: -webkit-optimize-contrast !important;
-            image-rendering: crisp-edges !important;
-        }
-
-        /* Estilos del mapa vectorial */
         path, polygon { vector-effect: non-scaling-stroke !important; }
         .muni-base { fill: #11141a !important; stroke: rgba(255, 255, 255, 0.06) !important; stroke-width: 0.7px !important; transition: all 0.25s ease; cursor: pointer; }
         .muni-base:hover { fill: #181d26 !important; stroke: rgba(255,255,255,0.2) !important; }
         .muni-unlocked { fill: #0a232c !important; stroke: #42e6f5 !important; stroke-width: 1.2px !important; transition: all 0.25s ease; cursor: pointer; }
         .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.25) !important; filter: drop-shadow(0 0 8px rgba(66,230,245,0.3)); }
         .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 2px !important; filter: drop-shadow(0 0 12px rgba(232, 28, 255, 0.6)) !important; }
-        
-        /* Animaciones */
         .hotspot-dot { animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         @keyframes pulse-ring { 0%, 100% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 2px rgba(232,28,255,0.5)); } 50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px rgba(232,28,255,1)); } }
-        
         .audio-bars { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
         .audio-bars span { width: 3px; background-color: #f5d442; border-radius: 2px; animation: bounce 0.4s infinite alternate; }
         .audio-bars span:nth-child(2) { animation-delay: 0.12s; height: 60%; }
         .audio-bars span:nth-child(3) { animation-delay: 0.24s; height: 80%; }
         @keyframes bounce { 0% { height: 20%; } 100% { height: 100%; } }
-        
         .admin-setup-mode { cursor: crosshair !important; }
-        .admin-drag-dot { cursor: grab !important; z-index: 50; }
+        .admin-drag-dot { cursor: grab !important; z-index: 50; touch-action: none; }
         .admin-drag-dot:active { cursor: grabbing !important; }
-        
         .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; transition: all 0.3s; cursor: pointer; letter-spacing: 2px; position: relative; }
         .nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background-color: #42e6f5; transition: width 0.3s; box-shadow: 0 0 8px #42e6f5; }
@@ -194,13 +169,11 @@
             </div>
             <button id="btn-close-admin" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
-
         <div class="flex bg-black/20 text-[10px] font-black tracking-wider border-b border-white/5">
             <button id="tab-btn-tour" class="flex-1 py-3.5 text-djCyan border-b-2 border-djCyan">GIRA</button>
             <button id="tab-btn-setup" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">HARDWARE</button>
             <button id="tab-btn-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">MASHUPS</button>
         </div>
-
         <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
             <div id="admin-sec-tour" class="space-y-4">
                 <input type="hidden" id="admin-muni-id"><input type="hidden" id="admin-editing-event-id">
@@ -253,7 +226,6 @@
                 <input type="text" id="admin-mash-title" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none"></div>
                 <div><label class="text-[10px] text-gray-400 font-bold block mb-1 uppercase">Enlace Directo de Descarga</label>
                 <input type="text" id="admin-mash-dl" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none"></div>
-                
                 <div class="bg-black/30 p-3 rounded-xl border border-white/5 space-y-2">
                     <label class="text-[10px] text-djYellow font-bold block uppercase"><i class="fa-solid fa-music mr-1"></i>Archivo Audio (.mp3)</label>
                     <input type="file" id="admin-mash-file" accept="audio/mpeg, audio/mp3" class="w-full text-xs text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:bg-djYellow/10 file:text-djYellow cursor-pointer">
@@ -309,7 +281,7 @@
             if(adminMuniId) populateAdminEventsList(adminMuniId);
         });
 
-        // CONTROL GESTUAL MULTITOUCH Y MOUSE OPTIMIZADO PARA MÓVILES (ZOOM DIRECTO)
+        // NATIVE SMOOTH PINCH-TO-ZOOM MOTOR TÁCTIL (CORREGIDO SIN GLITCHES EN MÓVIL)
         let scale = 1, pointX = 0, pointY = 0;
         function initMapInteractions(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
@@ -325,19 +297,17 @@
                 const rect = viewport.getBoundingClientRect();
                 const xs = (e.clientX - rect.left - pointX) / scale;
                 const ys = (e.clientY - rect.top - pointY) / scale;
-                (e.deltaY < 0) ? (scale *= 1.12) : (scale /= 1.12);
-                scale = Math.max(0.6, Math.min(scale, 12));
+                (e.deltaY < 0) ? (scale *= 1.1) : (scale /= 1.1);
+                scale = Math.max(0.6, Math.min(scale, 10));
                 pointX = (e.clientX - rect.left) - xs * scale;
                 pointY = (e.clientY - rect.top) - ys * scale;
                 updateTransform();
             }, { passive: false });
 
-            // Eventos Ratón
             viewport.addEventListener('mousedown', (e) => { startX = e.clientX - pointX; startY = e.clientY - pointY; panning = true; isMovingLayer = false; });
             window.addEventListener('mousemove', (e) => { if (!panning) return; isMovingLayer = true; pointX = e.clientX - startX; pointY = e.clientY - startY; updateTransform(); });
             window.addEventListener('mouseup', () => { panning = false; });
 
-            // Eventos Pantalla Táctil (Soporta Pinch-to-zoom real en el mapa sin romper el scroll del body)
             viewport.addEventListener('touchstart', (e) => {
                 if (e.touches.length === 1) {
                     startX = e.touches[0].clientX - pointX;
@@ -363,9 +333,8 @@
                     const midY = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - rect.top;
                     const xs = (midX - pointX) / scale;
                     const ys = (midY - pointY) / scale;
-                    
                     const factor = dist / startDist;
-                    scale = Math.max(0.6, Math.min(scale * factor, 12));
+                    scale = Math.max(0.6, Math.min(scale * factor, 10));
                     pointX = midX - xs * scale;
                     pointY = midY - ys * scale;
                     startDist = dist;
@@ -379,7 +348,6 @@
 
         document.getElementById('btn-reset-map').onclick = () => { scale = 1; pointX = 0; pointY = 0; document.getElementById('tour-layer').style.transform = 'none'; };
 
-        // CARGA VECTORIAL ASÍNCRONA
         async function loadInlineSVG(url, containerId) {
             const response = await fetch(url);
             document.getElementById(containerId).innerHTML = await response.text();
@@ -402,7 +370,6 @@
         }
         loadInlineSVG('salamanca.svg', 'tour-layer');
 
-        // FUNCIÓN CLAVE PARA SINCRONIZAR CLICK Y BUSCADOR
         function seleccionarMunicipioEnMapa(id) {
             if(currentSelectedMuniId) { 
                 const prev = document.getElementById(currentSelectedMuniId); 
@@ -412,7 +379,7 @@
             const el = document.getElementById(id);
             if(el) {
                 el.classList.add('muni-selected'); 
-                el.parentNode.appendChild(el); // Trae al frente vectorialmente
+                el.parentNode.appendChild(el);
             }
             loadMuniInfo(id);
         }
@@ -457,11 +424,9 @@
             }
             eDiv.innerHTML += `<div class="mt-4 pt-4 border-t border-white/5"><a href="https://www.instagram.com/djvaquero__/" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 hover:from-purple-600 hover:to-djMagenta text-white w-full py-3.5 rounded-xl text-center text-xs font-black tracking-widest uppercase transition-all shadow-lg shadow-purple-900/20">CONTRATACIÓN DIRECTA</a></div>`;
             
-            // SCROLL DOWN INTELIGENTE: Permite seguir viendo el mapa arriba
             document.getElementById('info-section-anchor').scrollIntoView({behavior:'smooth', block:'start'});
         }
 
-        // BUSCADOR AUTOMATIZADO
         const sInput = document.getElementById('search-muni'), rList = document.getElementById('search-results');
         sInput.addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase().trim(); rList.innerHTML = '';
@@ -479,7 +444,6 @@
         });
         document.addEventListener('click', (e) => { if(!sInput.contains(e.target)) rList.classList.add('hidden'); });
 
-        // REPRODUCTOR AUDIO MASHUPS
         let currentAudio = null;
         window.toggleAudio = function(id) {
             const audio = document.getElementById(`audio-${id}`);
@@ -534,7 +498,6 @@
             });
         }
 
-        // HARDWARE INTERACTIVO
         window.selectComponent = function(id, el) {
             document.querySelectorAll('.hotspot-active').forEach(h => h.classList.remove('hotspot-active'));
             if(el) el.classList.add('hotspot-active');
@@ -556,7 +519,6 @@
             });
         }
 
-        // BACKOFFICE SYSTEM MANAGER
         let clickCount = 0, clickTimer;
         document.getElementById('site-title').addEventListener('click', () => {
             clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800);
@@ -564,7 +526,6 @@
         });
         document.getElementById('btn-close-admin').onclick = () => { document.getElementById('admin-panel').classList.add('hidden'); toggleSetupAdminMode(false); };
 
-        // Arrastrar Panel de Administración
         const ap = document.getElementById('admin-panel'), ah = document.getElementById('admin-panel-header');
         let isDrag = false, pSx, pSy, iL, iT;
         ah.addEventListener('mousedown', (e) => { if(e.target.closest('button')) return; isDrag = true; pSx = e.clientX; pSy = e.clientY; const r = ap.getBoundingClientRect(); iL = r.left; iT = r.top; ap.style.position='fixed'; ap.style.margin='0'; });
@@ -598,7 +559,6 @@
             }
         }
 
-        // LÓGICA TOUR ADMIN
         function populateAdminEventsList(mId) {
             const c = document.getElementById('admin-event-list-container'), l = document.getElementById('admin-event-list'), muni = dbData.municipalities[mId];
             l.innerHTML = '';
@@ -625,7 +585,7 @@
             } else loadMuniInfo(id);
         };
 
-        // EDICIÓN EN TIEMPO REAL DE HOTSPOTS (HARDWARE)
+        // ENRUTADOR DE DRAG & DROP MULTITOUCH RECONSTRUIDO DESDE CERO PARA COMPONENTES
         let currentAdminPoints = [];
         function updateCompDropdown() {
             const sel = document.getElementById('admin-comp-select'); const cv = sel.value;
@@ -679,7 +639,6 @@
             renderAdminPointsList();
         };
 
-        // Clic para crear un nuevo punto
         document.getElementById('setup-image-wrapper').addEventListener('click', (e) => {
             if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden') && !e.target.classList.contains('admin-drag-dot')) {
                 const img = document.getElementById('setup-img'), r = img.getBoundingClientRect();
@@ -699,7 +658,7 @@
             if(id !== 'NEW' && confirm('¿Borrar?')) remove(dbRef(db, `components/${id}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; renderAdminPointsList(); });
         };
 
-        // REPARACIÓN COMPLETA SUBIDA MASHUPS (STORAGE + DB)
+        // MOTOR ASÍNCRONO DE CONTROL DE SUBIDA MP3 (REPARADO DEFINITIVAMENTE)
         function updateMashupDropdown() {
             const sel = document.getElementById('admin-mash-select'); const cv = sel.value;
             sel.innerHTML = '<option value="NEW">-- NUEVO MASHUP --</option>';
@@ -714,7 +673,7 @@
             else { const d = dbData.mashups[v]; document.getElementById('admin-mash-title').value=d.title||''; document.getElementById('admin-mash-dl').value=d.dl||''; document.getElementById('btn-delete-mash').classList.remove('hidden'); }
         };
 
-        document.getElementById('btn-save-mash').addEventListener('click', () => {
+        document.getElementById('btn-save-mash').addEventListener('click', async () => {
             let id = document.getElementById('admin-mash-select').value;
             if(id === 'NEW') id = `mash_${Date.now()}`;
             const title = document.getElementById('admin-mash-title').value.trim();
@@ -737,15 +696,20 @@
                     (snap) => { pFill.style.width = ((snap.bytesTransferred / snap.totalBytes) * 100) + '%'; },
                     (err) => { alert("Error Firebase Storage: " + err.message); btn.disabled = false; btn.innerText = "GUARDAR TRACK"; pBar.classList.add('hidden'); },
                     async () => { 
-                        audioUrl = await getDownloadURL(uploadTask.snapshot.ref); 
-                        set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, audioUrl: audioUrl }).then(() => {
+                        try {
+                            audioUrl = await getDownloadURL(uploadTask.snapshot.ref); 
+                            await set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, audioUrl: audioUrl });
                             btn.innerText = "¡PROCESADO CON ÉXITO!"; btn.disabled = false; pBar.classList.add('hidden'); fileInput.value = '';
                             setTimeout(() => { btn.innerText = "GUARDAR TRACK"; }, 2000);
-                        });
+                        } catch (ex) {
+                            alert("Error al sincronizar BD: " + ex.message);
+                            btn.disabled = false; btn.innerText = "GUARDAR TRACK";
+                        }
                     }
                 );
             } else {
-                set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, audioUrl: audioUrl }).then(() => { btn.innerText = "¡CAMBIOS GUARDADOS!"; setTimeout(() => { btn.innerText = "GUARDAR TRACK"; }, 2000); });
+                await set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, audioUrl: audioUrl });
+                btn.innerText = "¡CAMBIOS GUARDADOS!"; setTimeout(() => { btn.innerText = "GUARDAR TRACK"; }, 2000);
             }
         });
 
