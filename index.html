@@ -13,7 +13,7 @@
                 extend: {
                     colors: {
                         djBg: '#06070a',
-                        djPanel: 'rgba(15, 18, 25, 0.75)',
+                        djPanel: 'rgba(15, 18, 25, 0.85)',
                         djCyan: '#42e6f5',
                         djMagenta: '#e81cff',
                         djYellow: '#f5d442'
@@ -27,344 +27,397 @@
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         body {
-            background-color: #06070a;
-            color: #ffffff;
             font-family: 'Inter', sans-serif;
+            background-color: #06070a;
         }
-        /* Mantiene la calidad geométrica exacta y grosor uniforme en el mapa de Salamanca */
-        .salamanca-svg path {
-            vector-effect: non-scaling-stroke !important;
-            stroke-width: 2px !important;
+        .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* OPTIMIZACIÓN SVG: Máxima nitidez y bordes uniformes obligatorios */
+        svg, .svg-map-container svg {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            shape-rendering: geometricPrecision;
+        }
+        
+        /* Asegura que toda la frontera mantenga el mismo grosor sin importar el zoom */
+        svg path, svg polygon, .map-border {
             stroke: #42e6f5 !important;
-            transition: fill 0.3s ease;
+            stroke-width: 1.5px !important;
+            vector-effect: non-scaling-stroke !important;
+            opacity: 1 !important;
+            transition: fill 0.2s ease;
         }
-        .salamanca-svg path:hover {
-            fill: rgba(66, 230, 245, 0.15);
+
+        /* Coloreado base nítido desde el inicio */
+        .map-region {
+            fill: rgba(66, 230, 245, 0.12);
         }
-        /* Estilos base para arrastrar hotspots */
-        .hotspot {
-            position: absolute;
-            width: 22px;
-            height: 22px;
-            background-color: #42e6f5;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            cursor: grab;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px #42e6f5;
-            z-index: 40;
-            user-select: none;
+        .map-region:hover {
+            fill: rgba(232, 28, 255, 0.35);
+            cursor: pointer;
         }
-        .hotspot:active {
-            cursor: grabbing;
-            background-color: #e81cff;
-            box-shadow: 0 0 15px #e81cff;
+
+        /* Animación de pulso para los hotspots */
+        .hotspot-pulse {
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(66, 230, 245, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(66, 230, 245, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(66, 230, 245, 0); }
         }
     </style>
 </head>
-<body class="bg-djBg text-white min-h-screen">
+<body class="text-gray-200 min-h-screen selection:bg-djCyan selection:text-black overflow-x-hidden">
 
-    <header class="container mx-auto text-center py-12 px-4">
-        <h1 class="text-4xl md:text-6xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r via-djCyan from-white to-djMagenta tracking-wider uppercase">
+    <header class="relative py-10 text-center bg-gradient-to-b from-black/80 to-transparent z-10">
+        <h1 class="font-display text-4xl md:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-djCyan via-djMagenta to-djYellow uppercase">
             DJ VAQUERO
         </h1>
-        <p class="text-gray-400 text-lg md:text-xl font-body mt-2 max-w-2xl mx-auto">
-            Transformando la energía de la noche en una experiencia inolvidable.
+        <p class="text-djCyan font-display font-bold tracking-widest text-xs md:text-sm uppercase mt-2">
+            Tour Oficial
+        </p>
+        <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto mt-3 px-4 font-light">
+            Siente el ritmo, vive la experiencia: la música que nos une en cada escenario.
         </p>
     </header>
 
-    <main class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 pb-24">
+    <main class="max-w-7xl mx-auto px-4 pb-24 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start relative">
         
-        <div class="space-y-8">
-            <div class="bg-djPanel backdrop-blur-md p-6 rounded-xl border border-gray-800 shadow-2xl">
-                <h2 class="text-xl font-display font-bold text-djCyan mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-map-location-dot"></i> Mapa de Salamanca
+        <div class="lg:col-span-3 bg-djPanel border border-gray-800 rounded-2xl p-4 md:p-6 shadow-2xl relative">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-display text-lg font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-djCyan"></i> Mapa de Ruta e Interconexión
                 </h2>
-                <div class="w-full flex justify-center items-center p-4 bg-black/40 rounded-lg overflow-hidden border border-gray-900">
-                    <svg class="salamanca-svg w-full max-w-[450px] h-auto" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M 100,100 L 200,80 L 300,120 L 320,220 L 220,300 L 120,280 L 80,180 Z" fill="rgba(66, 230, 245, 0.04)" />
-                        <path d="M 200,80 L 280,40 L 350,80 L 300,120 Z" fill="rgba(66, 230, 245, 0.04)" />
-                        <path d="M 120,280 L 220,300 L 200,380 L 100,350 Z" fill="rgba(66, 230, 245, 0.04)" />
-                    </svg>
-                </div>
+                <span class="text-xs bg-djCyan/10 text-djCyan border border-djCyan/20 px-2.5 py-1 rounded-full font-medium">
+                    <i class="fa-solid fa-hand-pointer animate-bounce mr-1"></i> Arrastra puntos para reubicar
+                </span>
             </div>
 
-            <div class="bg-djPanel backdrop-blur-md p-6 rounded-xl border border-gray-800 shadow-2xl">
-                <h2 class="text-xl font-display font-bold text-djMagenta mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-compact-disc"></i> SoundCloud Previews & Tracks
-                </h2>
-                <div id="mashups-container" class="space-y-6">
-                    <p class="text-gray-500 text-sm text-center py-4">Sincronizando pistas de audio...</p>
-                </div>
+            <div id="map-master-container" class="relative w-full overflow-hidden bg-black/40 border border-gray-900 rounded-xl aspect-[4/3] flex items-center justify-center">
+                
+                <object id="salamanca-map-object" type="image/svg+xml" data="salamanca.svg" class="w-full h-full pointer-events-auto">
+                    <svg id="fallback-svg" viewBox="0 0 800 600" class="w-full h-full">
+                        <rect width="100%" height="100%" fill="transparent"/>
+                        </svg>
+                </object>
+
+                <div id="hotspots-overlay-layer" class="absolute inset-0 pointer-events-none z-20">
+                    </div>
             </div>
         </div>
 
-        <div class="space-y-8">
-            <div class="bg-djPanel backdrop-blur-md p-6 rounded-xl border border-gray-800 shadow-2xl relative">
-                <h2 class="text-xl font-display font-bold text-djYellow mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders"></i> Cabina Interactiva DJ
-                </h2>
-                
-                <div id="contenedor-imagen-dj" class="relative w-full overflow-hidden rounded-lg border border-gray-900 bg-black/60 aspect-[16/10]">
-                    <img src="https://images.unsplash.com/photo-1516873240891-4bf014598ab4?auto=format&fit=crop&w=1200&q=80" alt="DJ Booth" class="w-full h-full object-cover opacity-80 pointer-events-none">
-                    
-                    <div class="hotspot" style="top: 35%; left: 50%;" data-title="Mesa de Mezclas Principal" data-desc="Pioneer DJM-900NXS2 profesional con ecualización quirúrgica y módulo de efectos Sound Color FX."></div>
-                    <div class="hotspot" style="top: 50%; left: 22%;" data-title="Multi-reproductor CDJ Izquierdo" data-desc="Unidad CDJ-2000NXS2 configurada en modo Link continuo para control dinámico de Loops e instrumentales."></div>
-                    <div class="hotspot" style="top: 50%; left: 78%;" data-title="Multi-reproductor CDJ Derecho" data-desc="Deck derecho asignado a pistas extendidas, mashups vocales y acapellas del set en directo."></div>
-                </div>
-
-                <div id="info-card-hotspot" class="absolute bottom-10 right-10 w-72 bg-black/95 border border-djCyan/40 p-4 rounded-lg shadow-2xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-2 z-50">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 id="info-card-title" class="text-djCyan font-display font-bold text-sm">Selecciona un elemento</h3>
-                        <button onclick="cerrarInfoCard()" class="text-gray-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                    <p id="info-card-desc" class="text-gray-300 text-xs font-body leading-relaxed">
-                        Haz clic o pasa el cursor sobre cualquiera de los puntos cian en la cabina para ver los detalles técnicos sin obstaculizar la vista general del set.
-                    </p>
+        <div id="info-side-panel" class="lg:col-span-1 bg-djPanel/95 backdrop-blur-xl border border-gray-800 rounded-2xl p-6 shadow-2xl sticky top-6 transition-all duration-300 transform scale-100 hidden">
+            <button id="close-info-panel" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="mb-4">
+                <span id="info-date" class="text-xs font-bold text-djMagenta uppercase tracking-widest bg-djMagenta/10 border border-djMagenta/20 px-2.5 py-1 rounded-md">--/--/----</span>
+            </div>
+            
+            <h3 id="info-title" class="font-display text-2xl font-black text-white uppercase tracking-tight mb-2">Selecciona un punto</h3>
+            <p id="info-description" class="text-gray-400 text-sm leading-relaxed mb-6">Haz clic en cualquier hotspot del mapa de Salamanca para desplegar los detalles de la sesión y escuchar el preview oficial.</p>
+            
+            <div class="border-t border-gray-800/80 pt-4">
+                <h4 class="text-xs uppercase font-bold tracking-wider text-djCyan mb-3"><i class="fa-brands fa-soundcloud text-base mr-1"></i> Preview En Vivo</h4>
+                <div id="soundcloud-player-container" class="w-full min-h-[120px] bg-black/30 rounded-xl border border-gray-900 flex items-center justify-center p-2">
+                    <p class="text-xs text-gray-500 italic text-center">Ningún track cargado en la zona</p>
                 </div>
             </div>
-
-            <div id="admin-panel" class="bg-djPanel backdrop-blur-md p-6 rounded-xl border border-djCyan/20 shadow-2xl">
-                <h2 class="text-xl font-display font-bold text-djCyan mb-4 flex items-center justify-between">
-                    <span class="flex items-center gap-2"><i class="fa-solid fa-lock"></i> Gestión Web (Admin)</span>
-                    <span class="text-xs bg-djCyan/10 text-djCyan border border-djCyan/30 px-2 py-0.5 rounded font-mono">LIVE EDIT</span>
-                </h2>
-
-                <p class="text-xs text-gray-400 mb-4 bg-black/40 p-2 rounded border border-gray-800">
-                    <i class="fa-solid fa-circle-info text-djCyan mr-1"></i> Puedes **arrastrar y mover** los hotspots directamente sobre la cabina con el ratón. Sus posiciones visuales se adaptarán instantáneamente.
-                </p>
-
-                <div class="space-y-4 border-t border-gray-800 pt-4">
-                    <h3 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Administrar Pistas (SoundCloud)</h3>
-                    
-                    <div>
-                        <label class="block text-gray-400 text-xs mb-1">Seleccionar Pista</label>
-                        <select id="admin-mash-select" class="w-full bg-[#06070a] border border-gray-700 rounded p-2 text-sm text-white outline-none focus:border-djCyan">
-                            <option value="NEW">[ NUEVA CANCIÓN / MIX ]</option>
-                        </select>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-400 text-xs mb-1">Nombre del Track</label>
-                            <input type="text" id="mash-title" placeholder="Ej: Vaquero Mashup Vol. 5" class="w-full bg-[#06070a] border border-gray-700 rounded p-2 text-sm text-white outline-none focus:border-djCyan">
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-xs mb-1">Enlace de Descarga Directa</label>
-                            <input type="text" id="mash-dl" placeholder="Ej: https://mediafire.com/..." class="w-full bg-[#06070a] border border-gray-700 rounded p-2 text-sm text-white outline-none focus:border-djCyan">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-gray-400 text-xs mb-1">Enlace Completo de SoundCloud</label>
-                        <input type="text" id="mash-soundcloud-url" placeholder="Ej: https://soundcloud.com/djvaquero/mi-pista" class="w-full bg-[#06070a] border border-gray-700 rounded p-2 text-sm text-white outline-none focus:border-djCyan">
-                    </div>
-
-                    <div class="flex gap-3 pt-2">
-                        <button id="btn-save-mash" class="flex-1 bg-djCyan text-black font-bold uppercase text-xs py-2.5 rounded hover:bg-white transition-all duration-200">
-                            GUARDAR CAMBIOS
-                        </button>
-                        <button id="btn-delete-mash" class="bg-red-950/40 text-red-400 border border-red-900/60 font-bold uppercase text-xs py-2.5 px-4 rounded hover:bg-red-600 hover:text-white transition-all duration-200">
-                            ELIMINAR
-                        </button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </main>
 
-    <script>
-        // --- 1. LÓGICA DE DETALLES E INTERACCIÓN DE HOTSPOTS ---
-        const infoCard = document.getElementById('info-card-hotspot');
-        const infoTitle = document.getElementById('info-card-title');
-        const infoDesc = document.getElementById('info-card-desc');
-
-        function configurarEventosHotspot(hotspot) {
-            hotspot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                infoTitle.innerText = hotspot.getAttribute('data-title');
-                infoDesc.innerText = hotspot.getAttribute('data-desc');
-                infoCard.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
-            });
-        }
-
-        document.querySelectorAll('.hotspot').forEach(configurarEventosHotspot);
-
-        function cerrarInfoCard() {
-            infoCard.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
-        }
-
-        // --- 2. LOGICA DRAG & DROP (ARRASTRAR HOTSPOTS DIRECTAMENTE DESDE LA IMAGEN) ---
-        let elementoArrastrado = null;
-        const contenedorDj = document.getElementById('contenedor-imagen-dj');
-
-        document.querySelectorAll('.hotspot').forEach(hotspot => {
-            hotspot.addEventListener('mousedown', (e) => {
-                elementoArrastrado = hotspot;
-                e.preventDefault();
-            });
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (!elementoArrastrado) return;
-
-            const dimensiones = contenedorDj.getBoundingClientRect();
+    <section class="max-w-4xl mx-auto px-4 pb-32">
+        <div class="bg-djPanel border border-gray-800 rounded-2xl p-6 md:p-8 shadow-2xl">
+            <h2 class="font-display text-xl font-bold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-djCyan to-djMagenta mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-djMagenta"></i> Configuración de Eventos (Admin)
+            </h2>
             
-            // Calculamos la posición exacta relativa a la caja en porcentaje
-            let posX = ((e.clientX - dimensiones.left) / dimensiones.width) * 100;
-            let posY = ((e.clientY - dimensiones.top) / dimensiones.height) * 100;
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="md:col-span-1">
+                    <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2">Seleccionar Track / Punto</label>
+                    <select id="admin-mash-select" class="w-full bg-black/60 border border-gray-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-djCyan transition-colors cursor-pointer">
+                        <option value="NEW">+ NUEVO PUNTO DE RUTA</option>
+                    </select>
+                </div>
+                <div class="md:col-span-1">
+                    <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2">Coordenada X (%)</label>
+                    <input type="text" id="input-coord-x" readonly class="w-full bg-black/30 border border-gray-800 rounded-xl p-3 text-sm text-djCyan font-mono focus:outline-none" placeholder="0.00%">
+                </div>
+                <div class="md:col-span-1">
+                    <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2">Coordenada Y (%)</label>
+                    <input type="text" id="input-coord-x-y" id="input-coord-y" readonly class="w-full bg-black/30 border border-gray-800 rounded-xl p-3 text-sm text-djCyan font-mono focus:outline-none" placeholder="0.00%">
+                </div>
+            </div>
 
-            // Restricción perimetral (Evita salirse del contenedor)
-            posX = Math.max(0, Math.min(posX, 100));
-            posY = Math.max(0, Math.min(posY, 100));
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2">Título de la Ubicación / Sesión</label>
+                    <input type="text" id="track-title" placeholder="Ej. Salamanca Capital - Club Zero" class="w-full bg-black/60 border border-gray-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-djCyan transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2">Fecha / Detalles Breves</label>
+                    <input type="text" id="track-date" placeholder="Ej. Viernes, 24 de Julio" class="w-full bg-black/60 border border-gray-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-djCyan transition-colors">
+                </div>
+                
+                <div>
+                    <label class="block text-xs uppercase font-bold tracking-wider text-djCyan mb-2"><i class="fa-brands fa-soundcloud"></i> URL de Pista SoundCloud</label>
+                    <input type="text" id="track-soundcloud-url" placeholder="https://soundcloud.com/tu-perfil/nombre-del-track" class="w-full bg-black/60 border border-gray-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-djCyan transition-colors">
+                    <p class="text-[11px] text-gray-500 mt-1">Pega el enlace completo de la canción pública de SoundCloud para insertarla automáticamente.</p>
+                </div>
 
-            // Aplicamos la posición de manera responsiva en el DOM
-            elementoArrastrado.style.left = `${posX.toFixed(2)}%`;
-            elementoArrastrado.style.top = `${posY.toFixed(2)}%`;
+                <div class="flex flex-wrap gap-3 pt-4">
+                    <button id="btn-save-mash" class="flex-1 bg-gradient-to-r from-djCyan to-djCyan/80 hover:from-djCyan hover:to-djCyan text-black font-display font-bold uppercase tracking-wider text-xs py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-djCyan/10">
+                        GUARDAR TRACK / PUNTO
+                    </button>
+                    <button id="btn-delete-mash" class="bg-red-950/40 hover:bg-red-900 border border-red-800/60 text-red-400 font-display font-bold uppercase tracking-wider text-xs py-3.5 px-6 rounded-xl transition-all">
+                        ELIMINAR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        // Simulación de entorno Firebase (Estructura adaptada sin almacenamiento de MP3)
+        // Puedes vincularlo directamente con tus credenciales importadas existentes.
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getDatabase, ref as dbRef, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+
+        // NOTA: Reemplazar con tu config real si es preciso
+        const firebaseConfig = { databaseURL: "YOUR_FIREBASE_DATABASE_URL" };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const mapMasterContainer = document.getElementById('map-master-container');
+        const hotspotsOverlayLayer = document.getElementById('hotspots-overlay-layer');
+        const infoSidePanel = document.getElementById('info-side-panel');
+        const soundcloudContainer = document.getElementById('soundcloud-player-container');
+        
+        // Inputs Admin
+        const adminSelect = document.getElementById('admin-mash-select');
+        const trackTitleInput = document.getElementById('track-title');
+        const trackDateInput = document.getElementById('track-date');
+        const soundcloudUrlInput = document.getElementById('track-soundcloud-url');
+        const coordXInput = document.getElementById('input-coord-x');
+        const coordYInput = document.getElementById('input-coord-x-y'); // Corregido ID mapeado
+
+        let localHotspotsData = {};
+        let activeDraggedElement = null;
+
+        // CARGA DINÁMICA DE DATOS DESDE REALTIME DATABASE
+        onValue(dbRef(db, 'mashups'), (snapshot) => {
+            hotspotsOverlayLayer.innerHTML = '';
+            adminSelect.innerHTML = '<option value="NEW">+ NUEVO PUNTO DE RUTA</option>';
+            localHotspotsData = snapshot.val() || {};
+
+            Object.keys(localHotspotsData).forEach(id => {
+                const item = localHotspotsData[id];
+                
+                // 1. Añadir al selector de administrador
+                const option = document.createElement('option');
+                option.value = id;
+                option.innerText = item.title.toUpperCase();
+                adminSelect.appendChild(option);
+
+                // 2. Crear y renderizar el Hotspot en la capa superior del mapa
+                createMapHotspotElement(id, item);
+            });
         });
 
-        document.addEventListener('mouseup', () => {
-            if (elementoArrastrado) {
-                elementoArrastrado = null;
+        // GENERACIÓN Y ASIGNACIÓN DRAG & DROP DE HOTSPOTS
+        function createMapHotspotElement(id, data) {
+            const hotspot = document.createElement('div');
+            hotspot.className = 'absolute w-6 h-6 -ml-3 -mt-3 rounded-full bg-djCyan border-2 border-white flex items-center justify-center cursor-grab active:cursor-grabbing pointer-events-auto select-none transition-transform hover:scale-125 z-30';
+            hotspot.style.left = `${data.x || 50}%`;
+            hotspot.style.top = `${data.y || 50}%`;
+            hotspot.id = `hotspot-${id}`;
+
+            // Efecto visual interno
+            const innerPulse = document.createElement('div');
+            innerPulse.className = 'absolute inset-0 rounded-full bg-djCyan hotspot-pulse opacity-60';
+            hotspot.appendChild(innerPulse);
+
+            // EVENTO DE SELECCIÓN PARA MOSTRAR LA TARJETA
+            hotspot.addEventListener('click', (e) => {
+                if (hotspot.dataset.wasDragged === 'true') {
+                    hotspot.dataset.wasDragged = 'false';
+                    return; // Ignorar clic si fue una acción de arrastre
+                }
+                displayInfoCard(data);
+            });
+
+            // LÓGICA DE INTERACCIÓN DRAG AND DROP (Mover directamente sobre la imagen)
+            setupDragAndDrop(hotspot, id);
+
+            hotspotsOverlayLayer.appendChild(hotspot);
+        }
+
+        // CONTROLADOR DE MOVIMIENTO DIRECTO (RATÓN Y TOQUE TÁCTIL)
+        function setupDragAndDrop(element, id) {
+            let isMoving = false;
+
+            const moveHandler = (e) => {
+                if (!isMoving) return;
+                element.dataset.wasDragged = 'true';
+
+                const rect = mapMasterContainer.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                let xPx = clientX - rect.left;
+                let yPx = clientY - rect.top;
+
+                // Restricciones de porcentaje (0% - 100%)
+                let xPct = Math.max(0, Math.min(100, (xPx / rect.width) * 100));
+                let yPct = Math.max(0, Math.min(100, (yPx / rect.height) * 100));
+
+                element.style.left = `${xPct}%`;
+                element.style.top = `${yPct}%`;
+
+                // Si está seleccionado en el panel de control actualizamos los inputs en tiempo real
+                if (adminSelect.value === id) {
+                    coordXInput.value = xPct.toFixed(2) + '%';
+                    coordYInput.value = yPct.toFixed(2) + '%';
+                }
+            };
+
+            const stopHandler = () => {
+                if (isMoving) {
+                    isMoving = false;
+                    window.removeEventListener('mousemove', moveHandler);
+                    window.removeEventListener('mouseup', stopHandler);
+                    window.removeEventListener('touchmove', moveHandler);
+                    window.removeEventListener('touchend', stopHandler);
+
+                    // Extraer los valores finales para guardado posterior o auto-actualización
+                    const finalX = parseFloat(element.style.left);
+                    const finalY = parseFloat(element.style.top);
+                    
+                    // Actualizar memoria local para evitar desfases antes de sincronizar con botón
+                    if(localHotspotsData[id]) {
+                        localHotspotsData[id].x = finalX;
+                        localHotspotsData[id].y = finalY;
+                    }
+                }
+            };
+
+            const startHandler = (e) => {
+                // Evitar comportamiento por defecto en arrastres de imágenes y scroll táctil accidental
+                if (e.type === 'mousedown' && e.button !== 0) return; 
+                isMoving = true;
+
+                window.addEventListener('mousemove', moveHandler);
+                window.addEventListener('mouseup', stopHandler);
+                window.addEventListener('touchmove', moveHandler, { passive: true });
+                window.addEventListener('touchend', stopHandler);
+            };
+
+            element.addEventListener('mousedown', startHandler);
+            element.addEventListener('touchstart', startHandler, { passive: true });
+        }
+
+        // DESPLIEGUE DE LA TARJETA DE INFORMACIÓN CON SOUNDCLOUD INSERTADO
+        function displayInfoCard(data) {
+            document.getElementById('info-title').innerText = data.title;
+            document.getElementById('info-date').innerText = data.date || 'PRÓXIMAMENTE';
+            document.getElementById('info-description').innerText = data.description || 'Prepárate para una sesión única con la mejor mezcla en vivo y un despliegue audiovisual sin precedentes.';
+            
+            // Inserción limpia del reproductor embebido oficial de SoundCloud
+            if (data.soundcloudUrl) {
+                const encodedUrl = encodeURIComponent(data.soundcloudUrl);
+                soundcloudContainer.innerHTML = `
+                    <iframe 
+                        width="100%" 
+                        height="130" 
+                        scrolling="no" 
+                        frameborder="no" 
+                        allow="autoplay" 
+                        src="https://w.soundcloud.com/player/?url=${encodedUrl}&color=%2342e6f5&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"
+                        class="rounded-xl border border-gray-800/60 shadow-inner bg-black/40">
+                    </iframe>`;
+            } else {
+                soundcloudContainer.innerHTML = `<p class="text-xs text-gray-500 italic text-center py-4">No hay track de SoundCloud configurado.</p>`;
             }
-        });
 
+            infoSidePanel.classList.remove('hidden');
+        }
 
-        // --- 3. MOCK / INTEGRACIÓN FIREBASE REALTIME PARA TRACKS DE SOUNDCLOUD ---
-        // (Reemplaza esta simulación interna por la configuración nativa de tu dbRef, set, remove de Firebase SDK)
-        let baseDatosTracks = {
-            "track_1": {
-                title: "Vaquero Exclusive Mashup Vol. 1",
-                dl: "https://www.mediafire.com",
-                soundcloudUrl: "https://soundcloud.com/tiesto/tiesto-chemicals-feat-thomas"
-            },
-            "track_2": {
-                title: "Salamanca Opening Set Preview",
-                dl: "https://mega.nz",
-                soundcloudUrl: "https://soundcloud.com/martingarrix/martin-garrix-animals-original"
+        // CIERRE DE TARJETA
+        document.getElementById('close-info-panel').onclick = () => infoSidePanel.classList.add('hidden');
+
+        // GESTIÓN DEL FORMULARIO DE ADMINISTRACIÓN
+        adminSelect.onchange = () => {
+            const id = adminSelect.value;
+            if (id === 'NEW') {
+                trackTitleInput.value = '';
+                trackDateInput.value = '';
+                soundcloudUrlInput.value = '';
+                coordXInput.value = '50.00%';
+                coordYInput.value = '50.00%';
+            } else {
+                const item = localHotspotsData[id];
+                trackTitleInput.value = item.title || '';
+                trackDateInput.value = item.date || '';
+                soundcloudUrlInput.value = item.soundcloudUrl || '';
+                coordXInput.value = (item.x ? item.x.toFixed(2) : '50.00') + '%';
+                coordYInput.value = (item.y ? item.y.toFixed(2) : '50.00') + '%';
             }
         };
 
-        function renderizarListaPublica() {
-            const contenedor = document.getElementById('mashups-container');
-            contenedor.innerHTML = '';
-
-            const keys = Object.keys(baseDatosTracks);
-            if(keys.length === 0) {
-                contenedor.innerHTML = `<p class="text-gray-500 text-sm text-center py-4">No hay pistas registradas en SoundCloud.</p>`;
-                return;
-            }
-
-            keys.forEach(key => {
-                const track = baseDatosTracks[key];
-                
-                // Conversión de URL estándar de SoundCloud a URL del Widget Embebido Oficial de SoundCloud
-                const soundcloudEmbedUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(track.soundcloudUrl)}&color=%2342e6f5&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
-
-                const tarjetaTrack = document.createElement('div');
-                tarjetaTrack.className = "bg-black/40 border border-gray-950 p-4 rounded-lg space-y-3 shadow-lg";
-                tarjetaTrack.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-white font-display font-bold text-sm tracking-wide"><i class="fa-solid fa-play text-djCyan text-xs mr-2"></i>${track.title}</h3>
-                    </div>
-                    
-                    <iframe width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay" 
-                        src="${soundcloudEmbedUrl}" class="rounded border border-gray-900 bg-transparent">
-                    </iframe>
-
-                    <div class="flex justify-end">
-                        <a href="${track.dl}" target="_blank" class="bg-djCyan text-black font-body font-bold text-xs px-4 py-2 rounded uppercase hover:bg-white tracking-wider transition-all shadow-md">
-                            <i class="fa-solid fa-arrow-down-long mr-1"></i> DESCARGAR TRACK
-                        </a>
-                    </div>
-                `;
-                contenedor.appendChild(tarjetaTrack);
-            });
-            
-            actualizarSelectAdmin();
-        }
-
-        function actualizarSelectAdmin() {
-            const select = document.getElementById('admin-mash-select');
-            select.innerHTML = '<option value="NEW">[ NUEVA CANCIÓN / MIX ]</option>';
-            Object.keys(baseDatosTracks).forEach(key => {
-                const option = document.createElement('option');
-                option.value = key;
-                option.innerText = baseDatosTracks[key].title;
-                select.appendChild(option);
-            });
-        }
-
-        // Guardado / Edición unificado directo en base de datos sin flujos de Storage
+        // GUARDADO / ACTUALIZACIÓN (Eliminada toda interacción MP3)
         document.getElementById('btn-save-mash').onclick = async () => {
-            const title = document.getElementById('mash-title').value;
-            const dl = document.getElementById('mash-dl').value;
-            const soundcloudUrl = document.getElementById('mash-soundcloud-url').value;
-            let id = document.getElementById('admin-mash-select').value;
+            let id = adminSelect.value;
+            if (id === 'NEW') id = 'track_' + Date.now();
+
+            const title = trackTitleInput.value.trim();
+            const date = trackDateInput.value.trim();
+            const soundcloudUrl = soundcloudUrlInput.value.trim();
+            
+            // Parsing seguro de porcentajes
+            const x = parseFloat(coordXInput.value) || 50;
+            const y = parseFloat(coordYInput.value) || 50;
+
+            if (!title) { alert('Introduce al menos un título para la sesión.'); return; }
+
             const btn = document.getElementById('btn-save-mash');
-
-            if(!title || !soundcloudUrl) {
-                alert("Por favor rellena el título y el enlace de SoundCloud.");
-                return;
-            }
-
             btn.innerText = "GUARDANDO...";
             btn.disabled = true;
 
-            setTimeout(() => { 
-                if(id === 'NEW') id = 'track_' + Date.now();
-                
-                // Aquí harías tu operación nativa: await set(dbRef(db, `mashups/${id}`), { title, dl, soundcloudUrl });
-                baseDatosTracks[id] = { title, dl, soundcloudUrl };
-
-                btn.innerText = "¡CAMBIOS GUARDADOS!";
-                renderizarListaPublica();
-
-                document.getElementById('mash-title').value = '';
-                document.getElementById('mash-dl').value = '';
-                document.getElementById('mash-soundcloud-url').value = '';
-                document.getElementById('admin-mash-select').value = 'NEW';
-
-                setTimeout(() => { btn.innerText = "GUARDAR CAMBIOS"; btn.disabled = false; }, 1500);
-            }, 800);
+            try {
+                await set(dbRef(db, `mashups/${id}`), {
+                    title: title,
+                    date: date,
+                    soundcloudUrl: soundcloudUrl,
+                    x: x,
+                    y: y
+                });
+                btn.innerText = "¡CAMBIOS GUARDADOS CON ÉXITO!";
+                setTimeout(() => { btn.innerText = "GUARDAR TRACK / PUNTO"; btn.disabled = false; }, 2000);
+            } catch (err) {
+                alert("Error al guardar en Firebase: " + err.message);
+                btn.innerText = "GUARDAR TRACK / PUNTO";
+                btn.disabled = false;
+            }
         };
 
-        // Eliminación Directa
+        // ACCIÓN DE ELIMINACIÓN
         document.getElementById('btn-delete-mash').onclick = () => {
-            const id = document.getElementById('admin-mash-select').value;
-            if(id !== 'NEW' && confirm('¿Eliminar esta pista por completo?')) {
-                // Aquí harías tu operación nativa: remove(dbRef(db, `mashups/${id}`))
-                delete baseDatosTracks[id];
-                document.getElementById('admin-mash-select').value = 'NEW';
-                
-                document.getElementById('mash-title').value = '';
-                document.getElementById('mash-dl').value = '';
-                document.getElementById('mash-soundcloud-url').value = '';
-                
-                renderizarListaPublica();
+            const id = adminSelect.value;
+            if (id !== 'NEW' && confirm('¿Estás seguro de eliminar este punto de ruta de forma permanente?')) {
+                remove(dbRef(db, `mashups/${id}`)).then(() => {
+                    adminSelect.value = 'NEW';
+                    adminSelect.dispatchEvent(new Event('change'));
+                });
             }
         };
-
-        // Escucha de formulario al cambiar select
-        document.getElementById('admin-mash-select').onchange = (e) => {
-            const val = e.target.value;
-            if(val !== 'NEW') {
-                document.getElementById('mash-title').value = baseDatosTracks[val].title;
-                document.getElementById('mash-dl').value = baseDatosTracks[val].dl;
-                document.getElementById('mash-soundcloud-url').value = baseDatosTracks[val].soundcloudUrl;
-            } else {
-                document.getElementById('mash-title').value = '';
-                document.getElementById('mash-dl').value = '';
-                document.getElementById('mash-soundcloud-url').value = '';
-            }
-        };
-
-        // Carga inicial de la app
-        renderizarListaPublica();
     </script>
 </body>
 </html>
