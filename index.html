@@ -40,15 +40,17 @@
         
         .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; }
         @media (min-width: 1024px) { .viewport-container { height: 68vh; } }
-        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; touch-action: none; }
-        .zoom-layer svg { width: 100%; height: 100%; }
+        
+        /* CORRECCIÓN DE NITIDEZ: Se elimina will-change para evitar la pixelación por caché de texturas */
+        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
+        .zoom-layer svg { width: 100%; height: 100%; text-rendering: geometricPrecision; shape-rendering: geometricPrecision; }
         
         .muni-base { fill: #11141a !important; stroke: rgba(255, 255, 255, 0.25) !important; stroke-width: 0.7px !important; transition: all 0.25s ease; cursor: pointer; }
         .muni-base:hover { fill: #181d26 !important; stroke: rgba(255,255,255,0.6) !important; }
         .muni-unlocked { fill: #0a232c !important; stroke: #42e6f5 !important; stroke-width: 0.7px !important; transition: all 0.25s ease; cursor: pointer; }
         .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.25) !important; filter: drop-shadow(0 0 8px rgba(66,230,245,0.3)); }
         .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 0.7px !important; filter: drop-shadow(0 0 12px rgba(232, 28, 255, 0.6)) !important; }
-        .muni-label { text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 800; fill: rgba(255,255,255,0.9); pointer-events: none; transition: opacity 0.15s ease-out; paint-order: stroke; stroke: #040508; stroke-width: 3px; stroke-linejoin: round; }
+        .muni-label { text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 800; fill: rgba(255,255,255,0.9); pointer-events: none; transition: opacity 0.15s ease-out; paint-order: stroke; stroke: #040508; stroke-width: 3px; stroke-linejoin: round; text-rendering: geometricPrecision; }
 
         .hotspot-dot { animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         @keyframes pulse-ring { 0%, 100% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 2px rgba(232,28,255,0.5)); } 50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px rgba(232,28,255,1)); } }
@@ -223,7 +225,6 @@
         function updateMapLabels() {
             if(!mapLabels.length) return;
             
-            // 1. UMBRAL DE ZOOM
             const MIN_ZOOM_THRESHOLD = 2.0; 
             if (scale < MIN_ZOOM_THRESHOLD) {
                 mapLabels.forEach(lbl => lbl.textNode.style.opacity = '0');
@@ -233,11 +234,9 @@
             const targetScreenFontSize = 11; 
             const fSize = targetScreenFontSize / scale;
             
-            // FASE 1: Escritura DOM (Preparar textos y tamaños sin forzar recalcular la pantalla)
             mapLabels.forEach(lbl => {
                 let name = dbData.municipalities[lbl.id]?.name;
                 
-                // CORRECCIÓN "ZONA XXX": Si no tiene nombre guardado y es un ID automático, lo ignoramos por completo
                 if (!name && lbl.id.startsWith('zona_')) {
                     lbl.skip = true;
                     lbl.textNode.style.opacity = '0';
@@ -245,8 +244,6 @@
                 }
                 
                 lbl.skip = false;
-                
-                // Si tiene un ID real en el SVG (ej. id="Salamanca") pero no está en la DB, lo usamos
                 if (!name) name = lbl.id.replace(/_/g, ' ').toUpperCase(); 
                 
                 if(lbl.textNode.textContent !== name) lbl.textNode.textContent = name;
@@ -258,26 +255,20 @@
             const viewportRect = viewport.getBoundingClientRect();
             const occupied = [];
 
-            // FASE 2: Lectura DOM (Bounding Rects absolutos) y Culling/Colisiones
             mapLabels.forEach(lbl => {
                 if (lbl.skip) return;
 
-                // CORRECCIÓN DESALINEACIÓN: Obtenemos la posición EXACTA en la que el navegador está pintando el texto
                 const rect = lbl.textNode.getBoundingClientRect();
-                
-                // Traducimos a coordenadas relativas de tu contenedor visual
                 const screenX = rect.left - viewportRect.left + rect.width / 2;
                 const screenY = rect.top - viewportRect.top + rect.height / 2;
 
-                // Frustum Culling (Ocultar si sale de la pantalla visible)
                 const padding = 20;
                 if (screenX < -padding || screenX > vW + padding || screenY < -padding || screenY > vH + padding) {
                     lbl.textNode.style.opacity = '0';
                     return;
                 }
 
-                // Colisión basada en las cajas de texto reales en píxeles de pantalla
-                const margin = 2; // Margen de respiración entre textos
+                const margin = 2; 
                 const r = { l: rect.left, r: rect.right, t: rect.top, b: rect.bottom };
                 
                 let overlap = occupied.some(o => 
