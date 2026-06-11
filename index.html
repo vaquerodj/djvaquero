@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DJ VAQUERO | Tour Oficial</title>
-    <link class="flex flex-col items-center min-h-screen pb-24 relative" rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -34,10 +34,13 @@
         .ambient-glow-1 { position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(66,230,245,0.04) 0%, transparent 70%); animation: floatGlow 12s infinite alternate ease-in-out; }
         .ambient-glow-2 { position: absolute; bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(232,28,255,0.04) 0%, transparent 70%); animation: floatGlow 18s infinite alternate-reverse ease-in-out; }
         @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(5%, 5%) scale(1.1); } }
+        
         .glass-panel { background: rgba(15, 18, 25, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 24px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .glass-panel:hover { border-color: rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); }
+        
         .premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; color: transparent; background: linear-gradient(135deg, #ffffff 30%, #a1a1aa 100%); -webkit-background-clip: text; background-clip: text; letter-spacing: -0.03em; line-height: 1; }
         .premium-title span { color: #42e6f5; text-shadow: 0 0 30px rgba(66, 230, 245, 0.5); }
+        
         .social-icon { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; background: rgba(255, 255, 255, 0.02); border-radius: 50%; color: #a1a1aa; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
         .social-ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; transform: translateY(-4px) scale(1.05); box-shadow: 0 10px 20px rgba(220,39,67,0.3); }
         .social-tk:hover { background: #000; color: #fff; transform: translateY(-4px) scale(1.05); border-color: #42e6f5; box-shadow: 0 10px 20px rgba(66,230,245,0.2); }
@@ -46,18 +49,19 @@
         
         .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; }
         @media (min-width: 1024px) { .viewport-container { height: 68vh; } }
+        
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
         .zoom-layer svg { width: 100%; height: 100%; shape-rendering: geometricPrecision !important; text-rendering: geometricPrecision !important; }
-        
         path, polygon { vector-effect: non-scaling-stroke !important; }
         
-        .muni-base { fill: #0d1014 !important; stroke: rgba(255, 255, 255, 0.15) !important; stroke-width: 0.75px !important; transition: all 0.3s ease; cursor: pointer; }
+        /* ESTADOS DE LOS MUNICIPIOS (Bordes iniciales idénticos y uniformes) */
+        .muni-base { fill: #0d1014 !important; stroke: rgba(255, 255, 255, 0.15) !important; stroke-width: 0.8px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all; }
         .muni-base:hover { fill: #1a202a !important; stroke: rgba(255,255,255,0.3) !important; }
         
-        .muni-unlocked { fill: #0a1f26 !important; stroke: #42e6f5 !important; stroke-width: 0.75px !important; transition: all 0.3s ease; cursor: pointer; }
-        .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.15) !important; filter: drop-shadow(0 0 10px rgba(66,230,245,0.3)); }
+        .muni-unlocked { fill: #143d4a !important; stroke: rgba(255, 255, 255, 0.15) !important; stroke-width: 0.8px !important; transition: all 0.3s ease !important; cursor: pointer; pointer-events: all; }
+        .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.4) !important; stroke: #42e6f5 !important; stroke-width: 1.5px !important; }
         
-        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 1.5px !important; transition: all 0.3s ease; filter: drop-shadow(0 0 10px rgba(232, 28, 255, 0.4)) !important; }
+        .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 2.5px !important; transition: all 0.3s ease !important; filter: drop-shadow(0 0 10px rgba(232, 28, 255, 0.4)) !important; cursor: pointer; pointer-events: all; }
         
         .comp-polygon { fill: rgba(232, 28, 255, 0.04); stroke: rgba(232, 28, 255, 0.25); stroke-width: 0.5px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .comp-polygon:hover, .comp-polygon.hotspot-active { fill: rgba(232, 28, 255, 0.22); stroke: #e81cff; stroke-width: 1px; filter: drop-shadow(0 0 8px rgba(232, 28, 255, 0.6)); }
@@ -68,6 +72,7 @@
         .admin-setup-mode { cursor: crosshair !important; }
         .admin-drag-dot { cursor: grab !important; z-index: 50; touch-action: none; }
         .admin-drag-dot:active { cursor: grabbing !important; }
+        
         .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; transition: all 0.3s; cursor: pointer; letter-spacing: 2px; position: relative; }
         .nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background-color: #42e6f5; transition: width 0.3s; box-shadow: 0 0 8px #42e6f5; }
@@ -77,7 +82,6 @@
 <body class="flex flex-col items-center min-h-screen pb-24 relative">
     <div class="ambient-bg"><div class="ambient-glow-1"></div><div class="ambient-glow-2"></div></div>
 
-    <!-- Contenedor Sticky para Desktop -->
     <div class="w-full z-[60] md:sticky md:top-0 md:bg-[#06070a]/90 md:backdrop-blur-xl md:border-b md:border-white/5 md:shadow-2xl pt-8 pb-4 md:pt-6 md:pb-6 transition-all">
         <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div class="flex flex-col items-start">
@@ -158,7 +162,6 @@
         <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </div>
 
-    <!-- Panel de Administración -->
     <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col overflow-hidden">
         <div id="admin-panel-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
             <div class="flex items-center gap-2.5 pointer-events-none">
@@ -263,7 +266,6 @@
             dbData.mashups = data.mashups || {};
             
             colorearMapa();
-            renderLabels();
             renderComponents();
             renderMashups();
             updateCompDropdown();
@@ -273,26 +275,83 @@
             if(adminMuniId) populateAdminEventsList(adminMuniId);
         });
 
+        /* --- MOTOR DEL MAPA Y ZOOM --- */
         let scale = 1, pointX = 0, pointY = 0;
+        const viewport = document.getElementById('tour-viewport');
+
+        function updateMapLabels() {
+            const lg = document.getElementById('labels-group');
+            if(!lg) return;
+            
+            const MIN_ZOOM_THRESHOLD = 2.0; 
+            if (scale < MIN_ZOOM_THRESHOLD) {
+                lg.classList.remove('opacity-100');
+                lg.classList.add('opacity-0');
+                return;
+            } else {
+                lg.classList.remove('opacity-0');
+                lg.classList.add('opacity-100');
+            }
+
+            const targetScreenFontSize = 11; 
+            const fSize = targetScreenFontSize / scale;
+            
+            const labels = lg.querySelectorAll('.muni-label');
+            labels.forEach(lbl => {
+                const muniId = lbl.getAttribute('data-muni-id');
+                const muniData = dbData.municipalities[muniId] || {};
+                
+                if (muniData.status === 'unlocked') {
+                    lbl.setAttribute('fill', '#42e6f5');
+                    lbl.setAttribute('font-size', (fSize * 1.2) + 'px');
+                    lbl.setAttribute('font-weight', '900');
+                } else {
+                    lbl.setAttribute('fill', 'rgba(161, 161, 170, 0.45)');
+                    lbl.setAttribute('font-size', fSize + 'px');
+                    lbl.setAttribute('font-weight', '500');
+                }
+            });
+
+            const vW = viewport.clientWidth;
+            const vH = viewport.clientHeight;
+            const viewportRect = viewport.getBoundingClientRect();
+            const occupied = [];
+
+            labels.forEach(lbl => {
+                const rect = lbl.getBoundingClientRect();
+                const screenX = rect.left - viewportRect.left + rect.width / 2;
+                const screenY = rect.top - viewportRect.top + rect.height / 2;
+
+                const padding = 20;
+                if (screenX < -padding || screenX > vW + padding || screenY < -padding || screenY > vH + padding) {
+                    lbl.style.opacity = '0';
+                    return;
+                }
+
+                const margin = 2; 
+                const r = { l: rect.left, r: rect.right, t: rect.top, b: rect.bottom };
+                
+                let overlap = occupied.some(o => 
+                    (r.l - margin) < o.r && (r.r + margin) > o.l && 
+                    (r.t - margin) < o.b && (r.b + margin) > o.t
+                );
+                
+                if(!overlap) {
+                    lbl.style.opacity = '1'; 
+                    occupied.push(r);
+                } else {
+                    lbl.style.opacity = '0';
+                }
+            });
+        }
+
         function initMapInteractions(viewportId, layerId) {
-            const viewport = document.getElementById(viewportId);
             const layer = document.getElementById(layerId);
             let panning = false, startX = 0, startY = 0, startDist = 0;
 
             const updateTransform = () => {
                 layer.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
-                
-                // CONTROL DE VISIBILIDAD DE NOMBRES POR NIVEL DE ZOOM (Umbral >= 2.5)
-                const lg = layer.querySelector('#labels-group');
-                if(lg) {
-                    if(scale >= 2.5) {
-                        lg.classList.remove('opacity-0');
-                        lg.classList.add('opacity-100');
-                    } else {
-                        lg.classList.remove('opacity-100');
-                        lg.classList.add('opacity-0');
-                    }
-                }
+                updateMapLabels();
             };
 
             viewport.addEventListener('mousedown', (e) => { 
@@ -364,30 +423,61 @@
         document.getElementById('btn-reset-map').onclick = () => { 
             scale = 1; pointX = 0; pointY = 0; 
             document.getElementById('tour-layer').style.transform = 'none'; 
-            const lg = document.getElementById('labels-group');
-            if(lg) { lg.classList.remove('opacity-100'); lg.classList.add('opacity-0'); }
+            updateMapLabels();
         };
 
+        /* --- CARGAR SVG DE FORMA LIMPIA --- */
         async function loadInlineSVG(url, containerId) {
-            const response = await fetch(url);
-            document.getElementById(containerId).innerHTML = await response.text();
-            const svg = document.getElementById(containerId).querySelector('svg');
-            if(svg) {
-                svg.style.pointerEvents = 'none';
-                svg.querySelectorAll('path, polygon').forEach((el, i) => {
-                    let oId = el.id || `zona_${i}`; 
-                    el.setAttribute('id', oId); 
-                    el.className.baseVal = 'muni-base';
-                    el.style.pointerEvents = 'auto';
-                    el.addEventListener('click', (e) => {
-                        if (isMovingLayer) return;
-                        e.stopPropagation();
-                        seleccionarMunicipioEnMapa(oId);
+            try {
+                const response = await fetch(url);
+                document.getElementById(containerId).innerHTML = await response.text();
+                const svgElement = document.getElementById(containerId).querySelector('svg');
+                if(svgElement) {
+                    svgElement.style.pointerEvents = 'none'; 
+                    
+                    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                    g.setAttribute('id', 'labels-group');
+                    g.setAttribute('class', 'pointer-events-none transition-opacity duration-300 opacity-0');
+                    svgElement.appendChild(g);
+
+                    svgElement.querySelectorAll('path, polygon').forEach((el, index) => {
+                        let originalId = el.id || `zona_${index}`;
+                        el.setAttribute('id', originalId);
+                        el.classList.add('muni-base');
+                        el.style.pointerEvents = 'auto'; 
+                        
+                        let defaultName = originalId.replace(/_/g, ' ');
+                        const regexZonaNumero = /^zona\s*\d+$/i;
+                        let isGeneric = regexZonaNumero.test(originalId);
+                        
+                        if(!isGeneric) {
+                            try {
+                                const bbox = el.getBBox();
+                                if (bbox.width > 0 && bbox.height > 0) {
+                                    const textNode = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                                    textNode.setAttribute("x", bbox.x + bbox.width / 2);
+                                    textNode.setAttribute("y", bbox.y + bbox.height / 2);
+                                    textNode.setAttribute("class", "muni-label transition-opacity duration-200");
+                                    textNode.setAttribute("data-muni-id", originalId);
+                                    textNode.setAttribute('text-anchor', 'middle');
+                                    textNode.setAttribute('dominant-baseline', 'central');
+                                    textNode.setAttribute('font-family', "'Montserrat', sans-serif");
+                                    textNode.setAttribute('style', 'text-shadow: 0px 1px 2px rgba(0,0,0,0.95); text-transform: uppercase; letter-spacing: 0.1px;');
+                                    textNode.textContent = defaultName;
+                                    g.appendChild(textNode);
+                                }
+                            } catch(e) {}
+                        }
+
+                        el.addEventListener('click', (e) => {
+                            if (isMovingLayer) return; 
+                            e.stopPropagation(); 
+                            seleccionarMunicipioEnMapa(originalId);
+                        });
                     });
-                });
-                colorearMapa();
-                renderLabels();
-            }
+                    colorearMapa();
+                }
+            } catch (err) { console.error(err); }
         }
         loadInlineSVG('salamanca.svg', 'tour-layer');
 
@@ -411,64 +501,24 @@
         function colorearMapa() {
             const container = document.getElementById('tour-layer');
             if(!container) return;
-            Object.entries(dbData.municipalities).forEach(([id, data]) => {
-                const el = container.querySelector(`[id="${id}"]`);
-                if(el && id !== currentSelectedMuniId) { 
-                    el.className.baseVal = (data.status === 'unlocked') ? 'muni-unlocked' : 'muni-base'; 
-                }
-            });
-        }
-
-        // GENERACIÓN DINÁMICA DE ETIQUETAS DE TEXTO SOBRE EL SVG DEL MAPA
-        function renderLabels() {
-            const container = document.getElementById('tour-layer');
-            if(!container) return;
-            const svg = container.querySelector('svg');
-            if(!svg) return;
-            
-            let g = svg.getElementById('labels-group');
-            if(!g) {
-                g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                g.setAttribute('id', 'labels-group');
-                g.setAttribute('class', `pointer-events-none transition-opacity duration-300 ${scale >= 2.5 ? 'opacity-100' : 'opacity-0'}`);
-                svg.appendChild(g);
-            }
-            g.innerHTML = '';
-
-            svg.querySelectorAll('path, polygon').forEach((el) => {
-                if (el.id && !el.id.startsWith('zona_') && (el.className.baseVal.includes('muni-') || dbData.municipalities[el.id])) {
-                    const bbox = el.getBBox();
-                    if (bbox.width === 0 || bbox.height === 0) return;
-                    
-                    const cx = bbox.x + bbox.width / 2;
-                    const cy = bbox.y + bbox.height / 2;
-                    
-                    const muniData = dbData.municipalities[el.id] || {};
-                    const name = muniData.name || el.id.replace(/_/g, ' ');
-                    
-                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                    text.setAttribute('x', cx);
-                    text.setAttribute('y', cy);
-                    text.setAttribute('text-anchor', 'middle');
-                    text.setAttribute('dominant-baseline', 'central');
-                    
-                    // Diferenciación visual inteligente para evitar la sobresaturación
-                    if (muniData.status === 'unlocked') {
-                        text.setAttribute('fill', '#42e6f5'); // Cyan para fechas activas
-                        text.setAttribute('font-size', '4.5px');
-                        text.setAttribute('font-weight', '900');
+            for (const [id, data] of Object.entries(dbData.municipalities)) {
+                const element = container.querySelector(`[id="${id}"]`);
+                if(element) {
+                    if(id === currentSelectedMuniId) continue;
+                    if(data.status === 'unlocked') {
+                        element.classList.remove('muni-base'); element.classList.add('muni-unlocked');
                     } else {
-                        text.setAttribute('fill', 'rgba(161, 161, 170, 0.45)'); // Gris sutil para municipios base
-                        text.setAttribute('font-size', '3.5px');
-                        text.setAttribute('font-weight', '500');
+                        element.classList.remove('muni-unlocked'); element.classList.add('muni-base');
                     }
-                    
-                    text.setAttribute('font-family', "'Montserrat', sans-serif");
-                    text.setAttribute('style', 'text-shadow: 0px 1px 2px rgba(0,0,0,0.95); text-transform: uppercase; letter-spacing: 0.1px;');
-                    text.textContent = name;
-                    g.appendChild(text);
+                }
+            }
+            container.querySelectorAll('.muni-label').forEach(label => {
+                const muniId = label.getAttribute('data-muni-id');
+                if (muniId && dbData.municipalities[muniId] && dbData.municipalities[muniId].name) {
+                    label.textContent = dbData.municipalities[muniId].name;
                 }
             });
+            updateMapLabels();
         }
 
         function loadMuniInfo(id) {
@@ -523,6 +573,7 @@
         });
         document.addEventListener('click', (e) => { if(!sInput.contains(e.target)) rList.classList.add('hidden'); });
 
+        /* --- RENDERING MASHUPS --- */
         function renderMashups() {
             const grid = document.getElementById('mashups-grid'); grid.innerHTML = '';
             const entries = Object.entries(dbData.mashups).sort((a,b) => a[0].localeCompare(b[0]));
@@ -546,6 +597,7 @@
             });
         }
 
+        /* --- HOTZONES SETUP DJ --- */
         window.selectComponent = function(id, el) {
             document.querySelectorAll('.comp-polygon').forEach(h => h.classList.remove('hotspot-active', 'animate-neon'));
             if(el) el.classList.add('hotspot-active', 'animate-neon');
@@ -577,6 +629,7 @@
             });
         }
 
+        /* --- CONTROL ADMIN --- */
         let clickCount = 0, clickTimer;
         document.getElementById('site-title').addEventListener('click', () => {
             clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800);
