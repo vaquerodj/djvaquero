@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DJ VAQUERO | Panel de Control Profesional</title>
+    <title>DJ VAQUERO</title>
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -28,19 +28,12 @@
         body { background-color: #06070a; color: #ffffff; overflow-x: hidden; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .glass-panel { background: rgba(15, 18, 25, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; }
         
-        /* SOLUCIÓN AL RUIDO GRÁFICO DEL MAPA: Eliminada toda la basura de interpolación de imagen */
+        /* Contenedor del Mapa - Diseño clásico sin filtros corruptos */
         .viewport-container { width: 100%; height: 50vh; min-height: 380px; position: relative; background: #030406; border-radius: 16px; overflow: hidden; }
         @media (min-width: 1024px) { .viewport-container { height: 65vh; } }
         
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; will-change: transform; touch-action: none; }
-        
-        /* Forzar renderizado puramente vectorial matemático para evitar artefactos en móviles */
-        .zoom-layer svg { 
-            width: 100%; 
-            height: 100%; 
-            shape-rendering: geometricPrecision !important; 
-            image-rendering: auto !important;
-        }
+        .zoom-layer svg { width: 100%; height: 100%; }
         
         path, polygon { vector-effect: non-scaling-stroke !important; }
         .muni-base { fill: #10131a !important; stroke: rgba(255, 255, 255, 0.08) !important; stroke-width: 0.6px !important; transition: fill 0.2s ease; cursor: pointer; }
@@ -63,12 +56,12 @@
 
     <header class="w-full max-w-[1500px] pt-10 pb-6 px-6 flex flex-col md:flex-row justify-between items-center gap-6 z-20">
         <div>
-            <h1 class="font-display font-black text-4xl md:text-5xl text-white tracking-tighter uppercase">DJ <span class="text-djCyan">VAQUERO</span></h1>
+            <h1 class="font-display font-black text-4xl md:text-5xl text-white tracking-tighter uppercase cursor-pointer select-none">DJ <span class="text-djCyan">VAQUERO</span></h1>
             <p class="text-[10px] text-gray-500 uppercase tracking-[0.4em] font-bold mt-1">Tour & Dashboard de Gestión</p>
         </div>
         <nav class="flex gap-4 bg-white/[0.02] p-2 rounded-full border border-white/5 backdrop-blur-md">
             <button onclick="document.getElementById('sec-tour').scrollIntoView({behavior:'smooth'})" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-white">Mapa</button>
-            <button onclick="document.getElementById('sec-setup').scrollIntoView({behavior:'smooth'})" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white">Setup</button>
+            <button onclick="document.getElementById('sec-setup').scrollIntoView({behavior:'smooth'})" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white">Equipo DJ</button>
             <button onclick="document.getElementById('sec-mashups').scrollIntoView({behavior:'smooth'})" class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white">Mashups</button>
         </nav>
     </header>
@@ -104,23 +97,22 @@
     </main>
 
     <div id="sec-setup" class="w-full max-w-[1500px] mt-20 px-4">
-        <div class="glass-panel p-4 mb-6 inline-block"><h2 class="text-xs font-bold uppercase tracking-widest text-djMagenta"><i class="fa-solid fa-sliders mr-2"></i>Mapeado de Cabina Técnica</h2></div>
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="flex-[2] glass-panel p-4 flex justify-center items-center relative bg-black/10 min-h-[400px]">
-                <div id="setup-image-wrapper" class="relative inline-block max-w-full select-none touch-none">
-                    <img src="setup.png" alt="Setup" class="w-full h-auto max-h-[55vh] object-contain rounded-xl" id="setup-img" draggable="false">
-                    <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
-                    <div id="admin-hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none z-30 hidden"></div>
-                </div>
-                <p id="setup-admin-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/90 px-4 py-2 rounded-full border border-djMagenta/30 text-[9px] text-djMagenta font-bold tracking-wider uppercase hidden animate-pulse">Modo Editor Activo: Clic en la foto para crear punto / Arrastra para mover</p>
+        <div class="glass-panel p-4 mb-6 inline-block"><h2 class="text-xs font-bold uppercase tracking-widest text-djMagenta"><i class="fa-solid fa-sliders mr-2"></i>Equipo DJ</h2></div>
+        
+        <div class="w-full glass-panel p-4 flex flex-col justify-center items-center relative bg-black/10 min-h-[450px]">
+            <div id="setup-info-overlay" class="absolute top-4 left-4 z-40 max-w-sm bg-black/80 backdrop-blur-md p-4 rounded-xl border border-white/10 hidden transition-all">
+                <h3 id="setup-overlay-title" class="text-base font-black text-djMagenta uppercase mb-1"></h3>
+                <p id="setup-overlay-desc" class="text-xs text-gray-300 leading-relaxed"></p>
             </div>
-            <div class="flex-[1] glass-panel p-6 flex flex-col justify-center min-h-[250px]" id="setup-info-panel">
-                <div id="setup-default-msg" class="text-center text-gray-600 text-xs uppercase font-bold tracking-wider"><i class="fa-solid fa-bullseye block text-3xl mb-2 opacity-30"></i>Toca un punto de hardware</div>
-                <div id="setup-detail-content" class="hidden">
-                    <h3 id="setup-detail-title" class="text-xl font-black text-white uppercase mb-2"></h3>
-                    <p id="setup-detail-desc" class="text-xs text-gray-400 bg-black/30 p-4 rounded-xl border border-white/5 leading-relaxed"></p>
-                </div>
+
+            <div id="setup-image-wrapper" class="relative inline-block max-w-full select-none touch-none">
+                <img src="setup.png" alt="Equipo DJ" class="w-full h-auto max-h-[60vh] object-contain rounded-xl" id="setup-img" draggable="false">
+                <div id="hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+                <div id="admin-hotspots-container" class="absolute top-0 left-0 w-full h-full pointer-events-none z-30 hidden"></div>
             </div>
+            
+            <p id="setup-admin-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/90 px-4 py-2 rounded-full border border-djMagenta/30 text-[9px] text-djMagenta font-bold tracking-wider uppercase hidden animate-pulse">Modo Editor Activo: Clic en la foto para crear punto / Arrastra para mover</p>
+            <p id="setup-click-hint" class="text-gray-500 text-[11px] font-bold uppercase tracking-wider mt-4"><i class="fa-solid fa-hand-pointer mr-1.5 animate-bounce"></i>Haz clic en los puntos interactivos del equipo para ver sus detalles</p>
         </div>
     </div>
 
@@ -136,7 +128,7 @@
         </div>
         <div class="flex border-b border-white/5 text-[9px] font-bold tracking-wider bg-black/10">
             <button id="tab-btn-tour" class="flex-1 py-3 text-djCyan border-b-2 border-djCyan">MAPA</button>
-            <button id="tab-btn-setup" class="flex-1 py-3 text-gray-500 border-b-2 border-transparent">HARDWARE</button>
+            <button id="tab-btn-setup" class="flex-1 py-3 text-gray-500 border-b-2 border-transparent">EQUIPO</button>
             <button id="tab-btn-mashups" class="flex-1 py-3 text-gray-500 border-b-2 border-transparent">MASHUPS</button>
         </div>
         <div class="p-4 space-y-3 max-h-[50vh] overflow-y-auto text-xs">
@@ -226,7 +218,7 @@
             if(adminMuniId) populateAdminEventsList(adminMuniId);
         });
 
-        // MOTOR NATIVO INTERACTIVO DE MAPA: Saneado y purgado de duplicidades táctiles
+        // CONTROL TÁCTIL Y ZOOM DEL MAPA
         let scale = 1, pointX = 0, pointY = 0;
         function initMapInteractions(viewportId, layerId) {
             const viewport = document.getElementById(viewportId);
@@ -346,7 +338,7 @@
                 if(muni.events) {
                     Object.values(muni.events).forEach(ev => {
                         let mHtml = '';
-                        if(ev.media) ev.media.split(',').forEach(l => { if(l.trim()) mHtml += `<a href="${l.trim()}" target="_blank" class="inline-block mt-2 px-3 py-1 bg-white/5 hover:bg-white/10 text-[10px] font-bold rounded-md border border-white/10 transition-all text-djCyan"><i class="fa-solid fa-ticket mr-1"></i>RESERVAR ENTRADA / VER</a> `; });
+                        if(ev.media) ev.media.split(',').forEach(l => { if(l.trim()) mHtml += `<a href="${l.trim()}" target="_blank" class="inline-block mt-2 px-3 py-1 bg-white/5 hover:bg-white/10 text-[10px] font-bold rounded-md border border-white/10 transition-all text-djCyan"><i class="fa-solid fa-ticket mr-1"></i>VER DETALLES</a> `; });
                         eDiv.innerHTML += `<div class="bg-black/40 border border-white/5 rounded-xl p-4 relative"><h4 class="text-sm font-bold text-white uppercase">${ev.place}</h4><p class="text-[10px] text-djMagenta font-bold uppercase mt-0.5"><i class="fa-solid fa-calendar-day mr-1"></i>${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${mHtml}</div>`;
                     });
                 } else eDiv.innerHTML = `<p class="text-gray-500 text-xs text-center py-4 italic">No hay fechas agendadas en este cuadrante.</p>`;
@@ -357,7 +349,7 @@
             }
         }
 
-        // BÚSQUEDA FLUIDA
+        // BÚSQUEDA DE MUNICIPIOS
         const sInput = document.getElementById('search-muni'), rList = document.getElementById('search-results');
         sInput.addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase().trim(); rList.innerHTML = '';
@@ -375,7 +367,34 @@
         });
         document.addEventListener('click', (e) => { if(!sInput.contains(e.target)) rList.classList.add('hidden'); });
 
-        // REPRODUCTOR MULTIMEDIA DE MASHUPS
+        // INTEGRACIÓN FLOTANTE DEL EQUIPO DJ (SIN SECCIÓN DE LA DERECHA)
+        window.selectComponent = function(id, e) {
+            if(e) e.stopPropagation();
+            const comp = dbData.components[id]; if(!comp) return;
+            const overlay = document.getElementById('setup-info-overlay');
+            document.getElementById('setup-overlay-title').innerText = comp.title;
+            document.getElementById('setup-overlay-desc').innerText = comp.desc;
+            overlay.classList.remove('hidden');
+        };
+
+        // Cerrar la ventana flotante de información si se toca fuera de un punto
+        document.getElementById('setup-image-wrapper').addEventListener('click', () => {
+            if (activeAdminTab !== 'setup' || document.getElementById('admin-panel').classList.contains('hidden')) {
+                document.getElementById('setup-info-overlay').classList.add('hidden');
+            }
+        });
+
+        function renderComponents() {
+            const container = document.getElementById('hotspots-container'); container.innerHTML = '';
+            if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden')) return;
+            Object.entries(dbData.components).forEach(([id, c]) => {
+                if(c.points) c.points.forEach(pt => {
+                    container.innerHTML += `<div class="absolute w-5 h-5 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top:${pt.y}%; left:${pt.x}%;"><div class="w-full h-full bg-djMagenta rounded-full border-2 border-white cursor-pointer shadow-lg shadow-black hotspot-dot" onclick="window.selectComponent('${id}', event)"></div></div>`;
+                });
+            });
+        }
+
+        // REPRODUCTOR MULTIMEDIA MASHUPS
         let currentAudio = null;
         window.toggleAudio = function(id) {
             const audio = document.getElementById(`audio-${id}`);
@@ -391,7 +410,7 @@
                 document.getElementById(`visualizer-${pId}`).classList.add('hidden');
             }
             if (audio.paused) {
-                audio.play().catch(() => alert("El audio se está procesando o el enlace no es válido."));
+                audio.play().catch(() => alert("Cargando pista... Inténtalo de nuevo en un segundo."));
                 icon.className = 'fa-solid fa-pause mr-1.5 text-djYellow'; btnText.innerText = 'SONANDO'; vis.classList.remove('hidden');
                 currentAudio = audio;
                 audio.onended = () => { icon.className = 'fa-solid fa-play mr-1.5'; btnText.innerText = 'ESCUCHAR'; vis.classList.add('hidden'); };
@@ -421,29 +440,9 @@
             });
         }
 
-        window.selectComponent = function(id, el) {
-            document.querySelectorAll('.hotspot-active').forEach(h => h.classList.remove('hotspot-active'));
-            if(el) el.classList.add('hotspot-active');
-            const comp = dbData.components[id]; if(!comp) return;
-            document.getElementById('setup-default-msg').classList.add('hidden');
-            document.getElementById('setup-detail-content').classList.remove('hidden');
-            document.getElementById('setup-detail-title').innerText = comp.title;
-            document.getElementById('setup-detail-desc').innerText = comp.desc;
-        };
-
-        function renderComponents() {
-            const container = document.getElementById('hotspots-container'); container.innerHTML = '';
-            if(activeAdminTab === 'setup' && !document.getElementById('admin-panel').classList.contains('hidden')) return;
-            Object.entries(dbData.components).forEach(([id, c]) => {
-                if(c.points) c.points.forEach(pt => {
-                    container.innerHTML += `<div class="absolute w-5 h-5 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top:${pt.y}%; left:${pt.x}%;"><div class="w-full h-full bg-djMagenta rounded-full border-2 border-white cursor-pointer shadow-lg shadow-black" onclick="window.selectComponent('${id}', this.parentElement)"></div></div>`;
-                });
-            });
-        }
-
-        // CONTROL DE ACCESO BACKEND (3 CLICS EN EL TÍTULO PRINCIPAL)
+        // PANEL DE ADMINISTRACIÓN ACCESO (3 CLICS EN EL TÍTULO)
         let clickCount = 0, clickTimer;
-        document.getElementById('sec-tour').previousElementSibling?.querySelector('h1')?.addEventListener('click', () => {
+        document.querySelector('header h1').addEventListener('click', () => {
             clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 700);
             if(clickCount >= 3) { clickCount = 0; if(prompt("Contraseña:") === "1524") document.getElementById('admin-panel').classList.remove('hidden'); }
         });
@@ -464,6 +463,7 @@
 
         function toggleSetupAdminMode(isActive) {
             const img = document.getElementById('setup-img'), hint = document.getElementById('setup-admin-hint'), dragContainer = document.getElementById('admin-hotspots-container');
+            document.getElementById('setup-info-overlay').classList.add('hidden');
             if(isActive) {
                 img.classList.add('cursor-crosshair'); hint.classList.remove('hidden'); dragContainer.classList.remove('hidden');
                 document.getElementById('hotspots-container').classList.add('hidden'); renderAdminPointsList();
@@ -486,7 +486,7 @@
         
         function resetAdminEventForm() { ['admin-editing-event-id','admin-event-place','admin-event-date','admin-event-details','admin-event-media'].forEach(id => document.getElementById(id).value = ''); document.getElementById('btn-add-event').innerText = 'GUARDAR CAMBIOS'; document.getElementById('btn-cancel-edit').classList.add('hidden'); }
         window.editAdminEvent = function(mId, eId) { const ev = dbData.municipalities[mId].events[eId]; document.getElementById('admin-editing-event-id').value = eId; document.getElementById('admin-event-place').value = ev.place; document.getElementById('admin-event-date').value = ev.date; document.getElementById('admin-event-details').value = ev.details||''; document.getElementById('admin-event-media').value = ev.media||''; document.getElementById('btn-add-event').innerText = 'ACTUALIZAR EVENTO'; document.getElementById('btn-cancel-edit').classList.remove('hidden'); };
-        window.deleteAdminEvent = function(mId, eId) { if(confirm("¿Eliminar?")) remove(dbRef(db, `municipalities/${mId}/events/${eId}`)).then(()=>loadMuniInfo(mId)); };
+        window.deleteAdminEvent = function(mId, eId) { if(confirm("¿Eliminar evento?")) remove(dbRef(db, `municipalities/${mId}/events/${eId}`)).then(()=>loadMuniInfo(mId)); };
         document.getElementById('btn-cancel-edit').onclick = resetAdminEventForm;
         
         document.getElementById('btn-add-event').onclick = () => {
@@ -500,11 +500,11 @@
             } else loadMuniInfo(id);
         };
 
-        // CORRECCIÓN TOTAL AL MOTOR DRAG-AND-DROP DE HOTSPOTS (YA NO SE CONGELAN)
+        // MOTOR DRAG DE PUNTOS DE EQUIPO DJ
         let currentAdminPoints = [];
         function updateCompDropdown() {
             const sel = document.getElementById('admin-comp-select'); const cv = sel.value;
-            sel.innerHTML = '<option value="NEW">-- + CREAR NUEVO HARDWARE --</option>';
+            sel.innerHTML = '<option value="NEW">-- + CREAR NUEVO COMPONENTE --</option>';
             Object.entries(dbData.components).forEach(([id, data]) => sel.innerHTML += `<option value="${id}">${data.title}</option>`);
             if(dbData.components[cv]) sel.value = cv;
         }
@@ -512,25 +512,22 @@
         function renderAdminPointsList() {
             const ul = document.getElementById('admin-comp-points-list'); ul.innerHTML = '';
             const dragContainer = document.getElementById('admin-hotspots-container'); dragContainer.innerHTML = '';
-            if(currentAdminPoints.length === 0) ul.innerHTML = '<li class="text-gray-500 italic p-1">Usa clics en el lienzo para estampar coordenadas.</li>';
+            if(currentAdminPoints.length === 0) ul.innerHTML = '<li class="text-gray-500 italic p-1">Haz clic en la foto superior para ubicar puntos.</li>';
 
             currentAdminPoints.forEach((pt, i) => {
-                ul.innerHTML += `<li class="flex justify-between items-center bg-black/40 p-1 rounded border border-white/5"><span>Nodo ${i+1} (${pt.x}%, ${pt.y}%)</span><button class="text-red-400" onclick="window.removeAdminPoint(${i})"><i class="fa-solid fa-times"></i></button></li>`;
+                ul.innerHTML += `<li class="flex justify-between items-center bg-black/40 p-1 rounded border border-white/5"><span>Punto ${i+1} (${pt.x}%, ${pt.y}%)</span><button class="text-red-400" onclick="window.removeAdminPoint(${i})"><i class="fa-solid fa-times"></i></button></li>`;
                 
                 const dot = document.createElement('div');
                 dot.className = "absolute w-6 h-6 bg-djMagenta rounded-full transform -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot flex items-center justify-center text-[10px] text-white font-bold select-none shadow-md shadow-black";
                 dot.style.left = pt.x + '%'; dot.style.top = pt.y + '%'; dot.innerHTML = i + 1;
                 
-                // Mapeador táctil dinámico acoplado por aislamiento de coordenadas porcentuales
                 const onDragMove = (ev) => {
-                    ev.preventDefault(); e.stopPropagation();
+                    ev.preventDefault();
                     const img = document.getElementById('setup-img'); const rect = img.getBoundingClientRect();
                     const clientX = ev.touches ? ev.touches[0].clientX : ev.clientX;
                     const clientY = ev.touches ? ev.touches[0].clientY : ev.clientY;
-                    
                     let x = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
                     let y = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
-                    
                     dot.style.left = x + '%'; dot.style.top = y + '%';
                     currentAdminPoints[i] = { x: parseFloat(x.toFixed(1)), y: parseFloat(y.toFixed(1)) };
                 };
@@ -571,13 +568,13 @@
         };
         document.getElementById('btn-delete-comp').onclick = () => {
             const id = document.getElementById('admin-comp-select').value;
-            if(id !== 'NEW' && confirm('¿Borrar?')) remove(dbRef(db, `components/${id}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; renderAdminPointsList(); });
+            if(id !== 'NEW' && confirm('¿Borrar componente?')) remove(dbRef(db, `components/${id}`)).then(()=>{ document.getElementById('admin-comp-select').value='NEW'; renderAdminPointsList(); });
         };
 
-        // CORRECCIÓN AL MOTOR DE AUDIO Y SOLUCIÓN DEL ESTANCADO "SUBIENDO MP3..."
+        // GESTIÓN ASÍNCRONA DE AUDIO (ADIÓS BUCLE "SUBIENDO MP3...")
         function updateMashupDropdown() {
             const sel = document.getElementById('admin-mash-select'); const cv = sel.value;
-            sel.innerHTML = '<option value="NEW">-- + SUBIR NUEVO EDIT --</option>';
+            sel.innerHTML = '<option value="NEW">-- + INSTALAR NUEVO TRACK --</option>';
             Object.entries(dbData.mashups).forEach(([id, data]) => sel.innerHTML += `<option value="${id}">${data.title}</option>`);
             if(dbData.mashups[cv]) sel.value = cv;
         }
@@ -595,7 +592,7 @@
             const title = document.getElementById('admin-mash-title').value.trim();
             const dl = document.getElementById('admin-mash-dl').value.trim();
             const fileInput = document.getElementById('admin-mash-file');
-            if(!title) return alert("Falta el título.");
+            if(!title) return alert("Ingresa el título de la pista.");
             
             const btn = document.getElementById('btn-save-mash');
             const pBar = document.getElementById('upload-progress');
@@ -610,16 +607,15 @@
                 
                 uploadTask.on('state_changed', 
                     (snap) => { pFill.style.width = ((snap.bytesTransferred / snap.totalBytes) * 100) + '%'; },
-                    (err) => { alert("Error de almacenamiento: " + err.message); btn.disabled = false; btn.innerText = "COMPILAR TRACK"; pBar.classList.add('hidden'); },
+                    (err) => { alert("Error al subir: " + err.message); btn.disabled = false; btn.innerText = "COMPILAR TRACK"; pBar.classList.add('hidden'); },
                     async () => { 
-                        // El código anterior fallaba aquí por mezclar callbacks con desbordamientos en Firebase
                         try {
                             audioUrl = await getDownloadURL(uploadTask.snapshot.ref); 
                             await set(dbRef(db, `mashups/${id}`), { title: title, dl: dl, audioUrl: audioUrl });
-                            btn.innerText = "¡MASHUP SUBIDO!"; btn.disabled = false; pBar.classList.add('hidden'); fileInput.value = '';
+                            btn.innerText = "¡MASHUP INSTALADO!"; btn.disabled = false; pBar.classList.add('hidden'); fileInput.value = '';
                             setTimeout(() => { btn.innerText = "COMPILAR TRACK"; }, 1500);
                         } catch (ex) {
-                            alert("Fallo al escribir URL: " + ex.message);
+                            alert("Error al obtener la URL: " + ex.message);
                             btn.disabled = false; btn.innerText = "COMPILAR TRACK";
                         }
                     }
@@ -632,7 +628,7 @@
 
         document.getElementById('btn-delete-mash').onclick = () => {
             const id = document.getElementById('admin-mash-select').value;
-            if(id !== 'NEW' && confirm('¿Eliminar pista?')) {
+            if(id !== 'NEW' && confirm('¿Eliminar track?')) {
                 remove(dbRef(db, `mashups/${id}`)).then(() => { deleteObject(sStorageRef(storage, `mashups/${id}.mp3`)).catch(()=>{}); document.getElementById('admin-mash-select').value='NEW'; document.getElementById('admin-mash-select').dispatchEvent(new Event('change')); });
             }
         };
