@@ -48,7 +48,7 @@
         .muni-unlocked { fill: #0a232c !important; stroke: #42e6f5 !important; stroke-width: 0.7px !important; transition: all 0.25s ease; cursor: pointer; }
         .muni-unlocked:hover { fill: rgba(66, 230, 245, 0.25) !important; filter: drop-shadow(0 0 8px rgba(66,230,245,0.3)); }
         .muni-selected { fill: #e81cff !important; stroke: #ffffff !important; stroke-width: 0.7px !important; filter: drop-shadow(0 0 12px rgba(232, 28, 255, 0.6)) !important; }
-        .muni-label { text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 800; fill: rgba(255,255,255,0.85); pointer-events: none; transition: opacity 0.2s; paint-order: stroke; stroke: rgba(0,0,0,0.8); stroke-width: 1px; }
+        .muni-label { text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 800; fill: rgba(255,255,255,0.9); pointer-events: none; transition: opacity 0.15s ease-out; paint-order: stroke; stroke: #040508; stroke-width: 3px; stroke-linejoin: round; }
 
         .hotspot-dot { animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         @keyframes pulse-ring { 0%, 100% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 2px rgba(232,28,255,0.5)); } 50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px rgba(232,28,255,1)); } }
@@ -131,7 +131,7 @@
                 </div>
             </div>
 
-            <div id="setup-overlay-info" class="hidden w-full lg:w-96 glass-panel p-6 bg-[#0c0f15]/90 border border-white/10 shadow-2xl flex-col shrink-0 animate-fade-in">
+            <div id="setup-overlay-info" class="hidden w-full lg:w-96 glass-panel p-6 bg-[#0c0f15]/90 border border-white/10 shadow-2xl flex-col shrink-0">
                 <div class="flex justify-between items-center mb-3">
                     <div class="w-10 h-1 bg-gradient-to-r from-djMagenta to-purple-600 rounded-full shadow-[0_0_8px_#e81cff]"></div>
                     <button onclick="document.getElementById('setup-overlay-info').classList.replace('flex','hidden'); document.querySelectorAll('.hotspot-dot').forEach(h=>h.classList.remove('hotspot-active'));" class="text-gray-400 hover:text-white p-1 text-xs"><i class="fa-solid fa-xmark text-sm"></i></button>
@@ -204,6 +204,8 @@
         let dbData = { municipalities: {}, components: {}, mashups: {} }, mapLabels = [], currentSelectedMuniId = null, isMovingLayer = false, activeAdminTab = 'tour';
         let scale = 1, pointX = 0, pointY = 0, reqAnimFrame = null;
 
+        const viewport = document.getElementById('tour-viewport');
+
         onValue(dbRef(db, '/'), (snapshot) => {
             const data = snapshot.val() || {};
             dbData = { municipalities: data.municipalities||{}, components: data.components||{}, mashups: data.mashups||{} };
@@ -211,7 +213,6 @@
             const aMuniId = document.getElementById('admin-muni-id').value; if(aMuniId) populateAdminEventsList(aMuniId);
         });
 
-        // MOTOR DE ZOOM Y ETIQUETAS DE MAPA (Optimizado)
         function updateTransform() {
             document.getElementById('tour-layer').style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
             updateMapLabels();
@@ -219,24 +220,68 @@
         }
         function requestTransformUpdate() { if(!reqAnimFrame) reqAnimFrame = requestAnimationFrame(updateTransform); }
 
+        // ALGORITMO MEJORADO: DETECCIÓN DE COLISIONES, VIEWPORT CULLING Y UMBRAL DE ZOOM
         function updateMapLabels() {
             if(!mapLabels.length) return;
-            const occupied = [], baseFont = 3.5, fSize = baseFont / scale;
+            
+            const vW = viewport.clientWidth;
+            const vH = viewport.clientHeight;
+            
+            // 1. UMBRAL DE ZOOM: Si no hay suficiente zoom, no saturar el mapa con nombres.
+            const MIN_ZOOM_THRESHOLD = 2.0; 
+            if (scale < MIN_ZOOM_THRESHOLD) {
+                mapLabels.forEach(lbl => lbl.textNode.style.opacity = '0');
+                return;
+            }
+
+            // Mantenemos un tamaño de fuente de pantalla legible fijo en píxeles
+            const targetScreenFontSize = 11; 
+            const fSize = targetScreenFontSize / scale;
+            const occupied = [];
+
             mapLabels.forEach(lbl => {
                 const name = dbData.municipalities[lbl.id]?.name || lbl.id.replace(/_/g, ' ').toUpperCase();
                 if(lbl.textNode.textContent !== name) lbl.textNode.textContent = name;
                 
-                const w = name.length * (fSize * 0.6), h = fSize * 1.2;
-                const r = { l: lbl.cx - w/2, r: lbl.cx + w/2, t: lbl.cy - h/2, b: lbl.cy + h/2 };
-                let overlap = occupied.some(o => r.l < o.r && r.r > o.l && r.t < o.b && r.b > o.t);
+                // Calcular posición exacta del punto en píxeles dentro de la pantalla
+                const screenX = lbl.cx * scale + pointX;
+                const screenY = lbl.cy * scale + pointY;
+
+                // 2. FRUSTUM CULLING (Zona visible): Si queda fuera del área visible, ocultar inmediatamente
+                const boundPadding = 30; 
+                if (screenX < -boundPadding || screenX > vW + boundPadding || screenY < -boundPadding || screenY > vH + boundPadding) {
+                    lbl.textNode.style.opacity = '0';
+                    return;
+                }
+
+                // Estimar la caja delimitadora real en píxeles del texto en pantalla
+                const estimatedTextWidth = name.length * 6.5;
+                const estimatedTextHeight = 14;
+
+                const r = {
+                    l: screenX - estimatedTextWidth / 2,
+                    r: screenX + estimatedTextWidth / 2,
+                    t: screenY - estimatedTextHeight / 2,
+                    b: screenY + estimatedTextHeight / 2
+                };
+
+                // 3. CONTROL DE COLISIÓN VECTORIAL: Margen de separación seguro entre textos colindantes
+                const safetyMargin = 12;
+                let overlap = occupied.some(o => 
+                    (r.l - safetyMargin) < o.r && (r.r + safetyMargin) > o.l && 
+                    (r.t - safetyMargin) < o.b && (r.b + safetyMargin) > o.t
+                );
                 
                 if(!overlap) {
-                    lbl.textNode.style.opacity = '1'; lbl.textNode.setAttribute('font-size', `${fSize}px`); occupied.push(r);
-                } else lbl.textNode.style.opacity = '0';
+                    lbl.textNode.setAttribute('font-size', `${fSize}px`);
+                    lbl.textNode.style.opacity = '1'; 
+                    occupied.push(r);
+                } else {
+                    lbl.textNode.style.opacity = '0';
+                }
             });
         }
 
-        const viewport = document.getElementById('tour-viewport');
         let panning = false, startX = 0, startY = 0, startDist = 0;
         
         viewport.addEventListener('wheel', (e) => {
@@ -270,7 +315,6 @@
 
         document.getElementById('btn-reset-map').onclick = () => { scale = 1; pointX = 0; pointY = 0; requestTransformUpdate(); };
 
-        // CARGA SVG Y CREACIÓN ETIQUETAS
         fetch('salamanca.svg').then(r => r.text()).then(html => {
             document.getElementById('tour-layer').innerHTML = html;
             const svg = document.getElementById('tour-layer').querySelector('svg');
@@ -367,7 +411,7 @@
             Object.entries(dbData.components).forEach(([id, d]) => d.points?.forEach(pt => c.innerHTML += `<div class="absolute w-6 h-6 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto" style="top:${pt.y}%; left:${pt.x}%;"><div class="w-full h-full bg-djMagenta rounded-full hotspot-dot cursor-pointer border border-white/20 shadow-lg" onclick="window.selectComp('${id}', this.parentElement)"></div></div>`));
         }
 
-        // LÓGICA ADMIN COMPRIMIDA
+        // LÓGICA ADMIN
         let clickCnt = 0; document.getElementById('site-title').onclick = () => { if(++clickCnt >= 3) { clickCnt = 0; if(prompt("Pass:")==="1524") document.getElementById('admin-panel').classList.remove('hidden'); } setTimeout(()=>clickCnt=0, 800); };
         document.getElementById('btn-close-admin').onclick = () => { document.getElementById('admin-panel').classList.add('hidden'); toggleAdminMode(false); };
         
