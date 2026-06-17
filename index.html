@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es" class="dark" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -33,12 +33,13 @@
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
         .zoom-layer svg { width: 100%; height: 100%; shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
         path, polygon { vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
-        .muni { transition: all 0.3s ease; cursor: pointer; pointer-events: all; }
-        .muni-base { fill: #0d1014; stroke: rgba(255,255,255,0.15); stroke-width: 0.8px; }
+        .muni { transition: all 0.3s ease; cursor: pointer; pointer-events: all; stroke-width: 1px; }
+        .muni-base { fill: #0d1014; stroke: rgba(255,255,255,0.15); }
         .muni-base:hover { fill: #1a202a; stroke: rgba(255,255,255,0.3); }
-        .muni-unlocked { fill: #143d4a; stroke: #42e6f5; stroke-width: 1px; }
-        .muni-unlocked:hover { fill: rgba(66,230,245,0.4); stroke-width: 1.5px; }
-        .muni-selected { fill: #e81cff; stroke: #fff; stroke-width: 1.5px; filter: drop-shadow(0 0 10px rgba(232,28,255,0.5)); }
+        .muni-base.muni-selected { fill: #1c1524; stroke: #e81cff; filter: drop-shadow(0 0 5px rgba(232,28,255,0.3)); }
+        .muni-unlocked { fill: #143d4a; stroke: #42e6f5; }
+        .muni-unlocked:hover { fill: rgba(66,230,245,0.4); }
+        .muni-unlocked.muni-selected { fill: #e81cff; stroke: #fff; filter: drop-shadow(0 0 10px rgba(232,28,255,0.6)); }
         .comp-polygon { fill: rgba(232,28,255,0.04); stroke: rgba(232,28,255,0.25); stroke-width: 0.5px; transition: all 0.3s; cursor: pointer; pointer-events: auto; }
         .comp-polygon:hover, .hotspot-active { fill: rgba(232,28,255,0.25); stroke: #e81cff; stroke-width: 1.5px; filter: drop-shadow(0 0 8px rgba(232,28,255,0.6)); }
         .animate-neon { animation: neonPulse 2s infinite ease-in-out; }
@@ -46,7 +47,7 @@
         .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; transition: all 0.3s; cursor: pointer; position: relative; }
         .nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background-color: #42e6f5; transition: width 0.3s; }
-        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .admin-drag-dot { touch-action: none; z-index: 50; cursor: grab; }
         .admin-drag-dot:active { cursor: grabbing; }
     </style>
@@ -58,13 +59,13 @@
         <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
                 <h1 id="site-title" class="premium-title text-5xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform">DJ <span>Vaquero</span></h1>
-                <p class="text-djCyan font-display font-extrabold text-xs tracking-wider mt-2 bg-djCyan/10 px-3 py-1 rounded-md border border-djCyan/20 animate-pulse w-max">EL DJ QUE TU EVENTO NECESITA</p>
+                <p class="text-djCyan font-display font-extrabold text-xs tracking-wider mt-2 bg-djCyan/10 px-3 py-1 rounded-md border border-djCyan/20 w-max">EL DJ QUE TU EVENTO NECESITA</p>
             </div>
             <div class="flex flex-col sm:flex-row items-center gap-6 w-full md:w-auto justify-end">
                 <nav class="flex gap-6 bg-white/[0.03] px-8 py-4 rounded-full border border-white/5 backdrop-blur-xl shadow-2xl order-2 sm:order-1">
-                    <a onclick="$('sec-tour').scrollIntoView({behavior:'smooth'})" class="nav-link active">Tour</a>
-                    <a onclick="$('sec-setup').scrollIntoView({behavior:'smooth'})" class="nav-link">Equipo</a>
-                    <a onclick="$('sec-mashups').scrollIntoView({behavior:'smooth'})" class="nav-link">Mashups</a>
+                    <a href="#sec-tour" class="nav-link active">Tour</a>
+                    <a href="#sec-setup" class="nav-link">Equipo</a>
+                    <a href="#sec-mashups" class="nav-link">Mashups</a>
                 </nav>
                 <div class="flex space-x-3 order-1 sm:order-2">
                     <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
@@ -76,7 +77,7 @@
         </header>
     </div>
 
-    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-8 z-10 scroll-mt-32">
+    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-8 z-10 scroll-mt-40">
         <section class="flex-[2] flex flex-col gap-5 relative">
             <div class="glass-panel p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20">
                 <h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
@@ -91,7 +92,7 @@
                 <div class="zoom-layer" id="tour-layer"></div>
             </div>
         </section>
-        <aside id="info-anchor" class="flex-1 glass-panel flex flex-col h-auto lg:h-[80vh] overflow-hidden scroll-mt-32">
+        <aside id="info-anchor" class="flex-1 glass-panel flex flex-col h-auto lg:h-[80vh] overflow-hidden scroll-mt-40">
             <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent">
                 <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">GIRA OFICIAL</h3>
                 <div id="info-status" class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Selecciona municipio</span></div>
@@ -101,12 +102,12 @@
         </aside>
     </main>
 
-    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-32">
+    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
         <div class="glass-panel p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
         <div class="glass-panel p-6 flex justify-center items-center relative min-h-[450px] w-full overflow-hidden">
             <div id="setup-wrapper" class="relative inline-block max-w-full bg-black/20 rounded-2xl border border-white/5 select-none touch-none overflow-hidden">
                 <img src="setup.png" alt="Setup" class="w-full h-auto max-h-[60vh] object-contain rounded-2xl" id="setup-img" draggable="false">
-                <svg id="setup-svg" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20" preserveAspectRatio="none"></svg>
+                <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></svg>
                 <div id="admin-pts" class="absolute top-0 left-0 w-full h-full pointer-events-none z-40 hidden"></div>
                 <div id="setup-info" class="hidden absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-black/95 backdrop-blur-xl border border-djMagenta/50 p-6 rounded-2xl shadow-[0_10px_40px_rgba(232,28,255,0.3)] z-[60] pointer-events-auto transition-all">
                     <button onclick="event.stopPropagation(); $('setup-info').classList.add('hidden'); document.querySelectorAll('.comp-polygon').forEach(p=>p.classList.remove('hotspot-active','animate-neon'));" class="absolute top-3 right-3 text-gray-400 hover:text-white p-3"><i class="fa-solid fa-xmark text-xl"></i></button>
@@ -118,7 +119,7 @@
         </div>
     </div>
 
-    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-32">
+    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
         <div class="glass-panel p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups & Edits</h2></div>
         <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </div>
@@ -130,8 +131,8 @@
         </div>
         <div class="flex bg-black/20 text-[10px] font-black tracking-wider border-b border-white/5">
             <button id="tab-tour" class="flex-1 py-3.5 text-djCyan border-b-2 border-djCyan">GIRA</button>
-            <button id="tab-setup" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent">HARDWARE</button>
-            <button id="tab-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent">MASHUPS</button>
+            <button id="tab-setup" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">HARDWARE</button>
+            <button id="tab-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">MASHUPS</button>
         </div>
         <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
             <div id="sec-a-tour" class="space-y-4">
@@ -144,7 +145,7 @@
                     <input type="text" id="a-ev-p" placeholder="Lugar" class="w-full bg-black/40 border border-white/5 p-2 text-white text-sm rounded-lg outline-none">
                     <input type="date" id="a-ev-d" class="w-full bg-black/40 border border-white/5 p-2 text-gray-300 text-sm rounded-lg outline-none [color-scheme:dark]">
                     <textarea id="a-ev-desc" placeholder="Detalles" class="w-full bg-black/40 border border-white/5 p-2 text-white text-sm rounded-lg h-16 outline-none"></textarea>
-                    <input type="text" id="a-ev-m" placeholder="URLs extra" class="w-full bg-black/40 border border-white/5 p-2 text-white text-sm rounded-lg outline-none">
+                    <input type="text" id="a-ev-m" placeholder="TikTok/IG URL, link extra..." class="w-full bg-black/40 border border-white/5 p-2 text-white text-sm rounded-lg outline-none">
                     <div class="flex gap-2"><button id="btn-sv-ev" class="flex-1 bg-gradient-to-r from-djCyan to-blue-500 text-black font-black py-2 rounded-lg text-xs">GUARDAR</button><button id="btn-cl-ev" class="hidden bg-white/10 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-xmark"></i></button></div>
                 </div>
             </div>
@@ -175,6 +176,9 @@
         
         let dbData = { municipalities:{}, components:{}, mashups:{} }, currMuni = null, isMov = false, actTab = 'tour', sc=1, pX=0, pY=0, reqFr=null, cFigs=[], cPts=[], sX=0, sY=0, pan=false;
         const vp = $('tour-viewport'), tLay = $('tour-layer');
+
+        const navObs = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting){ document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active')); const nk=document.querySelector(`.nav-link[href="#${e.target.id}"]`); if(nk)nk.classList.add('active'); }}); }, {threshold:0.3});
+        ['sec-tour','sec-setup','sec-mashups'].forEach(id => navObs.observe($(id)));
 
         onValue(ref(db, '/'), s => { dbData = s.val() || { municipalities:{}, components:{}, mashups:{} }; renderMap(); renderComp(); renderMash(); updateDds(); if($('a-muni-id').value) popEv($('a-muni-id').value); });
 
@@ -207,10 +211,11 @@
 
         fetch('salamanca.svg').then(r=>r.text()).then(h => { tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); g.id = 'labels-group'; g.className.baseVal = 'opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents = 'none'; s.appendChild(g); s.querySelectorAll('path, polygon').forEach((el,i) => { const id = el.id||`zona_${i}`; el.id = id; el.className.baseVal = 'muni muni-base'; try{ const b = el.getBBox(); if(b.width>0) { const t = document.createElementNS("http://www.w3.org/2000/svg","text"); t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2); t.setAttribute("class","muni-label transition-opacity duration-200"); t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','central'); t.setAttribute('font-family',"'Montserrat',sans-serif"); t.setAttribute('style','text-shadow:0 1px 2px #000; text-transform:uppercase;'); g.appendChild(t); } }catch(e){} el.onclick = e => { if(isMov) return; e.stopPropagation(); selMuni(id); }; }); renderMap(); });
 
-        const renderMap = () => { for (const [id, d] of Object.entries(dbData.municipalities)) { const e = $(id); if(e && id!==currMuni) e.className.baseVal = `muni muni-${d.status==='unlocked'?'unlocked':'base'}`; } tLay.querySelectorAll('.muni-label').forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
-        const selMuni = id => { if(currMuni && $(currMuni)) $(currMuni).className.baseVal = `muni muni-${dbData.municipalities[currMuni]?.status==='unlocked'?'unlocked':'base'}`; currMuni = id; if($(id)) { $(id).className.baseVal = 'muni muni-selected'; $(id).parentNode.appendChild($(id)); } const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); $('info-title').innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); $('info-empty').classList.add('hidden'); $('info-events').classList.remove('hidden'); $('info-events').innerHTML = ''; if(m.status === 'unlocked') { $('a-muni-status').value = 'unlocked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; if(m.events) Object.values(m.events).forEach(ev => $('info-events').innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>l.trim()?`<a href="${l}" target="_blank" class="inline-flex mt-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-[11px] font-bold rounded-full border border-white/10"><i class="fa-solid fa-up-right-from-square text-djMagenta mr-1.5"></i>INFO</a>`:''):''}</div>`); else $('info-events').innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`; } else { $('a-muni-status').value = 'locked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; $('info-events').innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; } $('info-events').innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4">CONTRATACIÓN DIRECTA</a>`; window.scrollTo({top: $('info-anchor').getBoundingClientRect().top+window.pageYOffset-140, behavior:'smooth'}); };
+        const bMedia = url => { if(!url) return ''; return url.split(',').map(l => { l=l.trim(); if(!l) return ''; let ic='fa-link', t='ENLACE', bg='bg-white/5 hover:bg-white/10 text-white border-white/10'; if(l.includes('tiktok.com')){ ic='fa-tiktok'; t='TIKTOK'; bg='bg-black hover:bg-zinc-900 border-[#42e6f5]/50 text-[#42e6f5]'; }else if(l.includes('instagram.com')){ ic='fa-instagram'; t='REEL'; bg='bg-gradient-to-r from-[#f09433] to-[#bc1888] border-transparent text-white'; } return `<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 ${bg} text-[10px] font-black tracking-wider rounded-full border transition-all"><i class="fa-brands ${ic} text-sm mr-2"></i>${t}</a>`; }).join(''); };
+        const renderMap = () => { for (const [id, d] of Object.entries(dbData.municipalities)) { const e = $(id); if(e) e.className.baseVal = `muni muni-${d.status==='unlocked'?'unlocked':'base'}${id===currMuni?' muni-selected':''}`; } tLay.querySelectorAll('.muni-label').forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
+        const selMuni = id => { currMuni = id; renderMap(); if($(id)) $(id).parentNode.appendChild($(id)); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); $('info-title').innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); $('info-empty').classList.add('hidden'); $('info-events').classList.remove('hidden'); $('info-events').innerHTML = ''; if(m.status === 'unlocked') { $('a-muni-status').value = 'unlocked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; if(m.events) Object.values(m.events).forEach(ev => $('info-events').innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${bMedia(ev.media)}</div>`); else $('info-events').innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`; } else { $('a-muni-status').value = 'locked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; $('info-events').innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; } $('info-events').innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4">CONTRATACIÓN DIRECTA</a>`; };
 
-        $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if(v.length<2) return rL.classList.add('hidden'); const m = Object.entries(dbData.municipalities).filter(([_,d])=>d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)).slice(0,5); rL.classList.remove('hidden'); if(m.length) m.forEach(([id,d]) => { const li = document.createElement('li'); li.className = "px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium"; li.innerHTML = `<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`; li.onclick = () => { selMuni(id); $('search-muni').value=''; rL.classList.add('hidden'); }; rL.appendChild(li); }); else rL.innerHTML = `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`; }; document.onclick = e => { if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
+        $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if(v.length<2) return rL.classList.add('hidden'); const m = Object.entries(dbData.municipalities).filter(([_,d])=>d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)).slice(0,5); rL.classList.remove('hidden'); if(m.length) m.forEach(([id,d]) => { const li = document.createElement('li'); li.className = "px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium"; li.innerHTML = `<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`; li.onclick = () => { selMuni(id); window.scrollTo({top: $('info-anchor').getBoundingClientRect().top+window.pageYOffset-140, behavior:'smooth'}); $('search-muni').value=''; rL.classList.add('hidden'); }; rL.appendChild(li); }); else rL.innerHTML = `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`; }; document.onclick = e => { if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
 
         // MASHUPS & EQUIPO
         const renderMash = () => { const g = $('mashups-grid'); g.innerHTML = ''; const e = Object.entries(dbData.mashups).sort(); if(!e.length) return g.innerHTML = '<p class="text-gray-500 text-xs p-2">Vacío</p>'; e.forEach(([_,d]) => g.innerHTML += `<div class="glass-panel bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black">DESCARGAR PACK</a>`:''}</div>`); };
@@ -224,14 +229,14 @@
         ['tour','setup','mashups'].forEach(t => $(`tab-${t}`).onclick = () => { actTab=t; ['tour','setup','mashups'].forEach(o => { $(`tab-${o}`).className = o===t ? `flex-1 py-3.5 text-${{tour:'djCyan',setup:'djMagenta',mashups:'djYellow'}[t]} border-b-2 border-current` : 'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white'; $(`sec-a-${o}`).classList[o===t?'remove':'add']('hidden'); }); toggleAdminMode(t==='setup'); });
 
         const toggleAdminMode = act => { $('setup-img').classList[act?'add':'remove']('admin-setup-mode'); $('admin-hint').classList[act?'remove':'add']('hidden'); $('admin-pts').classList[act?'remove':'add']('hidden'); act ? renderAdminPts() : renderComp(); };
-        const popEv = id => { const m = dbData.municipalities[id], l = $('a-ev-list'); l.innerHTML = ''; if(m?.events) Object.entries(m.events).forEach(([eid,ev]) => l.innerHTML+=`<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500" onclick="if(confirm('¿Borrar?')) remove(ref(db,'municipalities/${id}/events/${eid}')).then(()=>loadMuniInfo('${id}'))"><i class="fa-solid fa-trash"></i></button></div></div>`); };
+        const popEv = id => { const m = dbData.municipalities[id], l = $('a-ev-list'); l.innerHTML = ''; if(m?.events) Object.entries(m.events).forEach(([eid,ev]) => l.innerHTML+=`<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500" onclick="if(confirm('¿Borrar?')) remove(ref(db,'municipalities/${id}/events/${eid}'))"><i class="fa-solid fa-trash"></i></button></div></div>`); };
         const clrEv = () => { ['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m'].forEach(i=>$(i).value=''); $('a-ev-t').innerHTML='Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
         window.edEv = (mid, eid) => { const ev = dbData.municipalities[mid].events[eid]; $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; $('btn-cl-ev').classList.remove('hidden'); }; $('btn-cl-ev').onclick = clrEv;
         $('btn-sv-ev').onclick = () => { const id = $('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value; if(!id) return; update(ref(db, `municipalities/${id}`), {status:$('a-muni-status').value, name:$('a-muni-name').value||id}); if(p||eid) { const pd = {place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value}; (eid?update(ref(db,`municipalities/${id}/events/${eid}`),pd):push(ref(db,`municipalities/${id}/events`),pd)).then(()=>{clrEv();selMuni(id);}); } else selMuni(id); };
 
         const updateDds = () => { const c=$('a-comp-sel'), m=$('a-mash-sel'), cv=c.value, mv=m.value; c.innerHTML='<option value="NEW">NUEVO COMPONENTE</option>'; Object.entries(dbData.components).forEach(([id,d])=>c.innerHTML+=`<option value="${id}">${d.title}</option>`); if(dbData.components[cv]) c.value=cv; m.innerHTML='<option value="NEW">NUEVO MASHUP</option>'; Object.entries(dbData.mashups).forEach(([id,d])=>m.innerHTML+=`<option value="${id}">${d.title}</option>`); if(dbData.mashups[mv]) m.value=mv; };
         
-        const renderAdminPts = () => { const ul=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg'); ul.innerHTML=''; dc.innerHTML=''; ov.innerHTML=''; cFigs.forEach((f,i) => { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(66,230,245,0.2)"); p.setAttribute("stroke","#42e6f5"); p.setAttribute("stroke-width","1"); ov.appendChild(p); ul.innerHTML+=`<li class="flex justify-between items-center bg-black/40 p-2 rounded border border-white/5 text-[11px]">Figura ${i+1} (${f.length} nodos)<button class="text-red-500" onclick="cFigs.splice(${i},1);renderAdminPts()"><i class="fa-solid fa-trash"></i></button></li>`; }); if(cPts.length) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", cPts.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(232,28,255,0.2)"); p.setAttribute("stroke","#e81cff"); p.setAttribute("stroke-width","1"); p.setAttribute("stroke-dasharray","3"); ov.appendChild(p); } cPts.forEach((pt,i) => { const dt = document.createElement('div'); dt.className="absolute w-3 h-3 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50"; dt.style.left=pt.x+'%'; dt.style.top=pt.y+'%'; const mm = e => { e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; cPts[i]={x:parseFloat(x.toFixed(1)), y:parseFloat(y.toFixed(1))}; const pd=ov.querySelector('polygon:last-child'); if(pd) pd.setAttribute("points",cPts.map(p=>`${p.x},${p.y}`).join(' ')); }; const mu = () => { window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); renderAdminPts(); }; dt.onmousedown = e => { e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); }; dt.ontouchstart = e => { e.stopPropagation(); window.addEventListener('touchmove',mm,{passive:false}); window.addEventListener('touchend',mu); }; dc.appendChild(dt); }); };
+        const renderAdminPts = () => { const ul=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg'); ul.innerHTML=''; dc.innerHTML=''; ov.innerHTML=''; cFigs.forEach((f,i) => { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(66,230,245,0.2)"); p.setAttribute("stroke","#42e6f5"); p.setAttribute("stroke-width","0.5"); ov.appendChild(p); ul.innerHTML+=`<li class="flex justify-between items-center bg-black/40 p-2 rounded border border-white/5 text-[11px]">Figura ${i+1} (${f.length} nodos)<button class="text-red-500" onclick="cFigs.splice(${i},1);renderAdminPts()"><i class="fa-solid fa-trash"></i></button></li>`; }); if(cPts.length) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", cPts.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(232,28,255,0.2)"); p.setAttribute("stroke","#e81cff"); p.setAttribute("stroke-width","0.5"); p.setAttribute("stroke-dasharray","1"); ov.appendChild(p); } cPts.forEach((pt,i) => { const dt = document.createElement('div'); dt.className="absolute w-3 h-3 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50"; dt.style.left=pt.x+'%'; dt.style.top=pt.y+'%'; const mm = e => { e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; cPts[i]={x:parseFloat(x.toFixed(1)), y:parseFloat(y.toFixed(1))}; const pd=ov.querySelector('polygon:last-child'); if(pd) pd.setAttribute("points",cPts.map(p=>`${p.x},${p.y}`).join(' ')); }; const mu = () => { window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); renderAdminPts(); }; dt.onmousedown = e => { e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); }; dt.ontouchstart = e => { e.stopPropagation(); window.addEventListener('touchmove',mm,{passive:false}); window.addEventListener('touchend',mu); }; dc.appendChild(dt); }); };
         $('btn-add-fig').onclick = () => { if(cPts.length>2) { cFigs.push([...cPts]); cPts=[]; renderAdminPts(); } else alert("Mínimo 3 nodos"); }; $('btn-cl-pts').onclick = () => { cPts=[]; renderAdminPts(); };
         $('a-comp-sel').onchange = e => { const v=e.target.value; if(v==='NEW') { $('a-comp-t').value=''; $('a-comp-d').value=''; cFigs=[]; cPts=[]; $('btn-dl-cp').classList.add('hidden'); } else { const d=dbData.components[v]; $('a-comp-t').value=d.title; $('a-comp-d').value=d.desc; cFigs=d.figures?[...d.figures]:(d.points?[[...d.points]]:[]); cPts=[]; $('btn-dl-cp').classList.remove('hidden'); } renderAdminPts(); };
         $('setup-wrapper').onclick = e => { if(actTab==='setup' && !$('admin-panel').classList.contains('hidden') && !e.target.classList.contains('admin-drag-dot')) { const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100; cPts.push({x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}); renderAdminPts(); } };
