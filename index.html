@@ -19,7 +19,7 @@
         .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(66,230,245,0.04) 0%, transparent 70%); }
         .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(232,28,255,0.04) 0%, transparent 70%); animation-direction: alternate-reverse; }
         @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(5%, 5%) scale(1.1); } }
-        .glass-panel { background: rgba(15,18,25,0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.04); border-radius: 24px; }
+        .glass-panel { background: rgba(15,18,25,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.04); border-radius: 24px; }
         .glass-panel:hover { border-color: rgba(255,255,255,0.08); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         .premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; background: linear-gradient(135deg, #fff 30%, #a1a1aa 100%); -webkit-background-clip: text; color: transparent; }
         .premium-title span { color: #42e6f5; text-shadow: 0 0 30px rgba(66,230,245,0.5); }
@@ -56,9 +56,9 @@
 <body class="flex flex-col items-center min-h-screen pb-24 relative">
     <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
     
-    <div class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl pt-4 pb-4 md:pt-6 md:pb-6 transition-all">
+    <div id="hdr-wrapper" class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl pt-4 pb-4 md:pt-6 md:pb-6 transition-all">
         <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-            <div class="text-center md:text-left">
+            <div class="text-center md:text-left hide-on-scroll">
                 <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform">DJ <span>Vaquero</span></h1>
                 <p class="text-djCyan font-display font-extrabold text-[10px] md:text-xs tracking-wider mt-2 bg-djCyan/10 px-3 py-1 rounded-md border border-djCyan/20 inline-block md:block w-max mx-auto md:mx-0">EL DJ QUE TU EVENTO NECESITA</p>
             </div>
@@ -68,7 +68,7 @@
                     <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
                     <a href="#sec-mashups" class="nav-link anim-trans">Mashups</a>
                 </nav>
-                <div class="flex space-x-3 order-1 sm:order-2">
+                <div class="flex space-x-3 order-1 sm:order-2 hide-on-scroll">
                     <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon anim-trans social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
                     <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon anim-trans social-tk"><i class="fa-brands fa-tiktok text-lg"></i></a>
                     <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon anim-trans social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
@@ -78,7 +78,6 @@
         </header>
     </div>
 
-    <!-- TOUR -->
     <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-8 z-10 scroll-mt-40">
         <section class="flex-[2] flex flex-col gap-5 relative">
             <div class="glass-panel anim-trans p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20">
@@ -104,7 +103,6 @@
         </aside>
     </main>
 
-    <!-- SETUP DJ -->
     <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
         <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
         <div class="glass-panel anim-trans p-6 flex justify-center items-center relative min-h-[450px] w-full overflow-hidden">
@@ -112,7 +110,6 @@
                 <img src="setup.png" alt="Setup" class="w-full h-auto max-h-[60vh] object-contain rounded-2xl" id="setup-img" draggable="false">
                 <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></svg>
                 <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
-                <!-- PANEL INFO MEJORADO -->
                 <div id="setup-info" class="hidden absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] max-w-md bg-black/95 backdrop-blur-xl border border-djMagenta/50 p-4 sm:p-6 rounded-2xl shadow-[0_10px_40px_rgba(232,28,255,0.3)] z-[60] pointer-events-auto transition-all">
                     <button onclick="event.stopPropagation(); document.getElementById('setup-info').classList.add('hidden'); document.querySelectorAll('.comp-polygon').forEach(p=>p.classList.remove('hotspot-active','animate-neon'));" class="absolute top-2 right-2 text-gray-400 hover:text-white p-3 z-10"><i class="fa-solid fa-xmark text-xl"></i></button>
                     <div class="w-10 h-1 bg-gradient-to-r from-djMagenta to-purple-600 mb-3 sm:mb-4 rounded-full"></div>
@@ -124,19 +121,16 @@
         </div>
     </div>
 
-    <!-- MASHUPS -->
     <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
         <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups & Edits</h2></div>
         <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </div>
 
-    <!-- BOTÓN SIGUIENTE SECCIÓN -->
     <a id="btn-next-sec" href="#sec-setup" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[50] glass-panel anim-trans py-2.5 px-4 flex items-center gap-2.5 border-white/10 hover:border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:scale-105 active:scale-95 group backdrop-blur-2xl">
         <span class="text-gray-400 group-hover:text-white text-[10px] font-bold uppercase tracking-wider transition-colors hidden sm:block">Siguiente</span>
         <span id="next-sec-name" class="text-djMagenta transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs">Equipo <i class="fa-solid fa-headphones ml-1"></i></span>
     </a>
 
-    <!-- PANEL ADMIN -->
     <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col">
         <div id="admin-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
             <div class="flex items-center gap-2.5"><div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div><span class="text-white font-display font-black text-xs tracking-widest pointer-events-none">CONSOLE</span></div>
@@ -148,7 +142,6 @@
             <button id="tab-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">MASHUPS</button>
         </div>
         <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
-            <!-- TOUR ADMIN -->
             <div id="sec-a-tour" class="space-y-4">
                 <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
                 <input type="text" id="a-muni-name" placeholder="Nombre Visual" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djCyan">
@@ -163,7 +156,6 @@
                     <div class="flex gap-2"><button id="btn-sv-ev" class="flex-1 bg-gradient-to-r from-djCyan to-blue-500 text-black font-black py-2 rounded-lg text-xs">GUARDAR</button><button id="btn-cl-ev" class="hidden bg-white/10 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-xmark"></i></button></div>
                 </div>
             </div>
-            <!-- SETUP ADMIN -->
             <div id="sec-a-setup" class="space-y-4 hidden">
                 <select id="a-comp-sel" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djMagenta"><option value="NEW">NUEVO COMPONENTE</option></select>
                 <input type="text" id="a-comp-t" placeholder="Modelo" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none">
@@ -172,7 +164,6 @@
                 <ul id="a-comp-pts" class="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1.5 max-h-36 overflow-y-auto"></ul>
                 <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[2] bg-gradient-to-r from-djMagenta to-purple-600 text-white font-black py-2.5 rounded-lg text-xs">GUARDAR</button><button id="btn-dl-cp" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden">BORRAR</button></div>
             </div>
-            <!-- MASHUPS ADMIN -->
             <div id="sec-a-mashups" class="space-y-4 hidden">
                 <select id="a-mash-sel" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djYellow"><option value="NEW">NUEVO MASHUP</option></select>
                 <input type="text" id="a-mash-t" placeholder="Título" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none">
@@ -188,13 +179,28 @@
         import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const app = initializeApp({ apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI", authDomain: "djvaquero-851e8.firebaseapp.com", databaseURL: "https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app", projectId: "djvaquero-851e8" });
-        const db = getDatabase(app), $ = id => document.getElementById(id);
+        const db = getDatabase(app), $ = id => document.getElementById(id), $$ = q => document.querySelectorAll(q);
         
         let dbData = { municipalities:{}, components:{}, mashups:{} }, currMuni = null, isMov = false, actTab = 'tour', sc=1, pX=0, pY=0, reqFr=null, cFigs=[], cPts=[], sX=0, sY=0, pan=false;
         const vp = $('tour-viewport'), tLay = $('tour-layer');
 
         const sIds = ['sec-tour','sec-setup','sec-mashups'], sInf = {'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'},'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'},'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'}};
-        const uNav = () => { let c=sIds[0], sy=window.scrollY+(window.innerHeight/2); sIds.forEach(id=>{ const el=$(id); if(el && sy>=el.offsetTop) c=id; }); document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active')); const nk=document.querySelector(`.nav-link[href="#${c}"]`); if(nk) nk.classList.add('active'); const nx=sInf[c], bt=$('btn-next-sec'), nn=$('next-sec-name'); if(bt) { bt.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; } };
+        const uNav = () => { 
+            let c=sIds[0], sy=window.scrollY+(window.innerHeight/2); 
+            sIds.forEach(id=>{ const el=$(id); if(el && sy>=el.offsetTop) c=id; }); 
+            $$('.nav-link').forEach(l=>l.classList.remove('active')); const nk=document.querySelector(`.nav-link[href="#${c}"]`); if(nk) nk.classList.add('active'); 
+            const nx=sInf[c], bt=$('btn-next-sec'), nn=$('next-sec-name'); 
+            if(bt) { bt.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; } 
+            
+            const hw = $('hdr-wrapper');
+            if(window.innerWidth < 768 && window.scrollY > 60) {
+                $$('.hide-on-scroll').forEach(e=>e.style.display='none');
+                hw.classList.replace('pt-4','pt-2'); hw.classList.replace('pb-4','pb-2');
+            } else {
+                $$('.hide-on-scroll').forEach(e=>e.style.display='');
+                hw.classList.replace('pt-2','pt-4'); hw.classList.replace('pb-2','pb-4');
+            }
+        };
         window.addEventListener('scroll', uNav, {passive:true}); window.addEventListener('load', uNav); uNav();
 
         onValue(ref(db, '/'), s => { dbData = s.val() || { municipalities:{}, components:{}, mashups:{} }; renderMap(); renderComp(); renderMash(); updateDds(); const mId = $('a-muni-id').value; if(mId) popEv(mId); });
@@ -228,13 +234,13 @@
         fetch('salamanca.svg').then(r=>r.text()).then(h => { tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); g.id = 'labels-group'; g.className.baseVal = 'opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents = 'none'; s.appendChild(g); s.querySelectorAll('path, polygon').forEach((el,i) => { const id = el.id||`zona_${i}`; el.id = id; el.className.baseVal = 'muni anim-trans muni-base'; try{ const b = el.getBBox(); if(b.width>0) { const t = document.createElementNS("http://www.w3.org/2000/svg","text"); t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2); t.setAttribute("class","muni-label transition-opacity duration-200"); t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','central'); t.setAttribute('font-family',"'Montserrat',sans-serif"); t.setAttribute('style','text-shadow:0 1px 2px #000; text-transform:uppercase;'); g.appendChild(t); } }catch(e){} el.onclick = e => { if(isMov) return; e.stopPropagation(); selMuni(id); }; }); renderMap(); });
 
         const bMedia = url => url ? url.split(',').map(l => { l=l.trim(); if(!l) return ''; let ic='fa-link', t='ENLACE', bg='bg-white/5 hover:bg-white/10 text-white border-white/10'; if(l.includes('tiktok.com')){ ic='fa-tiktok'; t='TIKTOK'; bg='bg-black hover:bg-zinc-900 border-[#42e6f5]/50 text-[#42e6f5]'; }else if(l.includes('instagram.com')){ ic='fa-instagram'; t='REEL'; bg='bg-gradient-to-r from-[#f09433] to-[#bc1888] border-transparent text-white'; } return `<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 ${bg} text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-brands ${ic} text-sm mr-2"></i>${t}</a>`; }).join('') : '';
-        const renderMap = () => { Object.entries(dbData.municipalities).forEach(([id, d]) => { const e = $(id); if(e) e.className.baseVal = `muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`; }); tLay.querySelectorAll('.muni-label').forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
-        const selMuni = id => { currMuni = id; renderMap(); const el = $(id); if(el) el.parentNode.appendChild(el); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); $('info-title').innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); $('info-empty').classList.add('hidden'); const iEv = $('info-events'); iEv.classList.remove('hidden'); iEv.innerHTML = ''; if(m.status === 'unlocked') { $('a-muni-status').value = 'unlocked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; if(m.events) Object.values(m.events).forEach(ev => iEv.innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${bMedia(ev.media)}</div>`); else iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`; } else { $('a-muni-status').value = 'locked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; } iEv.innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02]">CONTRATACIÓN DIRECTA</a>`; };
+        const renderMap = () => { Object.entries(dbData.municipalities).forEach(([id, d]) => { const e = $(id); if(e) { e.className.baseVal = `muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`; if(d.status==='unlocked' && id!==currMuni) e.parentNode.appendChild(e); } }); if(currMuni && $(currMuni)) $(currMuni).parentNode.appendChild($(currMuni)); $$('.muni-label').forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
+        const selMuni = id => { currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); $('info-title').innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); $('info-empty').classList.add('hidden'); const iEv = $('info-events'); iEv.classList.remove('hidden'); iEv.innerHTML = ''; if(m.status === 'unlocked') { $('a-muni-status').value = 'unlocked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; if(m.events) Object.values(m.events).forEach(ev => iEv.innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${bMedia(ev.media)}</div>`); else iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`; } else { $('a-muni-status').value = 'locked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; } iEv.innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02]">CONTRATACIÓN DIRECTA</a>`; };
 
         $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if(v.length<2) return rL.classList.add('hidden'); const m = Object.entries(dbData.municipalities).filter(([_,d])=>d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)).slice(0,5); rL.classList.remove('hidden'); if(m.length) m.forEach(([id,d]) => { const li = document.createElement('li'); li.className = "px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans"; li.innerHTML = `<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`; li.onclick = () => { selMuni(id); window.scrollTo({top: $('info-anchor').getBoundingClientRect().top+window.pageYOffset-140, behavior:'smooth'}); $('search-muni').value=''; rL.classList.add('hidden'); }; rL.appendChild(li); }); else rL.innerHTML = `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`; }; document.onclick = e => { if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
 
         const renderMash = () => { const g = $('mashups-grid'); g.innerHTML = ''; const e = Object.entries(dbData.mashups).sort(); if(!e.length) return g.innerHTML = '<p class="text-gray-500 text-xs p-2">Vacío</p>'; e.forEach(([_,d]) => g.innerHTML += `<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`); };
-        window.selComp = id => { document.querySelectorAll('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon')); document.querySelectorAll(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon')); const c = dbData.components[id]; if(!c) return; $('setup-info').classList.remove('hidden'); $('setup-t').innerText = c.title; $('setup-d').innerText = c.desc; };
+        window.selComp = id => { $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon')); $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon')); const c = dbData.components[id]; if(!c) return; $('setup-info').classList.remove('hidden'); $('setup-t').innerText = c.title; $('setup-d').innerText = c.desc; };
         const renderComp = () => { const ov = $('setup-svg'); ov.innerHTML = ''; if(actTab==='setup' && !$('admin-panel').classList.contains('hidden')) return; Object.entries(dbData.components).forEach(([id,c]) => { (c.figures||[]).forEach(f => { if(f.length>2) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("class",`comp-polygon anim-trans comp-id-${id}`); p.onclick = e => { e.stopPropagation(); selComp(id); }; ov.appendChild(p); } }); }); };
 
         let cc=0; $('site-title').onclick = () => { if(++cc>=3 && prompt("Pass:")==="1524") $('admin-panel').classList.remove('hidden'); setTimeout(()=>cc=0,800); };
