@@ -10,7 +10,7 @@
         tailwind.config = { darkMode: 'class', theme: { extend: { colors: { djBg: '#06070a', djPanel: 'rgba(15,18,25,0.75)', djCyan: '#42e6f5', djMagenta: '#e81cff', djYellow: '#f5d442' }, fontFamily: { display: ['Montserrat','sans-serif'], body: ['Inter','sans-serif'] } } } }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
     <style>
         body { background-color: #06070a; color: #fff; overflow-x: hidden; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .anim-trans { transition: all 0.3s ease; }
@@ -37,10 +37,10 @@
         .muni { cursor: pointer; pointer-events: all; stroke-width: 1px !important; }
         .muni-base { fill: #0d1014; stroke: rgba(255,255,255,0.15); }
         .muni-base:hover { fill: #1a202a; stroke: rgba(255,255,255,0.3); }
-        .muni-base.muni-selected { fill: #1c1524; stroke: #e81cff; filter: drop-shadow(0 0 5px rgba(232,28,255,0.3)); }
+        .muni-base.muni-selected { fill: #0d1e26; stroke: #42e6f5; filter: drop-shadow(0 0 5px rgba(66,230,245,0.3)); }
         .muni-unlocked { fill: #143d4a; stroke: #42e6f5; }
         .muni-unlocked:hover { fill: rgba(66,230,245,0.4); }
-        .muni-unlocked.muni-selected { fill: #e81cff; stroke: #fff; filter: drop-shadow(0 0 10px rgba(232,28,255,0.6)); }
+        .muni-unlocked.muni-selected { fill: #42e6f5; stroke: #fff; filter: drop-shadow(0 0 10px rgba(66,230,245,0.6)); }
         .comp-polygon { fill: rgba(232,28,255,0.04); stroke: rgba(232,28,255,0.25); stroke-width: 0.5px; cursor: pointer; pointer-events: auto; }
         .comp-polygon:hover, .hotspot-active { fill: rgba(232,28,255,0.25); stroke: #e81cff; stroke-width: 1.5px; filter: drop-shadow(0 0 8px rgba(232,28,255,0.6)); }
         .animate-neon { animation: neonPulse 2s infinite ease-in-out; }
@@ -78,6 +78,7 @@
         </header>
     </div>
 
+    <!-- TOUR -->
     <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-8 z-10 scroll-mt-40">
         <section class="flex-[2] flex flex-col gap-5 relative">
             <div class="glass-panel anim-trans p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20">
@@ -103,6 +104,7 @@
         </aside>
     </main>
 
+    <!-- SETUP DJ -->
     <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
         <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
         <div class="glass-panel anim-trans p-6 flex justify-center items-center relative min-h-[450px] w-full overflow-hidden">
@@ -110,6 +112,7 @@
                 <img src="setup.png" alt="Setup" class="w-full h-auto max-h-[60vh] object-contain rounded-2xl" id="setup-img" draggable="false">
                 <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></svg>
                 <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
+                <!-- PANEL INFO -->
                 <div id="setup-info" class="hidden absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] max-w-md bg-black/95 backdrop-blur-xl border border-djMagenta/50 p-4 sm:p-6 rounded-2xl shadow-[0_10px_40px_rgba(232,28,255,0.3)] z-[60] pointer-events-auto transition-all">
                     <button onclick="event.stopPropagation(); document.getElementById('setup-info').classList.add('hidden'); document.querySelectorAll('.comp-polygon').forEach(p=>p.classList.remove('hotspot-active','animate-neon'));" class="absolute top-2 right-2 text-gray-400 hover:text-white p-3 z-10"><i class="fa-solid fa-xmark text-xl"></i></button>
                     <div class="w-10 h-1 bg-gradient-to-r from-djMagenta to-purple-600 mb-3 sm:mb-4 rounded-full"></div>
@@ -121,16 +124,19 @@
         </div>
     </div>
 
+    <!-- MASHUPS -->
     <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
         <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups & Edits</h2></div>
         <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </div>
 
+    <!-- BOTÓN SIGUIENTE SECCIÓN -->
     <a id="btn-next-sec" href="#sec-setup" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[50] glass-panel anim-trans py-2.5 px-4 flex items-center gap-2.5 border-white/10 hover:border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:scale-105 active:scale-95 group backdrop-blur-2xl">
         <span class="text-gray-400 group-hover:text-white text-[10px] font-bold uppercase tracking-wider transition-colors hidden sm:block">Siguiente</span>
         <span id="next-sec-name" class="text-djMagenta transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs">Equipo <i class="fa-solid fa-headphones ml-1"></i></span>
     </a>
 
+    <!-- PANEL ADMIN -->
     <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col">
         <div id="admin-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
             <div class="flex items-center gap-2.5"><div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div><span class="text-white font-display font-black text-xs tracking-widest pointer-events-none">CONSOLE</span></div>
@@ -142,6 +148,7 @@
             <button id="tab-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">MASHUPS</button>
         </div>
         <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
+            <!-- TOUR ADMIN -->
             <div id="sec-a-tour" class="space-y-4">
                 <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
                 <input type="text" id="a-muni-name" placeholder="Nombre Visual" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djCyan">
@@ -156,6 +163,7 @@
                     <div class="flex gap-2"><button id="btn-sv-ev" class="flex-1 bg-gradient-to-r from-djCyan to-blue-500 text-black font-black py-2 rounded-lg text-xs">GUARDAR</button><button id="btn-cl-ev" class="hidden bg-white/10 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-xmark"></i></button></div>
                 </div>
             </div>
+            <!-- SETUP ADMIN -->
             <div id="sec-a-setup" class="space-y-4 hidden">
                 <select id="a-comp-sel" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djMagenta"><option value="NEW">NUEVO COMPONENTE</option></select>
                 <input type="text" id="a-comp-t" placeholder="Modelo" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none">
@@ -164,6 +172,7 @@
                 <ul id="a-comp-pts" class="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1.5 max-h-36 overflow-y-auto"></ul>
                 <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[2] bg-gradient-to-r from-djMagenta to-purple-600 text-white font-black py-2.5 rounded-lg text-xs">GUARDAR</button><button id="btn-dl-cp" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden">BORRAR</button></div>
             </div>
+            <!-- MASHUPS ADMIN -->
             <div id="sec-a-mashups" class="space-y-4 hidden">
                 <select id="a-mash-sel" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none focus:border-djYellow"><option value="NEW">NUEVO MASHUP</option></select>
                 <input type="text" id="a-mash-t" placeholder="Título" class="w-full bg-black/40 border border-white/10 p-2.5 text-white rounded-lg text-sm outline-none">
@@ -214,7 +223,7 @@
                 const m = dbData.municipalities[l.dataset.id];
                 if(!m?.name || /^zona/i.test(m.name)) return l.style.opacity = '0';
                 const un = m.status === 'unlocked';
-                l.setAttribute('fill', un ? '#42e6f5' : 'rgba(255,255,255,0.7)'); l.setAttribute('font-size', `${un ? fS*1.1 : fS}px`); l.setAttribute('font-weight', un ? '900' : '500');
+                l.setAttribute('fill', un ? '#42e6f5' : '#ffffff'); l.setAttribute('font-size', `${un ? fS*1.1 : fS}px`); l.setAttribute('font-weight', un ? '900' : '700');
                 const br = l.getBoundingClientRect(), x = br.left-r.left+br.width/2, y = br.top-r.top+br.height/2;
                 if(x<0 || x>vW || y<0 || y>vH) return l.style.opacity = '0';
                 const b = {l:br.left, r:br.right, t:br.top, b:br.bottom};
@@ -231,7 +240,7 @@
         vp.addEventListener('touchend', () => pan=false); vp.addEventListener('wheel', e => { e.preventDefault(); const rb = vp.getBoundingClientRect(), tx = (e.clientX-rb.left-pX)/sc, ty = (e.clientY-rb.top-pY)/sc; sc = Math.max(0.6, Math.min(e.deltaY<0 ? sc*1.1 : sc/1.1, 10)); pX = (e.clientX-rb.left) - tx*sc; pY = (e.clientY-rb.top) - ty*sc; if(!reqFr) reqFr = requestAnimationFrame(uTrans); }, {passive:false});
         $('btn-reset-map').onclick = () => { sc=1; pX=pY=0; uTrans(); };
 
-        fetch('salamanca.svg').then(r=>r.text()).then(h => { tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); g.id = 'labels-group'; g.className.baseVal = 'opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents = 'none'; s.appendChild(g); s.querySelectorAll('path, polygon').forEach((el,i) => { const id = el.id||`zona_${i}`; el.id = id; el.className.baseVal = 'muni anim-trans muni-base'; try{ const b = el.getBBox(); if(b.width>0) { const t = document.createElementNS("http://www.w3.org/2000/svg","text"); t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2); t.setAttribute("class","muni-label transition-opacity duration-200"); t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','central'); t.setAttribute('font-family',"'Montserrat',sans-serif"); t.setAttribute('style','text-shadow:0 1px 2px #000; text-transform:uppercase;'); g.appendChild(t); } }catch(e){} el.onclick = e => { if(isMov) return; e.stopPropagation(); selMuni(id); }; }); renderMap(); });
+        fetch('salamanca.svg').then(r=>r.text()).then(h => { tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); g.id = 'labels-group'; g.className.baseVal = 'opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents = 'none'; s.appendChild(g); s.querySelectorAll('path, polygon').forEach((el,i) => { const id = el.id||`zona_${i}`; el.id = id; el.className.baseVal = 'muni anim-trans muni-base'; try{ const b = el.getBBox(); if(b.width>0) { const t = document.createElementNS("http://www.w3.org/2000/svg","text"); t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2); t.setAttribute("class","muni-label transition-opacity duration-200"); t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle'); t.setAttribute('font-family',"'Montserrat',sans-serif"); t.setAttribute('style','text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.9); text-transform:uppercase; pointer-events:none;'); g.appendChild(t); } }catch(e){} el.onclick = e => { if(isMov) return; e.stopPropagation(); selMuni(id); }; }); renderMap(); });
 
         const bMedia = url => url ? url.split(',').map(l => { l=l.trim(); if(!l) return ''; let ic='fa-link', t='ENLACE', bg='bg-white/5 hover:bg-white/10 text-white border-white/10'; if(l.includes('tiktok.com')){ ic='fa-tiktok'; t='TIKTOK'; bg='bg-black hover:bg-zinc-900 border-[#42e6f5]/50 text-[#42e6f5]'; }else if(l.includes('instagram.com')){ ic='fa-instagram'; t='REEL'; bg='bg-gradient-to-r from-[#f09433] to-[#bc1888] border-transparent text-white'; } return `<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 ${bg} text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-brands ${ic} text-sm mr-2"></i>${t}</a>`; }).join('') : '';
         const renderMap = () => { Object.entries(dbData.municipalities).forEach(([id, d]) => { const e = $(id); if(e) { e.className.baseVal = `muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`; if(d.status==='unlocked' && id!==currMuni) e.parentNode.appendChild(e); } }); if(currMuni && $(currMuni)) $(currMuni).parentNode.appendChild($(currMuni)); $$('.muni-label').forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
