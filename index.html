@@ -46,7 +46,6 @@
         .animate-neon { animation: neonPulse 2s infinite ease-in-out; }
         @keyframes neonPulse { 0%, 100% { filter: drop-shadow(0 0 3px rgba(66,230,245,0.4)); } 50% { filter: drop-shadow(0 0 10px rgba(66,230,245,0.8)); } }
         
-        /* Ajuste de simetría en enlaces del menú */
         .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; cursor: pointer; position: relative; transition: all 0.3s ease; display: inline-block; line-height: 1; }
         .nav-link:hover, .nav-link:active, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: #42e6f5; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -58,8 +57,8 @@
         .admin-input:focus { border-color: rgba(255,255,255,0.3); }
         
         @media (max-width: 767px) {
-            .hide-on-scroll { transition: max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease; max-height: 150px; opacity: 1; overflow: visible; }
-            .hide-on-scroll.collapsed { max-height: 0 !important; opacity: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; pointer-events: none; }
+            .hide-on-scroll { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); max-height: 150px; opacity: 1; overflow: hidden; transform: translateY(0); }
+            .hide-on-scroll.collapsed { max-height: 0 !important; opacity: 0 !important; margin: 0 !important; padding: 0 !important; border: none !important; pointer-events: none; transform: translateY(-10px); }
         }
     </style>
 </head>
@@ -72,7 +71,6 @@
                 <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform">DJ <span>Vaquero</span></h1>
             </div>
             <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto justify-center md:justify-end">
-                <!-- Ajuste de simetría con padding asimétrico (pt-[16px] pb-[12px]) -->
                 <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-8 pt-[16px] pb-[12px] sm:pt-[18px] sm:pb-[14px] rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);">
                     <a href="#sec-tour" class="nav-link anim-trans active">Tour</a>
                     <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
@@ -212,18 +210,18 @@
         const sIds = ['sec-tour','sec-setup','sec-mashups'], sInf = {'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'},'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'},'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'}};
         
         const uNav = () => { 
-            let c=sIds[0], sy=window.scrollY+(window.innerHeight/2); 
-            sIds.forEach(id=>{ const el=$(id); if(el && sy>=el.offsetTop) c=id; }); 
+            let c=sIds[0], sy=window.scrollY, wh=window.innerHeight/2; 
+            sIds.forEach(id=>{ const el=$(id); if(el && sy+wh>=el.offsetTop) c=id; }); 
             $$('.nav-link').forEach(l=>l.classList.remove('active')); const nk=document.querySelector(`.nav-link[href="#${c}"]`); if(nk) nk.classList.add('active'); 
             const nx=sInf[c], bt=$('btn-next-sec'), nn=$('next-sec-name'); 
             if(bt) { bt.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; } 
             
             const hw = $('hdr-wrapper'), hs = $$('.hide-on-scroll');
             if(window.innerWidth < 768) {
-                if(window.scrollY > 120 && !hw.dataset.c) {
+                if(sy > 150 && !hw.dataset.c) {
                     hw.dataset.c = '1'; hs.forEach(e=>e.classList.add('collapsed'));
                     hw.classList.replace('pt-4','pt-2'); hw.classList.replace('pb-4','pb-2');
-                } else if(window.scrollY < 40 && hw.dataset.c) {
+                } else if(sy < 50 && hw.dataset.c) {
                     hw.dataset.c = ''; hs.forEach(e=>e.classList.remove('collapsed'));
                     hw.classList.replace('pt-2','pt-4'); hw.classList.replace('pb-2','pb-4');
                 }
@@ -246,7 +244,7 @@
                 const m = dbData.municipalities[l.dataset.id];
                 if(!m?.name || /^zona/i.test(m.name)) return l.style.opacity = '0';
                 const un = m.status === 'unlocked';
-                l.setAttribute('fill', un ? '#42e6f5' : '#ffffff'); l.setAttribute('font-size', `${un ? fS*1.1 : fS}px`); l.setAttribute('font-weight', un ? '900' : '700');
+                l.setAttribute('fill', un ? '#42e6f5' : '#ffffff'); l.setAttribute('font-size', `${un ? fS*1.1 : fS}px`); l.setAttribute('font-weight', un ? '900' : '800');
                 const br = l.getBoundingClientRect(), x = br.left-r.left+br.width/2, y = br.top-r.top+br.height/2;
                 if(x<0 || x>vW || y<0 || y>vH) return l.style.opacity = '0';
                 const b = {l:br.left, r:br.right, t:br.top, b:br.bottom};
@@ -254,30 +252,13 @@
             });
         };
 
-        // Lógica actualizada para el centrado perfecto del mapa
         const chkBounds = () => {
             if(!svgW) return;
-            const r = vp.getBoundingClientRect();
-            const minS = Math.min(r.width/svgW, r.height/svgH) * 0.90; // 90% para dejar un margen visual elegante
-            
-            if(sc < minS) sc = minS; 
-            if(sc > 10) sc = 10;
-            
-            // Centrado automático si el mapa es más pequeño que el contenedor, o limitador de bordes si es más grande
-            const limitX = (r.width - svgW*sc) / 2;
-            const limitY = (r.height - svgH*sc) / 2;
-            
-            if (svgW*sc <= r.width) {
-                pX = limitX;
-            } else {
-                pX = Math.min(0, Math.max(r.width - svgW*sc, pX));
-            }
-            
-            if (svgH*sc <= r.height) {
-                pY = limitY;
-            } else {
-                pY = Math.min(0, Math.max(r.height - svgH*sc, pY));
-            }
+            const r = vp.getBoundingClientRect(), fS = Math.min(r.width/svgW, r.height/svgH) * 0.95;
+            if(sc < fS) sc = fS; if(sc > 15) sc = 15;
+            const eX = Math.max(0, r.width - svgW*sc)/2, eY = Math.max(0, r.height - svgH*sc)/2;
+            pX = svgW*sc < r.width ? eX : Math.max(Math.min(0, r.width - svgW*sc), Math.min(0, pX));
+            pY = svgH*sc < r.height ? eY : Math.max(Math.min(0, r.height - svgH*sc), Math.min(0, pY));
         };
 
         const uTrans = () => { tLay.style.transform = `translate(${pX}px, ${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
@@ -302,21 +283,8 @@
             if(!reqFr) reqFr = requestAnimationFrame(uTrans); 
         }, {passive:false});
         
-        // Centrado inicial y botón reset
-        $('btn-reset-map').onclick = () => { 
-            const r = vp.getBoundingClientRect(); 
-            sc = Math.min(r.width/svgW, r.height/svgH) * 0.90; 
-            chkBounds(); // chkBounds ahora se encarga mágicamente del centrado
-            uTrans(); 
-        };
-
-        // Escuchador para recentrar el mapa automáticamente al girar el móvil o redimensionar en PC
-        window.addEventListener('resize', () => {
-            if(window.innerWidth !== vp.dataset.lw) {
-                vp.dataset.lw = window.innerWidth;
-                $('btn-reset-map').click();
-            }
-        });
+        $('btn-reset-map').onclick = () => { const r = vp.getBoundingClientRect(); sc = Math.min(r.width/svgW, r.height/svgH) * 0.95; chkBounds(); uTrans(); };
+        window.addEventListener('resize', () => { if(window.innerWidth !== vp.dataset.lw) { vp.dataset.lw = window.innerWidth; $('btn-reset-map').click(); } });
 
         fetch('salamanca.svg').then(r=>r.text()).then(h => { 
             tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); 
@@ -324,7 +292,7 @@
             g.id = 'labels-group'; g.className.baseVal = 'opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents = 'none'; s.appendChild(g); 
             s.querySelectorAll('path, polygon').forEach((el,i) => { 
                 const id = el.id||`zona_${i}`; el.id = id; el.className.baseVal = 'muni anim-trans muni-base'; 
-                try{ const b = el.getBBox(); if(b.width>0) { const t = document.createElementNS("http://www.w3.org/2000/svg","text"); t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2); t.setAttribute("class","muni-label transition-opacity duration-200"); t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle'); t.setAttribute('font-family',"'Montserrat',sans-serif"); t.setAttribute('style','text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.9); text-transform:uppercase; pointer-events:none;'); g.appendChild(t); } }catch(e){} 
+                try{ const b = el.getBBox(); if(b.width>0) { const t = document.createElementNS("http://www.w3.org/2000/svg","text"); t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2); t.setAttribute("class","muni-label transition-opacity duration-200"); t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle'); t.setAttribute('font-family',"'Montserrat',sans-serif"); t.setAttribute('style','paint-order: stroke fill; stroke: rgba(0,0,0,0.85); stroke-width: 4px; stroke-linecap: round; stroke-linejoin: round; fill: #fff; text-transform:uppercase; pointer-events:none;'); g.appendChild(t); } }catch(e){} 
                 el.onclick = e => { if(isMov) return; e.stopPropagation(); selMuni(id); }; 
             }); 
             $('btn-reset-map').click(); renderMap(); 
