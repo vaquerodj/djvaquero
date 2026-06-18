@@ -24,11 +24,11 @@
         .premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; background: linear-gradient(135deg, #fff 30%, #a1a1aa 100%); -webkit-background-clip: text; color: transparent; }
         .premium-title span { color: #42e6f5; text-shadow: 0 0 30px rgba(66,230,245,0.5); }
         .social-icon { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; background: rgba(255,255,255,0.02); border-radius: 50%; color: #a1a1aa; border: 1px solid rgba(255,255,255,0.05); }
-        .social-icon:hover { color: #fff; transform: translateY(-4px) scale(1.05); }
-        .social-ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 10px 20px rgba(220,39,67,0.3); }
-        .social-tk:hover { background: #000; border-color: #42e6f5; box-shadow: 0 10px 20px rgba(66,230,245,0.2); }
-        .social-sc:hover { background: #ff5500; box-shadow: 0 10px 20px rgba(255,85,0,0.3); }
-        .social-yt:hover { background: #f00; box-shadow: 0 10px 20px rgba(255,0,0,0.3); }
+        .social-icon:hover, .social-icon:active { color: #fff; transform: translateY(-4px) scale(1.05); }
+        .social-ig:hover, .social-ig:active { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 10px 20px rgba(220,39,67,0.3); }
+        .social-tk:hover, .social-tk:active { background: #000; border-color: #42e6f5; box-shadow: 0 10px 20px rgba(66,230,245,0.2); }
+        .social-sc:hover, .social-sc:active { background: #ff5500; box-shadow: 0 10px 20px rgba(255,85,0,0.3); }
+        .social-yt:hover, .social-yt:active { background: #f00; box-shadow: 0 10px 20px rgba(255,0,0,0.3); }
         .viewport-container { width: 100%; height: 55vh; min-height: 420px; position: relative; background: #040508; border-radius: 20px; overflow: hidden; cursor: grab; }
         @media (min-width: 1024px) { .viewport-container { height: 68vh; } }
         .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
@@ -45,39 +45,40 @@
         .comp-polygon:hover, .hotspot-active { fill: rgba(232,28,255,0.25); stroke: #e81cff; stroke-width: 1.5px; filter: drop-shadow(0 0 8px rgba(232,28,255,0.6)); }
         .animate-neon { animation: neonPulse 2s infinite ease-in-out; }
         @keyframes neonPulse { 0%, 100% { filter: drop-shadow(0 0 3px rgba(66,230,245,0.4)); } 50% { filter: drop-shadow(0 0 10px rgba(66,230,245,0.8)); } }
-        .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; cursor: pointer; position: relative; }
-        .nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background-color: #42e6f5; transition: width 0.3s; }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; cursor: pointer; position: relative; transition: all 0.3s ease; }
+        .nav-link:hover, .nav-link:active, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #42e6f5; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link:hover::after, .nav-link:active::after, .nav-link.active::after { width: 100%; }
         .admin-drag-dot { touch-action: none; z-index: 50; cursor: grab; }
         .admin-drag-dot:active { cursor: grabbing; }
         .admin-input { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 0.625rem; color: white; border-radius: 0.5rem; font-size: 0.875rem; outline: none; transition: all 0.2s; }
         .admin-input:focus { border-color: rgba(255,255,255,0.3); }
+        
         @media (max-width: 767px) {
-            .hide-on-scroll { transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease, margin 0.4s ease; overflow: hidden; max-height: 150px; opacity: 1; }
-            .hide-on-scroll.collapsed { max-height: 0 !important; opacity: 0 !important; margin: 0 !important; }
+            .hide-on-scroll { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); max-height: 120px; opacity: 1; transform: translateY(0) scale(1); transform-origin: top center; overflow: hidden; }
+            .hide-on-scroll.collapsed { max-height: 0 !important; opacity: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; transform: translateY(-15px) scale(0.95); pointer-events: none; border: none !important; }
         }
     </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
     <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
     
-    <div id="hdr-wrapper" class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl pt-4 pb-4 md:pt-6 md:pb-6 transition-all duration-300">
+    <div id="hdr-wrapper" class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl pt-4 pb-4 md:pt-6 md:pb-6 transition-all duration-500 ease-out" style="-webkit-backdrop-filter: blur(24px);">
         <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-            <div class="text-center md:text-left hide-on-scroll">
+            <div class="text-center md:text-left hide-on-scroll w-full md:w-auto flex justify-center md:justify-start">
                 <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform">DJ <span>Vaquero</span></h1>
             </div>
             <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto justify-center md:justify-end">
-                <nav class="flex w-full justify-evenly sm:w-auto sm:justify-start gap-2 sm:gap-6 bg-white/[0.03] px-4 sm:px-8 py-3.5 sm:py-4 rounded-full border border-white/5 backdrop-blur-xl shadow-2xl order-2 sm:order-1 text-[11px] sm:text-sm max-w-[400px] sm:max-w-none">
+                <nav class="flex w-full justify-evenly sm:w-auto sm:justify-start gap-2 sm:gap-6 bg-white/[0.03] px-4 sm:px-8 py-3.5 sm:py-4 rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);">
                     <a href="#sec-tour" class="nav-link anim-trans active">Tour</a>
                     <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
                     <a href="#sec-mashups" class="nav-link anim-trans">Mashups</a>
                 </nav>
                 <div class="flex space-x-3 order-1 sm:order-2 hide-on-scroll">
-                    <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon anim-trans social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
-                    <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon anim-trans social-tk"><i class="fa-brands fa-tiktok text-lg"></i></a>
-                    <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon anim-trans social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
-                    <a href="https://youtube.com/@vaquerodj" target="_blank" class="social-icon anim-trans social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
+                    <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon anim-trans social-ig active:scale-95"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon anim-trans social-tk active:scale-95"><i class="fa-brands fa-tiktok text-lg"></i></a>
+                    <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon anim-trans social-sc active:scale-95"><i class="fa-brands fa-soundcloud text-lg"></i></a>
+                    <a href="https://youtube.com/@vaquerodj" target="_blank" class="social-icon anim-trans social-yt active:scale-95"><i class="fa-brands fa-youtube text-lg"></i></a>
                 </div>
             </div>
         </header>
