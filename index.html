@@ -47,7 +47,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
 .nav-link:hover,.nav-link:active,.nav-link.active{color:#fff;text-shadow:0 0 10px rgba(255,255,255,.3)}
 .nav-link::after{content:'';position:absolute;width:0;height:2px;bottom:-5px;left:0;background-color:#42e6f5;transition:width .3s cubic-bezier(.4,0,.2,1)}
 .nav-link:hover::after,.nav-link:active::after,.nav-link.active::after{width:100%}
-.admin-drag-dot{touch-action:none;z-index:50;cursor:grab}
+.admin-drag-dot{pointer-events:auto; touch-action:none; z-index:50; cursor:grab;}
 .admin-drag-dot:active{cursor:grabbing}
 .admin-input{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);padding:.625rem;color:#fff;border-radius:.5rem;font-size:.875rem;outline:none;transition:all .2s}
 .admin-input:focus{border-color:rgba(255,255,255,.3)}
@@ -67,7 +67,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform cursor-pointer">DJ <span>Vaquero</span></h1>
     </div>
     <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto justify-center md:justify-end">
-      <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-8 py-[14px] sm:py-[16px] rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)">
+      <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-8 py-3.5 sm:py-4 rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)">
         <a href="#sec-tour" class="nav-link anim-trans active">Tour</a>
         <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
         <a href="#sec-mashups" class="nav-link anim-trans">Mashups</a>
@@ -82,7 +82,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </header>
 </div>
 
-<main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[600px]">
+<main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[400px]">
   <section class="flex-[2] flex flex-col gap-4 relative h-full">
     <div class="glass-panel anim-trans p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20 shrink-0">
       <h2 class="font-display font-black text-xl text-white uppercase whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
@@ -93,7 +93,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       </div>
       <button id="btn-reset-map" class="bg-white/5 hover:bg-djCyan hover:text-black border border-white/5 w-12 h-12 rounded-full transition-all text-gray-400 shrink-0"><i class="fa-solid fa-compress"></i></button>
     </div>
-    <div class="border border-white/5 shadow-2xl flex-grow rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab touch-none" id="tour-viewport">
+    <div class="border border-white/5 shadow-2xl flex-grow rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab" id="tour-viewport">
       <div class="zoom-layer" id="tour-layer"></div>
     </div>
   </section>
@@ -229,7 +229,7 @@ const $$ = q => document.querySelectorAll(q);
 
 // ── Estado global ──────────────────────────────────────────────────────────
 let dbData = { municipalities:{}, components:{}, mashups:{} };
-let currMuniIds = [], isMov = false, actTab = 'tour';
+let currMuni = null, isMov = false, actTab = 'tour';
 let sc=1, pX=0, pY=0, reqFr=null, pan=false, sX=0, sY=0;
 let svgW=1000, svgH=1000, lgEl=null, mLbls=[];
 let cFigs=[], cPts=[], editFigIdx=-1; 
@@ -244,7 +244,14 @@ const sInf = { 'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-dj
 // ── Utilidades ───────────────────────────────────────────────────────────────
 const mobScroll = el => { if(window.innerWidth<1024) el.scrollIntoView({behavior:'smooth',block:'start'}); };
 
-// ── Header scroll & Jitter Fix (Histéresis) ──────────────────────────────────
+const getGroup = id => {
+  const m = dbData.municipalities[id];
+  const n = m?.name;
+  if (!n || /^zona/i.test(n)) return [id];
+  return Object.keys(dbData.municipalities).filter(k => dbData.municipalities[k]?.name === n);
+};
+
+// ── Header scroll ────────────────────────────────────────────────────────────
 const uNav = () => {
   let c=sIds[0], sy=window.scrollY, wh=window.innerHeight/2;
   sIds.forEach(id=>{ const el=$(id); if(el&&sy+wh>=el.offsetTop) c=id; });
@@ -252,20 +259,17 @@ const uNav = () => {
   const nx=sInf[c], nn=$('next-sec-name'), bNext=$('btn-next-sec');
   if(bNext){ bNext.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; }
   
-  // SOLUCIÓN JITTER: Usar histéresis (márgenes diferentes de subida/bajada) para evitar el bucle infinito
   let col = hw.dataset.c === '1';
-  if(window.innerWidth < 768){
-      if(!col && sy > 180) col = true;
-      else if(col && sy < 80) col = false;
-  } else {
-      col = false;
-  }
-  
-  if((hw.dataset.c === '1') !== col){
-      hw.dataset.c = col ? '1' : '';
-      $$('.hide-on-scroll').forEach(e=>e.classList.toggle('collapsed',col));
-      hw.classList.replace(col?'pt-4':'pt-2', col?'pt-2':'pt-4');
-      hw.classList.replace(col?'pb-4':'pb-2', col?'pb-2':'pb-4');
+  if(window.innerWidth < 768) {
+    if(sy > 150 && !col) col = true;
+    else if(sy < 50 && col) col = false;
+  } else col = false;
+
+  if((hw.dataset.c==='1')!==col){
+    hw.dataset.c = col?'1':'';
+    $$('.hide-on-scroll').forEach(e=>e.classList.toggle('collapsed',col));
+    hw.classList.replace(col?'pt-4':'pt-2', col?'pt-2':'pt-4');
+    hw.classList.replace(col?'pb-4':'pb-2', col?'pb-2':'pb-4');
   }
 };
 window.addEventListener('scroll', uNav, {passive:true}); window.addEventListener('load', uNav); uNav();
@@ -284,18 +288,41 @@ const uLbls = () => {
   if(!lgEl) return;
   lgEl.className.baseVal = sc<2.2 ? 'opacity-0 transition-opacity duration-300 pointer-events-none' : 'opacity-100 transition-opacity duration-300 pointer-events-none';
   if(sc<2.2) return;
-  const fS=11/sc, vW=vp.clientWidth, vH=vp.clientHeight, r=vp.getBoundingClientRect(), occ=[];
-  mLbls.forEach(l => {
-    const m=dbData.municipalities[l.dataset.id];
-    if(!m?.name||/^zona/i.test(m.name)) return void(l.style.opacity='0');
-    const un=m.status==='unlocked';
-    l.setAttribute('fill', un?'#42e6f5':'#ffffff');
-    l.setAttribute('font-size',`${un?fS*1.1:fS}px`);
-    l.setAttribute('font-weight', un?'900':'700');
-    const br=l.getBoundingClientRect(), x=br.left-r.left+br.width/2, y=br.top-r.top+br.height/2;
-    if(x<0||x>vW||y<0||y>vH) return void(l.style.opacity='0');
-    const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
-    if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b);}else l.style.opacity='0';
+  
+  const fS = 10 / sc;
+  const vW = vp.clientWidth, vH = vp.clientHeight, r = vp.getBoundingClientRect();
+  const occ = [];
+
+  const sorted = [...mLbls].sort((a,b) => {
+    const unA = dbData.municipalities[a.dataset.id]?.status === 'unlocked' ? 1 : 0;
+    const unB = dbData.municipalities[b.dataset.id]?.status === 'unlocked' ? 1 : 0;
+    return unB - unA;
+  });
+
+  sorted.forEach(l => {
+    const m = dbData.municipalities[l.dataset.id];
+    if(!m?.name || /^zona/i.test(m.name)) return void(l.style.opacity='0');
+
+    const un = m.status === 'unlocked';
+    l.setAttribute('fill', un ? '#42e6f5' : '#ffffff');
+    l.setAttribute('font-size', `${un ? fS * 1.15 : fS * 0.9}px`);
+    l.setAttribute('font-weight', un ? '900' : '500');
+    l.style.stroke = un ? 'rgba(0,0,0,0.9)' : 'rgba(0,0,0,0.5)';
+    l.style.strokeWidth = un ? '2.5px' : '1.5px';
+
+    const br = l.getBoundingClientRect();
+    const x = br.left - r.left + br.width / 2;
+    const y = br.top - r.top + br.height / 2;
+
+    if(x < 0 || x > vW || y < 0 || y > vH) return void(l.style.opacity='0');
+
+    const b = { l: br.left, r: br.right, t: br.top, b: br.bottom };
+    if(!occ.some(o => b.l - 1 < o.r && b.r + 1 > o.l && b.t - 1 < o.b && b.b + 1 > o.t)){
+      l.style.opacity = '1';
+      occ.push(b);
+    } else {
+      l.style.opacity = '0';
+    }
   });
 };
 
@@ -347,6 +374,7 @@ $('btn-reset-map').onclick = () => {
   if(!reqFr) reqFr=requestAnimationFrame(uTrans);
 };
 
+// ── Cargar SVG del mapa ───────────────────────────────────────────────────────
 fetch('salamanca.svg').then(r=>r.text()).then(h=>{
   tLay.innerHTML=h;
   const s=tLay.querySelector('svg'), g=document.createElementNS("http://www.w3.org/2000/svg","g");
@@ -367,7 +395,7 @@ fetch('salamanca.svg').then(r=>r.text()).then(h=>{
         t.setAttribute("class","muni-label transition-opacity duration-200");
         t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
         t.setAttribute('font-family',"'Montserrat',sans-serif");
-        t.setAttribute('style','paint-order:stroke fill;stroke:#000;stroke-width:3.5px;stroke-linejoin:round;text-transform:uppercase;pointer-events:none');
+        t.setAttribute('style','paint-order:stroke fill;stroke:rgba(0,0,0,0.8);stroke-width:2px;stroke-linejoin:round;text-transform:uppercase;pointer-events:none');
         g.appendChild(t);
       }
     } catch(e){}
@@ -378,11 +406,12 @@ fetch('salamanca.svg').then(r=>r.text()).then(h=>{
   renderMap();
 });
 
-// ── Render y selección de municipios agrupados ───────────────────────────────
+// ── Render y selección de municipios ─────────────────────────────────────────
 const renderMap = () => {
+  const grp = currMuni ? getGroup(currMuni) : [];
   Object.entries(dbData.municipalities).forEach(([id,d])=>{
     const e=$(id); if(!e) return;
-    const isSel = currMuniIds.includes(id);
+    const isSel = grp.includes(id);
     e.className.baseVal=`muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;
     if((d.status==='unlocked' || isSel) && e.parentNode) e.parentNode.appendChild(e);
   });
@@ -391,29 +420,17 @@ const renderMap = () => {
 };
 
 const selMuni = id => {
-  const repMuni = dbData.municipalities[id]||{};
-  const repName = /^zona/i.test(repMuni.name||id) ? id.replace(/_/g,' ') : (repMuni.name||id.replace(/_/g,' '));
-  
-  // Agrupar todas las zonas con el MISMO nombre
-  currMuniIds = [];
-  if(repName && !/^zona/i.test(repName)) {
-      Object.entries(dbData.municipalities).forEach(([k, d]) => {
-          if((d.name || k) === repName) currMuniIds.push(k);
-      });
-  }
-  if(!currMuniIds.includes(id)) currMuniIds.push(id);
-
-  renderMap();
-  
-  iTit.innerText=repName; $('a-muni-id').value=id; $('a-muni-name').value=repName; clrEv(); popEv(id);
+  currMuni=id; renderMap();
+  const m=dbData.municipalities[id]||{}, n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));
+  iTit.innerText=n; $('a-muni-id').value=id; $('a-muni-name').value=n; clrEv(); popEv(id);
   iEmp.classList.add('hidden'); iEvs.classList.remove('hidden');
   
-  if(repMuni.status==='unlocked'){
+  if(m.status==='unlocked'){
     $('a-muni-status').value='unlocked';
     iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`;
     let evHtml='';
-    if(repMuni.events){
-      Object.values(repMuni.events).forEach(ev=>{
+    if(m.events){
+      Object.values(m.events).forEach(ev=>{
         evHtml+=`<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-white border-white/10 text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-solid fa-link text-sm mr-2"></i>ENLACE</a>`:'').join(''):''}${ev.embed?`<div class="mt-4 w-full rounded-xl overflow-hidden shadow-lg border border-white/10">${ev.embed}</div>`:''}</div>`;
       });
     } else evHtml=`<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`;
@@ -423,7 +440,8 @@ const selMuni = id => {
     iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`;
     iEvs.innerHTML=`<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`;
   }
-  iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`;
+  
+  iEvs.innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djCyan to-blue-500 text-black w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(66,230,245,0.3)]">CONTRATACIÓN DIRECTA</a>`;
   mobScroll(iAnc);
 };
 
@@ -431,20 +449,19 @@ $('search-muni').oninput = e => {
   const v=e.target.value.toLowerCase().trim(), rL=$('search-results'); rL.innerHTML='';
   if(v.length<2) return rL.classList.add('hidden');
   
-  // Filtrar nombres duplicados en la búsqueda
-  const unqNames = new Set();
-  const m=Object.entries(dbData.municipalities).filter(([_,d])=>{
-    if(!d?.name||/^zona/i.test(d.name)) return false;
-    const nm = d.name.toLowerCase();
-    if(nm.includes(v) && !unqNames.has(nm)){ unqNames.add(nm); return true; }
-    return false;
-  }).slice(0,5);
-  
+  const grouped = {};
+  Object.entries(dbData.municipalities).forEach(([id,d])=>{
+    if(d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)){
+      if(!grouped[d.name]) grouped[d.name] = id;
+    }
+  });
+
+  const m = Object.entries(grouped).slice(0,5);
   rL.classList.remove('hidden');
   if(m.length){
-    m.forEach(([id,d])=>{
+    m.forEach(([name, id])=>{
       const li=document.createElement('li'); li.className="px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans";
-      li.innerHTML=`<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`;
+      li.innerHTML=`<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${name}`;
       li.onclick=()=>{ selMuni(id); $('search-muni').value=''; rL.classList.add('hidden'); };
       rL.appendChild(li);
     });
@@ -495,16 +512,29 @@ const renderComp = () => {
 // ═══════════════════════════════════════════════════════════════════════════════
 const crDot = (pts, idx, pEl, dc) => {
   const dt=document.createElement('div');
-  dt.className="absolute w-2 h-2 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50 cursor-grab active:cursor-grabbing";
+  dt.className="absolute w-3 h-3 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff]";
   dt.style.left=pts[idx].x+'%'; dt.style.top=pts[idx].y+'%';
+  
   dt.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); pts.splice(idx,1); renderAdminPts(); });
-  const mm=e=>{ e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}; if(pEl) pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' ')); };
-  const mu=()=>{ window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); };
+  const mm = e => { 
+    e.preventDefault(); 
+    const r=$('setup-wrapper').getBoundingClientRect();
+    const cx=e.touches?e.touches[0].clientX:e.clientX;
+    const cy=e.touches?e.touches[0].clientY:e.clientY; 
+    let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100));
+    let y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); 
+    dt.style.left=x+'%'; dt.style.top=y+'%'; 
+    pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}; 
+    if(pEl) pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' ')); 
+  };
+  const mu = () => { window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); };
+  
   dt.onmousedown=e=>{ e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); };
   dt.ontouchstart=e=>{ e.stopPropagation(); window.addEventListener('touchmove',mm,{passive:false}); window.addEventListener('touchend',mu); };
   dc.appendChild(dt);
 };
 
+// ── Render panel admin (figuras + nodos) ─────────────────────────────────────
 const renderAdminPts = () => {
   const figsUl=$('a-comp-figs'), ptsUl=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg');
   dc.innerHTML=''; ov.innerHTML='';
@@ -572,18 +602,16 @@ $('a-comp-sel').onchange = e => {
   renderAdminPts();
 };
 
-// ── Admin – Tour: eventos sincronizados (Espejo entre zonas iguales) ─────────
+// ── Admin – Tour: eventos ────────────────────────────────────────────────────
 window.delEv = (mid,eid) => { 
-  if(!confirm('¿Borrar fecha?')) return;
-  currMuniIds.forEach(cid => remove(ref(db,`municipalities/${cid}/events/${eid}`)));
+  if(confirm('¿Borrar fecha?')){
+    const grp = getGroup(mid);
+    const updates = {};
+    grp.forEach(gid => updates[`municipalities/${gid}/events/${eid}`] = null);
+    update(ref(db), updates);
+  }
 };
-
-window.edEv  = (mid,eid) => { 
-  const ev=dbData.municipalities[mid].events[eid]; 
-  $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; 
-  $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; 
-  $('a-ev-embed').value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); 
-};
+window.edEv  = (mid,eid) => { const ev=dbData.municipalities[mid].events[eid]; $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; $('a-ev-embed').value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); };
 
 const popEv = id => {
   const m=dbData.municipalities[id], l=$('a-ev-list'); let html='';
@@ -593,25 +621,24 @@ const popEv = id => {
 
 const clrEv = () => { ['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>$(i).value=''); $('a-ev-t').innerHTML='<i class="fa-solid fa-plus text-djCyan mr-1"></i> Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
 $('btn-cl-ev').onclick = clrEv;
-
 $('btn-sv-ev').onclick = () => {
   const id=$('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value;
   if(!id) return;
+  const grp = getGroup(id);
+  const updates = {};
+  const newName = $('a-muni-name').value || id;
   const status = $('a-muni-status').value;
-  const name = $('a-muni-name').value || id;
+  
+  const evId = eid || push(ref(db, `municipalities/${id}/events`)).key;
   const pd = (p||eid) ? {place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value, embed:$('a-ev-embed').value} : null;
 
-  // Si es un evento nuevo, generamos un key único global para que se pueda borrar/editar simétricamente.
-  let targetEid = eid;
-  if (pd && !targetEid) targetEid = push(ref(db, `municipalities/${id}/events`)).key;
-
-  // Actualizar TODAS las zonas (paths) que comparten este municipio
-  const promises = currMuniIds.map(cid => {
-      update(ref(db,`municipalities/${cid}`), {status, name});
-      if (pd && targetEid) return update(ref(db,`municipalities/${cid}/events/${targetEid}`), pd);
+  grp.forEach(gid => {
+    updates[`municipalities/${gid}/status`] = status;
+    updates[`municipalities/${gid}/name`] = newName;
+    if (pd) updates[`municipalities/${gid}/events/${evId}`] = pd;
   });
-  
-  Promise.all(promises).then(()=>{ clrEv(); selMuni(id); });
+
+  update(ref(db), updates).then(()=>{ clrEv(); selMuni(id); });
 };
 
 // ── Admin – Mashups ───────────────────────────────────────────────────────────
