@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { djBg: '#06070a', djPanel: 'rgba(15,18,25,0.75)', djCyan: '#42e6f5', djMagenta: '#e81cff', djYellow: '#f5d442' }, fontFamily: { display: ['Montserrat','sans-serif'], body: ['Inter','sans-serif'] } } } }
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { djCyan: '#42e6f5', djMagenta: '#e81cff', djYellow: '#f5d442' }, fontFamily: { display: ['Montserrat','sans-serif'], body: ['Inter','sans-serif'] } } } }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
@@ -210,49 +210,67 @@
         const app = initializeApp({ apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI", authDomain: "djvaquero-851e8.firebaseapp.com", databaseURL: "https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app", projectId: "djvaquero-851e8" });
         const db = getDatabase(app), $ = id => document.getElementById(id), $$ = q => document.querySelectorAll(q);
         
-        let dbData = { municipalities:{}, components:{}, mashups:{} }, currMuni = null, isMov = false, actTab = 'tour', sc=1, pX=0, pY=0, reqFr=null, cFigs=[], cPts=[], sX=0, sY=0, pan=false;
-        let svgW=1000, svgH=1000, lgEl=null, mLbls=[];
+        let dbData = { municipalities:{}, components:{}, mashups:{} }, currMuni = null, isMov = false, actTab = 'tour', sc=1, pX=0, pY=0, reqFr=null, cFigs=[], cPts=[], sX=0, sY=0, pan=false, svgW=1000, svgH=1000, lgEl=null, mLbls=[];
         
-        const vp = $('tour-viewport'), tLay = $('tour-layer'), hw = $('hdr-wrapper'), hs = $$('.hide-on-scroll');
-        const nLks = $$('.nav-link'), bNext = $('btn-next-sec'), nn = $('next-sec-name');
-        const iTit = $('info-title'), iEmp = $('info-empty'), iEvs = $('info-events'), iStat = $('info-status'), iAnc = $('info-anchor');
-        const sEmp = $('setup-empty'), sInfC = $('setup-info-content'), sStat = $('setup-status'), sTit = $('setup-t'), sDesc = $('setup-d'), sAnc = $('setup-info-anchor');
-        const sIds = ['sec-tour','sec-setup','sec-mashups'], sInf = {'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'},'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'},'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'}};
+        const DOM = {
+            vp: $('tour-viewport'), tLay: $('tour-layer'), hw: $('hdr-wrapper'), hs: $$('.hide-on-scroll'),
+            nLks: $$('.nav-link'), bNext: $('btn-next-sec'), nn: $('next-sec-name'),
+            iTit: $('info-title'), iEmp: $('info-empty'), iEvs: $('info-events'), iStat: $('info-status'), iAnc: $('info-anchor'),
+            sEmp: $('setup-empty'), sInfC: $('setup-info-content'), sStat: $('setup-status'), sTit: $('setup-t'), sDesc: $('setup-d'), sAnc: $('setup-info-anchor'),
+            sMuni: $('search-muni'), sRes: $('search-results'), mGrid: $('mashups-grid'), sSvg: $('setup-svg'), aPan: $('admin-panel'),
+            aMuniId: $('a-muni-id'), aMuniName: $('a-muni-name'), aMuniStat: $('a-muni-status'), aEvList: $('a-ev-list'),
+            aEvId: $('a-ev-id'), aEvP: $('a-ev-p'), aEvD: $('a-ev-d'), aEvDesc: $('a-ev-desc'), aEvM: $('a-ev-m'), aEvEmb: $('a-ev-embed'),
+            aCompSel: $('a-comp-sel'), aCompT: $('a-comp-t'), aCompD: $('a-comp-d'), aCompPts: $('a-comp-pts'), aPts: $('admin-pts'),
+            aMashSel: $('a-mash-sel'), aMashT: $('a-mash-t'), aMashDl: $('a-mash-dl'), aMashSc: $('a-mash-sc')
+        };
+
+        const sIds = ['sec-tour','sec-setup','sec-mashups'];
+        const sInf = {'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'},'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'},'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'}};
         
         const mobScroll = el => { if(window.innerWidth < 1024) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
         
-        const toggleHdr = (col) => {
-            if ((hw.dataset.c === '1') === col) return;
-            hw.dataset.c = col ? '1' : '';
-            hs.forEach(e => e.classList.toggle('collapsed', col));
-            hw.classList.replace(col ? 'pt-4' : 'pt-2', col ? 'pt-2' : 'pt-4');
-            hw.classList.replace(col ? 'pb-4' : 'pb-2', col ? 'pb-2' : 'pb-4');
+        const evalScripts = container => {
+            container.querySelectorAll('script').forEach(s => {
+                const ns = document.createElement('script');
+                Array.from(s.attributes).forEach(a => ns.setAttribute(a.name, a.value));
+                ns.appendChild(document.createTextNode(s.innerHTML));
+                s.parentNode.replaceChild(ns, s);
+            });
+        };
+
+        const toggleHdr = c => {
+            if (!!DOM.hw.dataset.c === c) return;
+            DOM.hw.dataset.c = c ? '1' : '';
+            DOM.hs.forEach(e => e.classList.toggle('collapsed', c));
+            DOM.hw.className = DOM.hw.className.replace(c ? 'pt-4' : 'pt-2', c ? 'pt-2' : 'pt-4').replace(c ? 'pb-4' : 'pb-2', c ? 'pb-2' : 'pb-4');
         };
 
         const uNav = () => { 
             let c=sIds[0], sy=window.scrollY, wh=window.innerHeight/2; 
             sIds.forEach(id => { const el=$(id); if(el && sy+wh>=el.offsetTop) c=id; }); 
-            nLks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${c}`));
+            DOM.nLks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${c}`));
             const nx=sInf[c]; 
-            if(bNext) { bNext.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; } 
-            
-            if(window.innerWidth < 768) { if(sy > 150) toggleHdr(true); else if(sy < 50) toggleHdr(false); } 
-            else toggleHdr(false);
+            if(DOM.bNext) { DOM.bNext.href='#'+nx.n; DOM.nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; DOM.nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; } 
+            window.innerWidth < 768 ? toggleHdr(sy > 150 ? true : (sy < 50 ? false : !!DOM.hw.dataset.c)) : toggleHdr(false);
         };
         window.addEventListener('scroll', uNav, {passive:true}); window.addEventListener('load', uNav); uNav();
 
-        onValue(ref(db, '/'), s => { dbData = s.val() || { municipalities:{}, components:{}, mashups:{} }; renderMap(); renderComp(); renderMash(); updateDds(); const mId = $('a-muni-id').value; if(mId) popEv(mId); });
+        onValue(ref(db, '/'), s => { 
+            const d = s.val() || {}; 
+            dbData = { municipalities: d.municipalities||{}, components: d.components||{}, mashups: d.mashups||{} }; 
+            renderMap(); renderComp(); renderMash(); updateDds(); 
+            if(DOM.aMuniId.value) popEv(DOM.aMuniId.value); 
+        });
 
         const uLbls = () => {
             if(!lgEl) return;
             lgEl.className.baseVal = sc < 2.2 ? 'opacity-0 transition-opacity duration-300 pointer-events-none' : 'opacity-100 transition-opacity duration-300 pointer-events-none';
             if(sc < 2.2) return;
-            const fS = 11/sc, vW = vp.clientWidth, vH = vp.clientHeight, r = vp.getBoundingClientRect(), occ = [];
+            const fS = 11/sc, vW = DOM.vp.clientWidth, vH = DOM.vp.clientHeight, r = DOM.vp.getBoundingClientRect(), occ = [];
             mLbls.forEach(l => {
                 const m = dbData.municipalities[l.dataset.id];
                 if(!m?.name || /^zona/i.test(m.name)) return l.style.opacity = '0';
-                const un = m.status === 'unlocked';
-                l.setAttribute('fill', un ? '#42e6f5' : '#ffffff'); l.setAttribute('font-size', `${un ? fS*1.1 : fS}px`); l.setAttribute('font-weight', un ? '900' : '700');
+                l.setAttribute('fill', m.status === 'unlocked' ? '#42e6f5' : '#ffffff'); l.setAttribute('font-size', `${m.status === 'unlocked' ? fS*1.1 : fS}px`);
                 const br = l.getBoundingClientRect(), x = br.left-r.left+br.width/2, y = br.top-r.top+br.height/2;
                 if(x<0 || x>vW || y<0 || y>vH) return l.style.opacity = '0';
                 const b = {l:br.left, r:br.right, t:br.top, b:br.bottom};
@@ -262,42 +280,45 @@
 
         const chkBounds = () => {
             if(!svgW) return;
-            const rW = vp.clientWidth, rH = vp.clientHeight, minS = Math.min(rW/svgW, rH/svgH) * 0.9;
-            if(sc < minS) sc = minS; if(sc > 10) sc = 10;
+            const rW = DOM.vp.clientWidth, rH = DOM.vp.clientHeight;
+            sc = Math.max(Math.min(rW/svgW, rH/svgH) * 0.9, Math.min(10, sc));
             pX = (svgW * sc <= rW) ? (rW - svgW * sc) / 2 : Math.min(0, Math.max(rW - svgW * sc, pX));
             pY = (svgH * sc <= rH) ? (rH - svgH * sc) / 2 : Math.min(0, Math.max(rH - svgH * sc, pY));
         };
 
-        const uTrans = () => { tLay.style.transform = `translate(${pX}px, ${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
-        const stPan = (x,y) => { sX = x-pX; sY = y-pY; pan = true; isMov = false; vp.style.cursor = 'grabbing'; };
+        const uTrans = () => { DOM.tLay.style.transform = `translate(${pX}px, ${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
+        const stPan = (x,y) => { sX = x-pX; sY = y-pY; pan = true; isMov = false; DOM.vp.style.cursor = 'grabbing'; };
         const mvPan = (x,y) => { if(!pan) return; isMov = true; pX = x-sX; pY = y-sY; chkBounds(); if(!reqFr) reqFr = requestAnimationFrame(uTrans); };
-        
-        vp.onmousedown = e => stPan(e.clientX, e.clientY); window.addEventListener('mousemove', e => mvPan(e.clientX, e.clientY)); window.addEventListener('mouseup', () => { pan=false; vp.style.cursor='grab'; });
-        vp.addEventListener('touchstart', e => { isMov=false; if(e.touches.length===1) stPan(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
-        vp.addEventListener('touchmove', e => { 
+        const endPan = () => { pan = false; delete DOM.vp.dataset.sd; DOM.vp.style.cursor = 'grab'; };
+
+        DOM.vp.onmousedown = e => stPan(e.clientX, e.clientY); window.addEventListener('mousemove', e => mvPan(e.clientX, e.clientY)); window.addEventListener('mouseup', endPan);
+        DOM.vp.addEventListener('touchstart', e => { isMov=false; if(e.touches.length===1) stPan(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
+        DOM.vp.addEventListener('touchmove', e => { 
             if(pan && e.touches.length===1) mvPan(e.touches[0].clientX, e.touches[0].clientY); 
             else if(e.touches.length===2) { 
-                e.preventDefault(); const t1=e.touches[0], t2=e.touches[1], d = Math.hypot(t1.clientX-t2.clientX, t1.clientY-t2.clientY), rb = vp.getBoundingClientRect(), mx = ((t1.clientX+t2.clientX)/2)-rb.left, my = ((t1.clientY+t2.clientY)/2)-rb.top; 
-                const tx = (mx-pX)/sc, ty = (my-pY)/sc; sc = sc*(d/(vp.dataset.sd||d)); vp.dataset.sd = d;
+                e.preventDefault(); const [t1, t2] = e.touches, d = Math.hypot(t1.clientX-t2.clientX, t1.clientY-t2.clientY), rb = DOM.vp.getBoundingClientRect(); 
+                const mx = (t1.clientX+t2.clientX)/2 - rb.left, my = (t1.clientY+t2.clientY)/2 - rb.top, tx = (mx-pX)/sc, ty = (my-pY)/sc; 
+                sc *= d/(DOM.vp.dataset.sd||d); DOM.vp.dataset.sd = d;
                 chkBounds(); pX = mx - tx*sc; pY = my - ty*sc; chkBounds();
                 if(!reqFr) reqFr = requestAnimationFrame(uTrans); 
             } 
         }, {passive:false});
-        vp.addEventListener('touchend', () => { pan=false; delete vp.dataset.sd; }); 
-        vp.addEventListener('wheel', e => { 
-            e.preventDefault(); const rb = vp.getBoundingClientRect(), tx = (e.clientX-rb.left-pX)/sc, ty = (e.clientY-rb.top-pY)/sc; 
-            sc = e.deltaY<0 ? sc*1.1 : sc/1.1; chkBounds(); pX = (e.clientX-rb.left) - tx*sc; pY = (e.clientY-rb.top) - ty*sc; chkBounds();
+        DOM.vp.addEventListener('touchend', endPan); 
+        DOM.vp.addEventListener('wheel', e => { 
+            e.preventDefault(); const rb = DOM.vp.getBoundingClientRect(), tx = (e.clientX-rb.left-pX)/sc, ty = (e.clientY-rb.top-pY)/sc; 
+            sc *= e.deltaY<0 ? 1.1 : 0.9; chkBounds(); pX = (e.clientX-rb.left) - tx*sc; pY = (e.clientY-rb.top) - ty*sc; chkBounds();
             if(!reqFr) reqFr = requestAnimationFrame(uTrans); 
         }, {passive:false});
         
-        $('btn-reset-map').onclick = () => { sc = Math.min(vp.clientWidth/svgW, vp.clientHeight/svgH) * 0.95; chkBounds(); uTrans(); };
+        $('btn-reset-map').onclick = () => { sc = Math.min(DOM.vp.clientWidth/svgW, DOM.vp.clientHeight/svgH) * 0.95; chkBounds(); uTrans(); };
+        window.addEventListener('resize', () => { if(window.innerWidth !== DOM.vp.dataset.lw) { DOM.vp.dataset.lw = window.innerWidth; $('btn-reset-map').click(); } });
 
         fetch('salamanca.svg').then(r=>r.text()).then(h => { 
-            tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); 
-            try { const vb=s.viewBox.baseVal; if(vb.width) { svgW=vb.width; svgH=vb.height; } else { const b=s.getBBox(); svgW=b.width; svgH=b.height; } } catch(e){ svgW=1000; svgH=1000; }
-            g.id = 'labels-group'; g.className.baseVal = 'opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents = 'none'; s.appendChild(g); 
-            s.querySelectorAll('path, polygon').forEach((el,i) => { 
-                const id = el.id||`zona_${i}`; el.id = id; el.className.baseVal = 'muni anim-trans muni-base'; 
+            DOM.tLay.innerHTML = h; const s = DOM.tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); 
+            try { const vb=s.viewBox.baseVal; svgW=vb.width||1000; svgH=vb.height||1000; } catch(e){ svgW=1000; svgH=1000; }
+            g.id = 'labels-group'; g.setAttribute('class', 'opacity-0 transition-opacity duration-300 pointer-events-none'); s.style.pointerEvents = 'none'; s.appendChild(g); 
+            s.querySelectorAll('path, polygon').forEach(el => { 
+                const id = el.id||`zona_${Math.random()}`; el.id = id; el.setAttribute('class', 'muni anim-trans muni-base'); 
                 try { 
                     const b = el.getBBox(); 
                     if(b.width>0) { 
@@ -310,126 +331,103 @@
                         g.appendChild(t); 
                     } 
                 } catch(e){} 
-                el.onclick = e => { if(isMov) return; e.stopPropagation(); selMuni(id); }; 
+                el.onclick = e => { if(!isMov) { e.stopPropagation(); window.selMuni(id); } }; 
             }); 
             lgEl = g; mLbls = Array.from(g.querySelectorAll('.muni-label'));
             $('btn-reset-map').click(); renderMap(); 
         });
 
         const renderMap = () => { 
-            Object.entries(dbData.municipalities).forEach(([id, d]) => { const e = $(id); if(e) { e.className.baseVal = `muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`; if(d.status==='unlocked' && id!==currMuni) e.parentNode.appendChild(e); } }); 
+            Object.entries(dbData.municipalities).forEach(([id, d]) => { const e = $(id); if(e) { e.setAttribute('class', `muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`); if(d.status==='unlocked' && id!==currMuni) e.parentNode.appendChild(e); } }); 
             if(currMuni && $(currMuni)) $(currMuni).parentNode.appendChild($(currMuni)); 
-            mLbls.forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); 
+            mLbls.forEach(l => l.textContent = (!dbData.municipalities[l.dataset.id]?.name || /^zona/i.test(dbData.municipalities[l.dataset.id].name)) ? '' : dbData.municipalities[l.dataset.id].name); 
             uLbls(); 
         };
         
-        const selMuni = id => { 
-            currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); 
-            iTit.innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); 
-            iEmp.classList.add('hidden'); iEvs.classList.remove('hidden'); 
+        window.selMuni = id => { 
+            currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = (m.name||id).replace(/_/g,' '); 
+            DOM.iTit.innerText = n; DOM.aMuniId.value = id; DOM.aMuniName.value = n; clrEv(); popEv(id); 
+            DOM.iEmp.classList.add('hidden'); DOM.iEvs.classList.remove('hidden'); 
             
             if(m.status === 'unlocked') { 
-                $('a-muni-status').value = 'unlocked'; iStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; 
-                let evHtml = '';
-                if(m.events) {
-                    Object.values(m.events).forEach(ev => { evHtml += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-white border-white/10 text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-solid fa-link text-sm mr-2"></i>ENLACE</a>`:'').join(''):''}${ev.embed?`<div class="mt-4 w-full rounded-xl overflow-hidden shadow-lg border border-white/10">${ev.embed}</div>`:''}</div>`; });
-                } else evHtml = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`;
-                iEvs.innerHTML = evHtml;
+                DOM.aMuniStat.value = 'unlocked'; DOM.iStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; 
+                DOM.iEvs.innerHTML = (m.events ? Object.values(m.events).map(ev => `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-white border-white/10 text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-solid fa-link text-sm mr-2"></i>ENLACE</a>`:'').join(''):''}${ev.embed?`<div class="mt-4 w-full rounded-xl overflow-hidden shadow-lg border border-white/10">${ev.embed}</div>`:''}</div>`).join('') : `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`) + `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`;
+                evalScripts(DOM.iEvs); // Restaurado el auto-arranque de Embeds interactivos
             } else { 
-                $('a-muni-status').value = 'locked'; iStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; 
-                iEvs.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; 
+                DOM.aMuniStat.value = 'locked'; DOM.iStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; 
+                DOM.iEvs.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p><a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`; 
             } 
-            iEvs.innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`; 
-            mobScroll(iAnc);
+            mobScroll(DOM.iAnc);
         };
 
-        $('search-muni').oninput = e => { 
-            const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; 
-            if(v.length<2) return rL.classList.add('hidden'); 
+        DOM.sMuni.oninput = e => { 
+            const v = e.target.value.toLowerCase().trim(); 
+            if(v.length<2) return DOM.sRes.classList.add('hidden'); 
             const m = Object.entries(dbData.municipalities).filter(([_,d])=>d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)).slice(0,5); 
-            rL.classList.remove('hidden'); 
-            if(m.length) {
-                m.forEach(([id,d]) => { 
-                    const li = document.createElement('li'); li.className = "px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans"; 
-                    li.innerHTML = `<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`; 
-                    li.onclick = () => { selMuni(id); $('search-muni').value=''; rL.classList.add('hidden'); }; rL.appendChild(li); 
-                }); 
-            } else rL.innerHTML = `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`; 
+            DOM.sRes.innerHTML = m.length ? m.map(([id,d]) => `<li class="px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans" onclick="document.getElementById('search-muni').value=''; document.getElementById('search-results').classList.add('hidden'); window.selMuni('${id}')"><i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}</li>`).join('') : `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`;
+            DOM.sRes.classList.remove('hidden'); 
         }; 
-        document.onclick = e => { if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
+        document.onclick = e => { if(!DOM.sMuni.contains(e.target)) DOM.sRes.classList.add('hidden'); };
 
         const renderMash = () => { 
-            const g = $('mashups-grid'); let html = ''; const e = Object.entries(dbData.mashups).sort(); 
-            if(!e.length) return g.innerHTML = '<p class="text-gray-500 text-xs p-2">Vacío</p>'; 
-            e.forEach(([_,d]) => html += `<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`); 
-            g.innerHTML = html;
+            const e = Object.entries(dbData.mashups).sort(); 
+            DOM.mGrid.innerHTML = e.length ? e.map(([_,d]) => `<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`).join('') : '<p class="text-gray-500 text-xs p-2">Vacío</p>';
         };
         
         window.selComp = id => { 
-            $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon')); 
-            $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon')); 
+            $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon')); $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon')); 
             const c = dbData.components[id]; if(!c) return; 
-            sEmp.classList.add('hidden'); sInfC.classList.remove('hidden');
-            sStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-djMagenta"></div><span class="text-djMagenta text-[10px] font-bold uppercase">COMPONENTE ACTIVO</span>`;
-            sTit.innerText = c.title; sDesc.innerText = c.desc; 
-            mobScroll(sAnc);
+            DOM.sEmp.classList.add('hidden'); DOM.sInfC.classList.remove('hidden');
+            DOM.sStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-djMagenta"></div><span class="text-djMagenta text-[10px] font-bold uppercase">COMPONENTE ACTIVO</span>`;
+            DOM.sTit.innerText = c.title; DOM.sDesc.innerText = c.desc; 
+            mobScroll(DOM.sAnc);
         };
         
-        const renderComp = () => { const ov = $('setup-svg'); ov.innerHTML = ''; if(actTab==='setup' && !$('admin-panel').classList.contains('hidden')) return; Object.entries(dbData.components).forEach(([id,c]) => { (c.figures||[]).forEach(f => { if(f.length>2) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("class",`comp-polygon anim-trans comp-id-${id}`); p.onclick = e => { e.stopPropagation(); selComp(id); }; ov.appendChild(p); } }); }); };
+        const renderComp = () => { DOM.sSvg.innerHTML = ''; if(actTab==='setup' && !DOM.aPan.classList.contains('hidden')) return; Object.entries(dbData.components).forEach(([id,c]) => { (c.figures||[]).forEach(f => { if(f.length>2) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("class",`comp-polygon anim-trans comp-id-${id}`); p.onclick = e => { e.stopPropagation(); window.selComp(id); }; DOM.sSvg.appendChild(p); } }); }); };
 
-        let cc=0; $('site-title').onclick = () => { if(++cc>=3 && prompt("Pass:")==="1524") $('admin-panel').classList.remove('hidden'); setTimeout(()=>cc=0,800); };
-        $('btn-close-admin').onclick = () => { $('admin-panel').classList.add('hidden'); toggleAdminMode(false); };
-        let drA = false, dX, dY, dL, dT; $('admin-header').onmousedown = e => { if(e.target.closest('button')) return; drA=true; dX=e.clientX; dY=e.clientY; const r=$('admin-panel').getBoundingClientRect(); dL=r.left; dT=r.top; }; window.addEventListener('mousemove', e => { if(drA) { $('admin-panel').style.left = `${dL+(e.clientX-dX)}px`; $('admin-panel').style.top = `${dT+(e.clientY-dY)}px`; }}); window.addEventListener('mouseup', () => drA=false);
-        ['tour','setup','mashups'].forEach(t => $(`tab-${t}`).onclick = () => { actTab=t; ['tour','setup','mashups'].forEach(o => { $(`tab-${o}`).className = o===t ? `flex-1 py-3.5 text-${{tour:'djCyan',setup:'djMagenta',mashups:'djYellow'}[t]} border-b-2 border-current anim-trans` : 'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white anim-trans'; $(`sec-a-${o}`).classList[o===t?'remove':'add']('hidden'); }); toggleAdminMode(t==='setup'); });
+        let cc=0; $('site-title').onclick = () => { if(++cc>=3 && prompt("Pass:")==="1524") DOM.aPan.classList.remove('hidden'); setTimeout(()=>cc=0,800); };
+        $('btn-close-admin').onclick = () => { DOM.aPan.classList.add('hidden'); toggleAdminMode(false); };
+        let drA = false, dX, dY, dL, dT; $('admin-header').onmousedown = e => { if(e.target.closest('button')) return; drA=true; dX=e.clientX; dY=e.clientY; const r=DOM.aPan.getBoundingClientRect(); dL=r.left; dT=r.top; }; window.addEventListener('mousemove', e => { if(drA) { DOM.aPan.style.left = `${dL+(e.clientX-dX)}px`; DOM.aPan.style.top = `${dT+(e.clientY-dY)}px`; }}); window.addEventListener('mouseup', () => drA=false);
+        ['tour','setup','mashups'].forEach(t => $(`tab-${t}`).onclick = () => { actTab=t; ['tour','setup','mashups'].forEach(o => { $(`tab-${o}`).className = o===t ? `flex-1 py-3.5 text-dj${{tour:'Cyan',setup:'Magenta',mashups:'Yellow'}[t]} border-b-2 border-current anim-trans` : 'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white anim-trans'; $(`sec-a-${o}`).classList.toggle('hidden', o!==t); }); toggleAdminMode(t==='setup'); });
 
-        const toggleAdminMode = act => { $('setup-img').classList[act?'add':'remove']('admin-setup-mode'); $('admin-hint').classList[act?'remove':'add']('hidden'); $('admin-pts').classList[act?'remove':'add']('hidden'); act ? renderAdminPts() : renderComp(); };
+        const toggleAdminMode = act => { $('admin-hint').classList.toggle('hidden', !act); DOM.aPts.classList.toggle('hidden', !act); act ? renderAdminPts() : renderComp(); };
         
         window.delEv = (mid, eid) => { if(confirm('¿Borrar fecha?')) remove(ref(db, `municipalities/${mid}/events/${eid}`)); };
-        window.edEv = (mid, eid) => { const ev = dbData.municipalities[mid].events[eid]; $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; $('a-ev-embed').value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); }; 
-        const popEv = id => { 
-            const m = dbData.municipalities[id], l = $('a-ev-list'); let html = ''; 
-            if(m?.events) Object.entries(m.events).forEach(([eid,ev]) => html+=`<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan anim-trans hover:scale-110" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 anim-trans hover:scale-110" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`); 
-            l.innerHTML = html; 
-        };
-        const clrEv = () => { ['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>$(i).value=''); $('a-ev-t').innerHTML='Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
+        window.edEv = (mid, eid) => { const ev = dbData.municipalities[mid].events[eid]; DOM.aEvId.value=eid; DOM.aEvP.value=ev.place; DOM.aEvD.value=ev.date; DOM.aEvDesc.value=ev.details||''; DOM.aEvM.value=ev.media||''; DOM.aEvEmb.value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); }; 
+        const popEv = id => { DOM.aEvList.innerHTML = dbData.municipalities[id]?.events ? Object.entries(dbData.municipalities[id].events).map(([eid,ev]) => `<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan anim-trans hover:scale-110" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 anim-trans hover:scale-110" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : ''; };
+        const clrEv = () => { [DOM.aEvId, DOM.aEvP, DOM.aEvD, DOM.aEvDesc, DOM.aEvM, DOM.aEvEmb].forEach(i=>i.value=''); $('a-ev-t').innerHTML='Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
         $('btn-cl-ev').onclick = clrEv;
-        $('btn-sv-ev').onclick = () => { const id = $('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value; if(!id) return; update(ref(db, `municipalities/${id}`), {status:$('a-muni-status').value, name:$('a-muni-name').value||id}); if(p||eid) { const pd = {place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value, embed:$('a-ev-embed').value}; (eid?update(ref(db,`municipalities/${id}/events/${eid}`),pd):push(ref(db,`municipalities/${id}/events`),pd)).then(()=>{clrEv();selMuni(id);}); } else selMuni(id); };
+        $('btn-sv-ev').onclick = () => { const id = DOM.aMuniId.value, p=DOM.aEvP.value, eid=DOM.aEvId.value; if(!id) return; update(ref(db, `municipalities/${id}`), {status:DOM.aMuniStat.value, name:DOM.aMuniName.value||id}); if(p||eid) { const pd = {place:p, date:DOM.aEvD.value, details:DOM.aEvDesc.value, media:DOM.aEvM.value, embed:DOM.aEvEmb.value}; (eid?update(ref(db,`municipalities/${id}/events/${eid}`),pd):push(ref(db,`municipalities/${id}/events`),pd)).then(()=>{clrEv();window.selMuni(id);}); } else window.selMuni(id); };
 
         const updateDds = () => { 
-            const c=$('a-comp-sel'), m=$('a-mash-sel'), cv=c.value, mv=m.value; 
-            let ch='<option value="NEW">NUEVO COMPONENTE</option>', mh='<option value="NEW">NUEVO MASHUP</option>'; 
-            Object.entries(dbData.components).forEach(([id,d])=>ch+=`<option value="${id}">${d.title}</option>`); 
-            Object.entries(dbData.mashups).forEach(([id,d])=>mh+=`<option value="${id}">${d.title}</option>`); 
-            c.innerHTML=ch; m.innerHTML=mh; 
-            if(dbData.components[cv]) c.value=cv; if(dbData.mashups[mv]) m.value=mv; 
+            const cv=DOM.aCompSel.value, mv=DOM.aMashSel.value; 
+            DOM.aCompSel.innerHTML = '<option value="NEW">NUEVO COMPONENTE</option>' + Object.entries(dbData.components).map(([id,d])=>`<option value="${id}">${d.title}</option>`).join('');
+            DOM.aMashSel.innerHTML = '<option value="NEW">NUEVO MASHUP</option>' + Object.entries(dbData.mashups).map(([id,d])=>`<option value="${id}">${d.title}</option>`).join('');
+            if(dbData.components[cv]) DOM.aCompSel.value=cv; if(dbData.mashups[mv]) DOM.aMashSel.value=mv; 
         };
         
         const crDots = (pts, pEl, dc) => { pts.forEach((pt,i) => { const dt = document.createElement('div'); dt.className="absolute w-2 h-2 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50 cursor-grab active:cursor-grabbing"; dt.style.left=pt.x+'%'; dt.style.top=pt.y+'%'; const mm = e => { e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; pts[i]={x:parseFloat(x.toFixed(1)), y:parseFloat(y.toFixed(1))}; if(pEl) pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' ')); }; const mu = () => { window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); }; dt.onmousedown = e => { e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); }; dt.ontouchstart = e => { e.stopPropagation(); window.addEventListener('touchmove',mm,{passive:false}); window.addEventListener('touchend',mu); }; dc.appendChild(dt); }); };
         
         window.edFig = i => { if(cPts.length>2) cFigs.push([...cPts]); cPts=[...cFigs[i]]; cFigs.splice(i,1); renderAdminPts(); };
+        window.delFig = i => { cFigs.splice(i,1); renderAdminPts(); };
         const renderAdminPts = () => { 
-            const ul=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg'); 
-            dc.innerHTML=''; ov.innerHTML=''; let ulHtml=''; 
-            cFigs.forEach((f,i) => { 
-                const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); 
-                p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(66,230,245,0.2)"); p.setAttribute("stroke","#42e6f5"); p.setAttribute("stroke-width","0.5"); ov.appendChild(p); crDots(f,p,dc); 
-                ulHtml+=`<li class="flex justify-between items-center bg-black/40 p-2 rounded border border-white/5 text-[11px]">Figura ${i+1} (${f.length} nodos)<div class="flex gap-2"><button class="text-djCyan hover:scale-110 anim-trans" onclick="window.edFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:scale-110 anim-trans" onclick="cFigs.splice(${i},1);renderAdminPts()"><i class="fa-solid fa-trash"></i></button></div></li>`; 
-            }); 
-            ul.innerHTML = ulHtml; 
-            if(cPts.length) { 
-                const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", cPts.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(232,28,255,0.2)"); p.setAttribute("stroke","#e81cff"); p.setAttribute("stroke-width","0.5"); p.setAttribute("stroke-dasharray","1"); ov.appendChild(p); crDots(cPts,p,dc); 
-            } 
+            DOM.aPts.innerHTML=''; DOM.sSvg.innerHTML=''; 
+            DOM.aCompPts.innerHTML = cFigs.map((f,i) => { 
+                const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(66,230,245,0.2)"); p.setAttribute("stroke","#42e6f5"); p.setAttribute("stroke-width","0.5"); DOM.sSvg.appendChild(p); crDots(f,p,DOM.aPts); 
+                return `<li class="flex justify-between items-center bg-black/40 p-2 rounded border border-white/5 text-[11px]">Figura ${i+1} (${f.length} nodos)<div class="flex gap-2"><button class="text-djCyan hover:scale-110 anim-trans" onclick="window.edFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delFig(${i})"><i class="fa-solid fa-trash"></i></button></div></li>`; 
+            }).join(''); 
+            if(cPts.length) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", cPts.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(232,28,255,0.2)"); p.setAttribute("stroke","#e81cff"); p.setAttribute("stroke-width","0.5"); p.setAttribute("stroke-dasharray","1"); DOM.sSvg.appendChild(p); crDots(cPts,p,DOM.aPts); } 
         };
         
         $('btn-add-fig').onclick = () => { if(cPts.length>2) { cFigs.push([...cPts]); cPts=[]; renderAdminPts(); } else alert("Mínimo 3 nodos"); }; $('btn-cl-pts').onclick = () => { cPts=[]; renderAdminPts(); };
-        $('a-comp-sel').onchange = e => { const v=e.target.value; if(v==='NEW') { $('a-comp-t').value=''; $('a-comp-d').value=''; cFigs=[]; cPts=[]; $('btn-dl-cp').classList.add('hidden'); } else { const d=dbData.components[v]; $('a-comp-t').value=d.title; $('a-comp-d').value=d.desc; cFigs=d.figures?[...d.figures]:(d.points?[[...d.points]]:[]); cPts=[]; $('btn-dl-cp').classList.remove('hidden'); } renderAdminPts(); };
-        $('setup-wrapper').onclick = e => { if(actTab==='setup' && !$('admin-panel').classList.contains('hidden') && !e.target.classList.contains('admin-drag-dot')) { const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100; cPts.push({x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}); renderAdminPts(); } };
-        $('btn-sv-cp').onclick = () => { if(!$('a-comp-t').value) return; if(cPts.length>2) { cFigs.push([...cPts]); cPts=[]; } set(ref(db, `components/${$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value}`), {title:$('a-comp-t').value, desc:$('a-comp-d').value, figures:cFigs}); renderAdminPts(); };
-        $('btn-dl-cp').onclick = () => { if(confirm('¿Borrar componente?')) remove(ref(db, `components/${$('a-comp-sel').value}`)).then(()=>{ $('a-comp-sel').value='NEW'; $('a-comp-sel').dispatchEvent(new Event('change')); }); };
+        DOM.aCompSel.onchange = e => { const v=e.target.value; if(v==='NEW') { DOM.aCompT.value=''; DOM.aCompD.value=''; cFigs=[]; cPts=[]; $('btn-dl-cp').classList.add('hidden'); } else { const d=dbData.components[v]; DOM.aCompT.value=d.title; DOM.aCompD.value=d.desc; cFigs=d.figures?[...d.figures]:(d.points?[[...d.points]]:[]); cPts=[]; $('btn-dl-cp').classList.remove('hidden'); } renderAdminPts(); };
+        $('setup-wrapper').onclick = e => { if(actTab==='setup' && !DOM.aPan.classList.contains('hidden') && !e.target.classList.contains('admin-drag-dot')) { const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100; cPts.push({x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}); renderAdminPts(); } };
+        $('btn-sv-cp').onclick = () => { if(!DOM.aCompT.value) return; if(cPts.length>2) { cFigs.push([...cPts]); cPts=[]; } set(ref(db, `components/${DOM.aCompSel.value==='NEW'?`comp_${Date.now()}`:DOM.aCompSel.value}`), {title:DOM.aCompT.value, desc:DOM.aCompD.value, figures:cFigs}); renderAdminPts(); };
+        $('btn-dl-cp').onclick = () => { if(confirm('¿Borrar componente?')) remove(ref(db, `components/${DOM.aCompSel.value}`)).then(()=>{ DOM.aCompSel.value='NEW'; DOM.aCompSel.dispatchEvent(new Event('change')); }); };
 
-        $('a-mash-sel').onchange = e => { const v=e.target.value; if(v==='NEW') { ['a-mash-t','a-mash-dl','a-mash-sc'].forEach(id=>$(id).value=''); $('btn-dl-ms').classList.add('hidden'); } else { const d=dbData.mashups[v]; $('a-mash-t').value=d.title||''; $('a-mash-dl').value=d.dl||''; $('a-mash-sc').value=d.scUrl||''; $('btn-dl-ms').classList.remove('hidden'); } };
-        $('btn-sv-ms').onclick = async () => { const id = $('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value, t=$('a-mash-t').value; if(!t) return; const b=$('btn-sv-ms'); b.disabled=true; b.innerHTML="GUARDANDO..."; try { await set(ref(db, `mashups/${id}`), {title:t, dl:$('a-mash-dl').value, scUrl:$('a-mash-sc').value}); b.innerText="¡GUARDADO!"; setTimeout(()=>{b.innerText="GUARDAR TRACK"; b.disabled=false;},2000); } catch(e) { b.disabled=false; b.innerText="GUARDAR TRACK"; } };
-        $('btn-dl-ms').onclick = () => { if(confirm('¿Eliminar track?')) remove(ref(db, `mashups/${$('a-mash-sel').value}`)).then(()=>{ $('a-mash-sel').value='NEW'; $('a-mash-sel').dispatchEvent(new Event('change')); }); };
+        DOM.aMashSel.onchange = e => { const v=e.target.value; if(v==='NEW') { [DOM.aMashT, DOM.aMashDl, DOM.aMashSc].forEach(id=>id.value=''); $('btn-dl-ms').classList.add('hidden'); } else { const d=dbData.mashups[v]; DOM.aMashT.value=d.title||''; DOM.aMashDl.value=d.dl||''; DOM.aMashSc.value=d.scUrl||''; $('btn-dl-ms').classList.remove('hidden'); } };
+        $('btn-sv-ms').onclick = async () => { const id = DOM.aMashSel.value==='NEW'?`mash_${Date.now()}`:DOM.aMashSel.value, t=DOM.aMashT.value; if(!t) return; const b=$('btn-sv-ms'); b.disabled=true; b.innerHTML="GUARDANDO..."; try { await set(ref(db, `mashups/${id}`), {title:t, dl:DOM.aMashDl.value, scUrl:DOM.aMashSc.value}); b.innerText="¡GUARDADO!"; setTimeout(()=>{b.innerText="GUARDAR TRACK"; b.disabled=false;},2000); } catch(e) { b.disabled=false; b.innerText="GUARDAR TRACK"; } };
+        $('btn-dl-ms').onclick = () => { if(confirm('¿Eliminar track?')) remove(ref(db, `mashups/${DOM.aMashSel.value}`)).then(()=>{ DOM.aMashSel.value='NEW'; DOM.aMashSel.dispatchEvent(new Event('change')); }); };
     </script>
 </body>
 </html>
