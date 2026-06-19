@@ -85,7 +85,9 @@
         </header>
     </div>
 
-    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-28 lg:h-[70vh] min-h-[600px]">
+    <!-- SECCIÓN TOUR -->
+    <!-- scroll-mt-40 proporciona un espaciado amplio por encima del contenedor -->
+    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[600px]">
         <section class="flex-[2] flex flex-col gap-4 relative h-full">
             <div class="glass-panel anim-trans p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20 shrink-0">
                 <h2 class="font-display font-black text-xl text-white uppercase whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
@@ -101,7 +103,7 @@
             </div>
         </section>
         
-        <aside id="info-anchor" class="flex-1 glass-panel anim-trans flex flex-col h-full overflow-hidden">
+        <aside id="info-anchor" class="flex-1 glass-panel anim-trans flex flex-col h-full overflow-hidden scroll-mt-32">
             <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent shrink-0">
                 <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">GIRA OFICIAL</h3>
                 <div id="info-status" class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Selecciona municipio</span></div>
@@ -111,22 +113,14 @@
         </aside>
     </main>
 
-    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-28 flex flex-col">
+    <!-- SECCIÓN EQUIPO DJ -->
+    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40 flex flex-col">
         <div class="glass-panel anim-trans p-4 px-6 mb-6 inline-flex items-center self-start"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
         
         <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:h-[70vh] min-h-[500px]">
-            <section class="flex-[2] glass-panel anim-trans p-4 flex justify-center items-center relative overflow-hidden h-full">
-                <div class="relative w-full h-full flex justify-center items-center">
-                    <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block bg-black/20 rounded-xl border border-white/5 select-none touch-none overflow-hidden">
-                        <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[65vh] object-contain block" id="setup-img" draggable="false">
-                        <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></svg>
-                        <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
-                    </div>
-                </div>
-                <p id="admin-hint" class="absolute bottom-4 left-6 text-djMagenta text-[10px] hidden font-bold tracking-widest uppercase bg-black/90 px-5 py-2.5 rounded-full border border-djMagenta/30 z-50">MODO EDICIÓN: Crea/Edita figuras</p>
-            </section>
-
-            <aside class="flex-1 glass-panel anim-trans flex flex-col h-full overflow-hidden">
+            
+            <!-- Hardware Info Panel (AHORA ORDENADO A LA IZQUIERDA EN DESKTOP) -->
+            <aside id="setup-info-anchor" class="flex-1 order-2 lg:order-1 glass-panel anim-trans flex flex-col h-full overflow-hidden scroll-mt-32">
                 <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent shrink-0">
                     <h3 class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">HARDWARE</h3>
                     <div id="setup-status" class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Selecciona componente</span></div>
@@ -140,10 +134,24 @@
                 
                 <div id="setup-empty" class="flex-grow flex flex-col items-center justify-center p-12 text-gray-600 text-center"><i class="fa-solid fa-plug text-6xl mb-6 opacity-20"></i><p class="text-sm font-medium">Interactúa con el equipo para<br>ver sus especificaciones.</p></div>
             </aside>
+
+            <!-- Interactive Visual Panel (AHORA ORDENADO A LA DERECHA EN DESKTOP) -->
+            <section class="flex-[2] order-1 lg:order-2 glass-panel anim-trans p-4 flex justify-center items-center relative overflow-hidden h-full">
+                <div class="relative w-full h-full flex justify-center items-center">
+                    <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block bg-black/20 rounded-xl border border-white/5 select-none touch-none overflow-hidden">
+                        <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[65vh] object-contain block" id="setup-img" draggable="false">
+                        <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></svg>
+                        <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
+                    </div>
+                </div>
+                <p id="admin-hint" class="absolute bottom-4 left-6 text-djMagenta text-[10px] hidden font-bold tracking-widest uppercase bg-black/90 px-5 py-2.5 rounded-full border border-djMagenta/30 z-50">MODO EDICIÓN: Crea/Edita figuras</p>
+            </section>
+
         </div>
     </div>
 
-    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-28">
+    <!-- SECCIÓN MASHUPS -->
+    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
         <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups & Edits</h2></div>
         <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </div>
@@ -155,11 +163,13 @@
         <a href="https://youtube.com/@vaquerodj" target="_blank" class="social-icon anim-trans social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
     </footer>
 
+    <!-- Botón Flotante Navegación -->
     <a id="btn-next-sec" href="#sec-setup" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[50] glass-panel anim-trans py-2.5 px-4 flex items-center gap-2.5 border-white/10 hover:border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:scale-105 active:scale-95 group backdrop-blur-2xl">
         <span class="text-gray-400 group-hover:text-white text-[10px] font-bold uppercase tracking-wider transition-colors hidden sm:block">Siguiente</span>
         <span id="next-sec-name" class="text-djMagenta transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs">Equipo <i class="fa-solid fa-headphones ml-1"></i></span>
     </a>
 
+    <!-- ADMIN PANEL -->
     <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col">
         <div id="admin-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
             <div class="flex items-center gap-2.5"><div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div><span class="text-white font-display font-black text-xs tracking-widest pointer-events-none">CONSOLE</span></div>
@@ -256,10 +266,21 @@
 
         const chkBounds = () => {
             if(!svgW) return;
-            const r = vp.getBoundingClientRect(), minS = Math.max(r.width/svgW, r.height/svgH);
+            const r = vp.getBoundingClientRect(), minS = Math.min(r.width/svgW, r.height/svgH) * 0.9;
             if(sc < minS) sc = minS; if(sc > 10) sc = 10;
-            pX = Math.min(0, Math.max(r.width - svgW*sc, pX));
-            pY = Math.min(0, Math.max(r.height - svgH*sc, pY));
+            
+            // Centrado inteligente: si el mapa es más pequeño que el contenedor, se queda en el centro.
+            if(svgW * sc <= r.width) {
+                pX = (r.width - svgW * sc) / 2;
+            } else {
+                pX = Math.min(0, Math.max(r.width - svgW * sc, pX));
+            }
+            
+            if(svgH * sc <= r.height) {
+                pY = (r.height - svgH * sc) / 2;
+            } else {
+                pY = Math.min(0, Math.max(r.height - svgH * sc, pY));
+            }
         };
 
         const uTrans = () => { tLay.style.transform = `translate(${pX}px, ${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
@@ -283,7 +304,13 @@
             sc = e.deltaY<0 ? sc*1.1 : sc/1.1; chkBounds(); pX = (e.clientX-rb.left) - tx*sc; pY = (e.clientY-rb.top) - ty*sc; chkBounds();
             if(!reqFr) reqFr = requestAnimationFrame(uTrans); 
         }, {passive:false});
-        $('btn-reset-map').onclick = () => { const r = vp.getBoundingClientRect(); sc = Math.max(r.width/svgW, r.height/svgH); pX = (r.width - svgW*sc)/2; pY = (r.height - svgH*sc)/2; chkBounds(); uTrans(); };
+        
+        $('btn-reset-map').onclick = () => { 
+            const r = vp.getBoundingClientRect(); 
+            sc = Math.min(r.width/svgW, r.height/svgH) * 0.95; // Un ligero margen de respiro
+            chkBounds(); // chkBounds ahora se encarga de centrarlo si es menor que el width/height
+            uTrans(); 
+        };
 
         fetch('salamanca.svg').then(r=>r.text()).then(h => { 
             tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); 
@@ -299,7 +326,6 @@
                         t.setAttribute("class","muni-label transition-opacity duration-200"); 
                         t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle'); 
                         t.setAttribute('font-family',"'Montserrat',sans-serif"); 
-                        // FIX MAP LEGIBILITY: Replace simple text-shadow with a solid bold stroke
                         t.setAttribute('style','paint-order: stroke fill; stroke: #000000; stroke-width: 3.5px; stroke-linejoin: round; text-transform:uppercase; pointer-events:none;'); 
                         g.appendChild(t); 
                     } 
@@ -310,13 +336,32 @@
         });
 
         const renderMap = () => { Object.entries(dbData.municipalities).forEach(([id, d]) => { const e = $(id); if(e) { e.className.baseVal = `muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`; if(d.status==='unlocked' && id!==currMuni) e.parentNode.appendChild(e); } }); if(currMuni && $(currMuni)) $(currMuni).parentNode.appendChild($(currMuni)); $$('.muni-label').forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
-        const selMuni = id => { currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); $('info-title').innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); $('info-empty').classList.add('hidden'); const iEv = $('info-events'); iEv.classList.remove('hidden'); iEv.innerHTML = ''; if(m.status === 'unlocked') { $('a-muni-status').value = 'unlocked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; if(m.events) Object.values(m.events).forEach(ev => iEv.innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-white border-white/10 text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-solid fa-link text-sm mr-2"></i>ENLACE</a>`:'').join(''):''}${ev.embed?`<div class="mt-4 w-full rounded-xl overflow-hidden shadow-lg border border-white/10">${ev.embed}</div>`:''}</div>`); else iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`; } else { $('a-muni-status').value = 'locked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; } iEv.innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`; };
+        
+        const selMuni = id => { 
+            currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); 
+            $('info-title').innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); 
+            $('info-empty').classList.add('hidden'); const iEv = $('info-events'); iEv.classList.remove('hidden'); iEv.innerHTML = ''; 
+            
+            if(m.status === 'unlocked') { 
+                $('a-muni-status').value = 'unlocked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; 
+                if(m.events) Object.values(m.events).forEach(ev => iEv.innerHTML += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-white border-white/10 text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-solid fa-link text-sm mr-2"></i>ENLACE</a>`:'').join(''):''}${ev.embed?`<div class="mt-4 w-full rounded-xl overflow-hidden shadow-lg border border-white/10">${ev.embed}</div>`:''}</div>`); 
+                else iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`; 
+            } else { 
+                $('a-muni-status').value = 'locked'; $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; 
+                iEv.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; 
+            } 
+            iEv.innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`; 
+            
+            // Auto-scroll en dispositivos móviles
+            if (window.innerWidth < 1024) {
+                $('info-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
 
-        $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if(v.length<2) return rL.classList.add('hidden'); const m = Object.entries(dbData.municipalities).filter(([_,d])=>d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)).slice(0,5); rL.classList.remove('hidden'); if(m.length) m.forEach(([id,d]) => { const li = document.createElement('li'); li.className = "px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans"; li.innerHTML = `<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`; li.onclick = () => { selMuni(id); window.scrollTo({top: $('info-anchor').getBoundingClientRect().top+window.pageYOffset-140, behavior:'smooth'}); $('search-muni').value=''; rL.classList.add('hidden'); }; rL.appendChild(li); }); else rL.innerHTML = `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`; }; document.onclick = e => { if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
+        $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if(v.length<2) return rL.classList.add('hidden'); const m = Object.entries(dbData.municipalities).filter(([_,d])=>d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)).slice(0,5); rL.classList.remove('hidden'); if(m.length) m.forEach(([id,d]) => { const li = document.createElement('li'); li.className = "px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans"; li.innerHTML = `<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`; li.onclick = () => { selMuni(id); $('search-muni').value=''; rL.classList.add('hidden'); }; rL.appendChild(li); }); else rL.innerHTML = `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`; }; document.onclick = e => { if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
 
         const renderMash = () => { const g = $('mashups-grid'); g.innerHTML = ''; const e = Object.entries(dbData.mashups).sort(); if(!e.length) return g.innerHTML = '<p class="text-gray-500 text-xs p-2">Vacío</p>'; e.forEach(([_,d]) => g.innerHTML += `<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`); };
         
-        // FIX EQUIPMENT PANEL: Link click event to the new layout
         window.selComp = id => { 
             $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon')); 
             $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon')); 
@@ -327,6 +372,11 @@
             $('setup-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djMagenta"></div><span class="text-djMagenta text-[10px] font-bold uppercase">COMPONENTE ACTIVO</span>`;
             $('setup-t').innerText = c.title; 
             $('setup-d').innerText = c.desc; 
+            
+            // Auto-scroll en dispositivos móviles
+            if (window.innerWidth < 1024) {
+                $('setup-info-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         };
         
         const renderComp = () => { const ov = $('setup-svg'); ov.innerHTML = ''; if(actTab==='setup' && !$('admin-panel').classList.contains('hidden')) return; Object.entries(dbData.components).forEach(([id,c]) => { (c.figures||[]).forEach(f => { if(f.length>2) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("class",`comp-polygon anim-trans comp-id-${id}`); p.onclick = e => { e.stopPropagation(); selComp(id); }; ov.appendChild(p); } }); }); };
