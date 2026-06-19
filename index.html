@@ -12,48 +12,48 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#06070a',djPanel:
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
 <style>
-body{background-color:#06070a;color:#fff;overflow-x:hidden;font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent}
-.anim-trans{transition:all .3s ease}
-.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
-.ambient-glow{position:absolute;border-radius:50%;animation:floatGlow 15s infinite alternate ease-in-out}
-.glow-1{top:-10%;left:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(66,230,245,.04) 0%,transparent 70%)}
-.glow-2{bottom:-10%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(232,28,255,.04) 0%,transparent 70%);animation-direction:alternate-reverse}
-@keyframes floatGlow{0%{transform:translate(0,0) scale(1)}100%{transform:translate(5%,5%) scale(1.1)}}
-.glass-panel{background:rgba(15,18,25,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.04);border-radius:24px}
-.glass-panel:hover{border-color:rgba(255,255,255,.08);box-shadow:0 20px 40px rgba(0,0,0,.6)}
-.premium-title{font-family:'Montserrat',sans-serif;font-weight:900;background:linear-gradient(135deg,#fff 30%,#a1a1aa 100%);-webkit-background-clip:text;color:transparent}
-.premium-title span{color:#42e6f5;text-shadow:0 0 30px rgba(66,230,245,.5)}
-.social-icon{display:flex;align-items:center;justify-content:center;width:46px;height:46px;background:rgba(255,255,255,.02);border-radius:50%;color:#a1a1aa;border:1px solid rgba(255,255,255,.05)}
-.social-icon:hover,.social-icon:active{color:#fff;transform:translateY(-4px) scale(1.05)}
-.social-ig:hover,.social-ig:active{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 10px 20px rgba(220,39,67,.3)}
-.social-tk:hover,.social-tk:active{background:#000;border-color:#42e6f5;box-shadow:0 10px 20px rgba(66,230,245,.2)}
-.social-sc:hover,.social-sc:active{background:#ff5500;box-shadow:0 10px 20px rgba(255,85,0,.3)}
-.social-yt:hover,.social-yt:active{background:#f00;box-shadow:0 10px 20px rgba(255,0,0,.3)}
-.zoom-layer{width:100%;height:100%;transform-origin:0 0;touch-action:none}
-.zoom-layer svg{width:100%;height:100%;shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
-path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
-.muni{cursor:pointer;pointer-events:all;stroke-width:1px!important}
-.muni-base{fill:#0d1014;stroke:rgba(255,255,255,.15)}
-.muni-base:hover{fill:#1a202a;stroke:rgba(255,255,255,.3)}
-.muni-base.muni-selected{fill:#0d1e26;stroke:#42e6f5;filter:drop-shadow(0 0 5px rgba(66,230,245,.3))}
-.muni-unlocked{fill:#143d4a;stroke:#42e6f5}
-.muni-unlocked:hover{fill:rgba(66,230,245,.4)}
-.muni-unlocked.muni-selected{fill:#42e6f5;stroke:#fff;filter:drop-shadow(0 0 10px rgba(66,230,245,.6))}
-.comp-polygon{fill:rgba(232,28,255,.04);stroke:rgba(232,28,255,.25);stroke-width:.5px;cursor:pointer;pointer-events:auto}
-.comp-polygon:hover,.hotspot-active{fill:rgba(232,28,255,.25);stroke:#e81cff;stroke-width:1.5px;filter:drop-shadow(0 0 8px rgba(232,28,255,.6))}
-.animate-neon{animation:neonPulse 2s infinite ease-in-out}
-@keyframes neonPulse{0%,100%{filter:drop-shadow(0 0 3px rgba(66,230,245,.4))}50%{filter:drop-shadow(0 0 10px rgba(66,230,245,.8))}}
-.nav-link{color:#8a8d93;font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:800;text-transform:uppercase;cursor:pointer;position:relative;transition:all .3s ease;display:inline-block;line-height:1}
-.nav-link:hover,.nav-link:active,.nav-link.active{color:#fff;text-shadow:0 0 10px rgba(255,255,255,.3)}
-.nav-link::after{content:'';position:absolute;width:0;height:2px;bottom:-5px;left:0;background-color:#42e6f5;transition:width .3s cubic-bezier(.4,0,.2,1)}
-.nav-link:hover::after,.nav-link:active::after,.nav-link.active::after{width:100%}
-.admin-drag-dot{touch-action:none;z-index:50;cursor:grab}
-.admin-drag-dot:active{cursor:grabbing}
-.admin-input{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);padding:.625rem;color:#fff;border-radius:.5rem;font-size:.875rem;outline:none;transition:all .2s}
-.admin-input:focus{border-color:rgba(255,255,255,.3)}
-@media(max-width:767px){
-.hide-on-scroll{transition:max-height .4s ease,opacity .4s ease,margin .4s ease;max-height:150px;opacity:1;overflow:visible}
-.hide-on-scroll.collapsed{max-height:0!important;opacity:0!important;margin:0!important;padding:0!important;overflow:hidden!important;border:none!important;pointer-events:none}
+body { background-color: #06070a; color: #fff; overflow-x: hidden; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+.anim-trans { transition: all 0.3s ease; }
+.ambient-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.ambient-glow { position: absolute; border-radius: 50%; animation: floatGlow 15s infinite alternate ease-in-out; filter: blur(80px); }
+.glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(66,230,245,0.06) 0%, transparent 70%); }
+.glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(232,28,255,0.06) 0%, transparent 70%); animation-direction: alternate-reverse; }
+@keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(5%, 5%) scale(1.1); } }
+.glass-panel { background: rgba(15,18,25,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.04); border-radius: 24px; }
+.glass-panel:hover { border-color: rgba(255,255,255,0.08); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+.premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; background: linear-gradient(135deg, #fff 30%, #a1a1aa 100%); -webkit-background-clip: text; color: transparent; }
+.premium-title span { color: #42e6f5; text-shadow: 0 0 30px rgba(66,230,245,0.5); }
+.social-icon { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; background: rgba(255,255,255,0.02); border-radius: 50%; color: #a1a1aa; border: 1px solid rgba(255,255,255,0.05); }
+.social-icon:hover, .social-icon:active { color: #fff; transform: translateY(-4px) scale(1.05); }
+.social-ig:hover { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); box-shadow: 0 10px 20px rgba(220,39,67,0.3); }
+.social-tk:hover { background: #000; border-color: #42e6f5; box-shadow: 0 10px 20px rgba(66,230,245,0.2); }
+.social-sc:hover { background: #ff5500; box-shadow: 0 10px 20px rgba(255,85,0,0.3); }
+.social-yt:hover { background: #f00; box-shadow: 0 10px 20px rgba(255,0,0,0.3); }
+.zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
+.zoom-layer svg { width: 100%; height: 100%; shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
+path, polygon { vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
+.muni { cursor: pointer; pointer-events: all; stroke-width: 1px !important; }
+.muni-base { fill: #0d1014; stroke: rgba(255,255,255,0.15); }
+.muni-base:hover { fill: #1a202a; stroke: rgba(255,255,255,0.3); }
+.muni-base.muni-selected { fill: #0d1e26; stroke: #42e6f5; filter: drop-shadow(0 0 5px rgba(66,230,245,0.3)); }
+.muni-unlocked { fill: #143d4a; stroke: #42e6f5; }
+.muni-unlocked:hover { fill: rgba(66,230,245,0.4); }
+.muni-unlocked.muni-selected { fill: #42e6f5; stroke: #fff; filter: drop-shadow(0 0 10px rgba(66,230,245,0.6)); }
+.comp-polygon { fill: rgba(232,28,255,0.04); stroke: rgba(232,28,255,0.25); stroke-width: 0.5px; cursor: pointer; pointer-events: auto; }
+.comp-polygon:hover, .hotspot-active { fill: rgba(232,28,255,0.25); stroke: #e81cff; stroke-width: 1.5px; filter: drop-shadow(0 0 8px rgba(232,28,255,0.6)); }
+.animate-neon { animation: neonPulse 2s infinite ease-in-out; }
+@keyframes neonPulse { 0%, 100% { filter: drop-shadow(0 0 3px rgba(66,230,245,0.4)); } 50% { filter: drop-shadow(0 0 10px rgba(66,230,245,0.8)); } }
+.nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; cursor: pointer; position: relative; transition: all 0.3s ease; display: inline-block; line-height: 1; }
+.nav-link:hover, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+.nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background-color: #42e6f5; transition: width 0.3s cubic-bezier(0.4,0,0.2,1); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+.admin-drag-dot { touch-action: none; z-index: 50; cursor: grab; }
+.admin-drag-dot:active { cursor: grabbing; }
+.admin-input { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 0.625rem; color: #fff; border-radius: 0.5rem; font-size: 0.875rem; outline: none; transition: all 0.2s; }
+.admin-input:focus { border-color: rgba(255,255,255,0.3); }
+@media(max-width: 767px) {
+  .hide-on-scroll { transition: max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease; max-height: 150px; opacity: 1; overflow: visible; }
+  .hide-on-scroll.collapsed { max-height: 0 !important; opacity: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; pointer-events: none; }
 }
 </style>
 </head>
@@ -61,13 +61,13 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
 
 <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
 
-<div id="hdr-wrapper" class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl pt-4 pb-4 md:pt-6 md:pb-6 transition-all duration-300 ease-out" style="-webkit-backdrop-filter:blur(24px)">
+<div id="hdr-wrapper" class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl py-4 md:py-6 transition-all duration-300 ease-out">
   <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
     <div class="text-center md:text-left hide-on-scroll">
       <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform cursor-pointer">DJ <span>Vaquero</span></h1>
     </div>
     <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto justify-center md:justify-end">
-      <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-8 pt-[16px] pb-[12px] sm:pt-[18px] sm:pb-[14px] rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)">
+      <nav class="flex items-center justify-center gap-5 sm:gap-8 bg-white/[0.03] px-6 py-3 md:px-8 md:py-4 rounded-full border border-white/5 shadow-2xl order-2 sm:order-1 text-[11px] md:text-sm anim-trans z-50 relative backdrop-blur-2xl">
         <a href="#sec-tour" class="nav-link anim-trans active">Tour</a>
         <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
         <a href="#sec-mashups" class="nav-link anim-trans">Mashups</a>
@@ -82,8 +82,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </header>
 </div>
 
-<!-- SALAMANCA TOUR -->
-<main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[600px]">
+<main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-16 md:mt-24 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[75vh] min-h-[600px]">
   <section class="flex-[2] flex flex-col gap-4 relative h-full">
     <div class="glass-panel anim-trans p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20 shrink-0">
       <h2 class="font-display font-black text-xl text-white uppercase whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
@@ -109,10 +108,9 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </aside>
 </main>
 
-<!-- EQUIPO DJ -->
-<div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40 flex flex-col">
+<div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-16 md:mt-24 px-4 md:px-10 z-10 scroll-mt-40 flex flex-col">
   <div class="glass-panel anim-trans p-4 px-6 mb-6 inline-flex items-center self-start"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
-  <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:h-[70vh] min-h-[500px]">
+  <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:h-[75vh] min-h-[600px]">
     <aside id="setup-info-anchor" class="flex-1 order-2 lg:order-1 glass-panel anim-trans flex flex-col h-full overflow-hidden scroll-mt-32">
       <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent shrink-0">
         <h3 class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">COMPONENTE</h3>
@@ -138,8 +136,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </div>
 </div>
 
-<!-- MASHUPS -->
-<div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
+<div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-16 md:mt-24 px-4 md:px-10 z-10 scroll-mt-40">
   <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups &amp; Edits</h2></div>
   <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
 </div>
@@ -156,7 +153,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   <span id="next-sec-name" class="text-djMagenta transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs">Equipo <i class="fa-solid fa-headphones ml-1"></i></span>
 </a>
 
-<!-- ADMIN PANEL -->
 <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col">
   <div id="admin-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
     <div class="flex items-center gap-2.5"><div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div><span class="text-white font-display font-black text-xs tracking-widest pointer-events-none">CONSOLE</span></div>
@@ -168,8 +164,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
     <button id="tab-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">MASHUPS</button>
   </div>
   <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
-
-    <!-- TAB TOUR -->
     <div id="sec-a-tour" class="space-y-4">
       <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
       <input type="text" id="a-muni-name" placeholder="Nombre Visual" class="admin-input focus:border-djCyan">
@@ -188,8 +182,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
         </div>
       </div>
     </div>
-
-    <!-- TAB SETUP -->
     <div id="sec-a-setup" class="space-y-4 hidden">
       <select id="a-comp-sel" class="admin-input focus:border-djMagenta"><option value="NEW">NUEVO COMPONENTE</option></select>
       <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input focus:border-djMagenta">
@@ -209,8 +201,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
         <button id="btn-dl-cp" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden hover:bg-red-500/20 anim-trans">BORRAR</button>
       </div>
     </div>
-
-    <!-- TAB MASHUPS -->
     <div id="sec-a-mashups" class="space-y-4 hidden">
       <select id="a-mash-sel" class="admin-input focus:border-djYellow"><option value="NEW">NUEVO MASHUP</option></select>
       <input type="text" id="a-mash-t" placeholder="Título" class="admin-input focus:border-djYellow">
@@ -221,7 +211,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
         <button id="btn-dl-ms" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden hover:bg-red-500/20 anim-trans">BORRAR</button>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -234,33 +223,32 @@ const db = getDatabase(app);
 const $ = id => document.getElementById(id);
 const $$ = q => document.querySelectorAll(q);
 
-// ── Estado global ──────────────────────────────────────────────────────────
+// Estado global y dimensiones base
 let dbData = { municipalities:{}, components:{}, mashups:{} };
 let currMuni = null, isMov = false, actTab = 'tour';
 let sc=1, pX=0, pY=0, reqFr=null, pan=false, sX=0, sY=0;
 let svgW=1000, svgH=1000, lgEl=null, mLbls=[];
-// Figuras guardadas del componente actual y figura en edición
-let cFigs=[], cPts=[], editFigIdx=-1; // editFigIdx = índice de cFigs que se está editando (-1 = nueva figura)
+let cFigs=[], cPts=[], editFigIdx=-1; 
 
-// ── Referencias DOM ─────────────────────────────────────────────────────────
-const vp     = $('tour-viewport'), tLay = $('tour-layer');
-const hw     = $('hdr-wrapper'),   hs   = $$('.hide-on-scroll');
-const nLks   = $$('.nav-link'),    bNext= $('btn-next-sec'), nn=$('next-sec-name');
-const iTit   = $('info-title'),    iEmp = $('info-empty'), iEvs=$('info-events'), iStat=$('info-status'), iAnc=$('info-anchor');
-const sEmp   = $('setup-empty'),   sInfC= $('setup-info-content'), sStat=$('setup-status'), sTit=$('setup-t'), sDesc=$('setup-d'), sAnc=$('setup-info-anchor');
-const sIds   = ['sec-tour','sec-setup','sec-mashups'];
-const sInf   = { 'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'}, 'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'}, 'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'} };
+const vp = $('tour-viewport'), tLay = $('tour-layer'), hw = $('hdr-wrapper'), hs = $$('.hide-on-scroll');
+const nLks = $$('.nav-link'), bNext= $('btn-next-sec'), nn=$('next-sec-name');
+const iTit = $('info-title'), iEmp = $('info-empty'), iEvs=$('info-events'), iStat=$('info-status'), iAnc=$('info-anchor');
+const sEmp = $('setup-empty'), sInfC= $('setup-info-content'), sStat=$('setup-status'), sTit=$('setup-t'), sDesc=$('setup-d'), sAnc=$('setup-info-anchor');
+const sIds = ['sec-tour','sec-setup','sec-mashups'];
+const sInf = { 
+  'sec-tour': { n:'sec-setup', t:'Equipo', i:'fa-headphones', c:'text-djMagenta' }, 
+  'sec-setup': { n:'sec-mashups', t:'Mashups', i:'fa-compact-disc', c:'text-djYellow' }, 
+  'sec-mashups': { n:'sec-tour', t:'Tour', i:'fa-map-location-dot', c:'text-djCyan' } 
+};
 
-// ── Utilidades ───────────────────────────────────────────────────────────────
 const mobScroll = el => { if(window.innerWidth<1024) el.scrollIntoView({behavior:'smooth',block:'start'}); };
 
-// ── Header scroll ────────────────────────────────────────────────────────────
 const toggleHdr = col => {
   if((hw.dataset.c==='1')===col) return;
   hw.dataset.c = col?'1':'';
   hs.forEach(e=>e.classList.toggle('collapsed',col));
-  hw.classList.replace(col?'pt-4':'pt-2', col?'pt-2':'pt-4');
-  hw.classList.replace(col?'pb-4':'pb-2', col?'pb-2':'pb-4');
+  hw.classList.replace(col?'py-4':'py-2', col?'py-2':'py-4');
+  hw.classList.replace(col?'md:py-6':'md:py-3', col?'md:py-3':'md:py-6');
 };
 
 const uNav = () => {
@@ -269,38 +257,40 @@ const uNav = () => {
   nLks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+c));
   const nx=sInf[c];
   if(bNext){ bNext.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; }
-  if(window.innerWidth<768){ if(sy>150) toggleHdr(true); else if(sy<50) toggleHdr(false); } else toggleHdr(false);
+  if(window.innerWidth<768) toggleHdr(sy>100); else toggleHdr(false);
 };
-window.addEventListener('scroll', uNav, {passive:true});
-window.addEventListener('load', uNav);
-uNav();
+window.addEventListener('scroll', uNav, {passive:true}); window.addEventListener('load', uNav);
 
-// ── Firebase: escuchar datos ──────────────────────────────────────────────────
+// Firebase listener optimizado asegurando objetos
 onValue(ref(db,'/'), s => {
-  dbData = s.val() || { municipalities:{}, components:{}, mashups:{} };
+  const val = s.val() || {};
+  dbData = { municipalities:{}, components:{}, mashups:{}, ...val };
   renderMap(); renderComp(); renderMash(); updateDds();
   const mId=$('a-muni-id').value; if(mId) popEv(mId);
 });
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// MAPA – PAN & ZOOM
-// ═══════════════════════════════════════════════════════════════════════════════
+// PAN & ZOOM
 const uLbls = () => {
   if(!lgEl) return;
   lgEl.className.baseVal = sc<2.2 ? 'opacity-0 transition-opacity duration-300 pointer-events-none' : 'opacity-100 transition-opacity duration-300 pointer-events-none';
   if(sc<2.2) return;
+  
   const fS=11/sc, vW=vp.clientWidth, vH=vp.clientHeight, r=vp.getBoundingClientRect(), occ=[];
-  mLbls.forEach(l => {
+  // Priorizar municipios iluminados en la superposición
+  const sortedLbls = [...mLbls].sort((a,b) => (dbData.municipalities[b.dataset.id]?.status==='unlocked'?1:0) - (dbData.municipalities[a.dataset.id]?.status==='unlocked'?1:0));
+
+  sortedLbls.forEach(l => {
     const m=dbData.municipalities[l.dataset.id];
     if(!m?.name||/^zona/i.test(m.name)) return void(l.style.opacity='0');
     const un=m.status==='unlocked';
     l.setAttribute('fill', un?'#42e6f5':'#ffffff');
-    l.setAttribute('font-size',`${un?fS*1.1:fS}px`);
+    l.setAttribute('font-size',`${un?fS*1.15:fS}px`);
     l.setAttribute('font-weight', un?'900':'700');
+    
     const br=l.getBoundingClientRect(), x=br.left-r.left+br.width/2, y=br.top-r.top+br.height/2;
     if(x<0||x>vW||y<0||y>vH) return void(l.style.opacity='0');
     const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
-    if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b);}else l.style.opacity='0';
+    if(!occ.some(o=>b.l-3<o.r&&b.r+3>o.l&&b.t-3<o.b&&b.b+3>o.t)){ l.style.opacity='1'; occ.push(b); } else l.style.opacity='0';
   });
 };
 
@@ -308,9 +298,11 @@ const chkBounds = () => {
   if(!svgW) return;
   const rW=vp.clientWidth, rH=vp.clientHeight;
   const minS=Math.min(rW/svgW, rH/svgH)*0.95;
-  if(sc<minS) sc=minS; if(sc>10) sc=10;
-  pX = svgW*sc<=rW ? (rW-svgW*sc)/2 : Math.min(0, Math.max(rW-svgW*sc, pX));
-  pY = svgH*sc<=rH ? (rH-svgH*sc)/2 : Math.min(0, Math.max(rH-svgH*sc, pY));
+  if(sc<minS) sc=minS; if(sc>15) sc=15;
+  // Margen amplio para que los bordes del mapa sean siempre accesibles
+  const marginX = rW * 0.4, marginY = rH * 0.4;
+  pX = Math.min(marginX, Math.max(rW - svgW*sc - marginX, pX));
+  pY = Math.min(marginY, Math.max(rH - svgH*sc - marginY, pY));
 };
 
 const uTrans = () => { tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
@@ -326,7 +318,7 @@ vp.addEventListener('touchmove', e=>{
   if(pan&&e.touches.length===1) mvPan(e.touches[0].clientX,e.touches[0].clientY);
   else if(e.touches.length===2){
     e.preventDefault();
-    const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY);
+    const t1=e.touches[0], t2=e.touches[1], d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY);
     const rb=vp.getBoundingClientRect(), mx=((t1.clientX+t2.clientX)/2)-rb.left, my=((t1.clientY+t2.clientY)/2)-rb.top;
     const tx=(mx-pX)/sc, ty=(my-pY)/sc;
     sc=sc*(d/(vp.dataset.sd||d)); vp.dataset.sd=d;
@@ -343,17 +335,15 @@ vp.addEventListener('wheel', e=>{
   if(!reqFr) reqFr=requestAnimationFrame(uTrans);
 },{passive:false});
 
-// Reset map: centrar y ajustar el SVG al viewport
 $('btn-reset-map').onclick = () => {
   if(!svgW) return;
   const rW=vp.clientWidth, rH=vp.clientHeight;
   sc = Math.min(rW/svgW, rH/svgH)*0.95;
-  pX = (rW - svgW*sc)/2;
-  pY = (rH - svgH*sc)/2;
+  pX = (rW - svgW*sc)/2; pY = (rH - svgH*sc)/2;
   if(!reqFr) reqFr=requestAnimationFrame(uTrans);
 };
 
-// ── Cargar SVG del mapa ───────────────────────────────────────────────────────
+// Carga SVG
 fetch('salamanca.svg').then(r=>r.text()).then(h=>{
   tLay.innerHTML=h;
   const s=tLay.querySelector('svg'), g=document.createElementNS("http://www.w3.org/2000/svg","g");
@@ -370,19 +360,17 @@ fetch('salamanca.svg').then(r=>r.text()).then(h=>{
         t.setAttribute("class","muni-label transition-opacity duration-200");
         t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
         t.setAttribute('font-family',"'Montserrat',sans-serif");
-        t.setAttribute('style','paint-order:stroke fill;stroke:#000;stroke-width:3.5px;stroke-linejoin:round;text-transform:uppercase;pointer-events:none');
+        t.setAttribute('style','paint-order:stroke fill;stroke:#000;stroke-width:4px;stroke-linejoin:round;text-transform:uppercase;pointer-events:none');
         g.appendChild(t);
       }
     } catch(e){}
     el.onclick=e=>{ if(isMov) return; e.stopPropagation(); selMuni(id); };
   });
   lgEl=g; mLbls=Array.from(g.querySelectorAll('.muni-label'));
-  // Centrar el mapa correctamente al cargar
-  $('btn-reset-map').click();
+  setTimeout(()=>$('btn-reset-map').click(), 100); // Retardo asegurando dimensiones pintadas
   renderMap();
 });
 
-// ── Render y selección de municipios ─────────────────────────────────────────
 const renderMap = () => {
   Object.entries(dbData.municipalities).forEach(([id,d])=>{
     const e=$(id); if(!e) return;
@@ -418,7 +406,6 @@ const selMuni = id => {
   mobScroll(iAnc);
 };
 
-// Búsqueda de municipios
 $('search-muni').oninput = e => {
   const v=e.target.value.toLowerCase().trim(), rL=$('search-results'); rL.innerHTML='';
   if(v.length<2) return rL.classList.add('hidden');
@@ -435,18 +422,14 @@ $('search-muni').oninput = e => {
 };
 document.onclick=e=>{ if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
 
-// ═══════════════════════════════════════════════════════════════════════════════
 // MASHUPS
-// ═══════════════════════════════════════════════════════════════════════════════
 const renderMash = () => {
   const g=$('mashups-grid'); const e=Object.entries(dbData.mashups).sort();
   if(!e.length) return void(g.innerHTML='<p class="text-gray-500 text-xs p-2">Vacío</p>');
   g.innerHTML=e.map(([_,d])=>`<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`).join('');
 };
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// EQUIPO DJ – Componentes
-// ═══════════════════════════════════════════════════════════════════════════════
+// EQUIPO
 window.selComp = id => {
   $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon'));
   $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon'));
@@ -473,19 +456,12 @@ const renderComp = () => {
   });
 };
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// ADMIN – Arrastrar puntos (nodos)
-// ═══════════════════════════════════════════════════════════════════════════════
+// ADMIN - Drag Nodos y Panel
 const crDot = (pts, idx, pEl, dc) => {
   const dt=document.createElement('div');
   dt.className="absolute w-2 h-2 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50 cursor-grab active:cursor-grabbing";
   dt.style.left=pts[idx].x+'%'; dt.style.top=pts[idx].y+'%';
-  // Click derecho en un nodo → eliminar nodo
-  dt.addEventListener('contextmenu', e => {
-    e.preventDefault(); e.stopPropagation();
-    pts.splice(idx,1);
-    renderAdminPts();
-  });
+  dt.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); pts.splice(idx,1); renderAdminPts(); });
   const mm=e=>{ e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}; if(pEl) pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' ')); };
   const mu=()=>{ window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); };
   dt.onmousedown=e=>{ e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); };
@@ -493,191 +469,89 @@ const crDot = (pts, idx, pEl, dc) => {
   dc.appendChild(dt);
 };
 
-// ── Render panel admin (figuras + nodos) ─────────────────────────────────────
 const renderAdminPts = () => {
   const figsUl=$('a-comp-figs'), ptsUl=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg');
   dc.innerHTML=''; ov.innerHTML='';
-
-  // Figuras guardadas
   figsUl.innerHTML=cFigs.map((f,i)=>{
     const isEd=editFigIdx===i;
-    return `<li class="flex justify-between items-center bg-black/40 p-2 rounded border ${isEd?'border-djMagenta/60':'border-white/5'} text-[11px]">
-      <span class="${isEd?'text-djMagenta':'text-white'}">Figura ${i+1} (${f.length} nodos)${isEd?' ✏️':''}</span>
-      <div class="flex gap-2">
-        <button class="text-djCyan hover:scale-110 anim-trans" onclick="window.editFig(${i})" title="Editar"><i class="fa-solid fa-pen"></i></button>
-        <button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delFig(${i})" title="Borrar"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </li>`;
+    return `<li class="flex justify-between items-center bg-black/40 p-2 rounded border ${isEd?'border-djMagenta/60':'border-white/5'} text-[11px]"><span class="${isEd?'text-djMagenta':'text-white'}">Figura ${i+1} (${f.length} nodos)${isEd?' ✏️':''}</span><div class="flex gap-2"><button class="text-djCyan hover:scale-110 anim-trans" onclick="window.editFig(${i})" title="Editar"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delFig(${i})" title="Borrar"><i class="fa-solid fa-trash"></i></button></div></li>`;
   }).join('');
-
-  // Dibujar figuras guardadas en SVG
   cFigs.forEach((f,i)=>{
     const p=document.createElementNS("http://www.w3.org/2000/svg","polygon");
     p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));
     p.setAttribute("fill","rgba(66,230,245,0.2)"); p.setAttribute("stroke","#42e6f5"); p.setAttribute("stroke-width","0.5");
-    ov.appendChild(p);
-    // Si es la figura en edición, mostrar sus nodos arrastrables
-    if(editFigIdx===i) f.forEach((_,ni)=>crDot(f,ni,p,dc));
+    ov.appendChild(p); if(editFigIdx===i) f.forEach((_,ni)=>crDot(f,ni,p,dc));
   });
-
-  // Figura en edición o figura borrador (nueva)
   if(cPts.length){
     const p=document.createElementNS("http://www.w3.org/2000/svg","polygon");
     p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));
     p.setAttribute("fill","rgba(232,28,255,0.2)"); p.setAttribute("stroke","#e81cff"); p.setAttribute("stroke-width","0.5"); p.setAttribute("stroke-dasharray","1");
-    ov.appendChild(p);
-    cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));
+    ov.appendChild(p); cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));
   }
-
-  // Lista de nodos de la figura en borrador
-  ptsUl.innerHTML = cPts.length
-    ? cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-2 py-1 rounded text-[10px] text-gray-300"><span>Nodo ${i+1}: ${pt.x}%, ${pt.y}%</span><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delNode(${i})" title="Borrar nodo"><i class="fa-solid fa-xmark"></i></button></li>`).join('')
-    : '<li class="text-[10px] text-gray-600 px-2 py-1">Sin nodos — click izquierdo en el setup para añadir</li>';
+  ptsUl.innerHTML = cPts.length ? cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-2 py-1 rounded text-[10px] text-gray-300"><span>Nodo ${i+1}: ${pt.x}%, ${pt.y}%</span><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delNode(${i})"><i class="fa-solid fa-xmark"></i></button></li>`).join('') : '<li class="text-[10px] text-gray-600 px-2 py-1">Sin nodos — click izquierdo en el setup para añadir</li>';
 };
 
-// Editar figura guardada (carga sus nodos en cPts)
-window.editFig = i => {
-  if(editFigIdx===i){ editFigIdx=-1; cPts=[]; } // toggle: si ya está editando, cancelar
-  else { editFigIdx=i; cPts=[...cFigs[i]]; cFigs[i]=cPts; } // compartir referencia para que el drag actualice
-  renderAdminPts();
-};
-
-// Borrar figura guardada
-window.delFig = i => {
-  if(!confirm('¿Borrar figura?')) return;
-  cFigs.splice(i,1);
-  if(editFigIdx===i){ editFigIdx=-1; cPts=[]; }
-  else if(editFigIdx>i) editFigIdx--;
-  renderAdminPts();
-};
-
-// Borrar nodo del borrador
+window.editFig = i => { if(editFigIdx===i){ editFigIdx=-1; cPts=[]; } else { editFigIdx=i; cPts=[...cFigs[i]]; cFigs[i]=cPts; } renderAdminPts(); };
+window.delFig = i => { if(!confirm('¿Borrar figura?')) return; cFigs.splice(i,1); if(editFigIdx===i){ editFigIdx=-1; cPts=[]; } else if(editFigIdx>i) editFigIdx--; renderAdminPts(); };
 window.delNode = i => { cPts.splice(i,1); renderAdminPts(); };
 
-// Guardar figura borrador
-$('btn-add-fig').onclick = () => {
-  if(cPts.length<3) return alert("Mínimo 3 nodos");
-  if(editFigIdx>=0){
-    // Ya está sincronizado por referencia, solo salir del modo edición
-    editFigIdx=-1;
-  } else {
-    cFigs.push([...cPts]);
-  }
-  cPts=[]; renderAdminPts();
-};
-
-// Limpiar nodos del borrador
+$('btn-add-fig').onclick = () => { if(cPts.length<3) return alert("Mínimo 3 nodos"); if(editFigIdx>=0) editFigIdx=-1; else cFigs.push([...cPts]); cPts=[]; renderAdminPts(); };
 $('btn-cl-pts').onclick = () => { cPts=[]; editFigIdx=-1; renderAdminPts(); };
+$('setup-wrapper').addEventListener('contextmenu', e => { e.preventDefault(); if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')){ if(cPts.length>=3){ cFigs.push([...cPts]); cPts=[]; editFigIdx=-1; renderAdminPts(); } else if(cPts.length>0) alert("Mínimo 3 nodos"); } });
+$('setup-wrapper').onclick = e => { if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&!e.target.classList.contains('admin-drag-dot')){ const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100; cPts.push({x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}); renderAdminPts(); } };
 
-// Click en el setup: click izq = nuevo nodo, click der = nueva figura (si hay nodos)
-$('setup-wrapper').addEventListener('contextmenu', e => {
-  e.preventDefault();
-  if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')){
-    if(cPts.length>=3){ cFigs.push([...cPts]); cPts=[]; editFigIdx=-1; renderAdminPts(); }
-    else if(cPts.length>0) alert("Mínimo 3 nodos para crear una figura");
-  }
-});
-$('setup-wrapper').onclick = e => {
-  if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&!e.target.classList.contains('admin-drag-dot')){
-    const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100;
-    cPts.push({x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))});
-    renderAdminPts();
-  }
-};
+$('btn-sv-cp').onclick = () => { if(!$('a-comp-t').value) return; const allFigs=[...cFigs]; if(cPts.length>2) allFigs.push([...cPts]); const id=$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value; set(ref(db,`components/${id}`),{title:$('a-comp-t').value, desc:$('a-comp-d').value, figures:allFigs}); cPts=[]; editFigIdx=-1; renderAdminPts(); };
+$('btn-dl-cp').onclick = () => { if(confirm('¿Borrar componente?')) remove(ref(db,`components/${$('a-comp-sel').value}`)).then(()=>{ $('a-comp-sel').value='NEW'; $('a-comp-sel').dispatchEvent(new Event('change')); }); };
 
-// Guardar componente en Firebase
-$('btn-sv-cp').onclick = () => {
-  if(!$('a-comp-t').value) return;
-  const allFigs=[...cFigs];
-  if(cPts.length>2) allFigs.push([...cPts]);
-  const id=$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value;
-  set(ref(db,`components/${id}`),{title:$('a-comp-t').value, desc:$('a-comp-d').value, figures:allFigs});
-  cPts=[]; editFigIdx=-1; renderAdminPts();
-};
+$('a-comp-sel').onchange = e => { const v=e.target.value; if(v==='NEW'){ $('a-comp-t').value=''; $('a-comp-d').value=''; cFigs=[]; cPts=[]; editFigIdx=-1; $('btn-dl-cp').classList.add('hidden'); } else { const d=dbData.components[v]; $('a-comp-t').value=d.title; $('a-comp-d').value=d.desc; cFigs=d.figures?d.figures.map(f=>[...f]):[]; cPts=[]; editFigIdx=-1; $('btn-dl-cp').classList.remove('hidden'); } renderAdminPts(); };
 
-$('btn-dl-cp').onclick = () => {
-  if(confirm('¿Borrar componente?')) remove(ref(db,`components/${$('a-comp-sel').value}`)).then(()=>{ $('a-comp-sel').value='NEW'; $('a-comp-sel').dispatchEvent(new Event('change')); });
-};
-
-$('a-comp-sel').onchange = e => {
-  const v=e.target.value;
-  if(v==='NEW'){ $('a-comp-t').value=''; $('a-comp-d').value=''; cFigs=[]; cPts=[]; editFigIdx=-1; $('btn-dl-cp').classList.add('hidden'); }
-  else { const d=dbData.components[v]; $('a-comp-t').value=d.title; $('a-comp-d').value=d.desc; cFigs=d.figures?d.figures.map(f=>[...f]):[]; cPts=[]; editFigIdx=-1; $('btn-dl-cp').classList.remove('hidden'); }
-  renderAdminPts();
-};
-
-// ── Admin – Tour: eventos ────────────────────────────────────────────────────
+// ADMIN - Tour
 window.delEv = (mid,eid) => { if(confirm('¿Borrar fecha?')) remove(ref(db,`municipalities/${mid}/events/${eid}`)); };
 window.edEv  = (mid,eid) => { const ev=dbData.municipalities[mid].events[eid]; $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; $('a-ev-embed').value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); };
 
-const popEv = id => {
-  const m=dbData.municipalities[id], l=$('a-ev-list'); let html='';
-  if(m?.events) Object.entries(m.events).forEach(([eid,ev])=>html+=`<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan anim-trans hover:scale-110" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 anim-trans hover:scale-110" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);
-  l.innerHTML=html;
-};
-
+const popEv = id => { const m=dbData.municipalities[id], l=$('a-ev-list'); let html=''; if(m?.events) Object.entries(m.events).forEach(([eid,ev])=>html+=`<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan anim-trans hover:scale-110" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 anim-trans hover:scale-110" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`); l.innerHTML=html; };
 const clrEv = () => { ['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>$(i).value=''); $('a-ev-t').innerHTML='<i class="fa-solid fa-plus text-djCyan mr-1"></i> Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
 $('btn-cl-ev').onclick = clrEv;
-$('btn-sv-ev').onclick = () => {
-  const id=$('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value;
-  if(!id) return;
-  update(ref(db,`municipalities/${id}`),{status:$('a-muni-status').value, name:$('a-muni-name').value||id});
-  if(p||eid){
-    const pd={place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value, embed:$('a-ev-embed').value};
-    (eid?update(ref(db,`municipalities/${id}/events/${eid}`),pd):push(ref(db,`municipalities/${id}/events`),pd)).then(()=>{ clrEv(); selMuni(id); });
-  } else selMuni(id);
-};
+$('btn-sv-ev').onclick = () => { const id=$('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value; if(!id) return; update(ref(db,`municipalities/${id}`),{status:$('a-muni-status').value, name:$('a-muni-name').value||id}); if(p||eid){ const pd={place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value, embed:$('a-ev-embed').value}; (eid?update(ref(db,`municipalities/${id}/events/${eid}`),pd):push(ref(db,`municipalities/${id}/events`),pd)).then(()=>{ clrEv(); selMuni(id); }); } else selMuni(id); };
 
-// ── Admin – Mashups ───────────────────────────────────────────────────────────
+// ADMIN - Mashups Dropdowns & Save
 const updateDds = () => {
   const c=$('a-comp-sel'), m=$('a-mash-sel'), cv=c.value, mv=m.value;
   let ch='<option value="NEW">NUEVO COMPONENTE</option>', mh='<option value="NEW">NUEVO MASHUP</option>';
   Object.entries(dbData.components).forEach(([id,d])=>ch+=`<option value="${id}">${d.title}</option>`);
   Object.entries(dbData.mashups).forEach(([id,d])=>mh+=`<option value="${id}">${d.title}</option>`);
   c.innerHTML=ch; m.innerHTML=mh;
-  if(dbData.components[cv]) c.value=cv;
-  if(dbData.mashups[mv]) m.value=mv;
+  if(dbData.components[cv]) c.value=cv; if(dbData.mashups[mv]) m.value=mv;
 };
 
-$('a-mash-sel').onchange = e => {
-  const v=e.target.value;
-  if(v==='NEW'){ ['a-mash-t','a-mash-dl','a-mash-sc'].forEach(id=>$(id).value=''); $('btn-dl-ms').classList.add('hidden'); }
-  else { const d=dbData.mashups[v]; $('a-mash-t').value=d.title||''; $('a-mash-dl').value=d.dl||''; $('a-mash-sc').value=d.scUrl||''; $('btn-dl-ms').classList.remove('hidden'); }
-};
+$('a-mash-sel').onchange = e => { const v=e.target.value; if(v==='NEW'){ ['a-mash-t','a-mash-dl','a-mash-sc'].forEach(id=>$(id).value=''); $('btn-dl-ms').classList.add('hidden'); } else { const d=dbData.mashups[v]; $('a-mash-t').value=d.title||''; $('a-mash-dl').value=d.dl||''; $('a-mash-sc').value=d.scUrl||''; $('btn-dl-ms').classList.remove('hidden'); } };
 
 $('btn-sv-ms').onclick = async () => {
-  const id=$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value;
-  const t=$('a-mash-t').value; if(!t) return;
-  const b=$('btn-sv-ms'); b.disabled=true; b.innerHTML='GUARDANDO...';
+  const v = $('a-mash-sel').value;
+  const id = v === 'NEW' ? `mash_${Date.now()}` : v;
+  const t = $('a-mash-t').value; if(!t) return alert("Añade un título");
+  const b = $('btn-sv-ms'); b.disabled=true; b.innerHTML='GUARDANDO...';
   try {
     await set(ref(db,`mashups/${id}`),{title:t, dl:$('a-mash-dl').value, scUrl:$('a-mash-sc').value});
-    b.innerText='¡GUARDADO!';
-    setTimeout(()=>{ b.innerText='GUARDAR TRACK'; b.disabled=false; },2000);
-  } catch(e){ b.disabled=false; b.innerText='GUARDAR TRACK'; }
+    b.innerText='¡GUARDADO!'; setTimeout(()=>{ b.innerText='GUARDAR TRACK'; b.disabled=false; },2000);
+  } catch(e){ b.disabled=false; b.innerText='ERROR. INTENTA OTRA VEZ.'; }
 };
 
-$('btn-dl-ms').onclick = () => {
-  if(confirm('¿Eliminar track?')) remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{ $('a-mash-sel').value='NEW'; $('a-mash-sel').dispatchEvent(new Event('change')); });
-};
+$('btn-dl-ms').onclick = () => { if(confirm('¿Eliminar track?')) remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{ $('a-mash-sel').value='NEW'; $('a-mash-sel').dispatchEvent(new Event('change')); }); };
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// ADMIN PANEL – Panel flotante
-// ═══════════════════════════════════════════════════════════════════════════════
+// ADMIN - Panel Flotante UI
 let cc=0;
 $('site-title').onclick = () => { if(++cc>=3&&prompt("Pass:")==="1524") $('admin-panel').classList.remove('hidden'); setTimeout(()=>cc=0,800); };
 $('btn-close-admin').onclick = () => { $('admin-panel').classList.add('hidden'); toggleAdminMode(false); };
 
-// Drag del panel admin
 let drA=false, dX, dY, dL, dT;
 $('admin-header').onmousedown = e => { if(e.target.closest('button')) return; drA=true; dX=e.clientX; dY=e.clientY; const r=$('admin-panel').getBoundingClientRect(); dL=r.left; dT=r.top; };
 window.addEventListener('mousemove', e=>{ if(drA){ $('admin-panel').style.left=`${dL+(e.clientX-dX)}px`; $('admin-panel').style.top=`${dT+(e.clientY-dY)}px`; } });
 window.addEventListener('mouseup', ()=>drA=false);
 
-// Tabs del panel admin
 ['tour','setup','mashups'].forEach(t=>{
   $(`tab-${t}`).onclick = () => {
-    actTab=t;
-    const colors={tour:'djCyan',setup:'djMagenta',mashups:'djYellow'};
+    actTab=t; const colors={tour:'djCyan',setup:'djMagenta',mashups:'djYellow'};
     ['tour','setup','mashups'].forEach(o=>{
       $(`tab-${o}`).className = o===t ? `flex-1 py-3.5 text-${colors[t]} border-b-2 border-current anim-trans` : 'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white anim-trans';
       $(`sec-a-${o}`).classList[o===t?'remove':'add']('hidden');
@@ -685,13 +559,7 @@ window.addEventListener('mouseup', ()=>drA=false);
     toggleAdminMode(t==='setup');
   };
 });
-
-const toggleAdminMode = act => {
-  $('setup-img').classList[act?'add':'remove']('admin-setup-mode');
-  $('admin-hint').classList[act?'remove':'add']('hidden');
-  $('admin-pts').classList[act?'remove':'add']('hidden');
-  if(act) renderAdminPts(); else renderComp();
-};
+const toggleAdminMode = act => { $('setup-img').classList[act?'add':'remove']('admin-setup-mode'); $('admin-hint').classList[act?'remove':'add']('hidden'); $('admin-pts').classList[act?'remove':'add']('hidden'); if(act) renderAdminPts(); else renderComp(); };
 </script>
 </body>
 </html>
