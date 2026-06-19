@@ -67,7 +67,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform cursor-pointer">DJ <span>Vaquero</span></h1>
     </div>
     <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto justify-center md:justify-end">
-      <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-8 py-3.5 sm:py-4 rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)">
+      <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-6 py-3 md:px-8 md:py-4 rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)">
         <a href="#sec-tour" class="nav-link anim-trans active">Tour</a>
         <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
         <a href="#sec-mashups" class="nav-link anim-trans">Mashups</a>
@@ -82,7 +82,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </header>
 </div>
 
-<main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[400px]">
+<main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh]">
   <section class="flex-[2] flex flex-col gap-4 relative h-full">
     <div class="glass-panel anim-trans p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20 shrink-0">
       <h2 class="font-display font-black text-xl text-white uppercase whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
@@ -93,7 +93,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       </div>
       <button id="btn-reset-map" class="bg-white/5 hover:bg-djCyan hover:text-black border border-white/5 w-12 h-12 rounded-full transition-all text-gray-400 shrink-0"><i class="fa-solid fa-compress"></i></button>
     </div>
-    <div class="border border-white/5 shadow-2xl flex-grow rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab" id="tour-viewport">
+    <div class="border border-white/5 shadow-2xl flex-grow min-h-[400px] lg:min-h-0 rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab" id="tour-viewport">
       <div class="zoom-layer" id="tour-layer"></div>
     </div>
   </section>
