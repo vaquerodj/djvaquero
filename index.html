@@ -297,10 +297,10 @@ const uLbls = () => {
 const chkBounds = () => {
   if(!svgW) return;
   const rW=vp.clientWidth, rH=vp.clientHeight;
-  const minS=Math.min(rW/svgW, rH/svgH)*0.95;
+  const minS=Math.min(rW/svgW, rH/svgH)*0.9;
   if(sc<minS) sc=minS; if(sc>15) sc=15;
-  // Margen amplio para que los bordes del mapa sean siempre accesibles
-  const marginX = rW * 0.4, marginY = rH * 0.4;
+  // Límites reducidos para un manejo más cómodo (15% del contenedor)
+  const marginX = rW * 0.15, marginY = rH * 0.15;
   pX = Math.min(marginX, Math.max(rW - svgW*sc - marginX, pX));
   pY = Math.min(marginY, Math.max(rH - svgH*sc - marginY, pY));
 };
@@ -338,8 +338,9 @@ vp.addEventListener('wheel', e=>{
 $('btn-reset-map').onclick = () => {
   if(!svgW) return;
   const rW=vp.clientWidth, rH=vp.clientHeight;
-  sc = Math.min(rW/svgW, rH/svgH)*0.95;
+  sc = Math.min(rW/svgW, rH/svgH)*0.9;
   pX = (rW - svgW*sc)/2; pY = (rH - svgH*sc)/2;
+  chkBounds();
   if(!reqFr) reqFr=requestAnimationFrame(uTrans);
 };
 
@@ -367,7 +368,13 @@ fetch('salamanca.svg').then(r=>r.text()).then(h=>{
     el.onclick=e=>{ if(isMov) return; e.stopPropagation(); selMuni(id); };
   });
   lgEl=g; mLbls=Array.from(g.querySelectorAll('.muni-label'));
-  setTimeout(()=>$('btn-reset-map').click(), 100); // Retardo asegurando dimensiones pintadas
+  
+  // TryFit asegura que se apliquen las proporciones únicamente cuando el div ya se ha renderizado visualmente
+  const tryFit = () => {
+    if(vp.clientWidth === 0) return setTimeout(tryFit, 50);
+    $('btn-reset-map').click();
+  };
+  tryFit();
   renderMap();
 });
 
@@ -402,7 +409,7 @@ const selMuni = id => {
     iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`;
     iEvs.innerHTML=`<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`;
   }
-  iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`;
+  iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djCyan to-blue-500 text-black w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(66,230,245,0.3)]">CONTRATACIÓN DIRECTA</a>`;
   mobScroll(iAnc);
 };
 
@@ -426,7 +433,7 @@ document.onclick=e=>{ if(!$('search-muni').contains(e.target)) $('search-results
 const renderMash = () => {
   const g=$('mashups-grid'); const e=Object.entries(dbData.mashups).sort();
   if(!e.length) return void(g.innerHTML='<p class="text-gray-500 text-xs p-2">Vacío</p>');
-  g.innerHTML=e.map(([_,d])=>`<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`).join('');
+  g.innerHTML=e.map(([_,d])=>`<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR MASHUP</a>`:''}</div>`).join('');
 };
 
 // EQUIPO
