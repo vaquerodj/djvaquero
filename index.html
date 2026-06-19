@@ -1,435 +1,697 @@
 <!DOCTYPE html>
-<html lang="es" class="dark" style="scroll-behavior: smooth;">
+<html lang="es" class="dark" style="scroll-behavior:smooth;">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DJ VAQUERO | Tour Oficial</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { djBg: '#06070a', djPanel: 'rgba(15,18,25,0.75)', djCyan: '#42e6f5', djMagenta: '#e81cff', djYellow: '#f5d442' }, fontFamily: { display: ['Montserrat','sans-serif'], body: ['Inter','sans-serif'] } } } }
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
-    <style>
-        body { background-color: #06070a; color: #fff; overflow-x: hidden; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .anim-trans { transition: all 0.3s ease; }
-        .ambient-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-        .ambient-glow { position: absolute; border-radius: 50%; animation: floatGlow 15s infinite alternate ease-in-out; }
-        .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(66,230,245,0.04) 0%, transparent 70%); }
-        .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(232,28,255,0.04) 0%, transparent 70%); animation-direction: alternate-reverse; }
-        @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(5%, 5%) scale(1.1); } }
-        .glass-panel { background: rgba(15,18,25,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.04); border-radius: 24px; }
-        .glass-panel:hover { border-color: rgba(255,255,255,0.08); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .premium-title { font-family: 'Montserrat', sans-serif; font-weight: 900; background: linear-gradient(135deg, #fff 30%, #a1a1aa 100%); -webkit-background-clip: text; color: transparent; }
-        .premium-title span { color: #42e6f5; text-shadow: 0 0 30px rgba(66,230,245,0.5); }
-        .social-icon { display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; background: rgba(255,255,255,0.02); border-radius: 50%; color: #a1a1aa; border: 1px solid rgba(255,255,255,0.05); }
-        .social-icon:hover, .social-icon:active { color: #fff; transform: translateY(-4px) scale(1.05); }
-        .social-ig:hover, .social-ig:active { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 10px 20px rgba(220,39,67,0.3); }
-        .social-tk:hover, .social-tk:active { background: #000; border-color: #42e6f5; box-shadow: 0 10px 20px rgba(66,230,245,0.2); }
-        .social-sc:hover, .social-sc:active { background: #ff5500; box-shadow: 0 10px 20px rgba(255,85,0,0.3); }
-        .social-yt:hover, .social-yt:active { background: #f00; box-shadow: 0 10px 20px rgba(255,0,0,0.3); }
-        
-        .zoom-layer { width: 100%; height: 100%; transform-origin: 0 0; touch-action: none; }
-        .zoom-layer svg { width: 100%; height: 100%; shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
-        path, polygon { vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
-        .muni { cursor: pointer; pointer-events: all; stroke-width: 1px !important; }
-        .muni-base { fill: #0d1014; stroke: rgba(255,255,255,0.15); }
-        .muni-base:hover { fill: #1a202a; stroke: rgba(255,255,255,0.3); }
-        .muni-base.muni-selected { fill: #0d1e26; stroke: #42e6f5; filter: drop-shadow(0 0 5px rgba(66,230,245,0.3)); }
-        .muni-unlocked { fill: #143d4a; stroke: #42e6f5; }
-        .muni-unlocked:hover { fill: rgba(66,230,245,0.4); }
-        .muni-unlocked.muni-selected { fill: #42e6f5; stroke: #fff; filter: drop-shadow(0 0 10px rgba(66,230,245,0.6)); }
-        
-        .comp-polygon { fill: rgba(232,28,255,0.04); stroke: rgba(232,28,255,0.25); stroke-width: 0.5px; cursor: pointer; pointer-events: auto; }
-        .comp-polygon:hover, .hotspot-active { fill: rgba(232,28,255,0.25); stroke: #e81cff; stroke-width: 1.5px; filter: drop-shadow(0 0 8px rgba(232,28,255,0.6)); }
-        .animate-neon { animation: neonPulse 2s infinite ease-in-out; }
-        @keyframes neonPulse { 0%, 100% { filter: drop-shadow(0 0 3px rgba(66,230,245,0.4)); } 50% { filter: drop-shadow(0 0 10px rgba(66,230,245,0.8)); } }
-        
-        .nav-link { color: #8a8d93; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; cursor: pointer; position: relative; transition: all 0.3s ease; display: inline-block; line-height: 1; }
-        .nav-link:hover, .nav-link:active, .nav-link.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: #42e6f5; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .nav-link:hover::after, .nav-link:active::after, .nav-link.active::after { width: 100%; }
-        
-        .admin-drag-dot { touch-action: none; z-index: 50; cursor: grab; }
-        .admin-drag-dot:active { cursor: grabbing; }
-        .admin-input { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 0.625rem; color: white; border-radius: 0.5rem; font-size: 0.875rem; outline: none; transition: all 0.2s; }
-        .admin-input:focus { border-color: rgba(255,255,255,0.3); }
-        
-        @media (max-width: 767px) {
-            .hide-on-scroll { transition: max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease; max-height: 150px; opacity: 1; overflow: visible; }
-            .hide-on-scroll.collapsed { max-height: 0 !important; opacity: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border: none !important; pointer-events: none; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>DJ VAQUERO | Tour Oficial</title>
+<link rel="icon" type="image/png" href="logo.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#06070a',djPanel:'rgba(15,18,25,0.75)',djCyan:'#42e6f5',djMagenta:'#e81cff',djYellow:'#f5d442'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']}}}}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet">
+<style>
+body{background-color:#06070a;color:#fff;overflow-x:hidden;font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent}
+.anim-trans{transition:all .3s ease}
+.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+.ambient-glow{position:absolute;border-radius:50%;animation:floatGlow 15s infinite alternate ease-in-out}
+.glow-1{top:-10%;left:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(66,230,245,.04) 0%,transparent 70%)}
+.glow-2{bottom:-10%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(232,28,255,.04) 0%,transparent 70%);animation-direction:alternate-reverse}
+@keyframes floatGlow{0%{transform:translate(0,0) scale(1)}100%{transform:translate(5%,5%) scale(1.1)}}
+.glass-panel{background:rgba(15,18,25,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.04);border-radius:24px}
+.glass-panel:hover{border-color:rgba(255,255,255,.08);box-shadow:0 20px 40px rgba(0,0,0,.6)}
+.premium-title{font-family:'Montserrat',sans-serif;font-weight:900;background:linear-gradient(135deg,#fff 30%,#a1a1aa 100%);-webkit-background-clip:text;color:transparent}
+.premium-title span{color:#42e6f5;text-shadow:0 0 30px rgba(66,230,245,.5)}
+.social-icon{display:flex;align-items:center;justify-content:center;width:46px;height:46px;background:rgba(255,255,255,.02);border-radius:50%;color:#a1a1aa;border:1px solid rgba(255,255,255,.05)}
+.social-icon:hover,.social-icon:active{color:#fff;transform:translateY(-4px) scale(1.05)}
+.social-ig:hover,.social-ig:active{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 10px 20px rgba(220,39,67,.3)}
+.social-tk:hover,.social-tk:active{background:#000;border-color:#42e6f5;box-shadow:0 10px 20px rgba(66,230,245,.2)}
+.social-sc:hover,.social-sc:active{background:#ff5500;box-shadow:0 10px 20px rgba(255,85,0,.3)}
+.social-yt:hover,.social-yt:active{background:#f00;box-shadow:0 10px 20px rgba(255,0,0,.3)}
+.zoom-layer{width:100%;height:100%;transform-origin:0 0;touch-action:none}
+.zoom-layer svg{width:100%;height:100%;shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
+path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.muni{cursor:pointer;pointer-events:all;stroke-width:1px!important}
+.muni-base{fill:#0d1014;stroke:rgba(255,255,255,.15)}
+.muni-base:hover{fill:#1a202a;stroke:rgba(255,255,255,.3)}
+.muni-base.muni-selected{fill:#0d1e26;stroke:#42e6f5;filter:drop-shadow(0 0 5px rgba(66,230,245,.3))}
+.muni-unlocked{fill:#143d4a;stroke:#42e6f5}
+.muni-unlocked:hover{fill:rgba(66,230,245,.4)}
+.muni-unlocked.muni-selected{fill:#42e6f5;stroke:#fff;filter:drop-shadow(0 0 10px rgba(66,230,245,.6))}
+.comp-polygon{fill:rgba(232,28,255,.04);stroke:rgba(232,28,255,.25);stroke-width:.5px;cursor:pointer;pointer-events:auto}
+.comp-polygon:hover,.hotspot-active{fill:rgba(232,28,255,.25);stroke:#e81cff;stroke-width:1.5px;filter:drop-shadow(0 0 8px rgba(232,28,255,.6))}
+.animate-neon{animation:neonPulse 2s infinite ease-in-out}
+@keyframes neonPulse{0%,100%{filter:drop-shadow(0 0 3px rgba(66,230,245,.4))}50%{filter:drop-shadow(0 0 10px rgba(66,230,245,.8))}}
+.nav-link{color:#8a8d93;font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:800;text-transform:uppercase;cursor:pointer;position:relative;transition:all .3s ease;display:inline-block;line-height:1}
+.nav-link:hover,.nav-link:active,.nav-link.active{color:#fff;text-shadow:0 0 10px rgba(255,255,255,.3)}
+.nav-link::after{content:'';position:absolute;width:0;height:2px;bottom:-5px;left:0;background-color:#42e6f5;transition:width .3s cubic-bezier(.4,0,.2,1)}
+.nav-link:hover::after,.nav-link:active::after,.nav-link.active::after{width:100%}
+.admin-drag-dot{touch-action:none;z-index:50;cursor:grab}
+.admin-drag-dot:active{cursor:grabbing}
+.admin-input{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);padding:.625rem;color:#fff;border-radius:.5rem;font-size:.875rem;outline:none;transition:all .2s}
+.admin-input:focus{border-color:rgba(255,255,255,.3)}
+@media(max-width:767px){
+.hide-on-scroll{transition:max-height .4s ease,opacity .4s ease,margin .4s ease;max-height:150px;opacity:1;overflow:visible}
+.hide-on-scroll.collapsed{max-height:0!important;opacity:0!important;margin:0!important;padding:0!important;overflow:hidden!important;border:none!important;pointer-events:none}
+}
+</style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
-    <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
-    
-    <div id="hdr-wrapper" class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl pt-4 pb-4 md:pt-6 md:pb-6 transition-all duration-300 ease-out" style="-webkit-backdrop-filter: blur(24px);">
-        <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-            <div class="text-center md:text-left hide-on-scroll">
-                <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform cursor-pointer">DJ <span>Vaquero</span></h1>
-            </div>
-            <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto justify-center md:justify-end">
-                <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-8 pt-[16px] pb-[12px] sm:pt-[18px] sm:pb-[14px] rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);">
-                    <a href="#sec-tour" class="nav-link anim-trans active">Tour</a>
-                    <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
-                    <a href="#sec-mashups" class="nav-link anim-trans">Mashups</a>
-                </nav>
-                <div class="flex space-x-3 order-1 sm:order-2 hide-on-scroll">
-                    <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon anim-trans social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
-                    <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon anim-trans social-tk"><i class="fa-brands fa-tiktok text-lg"></i></a>
-                    <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon anim-trans social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
-                    <a href="https://youtube.com/@vaquerodj" target="_blank" class="social-icon anim-trans social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
-                </div>
-            </div>
-        </header>
+
+<div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
+
+<div id="hdr-wrapper" class="w-full z-[60] sticky top-0 bg-[#06070a]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl pt-4 pb-4 md:pt-6 md:pb-6 transition-all duration-300 ease-out" style="-webkit-backdrop-filter:blur(24px)">
+  <header class="w-full max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+    <div class="text-center md:text-left hide-on-scroll">
+      <h1 id="site-title" class="premium-title text-4xl md:text-6xl lg:text-7xl select-none uppercase active:scale-95 transition-transform cursor-pointer">DJ <span>Vaquero</span></h1>
     </div>
-
-    <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[600px]">
-        <section class="flex-[2] flex flex-col gap-4 relative h-full">
-            <div class="glass-panel anim-trans p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20 shrink-0">
-                <h2 class="font-display font-black text-xl text-white uppercase whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
-                <div class="flex-grow max-w-md relative w-full">
-                    <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar municipio..." class="admin-input rounded-full pl-12 pr-4 py-3 focus:border-djCyan">
-                    <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                    <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-[#0c0f15] border border-white/10 rounded-2xl hidden max-h-60 overflow-y-auto backdrop-blur-2xl z-50"></ul>
-                </div>
-                <button id="btn-reset-map" class="bg-white/5 hover:bg-djCyan hover:text-black border border-white/5 w-12 h-12 rounded-full transition-all text-gray-400 shrink-0"><i class="fa-solid fa-compress"></i></button>
-            </div>
-            <div class="border border-white/5 shadow-2xl flex-grow rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab" id="tour-viewport">
-                <div class="zoom-layer absolute inset-0" id="tour-layer"></div>
-            </div>
-        </section>
-        
-        <aside id="info-anchor" class="flex-1 glass-panel anim-trans flex flex-col h-full overflow-hidden scroll-mt-32">
-            <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent shrink-0">
-                <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">GIRA OFICIAL</h3>
-                <div id="info-status" class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Selecciona municipio</span></div>
-            </div>
-            <div id="info-events" class="flex-grow flex flex-col gap-4 p-8 overflow-y-auto hidden"></div>
-            <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-12 text-gray-600 text-center"><i class="fa-solid fa-compact-disc text-6xl mb-6 opacity-20"></i><p class="text-sm font-medium">Explora el mapa para<br>descubrir fechas.</p></div>
-        </aside>
-    </main>
-
-    <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40 flex flex-col">
-        <div class="glass-panel anim-trans p-4 px-6 mb-6 inline-flex items-center self-start"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
-        
-        <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:h-[70vh] min-h-[500px]">
-            <aside id="setup-info-anchor" class="flex-1 order-2 lg:order-1 glass-panel anim-trans flex flex-col h-full overflow-hidden scroll-mt-32">
-                <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent shrink-0">
-                    <h3 class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">HARDWARE</h3>
-                    <div id="setup-status" class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Selecciona componente</span></div>
-                </div>
-                <div id="setup-info-content" class="flex-grow flex flex-col gap-4 p-8 overflow-y-auto hidden">
-                    <div class="w-10 h-1 bg-gradient-to-r from-djMagenta to-purple-600 mb-2 rounded-full"></div>
-                    <h4 id="setup-t" class="text-2xl font-display font-black text-white uppercase"></h4>
-                    <p id="setup-d" class="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap"></p>
-                </div>
-                <div id="setup-empty" class="flex-grow flex flex-col items-center justify-center p-12 text-gray-600 text-center"><i class="fa-solid fa-plug text-6xl mb-6 opacity-20"></i><p class="text-sm font-medium">Interactúa con el equipo para<br>ver sus especificaciones.</p></div>
-            </aside>
-
-            <section class="flex-[2] order-1 lg:order-2 glass-panel anim-trans p-4 flex justify-center items-center relative overflow-hidden h-full">
-                <div class="relative w-full h-full flex justify-center items-center">
-                    <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block bg-black/20 rounded-xl border border-white/5 select-none touch-none overflow-hidden">
-                        <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[65vh] object-contain block" id="setup-img" draggable="false">
-                        <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></svg>
-                        <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
-                    </div>
-                </div>
-                <p id="admin-hint" class="absolute bottom-4 left-6 text-djMagenta text-[10px] hidden font-bold tracking-widest uppercase bg-black/90 px-5 py-2.5 rounded-full border border-djMagenta/30 z-50">MODO EDICIÓN: Crea/Edita figuras</p>
-            </section>
-        </div>
-    </div>
-
-    <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
-        <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups & Edits</h2></div>
-        <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
-    </div>
-
-    <footer class="w-full max-w-[1600px] mx-auto px-6 md:px-10 py-10 border-t border-white/5 mt-20 flex justify-center gap-6 z-10 relative">
+    <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full md:w-auto justify-center md:justify-end">
+      <nav class="flex items-center justify-center gap-6 sm:gap-6 bg-white/[0.03] px-8 pt-[16px] pb-[12px] sm:pt-[18px] sm:pb-[14px] rounded-full border border-white/5 shadow-[0_15px_40px_rgba(0,0,0,0.5)] order-2 sm:order-1 text-[11px] sm:text-[0.8rem] anim-trans z-50 relative" style="-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)">
+        <a href="#sec-tour" class="nav-link anim-trans active">Tour</a>
+        <a href="#sec-setup" class="nav-link anim-trans">Equipo</a>
+        <a href="#sec-mashups" class="nav-link anim-trans">Mashups</a>
+      </nav>
+      <div class="flex space-x-3 order-1 sm:order-2 hide-on-scroll">
         <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon anim-trans social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
         <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon anim-trans social-tk"><i class="fa-brands fa-tiktok text-lg"></i></a>
         <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon anim-trans social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
         <a href="https://youtube.com/@vaquerodj" target="_blank" class="social-icon anim-trans social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
-    </footer>
+      </div>
+    </div>
+  </header>
+</div>
 
-    <a id="btn-next-sec" href="#sec-setup" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[50] glass-panel anim-trans py-2.5 px-4 flex items-center gap-2.5 border-white/10 hover:border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:scale-105 active:scale-95 group backdrop-blur-2xl">
-        <span class="text-gray-400 group-hover:text-white text-[10px] font-bold uppercase tracking-wider transition-colors hidden sm:block">Siguiente</span>
-        <span id="next-sec-name" class="text-djMagenta transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs">Equipo <i class="fa-solid fa-headphones ml-1"></i></span>
-    </a>
+<!-- SALAMANCA TOUR -->
+<main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[600px]">
+  <section class="flex-[2] flex flex-col gap-4 relative h-full">
+    <div class="glass-panel anim-trans p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20 shrink-0">
+      <h2 class="font-display font-black text-xl text-white uppercase whitespace-nowrap"><i class="fa-solid fa-map-location-dot text-djCyan"></i> Salamanca Tour</h2>
+      <div class="flex-grow max-w-md relative w-full">
+        <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar municipio..." class="admin-input rounded-full pl-12 pr-4 py-3 focus:border-djCyan">
+        <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
+        <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-[#0c0f15] border border-white/10 rounded-2xl hidden max-h-60 overflow-y-auto backdrop-blur-2xl z-50"></ul>
+      </div>
+      <button id="btn-reset-map" class="bg-white/5 hover:bg-djCyan hover:text-black border border-white/5 w-12 h-12 rounded-full transition-all text-gray-400 shrink-0"><i class="fa-solid fa-compress"></i></button>
+    </div>
+    <div class="border border-white/5 shadow-2xl flex-grow rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab" id="tour-viewport">
+      <div class="zoom-layer absolute inset-0" id="tour-layer"></div>
+    </div>
+  </section>
 
-    <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col">
-        <div id="admin-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
-            <div class="flex items-center gap-2.5"><div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div><span class="text-white font-display font-black text-xs tracking-widest pointer-events-none">CONSOLE</span></div>
-            <button id="btn-close-admin" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+  <aside id="info-anchor" class="flex-1 glass-panel anim-trans flex flex-col h-full overflow-hidden scroll-mt-32">
+    <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent shrink-0">
+      <h3 id="info-title" class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">MUNICIPIO</h3>
+      <div id="info-status" class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Selecciona municipio</span></div>
+    </div>
+    <div id="info-events" class="flex-grow flex flex-col gap-4 p-8 overflow-y-auto hidden"></div>
+    <div id="info-empty" class="flex-grow flex flex-col items-center justify-center p-12 text-gray-600 text-center"><i class="fa-solid fa-compact-disc text-6xl mb-6 opacity-20"></i><p class="text-sm font-medium">Explora el mapa para<br>descubrir fechas.</p></div>
+  </aside>
+</main>
+
+<!-- EQUIPO DJ -->
+<div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40 flex flex-col">
+  <div class="glass-panel anim-trans p-4 px-6 mb-6 inline-flex items-center self-start"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
+  <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:h-[70vh] min-h-[500px]">
+    <aside id="setup-info-anchor" class="flex-1 order-2 lg:order-1 glass-panel anim-trans flex flex-col h-full overflow-hidden scroll-mt-32">
+      <div class="p-8 pb-6 border-b border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent shrink-0">
+        <h3 class="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">COMPONENTE</h3>
+        <div id="setup-status" class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold tracking-widest uppercase">Selecciona componente</span></div>
+      </div>
+      <div id="setup-info-content" class="flex-grow flex flex-col gap-4 p-8 overflow-y-auto hidden">
+        <div class="w-10 h-1 bg-gradient-to-r from-djMagenta to-purple-600 mb-2 rounded-full"></div>
+        <h4 id="setup-t" class="text-2xl font-display font-black text-white uppercase"></h4>
+        <p id="setup-d" class="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap"></p>
+      </div>
+      <div id="setup-empty" class="flex-grow flex flex-col items-center justify-center p-12 text-gray-600 text-center"><i class="fa-solid fa-plug text-6xl mb-6 opacity-20"></i><p class="text-sm font-medium">Interactúa con el equipo para<br>ver sus especificaciones.</p></div>
+    </aside>
+    <section class="flex-[2] order-1 lg:order-2 glass-panel anim-trans p-4 flex justify-center items-center relative overflow-hidden h-full">
+      <div class="relative w-full h-full flex justify-center items-center">
+        <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block bg-black/20 rounded-xl border border-white/5 select-none touch-none overflow-hidden">
+          <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[65vh] object-contain block" id="setup-img" draggable="false">
+          <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute top-0 left-0 w-full h-full pointer-events-none z-20"></svg>
+          <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
         </div>
-        <div class="flex bg-black/20 text-[10px] font-black tracking-wider border-b border-white/5">
-            <button id="tab-tour" class="flex-1 py-3.5 text-djCyan border-b-2 border-djCyan">GIRA</button>
-            <button id="tab-setup" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">HARDWARE</button>
-            <button id="tab-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">MASHUPS</button>
+      </div>
+      <p id="admin-hint" class="absolute bottom-4 left-6 text-djMagenta text-[10px] hidden font-bold tracking-widest uppercase bg-black/90 px-5 py-2.5 rounded-full border border-djMagenta/30 z-50">MODO EDICIÓN: Click izq. = nodo · Click der. = nueva figura</p>
+    </section>
+  </div>
+</div>
+
+<!-- MASHUPS -->
+<div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
+  <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups &amp; Edits</h2></div>
+  <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+</div>
+
+<footer class="w-full max-w-[1600px] mx-auto px-6 md:px-10 py-10 border-t border-white/5 mt-20 flex justify-center gap-6 z-10 relative">
+  <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon anim-trans social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
+  <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon anim-trans social-tk"><i class="fa-brands fa-tiktok text-lg"></i></a>
+  <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon anim-trans social-sc"><i class="fa-brands fa-soundcloud text-lg"></i></a>
+  <a href="https://youtube.com/@vaquerodj" target="_blank" class="social-icon anim-trans social-yt"><i class="fa-brands fa-youtube text-lg"></i></a>
+</footer>
+
+<a id="btn-next-sec" href="#sec-setup" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[50] glass-panel anim-trans py-2.5 px-4 flex items-center gap-2.5 border-white/10 hover:border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:scale-105 active:scale-95 group backdrop-blur-2xl">
+  <span class="text-gray-400 group-hover:text-white text-[10px] font-bold uppercase tracking-wider transition-colors hidden sm:block">Siguiente</span>
+  <span id="next-sec-name" class="text-djMagenta transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs">Equipo <i class="fa-solid fa-headphones ml-1"></i></span>
+</a>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col">
+  <div id="admin-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
+    <div class="flex items-center gap-2.5"><div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div><span class="text-white font-display font-black text-xs tracking-widest pointer-events-none">CONSOLE</span></div>
+    <button id="btn-close-admin" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+  </div>
+  <div class="flex bg-black/20 text-[10px] font-black tracking-wider border-b border-white/5">
+    <button id="tab-tour" class="flex-1 py-3.5 text-djCyan border-b-2 border-djCyan">GIRA</button>
+    <button id="tab-setup" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">COMPONENTE</button>
+    <button id="tab-mashups" class="flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white">MASHUPS</button>
+  </div>
+  <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
+
+    <!-- TAB TOUR -->
+    <div id="sec-a-tour" class="space-y-4">
+      <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
+      <input type="text" id="a-muni-name" placeholder="Nombre Visual" class="admin-input focus:border-djCyan">
+      <select id="a-muni-status" class="admin-input focus:border-djCyan"><option value="locked">Oculto</option><option value="unlocked">Iluminado</option></select>
+      <div id="a-ev-list" class="space-y-1.5 pt-3 border-t border-white/5"></div>
+      <div class="pt-3 border-t border-white/5 space-y-3">
+        <label id="a-ev-t" class="text-xs text-white font-bold block uppercase"><i class="fa-solid fa-plus text-djCyan mr-1"></i> Añadir Fecha</label>
+        <input type="text" id="a-ev-p" placeholder="Lugar" class="admin-input">
+        <input type="date" id="a-ev-d" class="admin-input [color-scheme:dark]">
+        <textarea id="a-ev-desc" placeholder="Detalles extra" class="admin-input h-16"></textarea>
+        <input type="text" id="a-ev-m" placeholder="Enlace extra (URL normal)..." class="admin-input">
+        <textarea id="a-ev-embed" placeholder="Código Embed (Iframe de Reel/TikTok)" class="admin-input h-16"></textarea>
+        <div class="flex gap-2">
+          <button id="btn-sv-ev" class="flex-1 bg-gradient-to-r from-djCyan to-blue-500 text-black font-black py-2 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR</button>
+          <button id="btn-cl-ev" class="hidden bg-white/10 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
-            <div id="sec-a-tour" class="space-y-4">
-                <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
-                <input type="text" id="a-muni-name" placeholder="Nombre Visual" class="admin-input focus:border-djCyan">
-                <select id="a-muni-status" class="admin-input focus:border-djCyan"><option value="locked">Oculto</option><option value="unlocked">Iluminado</option></select>
-                <div id="a-ev-list" class="space-y-1.5 pt-3 border-t border-white/5"></div>
-                <div class="pt-3 border-t border-white/5 space-y-3">
-                    <label id="a-ev-t" class="text-xs text-white font-bold block uppercase"><i class="fa-solid fa-plus text-djCyan mr-1"></i> Añadir Fecha</label>
-                    <input type="text" id="a-ev-p" placeholder="Lugar" class="admin-input">
-                    <input type="date" id="a-ev-d" class="admin-input [color-scheme:dark]">
-                    <textarea id="a-ev-desc" placeholder="Detalles extra" class="admin-input h-16"></textarea>
-                    <input type="text" id="a-ev-m" placeholder="Enlace extra (URL normal)..." class="admin-input">
-                    <textarea id="a-ev-embed" placeholder="Código Embed (Iframe de Reel/TikTok)" class="admin-input h-16"></textarea>
-                    <div class="flex gap-2"><button id="btn-sv-ev" class="flex-1 bg-gradient-to-r from-djCyan to-blue-500 text-black font-black py-2 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR</button><button id="btn-cl-ev" class="hidden bg-white/10 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-xmark"></i></button></div>
-                </div>
-            </div>
-            <div id="sec-a-setup" class="space-y-4 hidden">
-                <select id="a-comp-sel" class="admin-input focus:border-djMagenta"><option value="NEW">NUEVO COMPONENTE</option></select>
-                <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input focus:border-djMagenta">
-                <textarea id="a-comp-d" placeholder="Detalles" class="admin-input h-16 focus:border-djMagenta"></textarea>
-                <div class="flex gap-2"><button id="btn-add-fig" class="flex-1 bg-white/10 text-white font-black py-2 rounded-lg text-[10px] hover:bg-white/20 anim-trans">GUARDAR FIGURA (DRAFT)</button><button id="btn-cl-pts" class="flex-1 bg-red-500/10 text-red-500 font-black py-2 rounded-lg text-[10px] hover:bg-red-500/20 anim-trans">BORRAR NODOS</button></div>
-                <ul id="a-comp-pts" class="bg-black/30 p-3 rounded-xl border border-white/5 space-y-1.5 max-h-36 overflow-y-auto"></ul>
-                <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[2] bg-gradient-to-r from-djMagenta to-purple-600 text-white font-black py-2.5 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR COMPONENTE</button><button id="btn-dl-cp" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden hover:bg-red-500/20 anim-trans">BORRAR</button></div>
-            </div>
-            <div id="sec-a-mashups" class="space-y-4 hidden">
-                <select id="a-mash-sel" class="admin-input focus:border-djYellow"><option value="NEW">NUEVO MASHUP</option></select>
-                <input type="text" id="a-mash-t" placeholder="Título" class="admin-input focus:border-djYellow">
-                <input type="text" id="a-mash-dl" placeholder="URL Descarga" class="admin-input focus:border-djYellow">
-                <input type="text" id="a-mash-sc" placeholder="SoundCloud URL" class="admin-input focus:border-djYellow">
-                <div class="flex gap-2"><button id="btn-sv-ms" class="flex-[2] bg-gradient-to-r from-djYellow to-orange-400 text-black font-black py-2.5 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR TRACK</button><button id="btn-dl-ms" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden hover:bg-red-500/20 anim-trans">BORRAR</button></div>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <!-- TAB SETUP -->
+    <div id="sec-a-setup" class="space-y-4 hidden">
+      <select id="a-comp-sel" class="admin-input focus:border-djMagenta"><option value="NEW">NUEVO COMPONENTE</option></select>
+      <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input focus:border-djMagenta">
+      <textarea id="a-comp-d" placeholder="Detalles" class="admin-input h-16 focus:border-djMagenta"></textarea>
+      <div class="bg-black/30 p-3 rounded-xl border border-white/5 space-y-2">
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Figuras guardadas</p>
+        <ul id="a-comp-figs" class="space-y-1.5 max-h-36 overflow-y-auto"></ul>
+        <p class="text-[10px] text-djMagenta/70 font-bold uppercase tracking-wider pt-1 border-t border-white/5">Figura en edición</p>
+        <ul id="a-comp-pts" class="space-y-1 max-h-28 overflow-y-auto"></ul>
+        <div class="flex gap-2 pt-1">
+          <button id="btn-add-fig" class="flex-1 bg-white/10 text-white font-black py-2 rounded-lg text-[10px] hover:bg-white/20 anim-trans">GUARDAR FIGURA</button>
+          <button id="btn-cl-pts" class="flex-1 bg-red-500/10 text-red-500 font-black py-2 rounded-lg text-[10px] hover:bg-red-500/20 anim-trans">LIMPIAR NODOS</button>
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <button id="btn-sv-cp" class="flex-[2] bg-gradient-to-r from-djMagenta to-purple-600 text-white font-black py-2.5 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR COMPONENTE</button>
+        <button id="btn-dl-cp" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden hover:bg-red-500/20 anim-trans">BORRAR</button>
+      </div>
+    </div>
 
-        const app = initializeApp({ apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI", authDomain: "djvaquero-851e8.firebaseapp.com", databaseURL: "https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app", projectId: "djvaquero-851e8" });
-        const db = getDatabase(app), $ = id => document.getElementById(id), $$ = q => document.querySelectorAll(q);
-        
-        let dbData = { municipalities:{}, components:{}, mashups:{} }, currMuni = null, isMov = false, actTab = 'tour', sc=1, pX=0, pY=0, reqFr=null, cFigs=[], cPts=[], sX=0, sY=0, pan=false;
-        let svgW=1000, svgH=1000, lgEl=null, mLbls=[];
-        
-        const vp = $('tour-viewport'), tLay = $('tour-layer'), hw = $('hdr-wrapper'), hs = $$('.hide-on-scroll');
-        const nLks = $$('.nav-link'), bNext = $('btn-next-sec'), nn = $('next-sec-name');
-        const iTit = $('info-title'), iEmp = $('info-empty'), iEvs = $('info-events'), iStat = $('info-status'), iAnc = $('info-anchor');
-        const sEmp = $('setup-empty'), sInfC = $('setup-info-content'), sStat = $('setup-status'), sTit = $('setup-t'), sDesc = $('setup-d'), sAnc = $('setup-info-anchor');
-        const sIds = ['sec-tour','sec-setup','sec-mashups'], sInf = {'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'},'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'},'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'}};
-        
-        const mobScroll = el => { if(window.innerWidth < 1024) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
-        
-        const toggleHdr = (col) => {
-            if ((hw.dataset.c === '1') === col) return;
-            hw.dataset.c = col ? '1' : '';
-            hs.forEach(e => e.classList.toggle('collapsed', col));
-            hw.classList.replace(col ? 'pt-4' : 'pt-2', col ? 'pt-2' : 'pt-4');
-            hw.classList.replace(col ? 'pb-4' : 'pb-2', col ? 'pb-2' : 'pb-4');
-        };
+    <!-- TAB MASHUPS -->
+    <div id="sec-a-mashups" class="space-y-4 hidden">
+      <select id="a-mash-sel" class="admin-input focus:border-djYellow"><option value="NEW">NUEVO MASHUP</option></select>
+      <input type="text" id="a-mash-t" placeholder="Título" class="admin-input focus:border-djYellow">
+      <input type="text" id="a-mash-dl" placeholder="URL Descarga" class="admin-input focus:border-djYellow">
+      <input type="text" id="a-mash-sc" placeholder="SoundCloud URL" class="admin-input focus:border-djYellow">
+      <div class="flex gap-2">
+        <button id="btn-sv-ms" class="flex-[2] bg-gradient-to-r from-djYellow to-orange-400 text-black font-black py-2.5 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR TRACK</button>
+        <button id="btn-dl-ms" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden hover:bg-red-500/20 anim-trans">BORRAR</button>
+      </div>
+    </div>
 
-        const uNav = () => { 
-            let c=sIds[0], sy=window.scrollY, wh=window.innerHeight/2; 
-            sIds.forEach(id => { const el=$(id); if(el && sy+wh>=el.offsetTop) c=id; }); 
-            nLks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${c}`));
-            const nx=sInf[c]; 
-            if(bNext) { bNext.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; } 
-            
-            if(window.innerWidth < 768) { if(sy > 150) toggleHdr(true); else if(sy < 50) toggleHdr(false); } 
-            else toggleHdr(false);
-        };
-        window.addEventListener('scroll', uNav, {passive:true}); window.addEventListener('load', uNav); uNav();
+  </div>
+</div>
 
-        onValue(ref(db, '/'), s => { dbData = s.val() || { municipalities:{}, components:{}, mashups:{} }; renderMap(); renderComp(); renderMash(); updateDds(); const mId = $('a-muni-id').value; if(mId) popEv(mId); });
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        const uLbls = () => {
-            if(!lgEl) return;
-            lgEl.className.baseVal = sc < 2.2 ? 'opacity-0 transition-opacity duration-300 pointer-events-none' : 'opacity-100 transition-opacity duration-300 pointer-events-none';
-            if(sc < 2.2) return;
-            const fS = 11/sc, vW = vp.clientWidth, vH = vp.clientHeight, r = vp.getBoundingClientRect(), occ = [];
-            mLbls.forEach(l => {
-                const m = dbData.municipalities[l.dataset.id];
-                if(!m?.name || /^zona/i.test(m.name)) return l.style.opacity = '0';
-                const un = m.status === 'unlocked';
-                l.setAttribute('fill', un ? '#42e6f5' : '#ffffff'); l.setAttribute('font-size', `${un ? fS*1.1 : fS}px`); l.setAttribute('font-weight', un ? '900' : '700');
-                const br = l.getBoundingClientRect(), x = br.left-r.left+br.width/2, y = br.top-r.top+br.height/2;
-                if(x<0 || x>vW || y<0 || y>vH) return l.style.opacity = '0';
-                const b = {l:br.left, r:br.right, t:br.top, b:br.bottom};
-                if(!occ.some(o => b.l-4 < o.r && b.r+4 > o.l && b.t-4 < o.b && b.b+4 > o.t)) { l.style.opacity = '1'; occ.push(b); } else l.style.opacity = '0';
-            });
-        };
+const app = initializeApp({ apiKey:"AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI", authDomain:"djvaquero-851e8.firebaseapp.com", databaseURL:"https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app", projectId:"djvaquero-851e8" });
+const db = getDatabase(app);
+const $ = id => document.getElementById(id);
+const $$ = q => document.querySelectorAll(q);
 
-        const chkBounds = () => {
-            if(!svgW) return;
-            const rW = vp.clientWidth, rH = vp.clientHeight, minS = Math.min(rW/svgW, rH/svgH) * 0.9;
-            if(sc < minS) sc = minS; if(sc > 10) sc = 10;
-            pX = (svgW * sc <= rW) ? (rW - svgW * sc) / 2 : Math.min(0, Math.max(rW - svgW * sc, pX));
-            pY = (svgH * sc <= rH) ? (rH - svgH * sc) / 2 : Math.min(0, Math.max(rH - svgH * sc, pY));
-        };
+// ── Estado global ──────────────────────────────────────────────────────────
+let dbData = { municipalities:{}, components:{}, mashups:{} };
+let currMuni = null, isMov = false, actTab = 'tour';
+let sc=1, pX=0, pY=0, reqFr=null, pan=false, sX=0, sY=0;
+let svgW=1000, svgH=1000, lgEl=null, mLbls=[];
+// Figuras guardadas del componente actual y figura en edición
+let cFigs=[], cPts=[], editFigIdx=-1; // editFigIdx = índice de cFigs que se está editando (-1 = nueva figura)
 
-        const uTrans = () => { tLay.style.transform = `translate(${pX}px, ${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
-        const stPan = (x,y) => { sX = x-pX; sY = y-pY; pan = true; isMov = false; vp.style.cursor = 'grabbing'; };
-        const mvPan = (x,y) => { if(!pan) return; isMov = true; pX = x-sX; pY = y-sY; chkBounds(); if(!reqFr) reqFr = requestAnimationFrame(uTrans); };
-        
-        vp.onmousedown = e => stPan(e.clientX, e.clientY); window.addEventListener('mousemove', e => mvPan(e.clientX, e.clientY)); window.addEventListener('mouseup', () => { pan=false; vp.style.cursor='grab'; });
-        vp.addEventListener('touchstart', e => { isMov=false; if(e.touches.length===1) stPan(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
-        vp.addEventListener('touchmove', e => { 
-            if(pan && e.touches.length===1) mvPan(e.touches[0].clientX, e.touches[0].clientY); 
-            else if(e.touches.length===2) { 
-                e.preventDefault(); const t1=e.touches[0], t2=e.touches[1], d = Math.hypot(t1.clientX-t2.clientX, t1.clientY-t2.clientY), rb = vp.getBoundingClientRect(), mx = ((t1.clientX+t2.clientX)/2)-rb.left, my = ((t1.clientY+t2.clientY)/2)-rb.top; 
-                const tx = (mx-pX)/sc, ty = (my-pY)/sc; sc = sc*(d/(vp.dataset.sd||d)); vp.dataset.sd = d;
-                chkBounds(); pX = mx - tx*sc; pY = my - ty*sc; chkBounds();
-                if(!reqFr) reqFr = requestAnimationFrame(uTrans); 
-            } 
-        }, {passive:false});
-        vp.addEventListener('touchend', () => { pan=false; delete vp.dataset.sd; }); 
-        vp.addEventListener('wheel', e => { 
-            e.preventDefault(); const rb = vp.getBoundingClientRect(), tx = (e.clientX-rb.left-pX)/sc, ty = (e.clientY-rb.top-pY)/sc; 
-            sc = e.deltaY<0 ? sc*1.1 : sc/1.1; chkBounds(); pX = (e.clientX-rb.left) - tx*sc; pY = (e.clientY-rb.top) - ty*sc; chkBounds();
-            if(!reqFr) reqFr = requestAnimationFrame(uTrans); 
-        }, {passive:false});
-        
-        $('btn-reset-map').onclick = () => { sc = Math.min(vp.clientWidth/svgW, vp.clientHeight/svgH) * 0.95; chkBounds(); uTrans(); };
+// ── Referencias DOM ─────────────────────────────────────────────────────────
+const vp     = $('tour-viewport'), tLay = $('tour-layer');
+const hw     = $('hdr-wrapper'),   hs   = $$('.hide-on-scroll');
+const nLks   = $$('.nav-link'),    bNext= $('btn-next-sec'), nn=$('next-sec-name');
+const iTit   = $('info-title'),    iEmp = $('info-empty'), iEvs=$('info-events'), iStat=$('info-status'), iAnc=$('info-anchor');
+const sEmp   = $('setup-empty'),   sInfC= $('setup-info-content'), sStat=$('setup-status'), sTit=$('setup-t'), sDesc=$('setup-d'), sAnc=$('setup-info-anchor');
+const sIds   = ['sec-tour','sec-setup','sec-mashups'];
+const sInf   = { 'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'}, 'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'}, 'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'} };
 
-        fetch('salamanca.svg').then(r=>r.text()).then(h => { 
-            tLay.innerHTML = h; const s = tLay.querySelector('svg'), g = document.createElementNS("http://www.w3.org/2000/svg","g"); 
-            try { const vb=s.viewBox.baseVal; if(vb.width) { svgW=vb.width; svgH=vb.height; } else { const b=s.getBBox(); svgW=b.width; svgH=b.height; } } catch(e){ svgW=1000; svgH=1000; }
-            g.id = 'labels-group'; g.className.baseVal = 'opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents = 'none'; s.appendChild(g); 
-            s.querySelectorAll('path, polygon').forEach((el,i) => { 
-                const id = el.id||`zona_${i}`; el.id = id; el.className.baseVal = 'muni anim-trans muni-base'; 
-                try { 
-                    const b = el.getBBox(); 
-                    if(b.width>0) { 
-                        const t = document.createElementNS("http://www.w3.org/2000/svg","text"); 
-                        t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2); 
-                        t.setAttribute("class","muni-label transition-opacity duration-200"); 
-                        t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle'); 
-                        t.setAttribute('font-family',"'Montserrat',sans-serif"); 
-                        t.setAttribute('style','paint-order: stroke fill; stroke: #000000; stroke-width: 3.5px; stroke-linejoin: round; text-transform:uppercase; pointer-events:none;'); 
-                        g.appendChild(t); 
-                    } 
-                } catch(e){} 
-                el.onclick = e => { if(isMov) return; e.stopPropagation(); selMuni(id); }; 
-            }); 
-            lgEl = g; mLbls = Array.from(g.querySelectorAll('.muni-label'));
-            $('btn-reset-map').click(); renderMap(); 
-        });
+// ── Utilidades ───────────────────────────────────────────────────────────────
+const mobScroll = el => { if(window.innerWidth<1024) el.scrollIntoView({behavior:'smooth',block:'start'}); };
 
-        const renderMap = () => { 
-            Object.entries(dbData.municipalities).forEach(([id, d]) => { const e = $(id); if(e) { e.className.baseVal = `muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`; if(d.status==='unlocked' && id!==currMuni) e.parentNode.appendChild(e); } }); 
-            if(currMuni && $(currMuni)) $(currMuni).parentNode.appendChild($(currMuni)); 
-            mLbls.forEach(l => { const n = dbData.municipalities[l.dataset.id]?.name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); 
-            uLbls(); 
-        };
-        
-        const selMuni = id => { 
-            currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name||id) ? id.replace(/_/g,' ') : (m.name||id.replace(/_/g,' ')); 
-            iTit.innerText = n; $('a-muni-id').value = id; $('a-muni-name').value = n; clrEv(); popEv(id); 
-            iEmp.classList.add('hidden'); iEvs.classList.remove('hidden'); 
-            
-            if(m.status === 'unlocked') { 
-                $('a-muni-status').value = 'unlocked'; iStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`; 
-                let evHtml = '';
-                if(m.events) {
-                    Object.values(m.events).forEach(ev => { evHtml += `<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-white border-white/10 text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-solid fa-link text-sm mr-2"></i>ENLACE</a>`:'').join(''):''}${ev.embed?`<div class="mt-4 w-full rounded-xl overflow-hidden shadow-lg border border-white/10">${ev.embed}</div>`:''}</div>`; });
-                } else evHtml = `<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`;
-                iEvs.innerHTML = evHtml;
-            } else { 
-                $('a-muni-status').value = 'locked'; iStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`; 
-                iEvs.innerHTML = `<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`; 
-            } 
-            iEvs.innerHTML += `<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`; 
-            mobScroll(iAnc);
-        };
+// ── Header scroll ────────────────────────────────────────────────────────────
+const toggleHdr = col => {
+  if((hw.dataset.c==='1')===col) return;
+  hw.dataset.c = col?'1':'';
+  hs.forEach(e=>e.classList.toggle('collapsed',col));
+  hw.classList.replace(col?'pt-4':'pt-2', col?'pt-2':'pt-4');
+  hw.classList.replace(col?'pb-4':'pb-2', col?'pb-2':'pb-4');
+};
 
-        $('search-muni').oninput = e => { 
-            const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; 
-            if(v.length<2) return rL.classList.add('hidden'); 
-            const m = Object.entries(dbData.municipalities).filter(([_,d])=>d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)).slice(0,5); 
-            rL.classList.remove('hidden'); 
-            if(m.length) {
-                m.forEach(([id,d]) => { 
-                    const li = document.createElement('li'); li.className = "px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans"; 
-                    li.innerHTML = `<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`; 
-                    li.onclick = () => { selMuni(id); $('search-muni').value=''; rL.classList.add('hidden'); }; rL.appendChild(li); 
-                }); 
-            } else rL.innerHTML = `<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`; 
-        }; 
-        document.onclick = e => { if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
+const uNav = () => {
+  let c=sIds[0], sy=window.scrollY, wh=window.innerHeight/2;
+  sIds.forEach(id=>{ const el=$(id); if(el&&sy+wh>=el.offsetTop) c=id; });
+  nLks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+c));
+  const nx=sInf[c];
+  if(bNext){ bNext.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; }
+  if(window.innerWidth<768){ if(sy>150) toggleHdr(true); else if(sy<50) toggleHdr(false); } else toggleHdr(false);
+};
+window.addEventListener('scroll', uNav, {passive:true});
+window.addEventListener('load', uNav);
+uNav();
 
-        const renderMash = () => { 
-            const g = $('mashups-grid'); let html = ''; const e = Object.entries(dbData.mashups).sort(); 
-            if(!e.length) return g.innerHTML = '<p class="text-gray-500 text-xs p-2">Vacío</p>'; 
-            e.forEach(([_,d]) => html += `<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`); 
-            g.innerHTML = html;
-        };
-        
-        window.selComp = id => { 
-            $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon')); 
-            $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon')); 
-            const c = dbData.components[id]; if(!c) return; 
-            sEmp.classList.add('hidden'); sInfC.classList.remove('hidden');
-            sStat.innerHTML = `<div class="w-2 h-2 rounded-full bg-djMagenta"></div><span class="text-djMagenta text-[10px] font-bold uppercase">COMPONENTE ACTIVO</span>`;
-            sTit.innerText = c.title; sDesc.innerText = c.desc; 
-            mobScroll(sAnc);
-        };
-        
-        const renderComp = () => { const ov = $('setup-svg'); ov.innerHTML = ''; if(actTab==='setup' && !$('admin-panel').classList.contains('hidden')) return; Object.entries(dbData.components).forEach(([id,c]) => { (c.figures||[]).forEach(f => { if(f.length>2) { const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("class",`comp-polygon anim-trans comp-id-${id}`); p.onclick = e => { e.stopPropagation(); selComp(id); }; ov.appendChild(p); } }); }); };
+// ── Firebase: escuchar datos ──────────────────────────────────────────────────
+onValue(ref(db,'/'), s => {
+  dbData = s.val() || { municipalities:{}, components:{}, mashups:{} };
+  renderMap(); renderComp(); renderMash(); updateDds();
+  const mId=$('a-muni-id').value; if(mId) popEv(mId);
+});
 
-        let cc=0; $('site-title').onclick = () => { if(++cc>=3 && prompt("Pass:")==="1524") $('admin-panel').classList.remove('hidden'); setTimeout(()=>cc=0,800); };
-        $('btn-close-admin').onclick = () => { $('admin-panel').classList.add('hidden'); toggleAdminMode(false); };
-        let drA = false, dX, dY, dL, dT; $('admin-header').onmousedown = e => { if(e.target.closest('button')) return; drA=true; dX=e.clientX; dY=e.clientY; const r=$('admin-panel').getBoundingClientRect(); dL=r.left; dT=r.top; }; window.addEventListener('mousemove', e => { if(drA) { $('admin-panel').style.left = `${dL+(e.clientX-dX)}px`; $('admin-panel').style.top = `${dT+(e.clientY-dY)}px`; }}); window.addEventListener('mouseup', () => drA=false);
-        ['tour','setup','mashups'].forEach(t => $(`tab-${t}`).onclick = () => { actTab=t; ['tour','setup','mashups'].forEach(o => { $(`tab-${o}`).className = o===t ? `flex-1 py-3.5 text-${{tour:'djCyan',setup:'djMagenta',mashups:'djYellow'}[t]} border-b-2 border-current anim-trans` : 'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white anim-trans'; $(`sec-a-${o}`).classList[o===t?'remove':'add']('hidden'); }); toggleAdminMode(t==='setup'); });
+// ═══════════════════════════════════════════════════════════════════════════════
+// MAPA – PAN & ZOOM
+// ═══════════════════════════════════════════════════════════════════════════════
+const uLbls = () => {
+  if(!lgEl) return;
+  lgEl.className.baseVal = sc<2.2 ? 'opacity-0 transition-opacity duration-300 pointer-events-none' : 'opacity-100 transition-opacity duration-300 pointer-events-none';
+  if(sc<2.2) return;
+  const fS=11/sc, vW=vp.clientWidth, vH=vp.clientHeight, r=vp.getBoundingClientRect(), occ=[];
+  mLbls.forEach(l => {
+    const m=dbData.municipalities[l.dataset.id];
+    if(!m?.name||/^zona/i.test(m.name)) return void(l.style.opacity='0');
+    const un=m.status==='unlocked';
+    l.setAttribute('fill', un?'#42e6f5':'#ffffff');
+    l.setAttribute('font-size',`${un?fS*1.1:fS}px`);
+    l.setAttribute('font-weight', un?'900':'700');
+    const br=l.getBoundingClientRect(), x=br.left-r.left+br.width/2, y=br.top-r.top+br.height/2;
+    if(x<0||x>vW||y<0||y>vH) return void(l.style.opacity='0');
+    const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
+    if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b);}else l.style.opacity='0';
+  });
+};
 
-        const toggleAdminMode = act => { $('setup-img').classList[act?'add':'remove']('admin-setup-mode'); $('admin-hint').classList[act?'remove':'add']('hidden'); $('admin-pts').classList[act?'remove':'add']('hidden'); act ? renderAdminPts() : renderComp(); };
-        
-        window.delEv = (mid, eid) => { if(confirm('¿Borrar fecha?')) remove(ref(db, `municipalities/${mid}/events/${eid}`)); };
-        window.edEv = (mid, eid) => { const ev = dbData.municipalities[mid].events[eid]; $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; $('a-ev-embed').value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); }; 
-        const popEv = id => { 
-            const m = dbData.municipalities[id], l = $('a-ev-list'); let html = ''; 
-            if(m?.events) Object.entries(m.events).forEach(([eid,ev]) => html+=`<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan anim-trans hover:scale-110" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 anim-trans hover:scale-110" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`); 
-            l.innerHTML = html; 
-        };
-        const clrEv = () => { ['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>$(i).value=''); $('a-ev-t').innerHTML='Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
-        $('btn-cl-ev').onclick = clrEv;
-        $('btn-sv-ev').onclick = () => { const id = $('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value; if(!id) return; update(ref(db, `municipalities/${id}`), {status:$('a-muni-status').value, name:$('a-muni-name').value||id}); if(p||eid) { const pd = {place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value, embed:$('a-ev-embed').value}; (eid?update(ref(db,`municipalities/${id}/events/${eid}`),pd):push(ref(db,`municipalities/${id}/events`),pd)).then(()=>{clrEv();selMuni(id);}); } else selMuni(id); };
+const chkBounds = () => {
+  if(!svgW) return;
+  const rW=vp.clientWidth, rH=vp.clientHeight;
+  const minS=Math.min(rW/svgW, rH/svgH)*0.95;
+  if(sc<minS) sc=minS; if(sc>10) sc=10;
+  pX = svgW*sc<=rW ? (rW-svgW*sc)/2 : Math.min(0, Math.max(rW-svgW*sc, pX));
+  pY = svgH*sc<=rH ? (rH-svgH*sc)/2 : Math.min(0, Math.max(rH-svgH*sc, pY));
+};
 
-        const updateDds = () => { 
-            const c=$('a-comp-sel'), m=$('a-mash-sel'), cv=c.value, mv=m.value; 
-            let ch='<option value="NEW">NUEVO COMPONENTE</option>', mh='<option value="NEW">NUEVO MASHUP</option>'; 
-            Object.entries(dbData.components).forEach(([id,d])=>ch+=`<option value="${id}">${d.title}</option>`); 
-            Object.entries(dbData.mashups).forEach(([id,d])=>mh+=`<option value="${id}">${d.title}</option>`); 
-            c.innerHTML=ch; m.innerHTML=mh; 
-            if(dbData.components[cv]) c.value=cv; if(dbData.mashups[mv]) m.value=mv; 
-        };
-        
-        const crDots = (pts, pEl, dc) => { pts.forEach((pt,i) => { const dt = document.createElement('div'); dt.className="absolute w-2 h-2 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50 cursor-grab active:cursor-grabbing"; dt.style.left=pt.x+'%'; dt.style.top=pt.y+'%'; const mm = e => { e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; pts[i]={x:parseFloat(x.toFixed(1)), y:parseFloat(y.toFixed(1))}; if(pEl) pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' ')); }; const mu = () => { window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); }; dt.onmousedown = e => { e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); }; dt.ontouchstart = e => { e.stopPropagation(); window.addEventListener('touchmove',mm,{passive:false}); window.addEventListener('touchend',mu); }; dc.appendChild(dt); }); };
-        
-        window.edFig = i => { if(cPts.length>2) cFigs.push([...cPts]); cPts=[...cFigs[i]]; cFigs.splice(i,1); renderAdminPts(); };
-        const renderAdminPts = () => { 
-            const ul=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg'); 
-            dc.innerHTML=''; ov.innerHTML=''; let ulHtml=''; 
-            cFigs.forEach((f,i) => { 
-                const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); 
-                p.setAttribute("points", f.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(66,230,245,0.2)"); p.setAttribute("stroke","#42e6f5"); p.setAttribute("stroke-width","0.5"); ov.appendChild(p); crDots(f,p,dc); 
-                ulHtml+=`<li class="flex justify-between items-center bg-black/40 p-2 rounded border border-white/5 text-[11px]">Figura ${i+1} (${f.length} nodos)<div class="flex gap-2"><button class="text-djCyan hover:scale-110 anim-trans" onclick="window.edFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:scale-110 anim-trans" onclick="cFigs.splice(${i},1);renderAdminPts()"><i class="fa-solid fa-trash"></i></button></div></li>`; 
-            }); 
-            ul.innerHTML = ulHtml; 
-            if(cPts.length) { 
-                const p = document.createElementNS("http://www.w3.org/2000/svg","polygon"); p.setAttribute("points", cPts.map(pt=>`${pt.x},${pt.y}`).join(' ')); p.setAttribute("fill","rgba(232,28,255,0.2)"); p.setAttribute("stroke","#e81cff"); p.setAttribute("stroke-width","0.5"); p.setAttribute("stroke-dasharray","1"); ov.appendChild(p); crDots(cPts,p,dc); 
-            } 
-        };
-        
-        $('btn-add-fig').onclick = () => { if(cPts.length>2) { cFigs.push([...cPts]); cPts=[]; renderAdminPts(); } else alert("Mínimo 3 nodos"); }; $('btn-cl-pts').onclick = () => { cPts=[]; renderAdminPts(); };
-        $('a-comp-sel').onchange = e => { const v=e.target.value; if(v==='NEW') { $('a-comp-t').value=''; $('a-comp-d').value=''; cFigs=[]; cPts=[]; $('btn-dl-cp').classList.add('hidden'); } else { const d=dbData.components[v]; $('a-comp-t').value=d.title; $('a-comp-d').value=d.desc; cFigs=d.figures?[...d.figures]:(d.points?[[...d.points]]:[]); cPts=[]; $('btn-dl-cp').classList.remove('hidden'); } renderAdminPts(); };
-        $('setup-wrapper').onclick = e => { if(actTab==='setup' && !$('admin-panel').classList.contains('hidden') && !e.target.classList.contains('admin-drag-dot')) { const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100; cPts.push({x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}); renderAdminPts(); } };
-        $('btn-sv-cp').onclick = () => { if(!$('a-comp-t').value) return; if(cPts.length>2) { cFigs.push([...cPts]); cPts=[]; } set(ref(db, `components/${$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value}`), {title:$('a-comp-t').value, desc:$('a-comp-d').value, figures:cFigs}); renderAdminPts(); };
-        $('btn-dl-cp').onclick = () => { if(confirm('¿Borrar componente?')) remove(ref(db, `components/${$('a-comp-sel').value}`)).then(()=>{ $('a-comp-sel').value='NEW'; $('a-comp-sel').dispatchEvent(new Event('change')); }); };
+const uTrans = () => { tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
+const stPan  = (x,y) => { sX=x-pX; sY=y-pY; pan=true; isMov=false; vp.style.cursor='grabbing'; };
+const mvPan  = (x,y) => { if(!pan) return; isMov=true; pX=x-sX; pY=y-sY; chkBounds(); if(!reqFr) reqFr=requestAnimationFrame(uTrans); };
 
-        $('a-mash-sel').onchange = e => { const v=e.target.value; if(v==='NEW') { ['a-mash-t','a-mash-dl','a-mash-sc'].forEach(id=>$(id).value=''); $('btn-dl-ms').classList.add('hidden'); } else { const d=dbData.mashups[v]; $('a-mash-t').value=d.title||''; $('a-mash-dl').value=d.dl||''; $('a-mash-sc').value=d.scUrl||''; $('btn-dl-ms').classList.remove('hidden'); } };
-        $('btn-sv-ms').onclick = async () => { const id = $('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value, t=$('a-mash-t').value; if(!t) return; const b=$('btn-sv-ms'); b.disabled=true; b.innerHTML="GUARDANDO..."; try { await set(ref(db, `mashups/${id}`), {title:t, dl:$('a-mash-dl').value, scUrl:$('a-mash-sc').value}); b.innerText="¡GUARDADO!"; setTimeout(()=>{b.innerText="GUARDAR TRACK"; b.disabled=false;},2000); } catch(e) { b.disabled=false; b.innerText="GUARDAR TRACK"; } };
-        $('btn-dl-ms').onclick = () => { if(confirm('¿Eliminar track?')) remove(ref(db, `mashups/${$('a-mash-sel').value}`)).then(()=>{ $('a-mash-sel').value='NEW'; $('a-mash-sel').dispatchEvent(new Event('change')); }); };
-    </script>
+vp.onmousedown = e => stPan(e.clientX,e.clientY);
+window.addEventListener('mousemove', e => mvPan(e.clientX,e.clientY));
+window.addEventListener('mouseup', ()=>{ pan=false; vp.style.cursor='grab'; });
+
+vp.addEventListener('touchstart', e=>{ isMov=false; if(e.touches.length===1) stPan(e.touches[0].clientX,e.touches[0].clientY); },{passive:true});
+vp.addEventListener('touchmove', e=>{
+  if(pan&&e.touches.length===1) mvPan(e.touches[0].clientX,e.touches[0].clientY);
+  else if(e.touches.length===2){
+    e.preventDefault();
+    const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY);
+    const rb=vp.getBoundingClientRect(), mx=((t1.clientX+t2.clientX)/2)-rb.left, my=((t1.clientY+t2.clientY)/2)-rb.top;
+    const tx=(mx-pX)/sc, ty=(my-pY)/sc;
+    sc=sc*(d/(vp.dataset.sd||d)); vp.dataset.sd=d;
+    chkBounds(); pX=mx-tx*sc; pY=my-ty*sc; chkBounds();
+    if(!reqFr) reqFr=requestAnimationFrame(uTrans);
+  }
+},{passive:false});
+vp.addEventListener('touchend',()=>{ pan=false; delete vp.dataset.sd; });
+vp.addEventListener('wheel', e=>{
+  e.preventDefault();
+  const rb=vp.getBoundingClientRect(), tx=(e.clientX-rb.left-pX)/sc, ty=(e.clientY-rb.top-pY)/sc;
+  sc=e.deltaY<0?sc*1.1:sc/1.1; chkBounds();
+  pX=(e.clientX-rb.left)-tx*sc; pY=(e.clientY-rb.top)-ty*sc; chkBounds();
+  if(!reqFr) reqFr=requestAnimationFrame(uTrans);
+},{passive:false});
+
+// Reset map: centrar y ajustar el SVG al viewport
+$('btn-reset-map').onclick = () => {
+  if(!svgW) return;
+  const rW=vp.clientWidth, rH=vp.clientHeight;
+  sc = Math.min(rW/svgW, rH/svgH)*0.95;
+  pX = (rW - svgW*sc)/2;
+  pY = (rH - svgH*sc)/2;
+  if(!reqFr) reqFr=requestAnimationFrame(uTrans);
+};
+
+// ── Cargar SVG del mapa ───────────────────────────────────────────────────────
+fetch('salamanca.svg').then(r=>r.text()).then(h=>{
+  tLay.innerHTML=h;
+  const s=tLay.querySelector('svg'), g=document.createElementNS("http://www.w3.org/2000/svg","g");
+  try { const vb=s.viewBox.baseVal; if(vb.width){svgW=vb.width;svgH=vb.height;}else{const b=s.getBBox();svgW=b.width;svgH=b.height;} } catch(e){svgW=1000;svgH=1000;}
+  g.id='labels-group'; g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none';
+  s.style.pointerEvents='none'; s.appendChild(g);
+  s.querySelectorAll('path,polygon').forEach((el,i)=>{
+    const id=el.id||`zona_${i}`; el.id=id; el.className.baseVal='muni anim-trans muni-base';
+    try {
+      const b=el.getBBox();
+      if(b.width>0){
+        const t=document.createElementNS("http://www.w3.org/2000/svg","text");
+        t.setAttribute("x",b.x+b.width/2); t.setAttribute("y",b.y+b.height/2);
+        t.setAttribute("class","muni-label transition-opacity duration-200");
+        t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
+        t.setAttribute('font-family',"'Montserrat',sans-serif");
+        t.setAttribute('style','paint-order:stroke fill;stroke:#000;stroke-width:3.5px;stroke-linejoin:round;text-transform:uppercase;pointer-events:none');
+        g.appendChild(t);
+      }
+    } catch(e){}
+    el.onclick=e=>{ if(isMov) return; e.stopPropagation(); selMuni(id); };
+  });
+  lgEl=g; mLbls=Array.from(g.querySelectorAll('.muni-label'));
+  // Centrar el mapa correctamente al cargar
+  $('btn-reset-map').click();
+  renderMap();
+});
+
+// ── Render y selección de municipios ─────────────────────────────────────────
+const renderMap = () => {
+  Object.entries(dbData.municipalities).forEach(([id,d])=>{
+    const e=$(id); if(!e) return;
+    e.className.baseVal=`muni anim-trans muni-${d.status==='unlocked'?'unlocked':'base'} ${id===currMuni?'muni-selected':''}`;
+    if(d.status==='unlocked'&&id!==currMuni) e.parentNode.appendChild(e);
+  });
+  if(currMuni&&$(currMuni)) $(currMuni).parentNode.appendChild($(currMuni));
+  mLbls.forEach(l=>{ const n=dbData.municipalities[l.dataset.id]?.name; l.textContent=(!n||/^zona/i.test(n))?'':n; });
+  uLbls();
+};
+
+const selMuni = id => {
+  currMuni=id; renderMap();
+  const m=dbData.municipalities[id]||{}, n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));
+  iTit.innerText=n; $('a-muni-id').value=id; $('a-muni-name').value=n; clrEv(); popEv(id);
+  iEmp.classList.add('hidden'); iEvs.classList.remove('hidden');
+  if(m.status==='unlocked'){
+    $('a-muni-status').value='unlocked';
+    iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djCyan"></div><span class="text-djCyan text-[10px] font-bold uppercase">FECHAS CONFIRMADAS</span>`;
+    let evHtml='';
+    if(m.events){
+      Object.values(m.events).forEach(ev=>{
+        evHtml+=`<div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div><h4 class="text-lg font-display font-black">${ev.place}</h4><p class="text-xs text-djCyan font-bold uppercase">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-1">${ev.details}</p>`:''}${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="inline-flex mt-3 mr-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 text-white border-white/10 text-[10px] font-black tracking-wider rounded-full border anim-trans"><i class="fa-solid fa-link text-sm mr-2"></i>ENLACE</a>`:'').join(''):''}${ev.embed?`<div class="mt-4 w-full rounded-xl overflow-hidden shadow-lg border border-white/10">${ev.embed}</div>`:''}</div>`;
+      });
+    } else evHtml=`<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`;
+    iEvs.innerHTML=evHtml;
+  } else {
+    $('a-muni-status').value='locked';
+    iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`;
+    iEvs.innerHTML=`<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`;
+  }
+  iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`;
+  mobScroll(iAnc);
+};
+
+// Búsqueda de municipios
+$('search-muni').oninput = e => {
+  const v=e.target.value.toLowerCase().trim(), rL=$('search-results'); rL.innerHTML='';
+  if(v.length<2) return rL.classList.add('hidden');
+  const m=Object.entries(dbData.municipalities).filter(([_,d])=>d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v)).slice(0,5);
+  rL.classList.remove('hidden');
+  if(m.length){
+    m.forEach(([id,d])=>{
+      const li=document.createElement('li'); li.className="px-5 py-3 hover:bg-white/5 text-xs cursor-pointer border-b border-white/5 font-medium anim-trans";
+      li.innerHTML=`<i class="fa-solid fa-location-dot text-djCyan mr-2"></i>${d.name}`;
+      li.onclick=()=>{ selMuni(id); $('search-muni').value=''; rL.classList.add('hidden'); };
+      rL.appendChild(li);
+    });
+  } else rL.innerHTML=`<li class="px-5 py-3 text-gray-500 text-xs italic">Sin resultados</li>`;
+};
+document.onclick=e=>{ if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// MASHUPS
+// ═══════════════════════════════════════════════════════════════════════════════
+const renderMash = () => {
+  const g=$('mashups-grid'); const e=Object.entries(dbData.mashups).sort();
+  if(!e.length) return void(g.innerHTML='<p class="text-gray-500 text-xs p-2">Vacío</p>');
+  g.innerHTML=e.map(([_,d])=>`<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`).join('');
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// EQUIPO DJ – Componentes
+// ═══════════════════════════════════════════════════════════════════════════════
+window.selComp = id => {
+  $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon'));
+  $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon'));
+  const c=dbData.components[id]; if(!c) return;
+  sEmp.classList.add('hidden'); sInfC.classList.remove('hidden');
+  sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djMagenta"></div><span class="text-djMagenta text-[10px] font-bold uppercase">COMPONENTE ACTIVO</span>`;
+  sTit.innerText=c.title; sDesc.innerText=c.desc;
+  mobScroll(sAnc);
+};
+
+const renderComp = () => {
+  const ov=$('setup-svg'); ov.innerHTML='';
+  if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')) return;
+  Object.entries(dbData.components).forEach(([id,c])=>{
+    (c.figures||[]).forEach(f=>{
+      if(f.length>2){
+        const p=document.createElementNS("http://www.w3.org/2000/svg","polygon");
+        p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));
+        p.setAttribute("class",`comp-polygon anim-trans comp-id-${id}`);
+        p.onclick=e=>{ e.stopPropagation(); selComp(id); };
+        ov.appendChild(p);
+      }
+    });
+  });
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ADMIN – Arrastrar puntos (nodos)
+// ═══════════════════════════════════════════════════════════════════════════════
+const crDot = (pts, idx, pEl, dc) => {
+  const dt=document.createElement('div');
+  dt.className="absolute w-2 h-2 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50 cursor-grab active:cursor-grabbing";
+  dt.style.left=pts[idx].x+'%'; dt.style.top=pts[idx].y+'%';
+  // Click derecho en un nodo → eliminar nodo
+  dt.addEventListener('contextmenu', e => {
+    e.preventDefault(); e.stopPropagation();
+    pts.splice(idx,1);
+    renderAdminPts();
+  });
+  const mm=e=>{ e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}; if(pEl) pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' ')); };
+  const mu=()=>{ window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); };
+  dt.onmousedown=e=>{ e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); };
+  dt.ontouchstart=e=>{ e.stopPropagation(); window.addEventListener('touchmove',mm,{passive:false}); window.addEventListener('touchend',mu); };
+  dc.appendChild(dt);
+};
+
+// ── Render panel admin (figuras + nodos) ─────────────────────────────────────
+const renderAdminPts = () => {
+  const figsUl=$('a-comp-figs'), ptsUl=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg');
+  dc.innerHTML=''; ov.innerHTML='';
+
+  // Figuras guardadas
+  figsUl.innerHTML=cFigs.map((f,i)=>{
+    const isEd=editFigIdx===i;
+    return `<li class="flex justify-between items-center bg-black/40 p-2 rounded border ${isEd?'border-djMagenta/60':'border-white/5'} text-[11px]">
+      <span class="${isEd?'text-djMagenta':'text-white'}">Figura ${i+1} (${f.length} nodos)${isEd?' ✏️':''}</span>
+      <div class="flex gap-2">
+        <button class="text-djCyan hover:scale-110 anim-trans" onclick="window.editFig(${i})" title="Editar"><i class="fa-solid fa-pen"></i></button>
+        <button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delFig(${i})" title="Borrar"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </li>`;
+  }).join('');
+
+  // Dibujar figuras guardadas en SVG
+  cFigs.forEach((f,i)=>{
+    const p=document.createElementNS("http://www.w3.org/2000/svg","polygon");
+    p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));
+    p.setAttribute("fill","rgba(66,230,245,0.2)"); p.setAttribute("stroke","#42e6f5"); p.setAttribute("stroke-width","0.5");
+    ov.appendChild(p);
+    // Si es la figura en edición, mostrar sus nodos arrastrables
+    if(editFigIdx===i) f.forEach((_,ni)=>crDot(f,ni,p,dc));
+  });
+
+  // Figura en edición o figura borrador (nueva)
+  if(cPts.length){
+    const p=document.createElementNS("http://www.w3.org/2000/svg","polygon");
+    p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));
+    p.setAttribute("fill","rgba(232,28,255,0.2)"); p.setAttribute("stroke","#e81cff"); p.setAttribute("stroke-width","0.5"); p.setAttribute("stroke-dasharray","1");
+    ov.appendChild(p);
+    cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));
+  }
+
+  // Lista de nodos de la figura en borrador
+  ptsUl.innerHTML = cPts.length
+    ? cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-2 py-1 rounded text-[10px] text-gray-300"><span>Nodo ${i+1}: ${pt.x}%, ${pt.y}%</span><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delNode(${i})" title="Borrar nodo"><i class="fa-solid fa-xmark"></i></button></li>`).join('')
+    : '<li class="text-[10px] text-gray-600 px-2 py-1">Sin nodos — click izquierdo en el setup para añadir</li>';
+};
+
+// Editar figura guardada (carga sus nodos en cPts)
+window.editFig = i => {
+  if(editFigIdx===i){ editFigIdx=-1; cPts=[]; } // toggle: si ya está editando, cancelar
+  else { editFigIdx=i; cPts=[...cFigs[i]]; cFigs[i]=cPts; } // compartir referencia para que el drag actualice
+  renderAdminPts();
+};
+
+// Borrar figura guardada
+window.delFig = i => {
+  if(!confirm('¿Borrar figura?')) return;
+  cFigs.splice(i,1);
+  if(editFigIdx===i){ editFigIdx=-1; cPts=[]; }
+  else if(editFigIdx>i) editFigIdx--;
+  renderAdminPts();
+};
+
+// Borrar nodo del borrador
+window.delNode = i => { cPts.splice(i,1); renderAdminPts(); };
+
+// Guardar figura borrador
+$('btn-add-fig').onclick = () => {
+  if(cPts.length<3) return alert("Mínimo 3 nodos");
+  if(editFigIdx>=0){
+    // Ya está sincronizado por referencia, solo salir del modo edición
+    editFigIdx=-1;
+  } else {
+    cFigs.push([...cPts]);
+  }
+  cPts=[]; renderAdminPts();
+};
+
+// Limpiar nodos del borrador
+$('btn-cl-pts').onclick = () => { cPts=[]; editFigIdx=-1; renderAdminPts(); };
+
+// Click en el setup: click izq = nuevo nodo, click der = nueva figura (si hay nodos)
+$('setup-wrapper').addEventListener('contextmenu', e => {
+  e.preventDefault();
+  if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')){
+    if(cPts.length>=3){ cFigs.push([...cPts]); cPts=[]; editFigIdx=-1; renderAdminPts(); }
+    else if(cPts.length>0) alert("Mínimo 3 nodos para crear una figura");
+  }
+});
+$('setup-wrapper').onclick = e => {
+  if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&!e.target.classList.contains('admin-drag-dot')){
+    const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100;
+    cPts.push({x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))});
+    renderAdminPts();
+  }
+};
+
+// Guardar componente en Firebase
+$('btn-sv-cp').onclick = () => {
+  if(!$('a-comp-t').value) return;
+  const allFigs=[...cFigs];
+  if(cPts.length>2) allFigs.push([...cPts]);
+  const id=$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value;
+  set(ref(db,`components/${id}`),{title:$('a-comp-t').value, desc:$('a-comp-d').value, figures:allFigs});
+  cPts=[]; editFigIdx=-1; renderAdminPts();
+};
+
+$('btn-dl-cp').onclick = () => {
+  if(confirm('¿Borrar componente?')) remove(ref(db,`components/${$('a-comp-sel').value}`)).then(()=>{ $('a-comp-sel').value='NEW'; $('a-comp-sel').dispatchEvent(new Event('change')); });
+};
+
+$('a-comp-sel').onchange = e => {
+  const v=e.target.value;
+  if(v==='NEW'){ $('a-comp-t').value=''; $('a-comp-d').value=''; cFigs=[]; cPts=[]; editFigIdx=-1; $('btn-dl-cp').classList.add('hidden'); }
+  else { const d=dbData.components[v]; $('a-comp-t').value=d.title; $('a-comp-d').value=d.desc; cFigs=d.figures?d.figures.map(f=>[...f]):[]; cPts=[]; editFigIdx=-1; $('btn-dl-cp').classList.remove('hidden'); }
+  renderAdminPts();
+};
+
+// ── Admin – Tour: eventos ────────────────────────────────────────────────────
+window.delEv = (mid,eid) => { if(confirm('¿Borrar fecha?')) remove(ref(db,`municipalities/${mid}/events/${eid}`)); };
+window.edEv  = (mid,eid) => { const ev=dbData.municipalities[mid].events[eid]; $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; $('a-ev-embed').value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); };
+
+const popEv = id => {
+  const m=dbData.municipalities[id], l=$('a-ev-list'); let html='';
+  if(m?.events) Object.entries(m.events).forEach(([eid,ev])=>html+=`<div class="flex justify-between items-center bg-black/40 p-2 rounded text-xs"><span>${ev.place}</span><div class="flex gap-2"><button class="text-djCyan anim-trans hover:scale-110" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 anim-trans hover:scale-110" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);
+  l.innerHTML=html;
+};
+
+const clrEv = () => { ['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>$(i).value=''); $('a-ev-t').innerHTML='<i class="fa-solid fa-plus text-djCyan mr-1"></i> Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
+$('btn-cl-ev').onclick = clrEv;
+$('btn-sv-ev').onclick = () => {
+  const id=$('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value;
+  if(!id) return;
+  update(ref(db,`municipalities/${id}`),{status:$('a-muni-status').value, name:$('a-muni-name').value||id});
+  if(p||eid){
+    const pd={place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value, embed:$('a-ev-embed').value};
+    (eid?update(ref(db,`municipalities/${id}/events/${eid}`),pd):push(ref(db,`municipalities/${id}/events`),pd)).then(()=>{ clrEv(); selMuni(id); });
+  } else selMuni(id);
+};
+
+// ── Admin – Mashups ───────────────────────────────────────────────────────────
+const updateDds = () => {
+  const c=$('a-comp-sel'), m=$('a-mash-sel'), cv=c.value, mv=m.value;
+  let ch='<option value="NEW">NUEVO COMPONENTE</option>', mh='<option value="NEW">NUEVO MASHUP</option>';
+  Object.entries(dbData.components).forEach(([id,d])=>ch+=`<option value="${id}">${d.title}</option>`);
+  Object.entries(dbData.mashups).forEach(([id,d])=>mh+=`<option value="${id}">${d.title}</option>`);
+  c.innerHTML=ch; m.innerHTML=mh;
+  if(dbData.components[cv]) c.value=cv;
+  if(dbData.mashups[mv]) m.value=mv;
+};
+
+$('a-mash-sel').onchange = e => {
+  const v=e.target.value;
+  if(v==='NEW'){ ['a-mash-t','a-mash-dl','a-mash-sc'].forEach(id=>$(id).value=''); $('btn-dl-ms').classList.add('hidden'); }
+  else { const d=dbData.mashups[v]; $('a-mash-t').value=d.title||''; $('a-mash-dl').value=d.dl||''; $('a-mash-sc').value=d.scUrl||''; $('btn-dl-ms').classList.remove('hidden'); }
+};
+
+$('btn-sv-ms').onclick = async () => {
+  const id=$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value;
+  const t=$('a-mash-t').value; if(!t) return;
+  const b=$('btn-sv-ms'); b.disabled=true; b.innerHTML='GUARDANDO...';
+  try {
+    await set(ref(db,`mashups/${id}`),{title:t, dl:$('a-mash-dl').value, scUrl:$('a-mash-sc').value});
+    b.innerText='¡GUARDADO!';
+    setTimeout(()=>{ b.innerText='GUARDAR TRACK'; b.disabled=false; },2000);
+  } catch(e){ b.disabled=false; b.innerText='GUARDAR TRACK'; }
+};
+
+$('btn-dl-ms').onclick = () => {
+  if(confirm('¿Eliminar track?')) remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{ $('a-mash-sel').value='NEW'; $('a-mash-sel').dispatchEvent(new Event('change')); });
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ADMIN PANEL – Panel flotante
+// ═══════════════════════════════════════════════════════════════════════════════
+let cc=0;
+$('site-title').onclick = () => { if(++cc>=3&&prompt("Pass:")==="1524") $('admin-panel').classList.remove('hidden'); setTimeout(()=>cc=0,800); };
+$('btn-close-admin').onclick = () => { $('admin-panel').classList.add('hidden'); toggleAdminMode(false); };
+
+// Drag del panel admin
+let drA=false, dX, dY, dL, dT;
+$('admin-header').onmousedown = e => { if(e.target.closest('button')) return; drA=true; dX=e.clientX; dY=e.clientY; const r=$('admin-panel').getBoundingClientRect(); dL=r.left; dT=r.top; };
+window.addEventListener('mousemove', e=>{ if(drA){ $('admin-panel').style.left=`${dL+(e.clientX-dX)}px`; $('admin-panel').style.top=`${dT+(e.clientY-dY)}px`; } });
+window.addEventListener('mouseup', ()=>drA=false);
+
+// Tabs del panel admin
+['tour','setup','mashups'].forEach(t=>{
+  $(`tab-${t}`).onclick = () => {
+    actTab=t;
+    const colors={tour:'djCyan',setup:'djMagenta',mashups:'djYellow'};
+    ['tour','setup','mashups'].forEach(o=>{
+      $(`tab-${o}`).className = o===t ? `flex-1 py-3.5 text-${colors[t]} border-b-2 border-current anim-trans` : 'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white anim-trans';
+      $(`sec-a-${o}`).classList[o===t?'remove':'add']('hidden');
+    });
+    toggleAdminMode(t==='setup');
+  };
+});
+
+const toggleAdminMode = act => {
+  $('setup-img').classList[act?'add':'remove']('admin-setup-mode');
+  $('admin-hint').classList[act?'remove':'add']('hidden');
+  $('admin-pts').classList[act?'remove':'add']('hidden');
+  if(act) renderAdminPts(); else renderComp();
+};
+</script>
 </body>
 </html>
