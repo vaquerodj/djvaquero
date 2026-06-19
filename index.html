@@ -29,7 +29,7 @@ body{background-color:#06070a;color:#fff;overflow-x:hidden;font-family:'Inter',s
 .social-tk:hover,.social-tk:active{background:#000;border-color:#42e6f5;box-shadow:0 10px 20px rgba(66,230,245,.2)}
 .social-sc:hover,.social-sc:active{background:#ff5500;box-shadow:0 10px 20px rgba(255,85,0,.3)}
 .social-yt:hover,.social-yt:active{background:#f00;box-shadow:0 10px 20px rgba(255,0,0,.3)}
-.zoom-layer{width:100%;height:100%;transform-origin:0 0;touch-action:none}
+.zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
 .zoom-layer svg{width:100%;height:100%;shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
 path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
 .muni{cursor:pointer;pointer-events:all;stroke-width:1px!important}
@@ -82,7 +82,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </header>
 </div>
 
-<!-- SALAMANCA TOUR -->
 <main id="sec-tour" class="w-full max-w-[1600px] px-4 md:px-10 mt-8 flex flex-col lg:flex-row gap-6 lg:gap-8 z-10 scroll-mt-40 lg:h-[70vh] min-h-[600px]">
   <section class="flex-[2] flex flex-col gap-4 relative h-full">
     <div class="glass-panel anim-trans p-4 md:p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-20 shrink-0">
@@ -94,10 +93,8 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       </div>
       <button id="btn-reset-map" class="bg-white/5 hover:bg-djCyan hover:text-black border border-white/5 w-12 h-12 rounded-full transition-all text-gray-400 shrink-0"><i class="fa-solid fa-compress"></i></button>
     </div>
-    
-    <!-- CONTENEDOR RESTAURADO (Alturas originales y flex-grow sin lg:h-auto que lo rompía) -->
-    <div class="border border-white/5 shadow-2xl flex-grow rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab min-h-[50vh] lg:min-h-0" id="tour-viewport">
-      <div class="zoom-layer absolute inset-0" id="tour-layer"></div>
+    <div class="border border-white/5 shadow-2xl flex-grow rounded-2xl w-full relative bg-[#040508] overflow-hidden cursor-grab" id="tour-viewport">
+      <div class="zoom-layer" id="tour-layer"></div>
     </div>
   </section>
 
@@ -111,7 +108,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </aside>
 </main>
 
-<!-- EQUIPO DJ -->
 <div id="sec-setup" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40 flex flex-col">
   <div class="glass-panel anim-trans p-4 px-6 mb-6 inline-flex items-center self-start"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-headphones text-djMagenta"></i> Equipo DJ</h2></div>
   <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:h-[70vh] min-h-[500px]">
@@ -127,7 +123,7 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       </div>
       <div id="setup-empty" class="flex-grow flex flex-col items-center justify-center p-12 text-gray-600 text-center"><i class="fa-solid fa-plug text-6xl mb-6 opacity-20"></i><p class="text-sm font-medium">Interactúa con el equipo para<br>ver sus especificaciones.</p></div>
     </aside>
-    <section class="flex-[2] order-1 lg:order-2 glass-panel anim-trans p-4 flex justify-center items-center relative overflow-hidden h-full min-h-[350px] lg:min-h-0">
+    <section class="flex-[2] order-1 lg:order-2 glass-panel anim-trans p-4 flex justify-center items-center relative overflow-hidden h-full">
       <div class="relative w-full h-full flex justify-center items-center">
         <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block bg-black/20 rounded-xl border border-white/5 select-none touch-none overflow-hidden">
           <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[65vh] object-contain block" id="setup-img" draggable="false">
@@ -140,7 +136,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </div>
 </div>
 
-<!-- MASHUPS -->
 <div id="sec-mashups" class="w-full max-w-[1600px] mx-auto mt-28 px-4 md:px-10 z-10 scroll-mt-40">
   <div class="glass-panel anim-trans p-4 px-6 mb-8 inline-flex items-center"><h2 class="font-display font-black text-xl text-white uppercase"><i class="fa-solid fa-compact-disc text-djYellow"></i> Mashups &amp; Edits</h2></div>
   <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
@@ -158,7 +153,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   <span id="next-sec-name" class="text-djMagenta transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs">Equipo <i class="fa-solid fa-headphones ml-1"></i></span>
 </a>
 
-<!-- ADMIN PANEL -->
 <div id="admin-panel" class="hidden fixed top-20 left-4 md:left-10 w-[400px] max-w-[94vw] bg-[#0c0f15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col">
   <div id="admin-header" class="bg-black/30 border-b border-white/5 p-4 flex justify-between items-center cursor-move touch-none">
     <div class="flex items-center gap-2.5"><div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div><span class="text-white font-display font-black text-xs tracking-widest pointer-events-none">CONSOLE</span></div>
@@ -171,7 +165,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
   </div>
   <div class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
 
-    <!-- TAB TOUR -->
     <div id="sec-a-tour" class="space-y-4">
       <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
       <input type="text" id="a-muni-name" placeholder="Nombre Visual" class="admin-input focus:border-djCyan">
@@ -191,7 +184,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       </div>
     </div>
 
-    <!-- TAB SETUP -->
     <div id="sec-a-setup" class="space-y-4 hidden">
       <select id="a-comp-sel" class="admin-input focus:border-djMagenta"><option value="NEW">NUEVO COMPONENTE</option></select>
       <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input focus:border-djMagenta">
@@ -212,7 +204,6 @@ path,polygon{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linec
       </div>
     </div>
 
-    <!-- TAB MASHUPS -->
     <div id="sec-a-mashups" class="space-y-4 hidden">
       <select id="a-mash-sel" class="admin-input focus:border-djYellow"><option value="NEW">NUEVO MASHUP</option></select>
       <input type="text" id="a-mash-t" placeholder="Título" class="admin-input focus:border-djYellow">
@@ -236,85 +227,76 @@ const db = getDatabase(app);
 const $ = id => document.getElementById(id);
 const $$ = q => document.querySelectorAll(q);
 
+// ── Estado global ──────────────────────────────────────────────────────────
 let dbData = { municipalities:{}, components:{}, mashups:{} };
 let currMuni = null, isMov = false, actTab = 'tour';
 let sc=1, pX=0, pY=0, reqFr=null, pan=false, sX=0, sY=0;
 let svgW=1000, svgH=1000, lgEl=null, mLbls=[];
-let cFigs=[], cPts=[], editFigIdx=-1;
+let cFigs=[], cPts=[], editFigIdx=-1; 
 
-const mobScroll = el => { if(window.innerWidth<1024) el.scrollIntoView({behavior:'smooth',block:'start'}); };
-
-const toggleHdr = col => {
-  if((hw.dataset.c==='1')===col) return;
-  hw.dataset.c = col?'1':'';
-  hs.forEach(e=>e.classList.toggle('collapsed',col));
-  hw.classList.replace(col?'pt-4':'pt-2', col?'pt-2':'pt-4');
-  hw.classList.replace(col?'pb-4':'pb-2', col?'pb-2':'pb-4');
-};
-
-const uNav = () => {
-  let c=sIds[0], sy=window.scrollY, wh=window.innerHeight/2;
-  sIds.forEach(id=>{ const el=$(id); if(el&&sy+wh>=el.offsetTop) c=id; });
-  nLks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+c));
-  const nx=sInf[c];
-  if(bNext){ bNext.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; }
-  if(window.innerWidth<768){ if(sy>150) toggleHdr(true); else if(sy<50) toggleHdr(false); } else toggleHdr(false);
-};
-const hw = $('hdr-wrapper'), hs = $$('.hide-on-scroll'), nLks = $$('.nav-link'), bNext = $('btn-next-sec'), nn = $('next-sec-name');
+// ── Referencias DOM ─────────────────────────────────────────────────────────
+const vp = $('tour-viewport'), tLay = $('tour-layer'), hw = $('hdr-wrapper');
+const iTit = $('info-title'), iEmp = $('info-empty'), iEvs = $('info-events'), iStat = $('info-status'), iAnc = $('info-anchor');
+const sEmp = $('setup-empty'), sInfC = $('setup-info-content'), sStat = $('setup-status'), sTit = $('setup-t'), sDesc = $('setup-d'), sAnc = $('setup-info-anchor');
 const sIds = ['sec-tour','sec-setup','sec-mashups'];
 const sInf = { 'sec-tour':{n:'sec-setup',t:'Equipo',i:'fa-headphones',c:'text-djMagenta'}, 'sec-setup':{n:'sec-mashups',t:'Mashups',i:'fa-compact-disc',c:'text-djYellow'}, 'sec-mashups':{n:'sec-tour',t:'Tour',i:'fa-map-location-dot',c:'text-djCyan'} };
 
-window.addEventListener('scroll', uNav, {passive:true});
-window.addEventListener('load', uNav);
-uNav();
+// ── Utilidades ───────────────────────────────────────────────────────────────
+const mobScroll = el => { if(window.innerWidth<1024) el.scrollIntoView({behavior:'smooth',block:'start'}); };
 
+// ── Header scroll ────────────────────────────────────────────────────────────
+const uNav = () => {
+  let c=sIds[0], sy=window.scrollY, wh=window.innerHeight/2;
+  sIds.forEach(id=>{ const el=$(id); if(el&&sy+wh>=el.offsetTop) c=id; });
+  $$('.nav-link').forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+c));
+  const nx=sInf[c], nn=$('next-sec-name'), bNext=$('btn-next-sec');
+  if(bNext){ bNext.href='#'+nx.n; nn.className=`${nx.c} transition-colors tracking-widest font-display font-black uppercase text-[10px] sm:text-xs`; nn.innerHTML=`${nx.t} <i class="fa-solid ${nx.i} ml-1"></i>`; }
+  const col = window.innerWidth<768 ? sy>150 : false;
+  if((hw.dataset.c==='1')!==col){
+    hw.dataset.c = col?'1':'';
+    $$('.hide-on-scroll').forEach(e=>e.classList.toggle('collapsed',col));
+    hw.classList.replace(col?'pt-4':'pt-2', col?'pt-2':'pt-4');
+    hw.classList.replace(col?'pb-4':'pb-2', col?'pb-2':'pb-4');
+  }
+};
+window.addEventListener('scroll', uNav, {passive:true}); window.addEventListener('load', uNav); uNav();
+
+// ── Firebase: escuchar datos ──────────────────────────────────────────────────
 onValue(ref(db,'/'), s => {
   dbData = s.val() || { municipalities:{}, components:{}, mashups:{} };
   renderMap(); renderComp(); renderMash(); updateDds();
   const mId=$('a-muni-id').value; if(mId) popEv(mId);
 });
 
-const vp = $('tour-viewport'), tLay = $('tour-layer');
-const iAnc = $('info-anchor'), iTit = $('info-title'), iStat = $('info-status'), iEvs = $('info-events'), iEmp = $('info-empty');
-const sAnc = $('setup-info-anchor'), sStat = $('setup-status'), sTit = $('setup-t'), sDesc = $('setup-d'), sInfC = $('setup-info-content'), sEmp = $('setup-empty');
-
+// ═══════════════════════════════════════════════════════════════════════════════
+// MAPA – PAN & ZOOM (CORECCIÓN DE CENTRADO APLICADA)
+// ═══════════════════════════════════════════════════════════════════════════════
 const uLbls = () => {
   if(!lgEl) return;
-  const minZoom = 1.6;
-  lgEl.className.baseVal = sc<minZoom ? 'opacity-0 transition-opacity duration-300 pointer-events-none' : 'opacity-100 transition-opacity duration-300 pointer-events-none';
-  if(sc<minZoom) return;
+  lgEl.className.baseVal = sc<2.2 ? 'opacity-0 transition-opacity duration-300 pointer-events-none' : 'opacity-100 transition-opacity duration-300 pointer-events-none';
+  if(sc<2.2) return;
   const fS=11/sc, vW=vp.clientWidth, vH=vp.clientHeight, r=vp.getBoundingClientRect(), occ=[];
-  const pad = sc > 3.5 ? 0 : Math.max(0, 5 - sc);
   mLbls.forEach(l => {
     const m=dbData.municipalities[l.dataset.id];
     if(!m?.name||/^zona/i.test(m.name)) return void(l.style.opacity='0');
     const un=m.status==='unlocked';
-    l.setAttribute('fill', un?'#42e6f5':'#a1a1aa');
+    l.setAttribute('fill', un?'#42e6f5':'#ffffff');
     l.setAttribute('font-size',`${un?fS*1.1:fS}px`);
-    l.setAttribute('font-weight', un?'900':'600');
+    l.setAttribute('font-weight', un?'900':'700');
     const br=l.getBoundingClientRect(), x=br.left-r.left+br.width/2, y=br.top-r.top+br.height/2;
     if(x<0||x>vW||y<0||y>vH) return void(l.style.opacity='0');
     const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
-    if(pad===0 || !occ.some(o=>b.l-pad<o.r&&b.r+pad>o.l&&b.t-pad<o.b&&b.b+pad>o.t)){l.style.opacity='1';occ.push(b);}else l.style.opacity='0';
+    if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b);}else l.style.opacity='0';
   });
 };
 
-/* --- RESTAURADA LA LÓGICA DE CENTRADO ORIGINAL --- */
 const chkBounds = () => {
   if(!svgW) return;
   const rW=vp.clientWidth, rH=vp.clientHeight;
   const minS=Math.min(rW/svgW, rH/svgH)*0.95;
   if(sc<minS) sc=minS; if(sc>10) sc=10;
-  
-  // Limites originales permitiendo el arrastre adecuado y centrado
-  const maxX = Math.max(0, (rW - svgW*sc)/2);
-  const maxY = Math.max(0, (rH - svgH*sc)/2);
-  
-  if (svgW*sc <= rW) pX = (rW - svgW*sc)/2;
-  else pX = Math.min(0, Math.max(rW - svgW*sc, pX));
-
-  if (svgH*sc <= rH) pY = (rH - svgH*sc)/2;
-  else pY = Math.min(0, Math.max(rH - svgH*sc, pY));
+  pX = svgW*sc<=rW ? (rW-svgW*sc)/2 : Math.min(0, Math.max(rW-svgW*sc, pX));
+  pY = svgH*sc<=rH ? (rH-svgH*sc)/2 : Math.min(0, Math.max(rH-svgH*sc, pY));
 };
 
 const uTrans = () => { tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`; uLbls(); reqFr=null; };
@@ -330,7 +312,7 @@ vp.addEventListener('touchmove', e=>{
   if(pan&&e.touches.length===1) mvPan(e.touches[0].clientX,e.touches[0].clientY);
   else if(e.touches.length===2){
     e.preventDefault();
-    const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY);
+    const t1=e.touches[0], t2=e.touches[1], d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY);
     const rb=vp.getBoundingClientRect(), mx=((t1.clientX+t2.clientX)/2)-rb.left, my=((t1.clientY+t2.clientY)/2)-rb.top;
     const tx=(mx-pX)/sc, ty=(my-pY)/sc;
     sc=sc*(d/(vp.dataset.sd||d)); vp.dataset.sd=d;
@@ -347,24 +329,25 @@ vp.addEventListener('wheel', e=>{
   if(!reqFr) reqFr=requestAnimationFrame(uTrans);
 },{passive:false});
 
+// Reset map: Asegura el centrado exacto
 $('btn-reset-map').onclick = () => {
   if(!svgW) return;
   const rW=vp.clientWidth, rH=vp.clientHeight;
-  sc = Math.min(rW/svgW, rH/svgH) * 0.95;
-  pX = (rW - svgW*sc)/2; pY = (rH - svgH*sc)/2;
+  sc = Math.min(rW/svgW, rH/svgH)*0.95;
+  pX = (rW - svgW*sc)/2;
+  pY = (rH - svgH*sc)/2;
   if(!reqFr) reqFr=requestAnimationFrame(uTrans);
 };
 
+// ── Cargar SVG del mapa ───────────────────────────────────────────────────────
 fetch('salamanca.svg').then(r=>r.text()).then(h=>{
   tLay.innerHTML=h;
   const s=tLay.querySelector('svg'), g=document.createElementNS("http://www.w3.org/2000/svg","g");
+  try { const vb=s.viewBox.baseVal; if(vb.width){svgW=vb.width;svgH=vb.height;}else{const b=s.getBBox();svgW=b.width;svgH=b.height;} } catch(e){svgW=1000;svgH=1000;}
   
-  /* Restaurado soporte original de ViewBox */
-  try { 
-      const vb=s.viewBox.baseVal; 
-      if(vb && vb.width){svgW=vb.width;svgH=vb.height;}
-      else{const b=s.getBBox();svgW=b.width;svgH=b.height;} 
-  } catch(e){svgW=1000;svgH=1000;}
+  // Asignar el tamaño explícito a la capa para que la fórmula de escalado coincida 1:1
+  tLay.style.width = svgW + 'px';
+  tLay.style.height = svgH + 'px';
   
   g.id='labels-group'; g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none';
   s.style.pointerEvents='none'; s.appendChild(g);
@@ -378,19 +361,19 @@ fetch('salamanca.svg').then(r=>r.text()).then(h=>{
         t.setAttribute("class","muni-label transition-opacity duration-200");
         t.setAttribute("data-id",id); t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
         t.setAttribute('font-family',"'Montserrat',sans-serif");
-        t.setAttribute('style','paint-order:stroke fill;stroke:rgba(6,7,10,0.8);stroke-width:2px;letter-spacing:0.05em;pointer-events:none');
+        t.setAttribute('style','paint-order:stroke fill;stroke:#000;stroke-width:3.5px;stroke-linejoin:round;text-transform:uppercase;pointer-events:none');
         g.appendChild(t);
       }
     } catch(e){}
     el.onclick=e=>{ if(isMov) return; e.stopPropagation(); selMuni(id); };
   });
   lgEl=g; mLbls=Array.from(g.querySelectorAll('.muni-label'));
-  
-  // Timeout ligero para asegurar que el DOM ha pintado el contenedor antes del reset
-  setTimeout(() => $('btn-reset-map').click(), 50);
+  // Esperar a que el layout se pinte antes de centrar para que `clientWidth` no sea 0
+  requestAnimationFrame(() => $('btn-reset-map').click());
   renderMap();
 });
 
+// ── Render y selección de municipios ─────────────────────────────────────────
 const renderMap = () => {
   Object.entries(dbData.municipalities).forEach(([id,d])=>{
     const e=$(id); if(!e) return;
@@ -422,10 +405,11 @@ const selMuni = id => {
     iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-500 text-[10px] font-bold uppercase">Zona Oculta</span>`;
     iEvs.innerHTML=`<p class="text-gray-500 text-xs text-center py-6">Contrataciones abiertas.</p>`;
   }
-  iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djCyan to-blue-500 text-black w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(66,230,245,0.3)]">CONTRATACIÓN DIRECTA</a>`;
+  iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="block bg-gradient-to-r from-djMagenta to-purple-600 text-white w-full py-3.5 rounded-xl text-center text-xs font-black mt-4 anim-trans hover:scale-[1.02] shadow-[0_5px_20px_rgba(232,28,255,0.3)]">CONTRATACIÓN DIRECTA</a>`;
   mobScroll(iAnc);
 };
 
+// Búsqueda de municipios
 $('search-muni').oninput = e => {
   const v=e.target.value.toLowerCase().trim(), rL=$('search-results'); rL.innerHTML='';
   if(v.length<2) return rL.classList.add('hidden');
@@ -442,12 +426,18 @@ $('search-muni').oninput = e => {
 };
 document.onclick=e=>{ if(!$('search-muni').contains(e.target)) $('search-results').classList.add('hidden'); };
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// MASHUPS
+// ═══════════════════════════════════════════════════════════════════════════════
 const renderMash = () => {
-  const g=$('mashups-grid'); const e=Object.entries(dbData.mashups).sort();
+  const g=$('mashups-grid'), e=Object.entries(dbData.mashups).sort();
   if(!e.length) return void(g.innerHTML='<p class="text-gray-500 text-xs p-2">Vacío</p>');
   g.innerHTML=e.map(([_,d])=>`<div class="glass-panel anim-trans bg-black/20 p-6 flex flex-col justify-between group overflow-hidden gap-4"><div><div class="w-10 h-10 rounded-full bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow"><i class="fa-solid fa-music"></i></div><h4 class="font-display font-black text-md tracking-wide">${d.title}</h4></div>${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/5"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23f5d442&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="bg-gradient-to-r from-djYellow to-orange-400 text-black py-3 rounded-xl text-center text-xs font-black anim-trans hover:scale-[1.02]">DESCARGAR PACK</a>`:''}</div>`).join('');
 };
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// EQUIPO DJ – Componentes
+// ═══════════════════════════════════════════════════════════════════════════════
 window.selComp = id => {
   $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon'));
   $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon'));
@@ -474,34 +464,31 @@ const renderComp = () => {
   });
 };
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ADMIN – Arrastrar puntos (nodos)
+// ═══════════════════════════════════════════════════════════════════════════════
 const crDot = (pts, idx, pEl, dc) => {
   const dt=document.createElement('div');
-  dt.className="absolute w-2.5 h-2.5 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50 cursor-grab active:cursor-grabbing pointer-events-auto";
+  dt.className="absolute w-2 h-2 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border border-white admin-drag-dot shadow-[0_0_8px_#e81cff] z-50 cursor-grab active:cursor-grabbing";
   dt.style.left=pts[idx].x+'%'; dt.style.top=pts[idx].y+'%';
-  dt.addEventListener('contextmenu', e => {
-    e.preventDefault(); e.stopPropagation();
-    pts.splice(idx,1); renderAdminPts();
-  });
+  dt.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); pts.splice(idx,1); renderAdminPts(); });
   const mm=e=>{ e.preventDefault(); const r=$('setup-wrapper').getBoundingClientRect(), cx=e.touches?e.touches[0].clientX:e.clientX, cy=e.touches?e.touches[0].clientY:e.clientY; let x=Math.max(0,Math.min(100,((cx-r.left)/r.width)*100)), y=Math.max(0,Math.min(100,((cy-r.top)/r.height)*100)); dt.style.left=x+'%'; dt.style.top=y+'%'; pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))}; if(pEl) pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' ')); };
-  const mu=()=>{ window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); renderAdminPts(); };
+  const mu=()=>{ window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); window.removeEventListener('touchmove',mm); window.removeEventListener('touchend',mu); };
   dt.onmousedown=e=>{ e.stopPropagation(); window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu); };
   dt.ontouchstart=e=>{ e.stopPropagation(); window.addEventListener('touchmove',mm,{passive:false}); window.addEventListener('touchend',mu); };
   dc.appendChild(dt);
 };
 
+// ── Render panel admin (figuras + nodos) ─────────────────────────────────────
 const renderAdminPts = () => {
   const figsUl=$('a-comp-figs'), ptsUl=$('a-comp-pts'), dc=$('admin-pts'), ov=$('setup-svg');
   dc.innerHTML=''; ov.innerHTML='';
+
   figsUl.innerHTML=cFigs.map((f,i)=>{
     const isEd=editFigIdx===i;
-    return `<li class="flex justify-between items-center bg-black/40 p-2 rounded border ${isEd?'border-djMagenta/60':'border-white/5'} text-[11px]">
-      <span class="${isEd?'text-djMagenta':'text-white'}">Figura ${i+1} (${f.length} nodos)${isEd?' ✏️':''}</span>
-      <div class="flex gap-2">
-        <button class="text-djCyan hover:scale-110 anim-trans" onclick="window.editFig(${i})" title="Editar"><i class="fa-solid fa-pen"></i></button>
-        <button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delFig(${i})" title="Borrar"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </li>`;
+    return `<li class="flex justify-between items-center bg-black/40 p-2 rounded border ${isEd?'border-djMagenta/60':'border-white/5'} text-[11px]"><span class="${isEd?'text-djMagenta':'text-white'}">Figura ${i+1} (${f.length} nodos)${isEd?' ✏️':''}</span><div class="flex gap-2"><button class="text-djCyan hover:scale-110 anim-trans" onclick="window.editFig(${i})" title="Editar"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delFig(${i})" title="Borrar"><i class="fa-solid fa-trash"></i></button></div></li>`;
   }).join('');
+
   cFigs.forEach((f,i)=>{
     const p=document.createElementNS("http://www.w3.org/2000/svg","polygon");
     p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));
@@ -509,6 +496,7 @@ const renderAdminPts = () => {
     ov.appendChild(p);
     if(editFigIdx===i) f.forEach((_,ni)=>crDot(f,ni,p,dc));
   });
+
   if(cPts.length){
     const p=document.createElementNS("http://www.w3.org/2000/svg","polygon");
     p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));
@@ -516,21 +504,14 @@ const renderAdminPts = () => {
     ov.appendChild(p);
     cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));
   }
-  ptsUl.innerHTML = cPts.length
-    ? cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-2 py-1 rounded text-[10px] text-gray-300"><span>Nodo ${i+1}: ${pt.x}%, ${pt.y}%</span><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delNode(${i})" title="Borrar nodo"><i class="fa-solid fa-xmark"></i></button></li>`).join('')
-    : '<li class="text-[10px] text-gray-600 px-2 py-1">Sin nodos — click izquierdo en el setup para añadir</li>';
+
+  ptsUl.innerHTML = cPts.length ? cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-2 py-1 rounded text-[10px] text-gray-300"><span>Nodo ${i+1}: ${pt.x}%, ${pt.y}%</span><button class="text-red-500 hover:scale-110 anim-trans" onclick="window.delNode(${i})" title="Borrar nodo"><i class="fa-solid fa-xmark"></i></button></li>`).join('') : '<li class="text-[10px] text-gray-600 px-2 py-1">Sin nodos — click izquierdo en el setup para añadir</li>';
 };
 
 window.editFig = i => { if(editFigIdx===i){ editFigIdx=-1; cPts=[]; } else { editFigIdx=i; cPts=[...cFigs[i]]; cFigs[i]=cPts; } renderAdminPts(); };
 window.delFig = i => { if(!confirm('¿Borrar figura?')) return; cFigs.splice(i,1); if(editFigIdx===i){ editFigIdx=-1; cPts=[]; } else if(editFigIdx>i) editFigIdx--; renderAdminPts(); };
 window.delNode = i => { cPts.splice(i,1); renderAdminPts(); };
-
-$('btn-add-fig').onclick = () => {
-  if(cPts.length<3) return alert("Mínimo 3 nodos");
-  if(editFigIdx>=0) editFigIdx=-1; else cFigs.push([...cPts]);
-  cPts=[]; renderAdminPts();
-};
-
+$('btn-add-fig').onclick = () => { if(cPts.length<3) return alert("Mínimo 3 nodos"); if(editFigIdx<0) cFigs.push([...cPts]); editFigIdx=-1; cPts=[]; renderAdminPts(); };
 $('btn-cl-pts').onclick = () => { cPts=[]; editFigIdx=-1; renderAdminPts(); };
 
 $('setup-wrapper').addEventListener('contextmenu', e => {
@@ -540,6 +521,7 @@ $('setup-wrapper').addEventListener('contextmenu', e => {
     else if(cPts.length>0) alert("Mínimo 3 nodos para crear una figura");
   }
 });
+
 $('setup-wrapper').onclick = e => {
   if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&!e.target.classList.contains('admin-drag-dot')){
     const r=$('setup-wrapper').getBoundingClientRect(), x=((e.clientX-r.left)/r.width)*100, y=((e.clientY-r.top)/r.height)*100;
@@ -565,6 +547,7 @@ $('a-comp-sel').onchange = e => {
   renderAdminPts();
 };
 
+// ── Admin – Tour: eventos ────────────────────────────────────────────────────
 window.delEv = (mid,eid) => { if(confirm('¿Borrar fecha?')) remove(ref(db,`municipalities/${mid}/events/${eid}`)); };
 window.edEv  = (mid,eid) => { const ev=dbData.municipalities[mid].events[eid]; $('a-ev-id').value=eid; $('a-ev-p').value=ev.place; $('a-ev-d').value=ev.date; $('a-ev-desc').value=ev.details||''; $('a-ev-m').value=ev.media||''; $('a-ev-embed').value=ev.embed||''; $('btn-cl-ev').classList.remove('hidden'); };
 
@@ -577,7 +560,8 @@ const popEv = id => {
 const clrEv = () => { ['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>$(i).value=''); $('a-ev-t').innerHTML='<i class="fa-solid fa-plus text-djCyan mr-1"></i> Añadir Fecha'; $('btn-sv-ev').innerText='GUARDAR'; $('btn-cl-ev').classList.add('hidden'); };
 $('btn-cl-ev').onclick = clrEv;
 $('btn-sv-ev').onclick = () => {
-  const id=$('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value; if(!id) return;
+  const id=$('a-muni-id').value, p=$('a-ev-p').value, eid=$('a-ev-id').value;
+  if(!id) return;
   update(ref(db,`municipalities/${id}`),{status:$('a-muni-status').value, name:$('a-muni-name').value||id});
   if(p||eid){
     const pd={place:p, date:$('a-ev-d').value, details:$('a-ev-desc').value, media:$('a-ev-m').value, embed:$('a-ev-embed').value};
@@ -585,13 +569,15 @@ $('btn-sv-ev').onclick = () => {
   } else selMuni(id);
 };
 
+// ── Admin – Mashups ───────────────────────────────────────────────────────────
 const updateDds = () => {
   const c=$('a-comp-sel'), m=$('a-mash-sel'), cv=c.value, mv=m.value;
   let ch='<option value="NEW">NUEVO COMPONENTE</option>', mh='<option value="NEW">NUEVO MASHUP</option>';
   Object.entries(dbData.components).forEach(([id,d])=>ch+=`<option value="${id}">${d.title}</option>`);
   Object.entries(dbData.mashups).forEach(([id,d])=>mh+=`<option value="${id}">${d.title}</option>`);
   c.innerHTML=ch; m.innerHTML=mh;
-  if(dbData.components[cv]) c.value=cv; if(dbData.mashups[mv]) m.value=mv;
+  if(dbData.components[cv]) c.value=cv;
+  if(dbData.mashups[mv]) m.value=mv;
 };
 
 $('a-mash-sel').onchange = e => {
@@ -601,7 +587,8 @@ $('a-mash-sel').onchange = e => {
 };
 
 $('btn-sv-ms').onclick = async () => {
-  const id=$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value, t=$('a-mash-t').value; if(!t) return;
+  const id=$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value;
+  const t=$('a-mash-t').value; if(!t) return;
   const b=$('btn-sv-ms'); b.disabled=true; b.innerHTML='GUARDANDO...';
   try {
     await set(ref(db,`mashups/${id}`),{title:t, dl:$('a-mash-dl').value, scUrl:$('a-mash-sc').value});
@@ -611,6 +598,9 @@ $('btn-sv-ms').onclick = async () => {
 
 $('btn-dl-ms').onclick = () => { if(confirm('¿Eliminar track?')) remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{ $('a-mash-sel').value='NEW'; $('a-mash-sel').dispatchEvent(new Event('change')); }); };
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// ADMIN PANEL – Panel flotante
+// ═══════════════════════════════════════════════════════════════════════════════
 let cc=0;
 $('site-title').onclick = () => { if(++cc>=3&&prompt("Pass:")==="1524") $('admin-panel').classList.remove('hidden'); setTimeout(()=>cc=0,800); };
 $('btn-close-admin').onclick = () => { $('admin-panel').classList.add('hidden'); toggleAdminMode(false); };
