@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DJ VAQUERO | Web Oficial</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          djBg: '#030408',
+          djCyan: '#00e5ff',
+          djMagenta: '#ff00ea',
+          djYellow: '#ffd600'
+        },
+        fontFamily: {
+          display: ['Montserrat', 'sans-serif'],
+          body: ['Inter', 'sans-serif']
+        }
+      }
+    }
+  };
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+<style>
+  /* Limpieza y Scrollbar */
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(0, 229, 255, 0.4); }
+
+  /* Fondos Ambientales */
+  .ambient-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .ambient-glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.25; }
+  .glow-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0,229,255,0.3) 0%, transparent 70%); }
+  .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(255,0,234,0.2) 0%, transparent 70%); }
+
+  /* Glassmorphism */
+  .glass-card {
+    background: rgba(10, 15, 25, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Vistas de la App (Fluidez y visibilidad) */
+  .app-view {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: scale(0.98);
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+  .app-view.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    z-index: 10;
+  }
+
+  /* Redes Sociales (Ajustado el hover y active) */
+  .social-icon { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.05); color: #a1a1aa; transition: 0.3s ease; border: 1px solid transparent; }
+  .social-ig:hover, .social-ig:active { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; box-shadow: 0 5px 15px rgba(220,39,67,0.4); }
+  .social-tk:hover, .social-tk:active { background: #000; color: #00e5ff; box-shadow: 0 5px 15px rgba(0,229,255,0.4); border-color: #00e5ff; }
+  .social-sc:hover, .social-sc:active { background: #ff5500; color: #fff; box-shadow: 0 5px 15px rgba(255,85,0,0.4); border-color: #ff5500; }
+  .social-yt:hover, .social-yt:active { background: #f00; color: #fff; box-shadow: 0 5px 15px rgba(255,0,0,0.4); border-color: #f00; }
+
+  /* SVG Mapa */
+  .zoom-layer { position: absolute; transform-origin: 0 0; touch-action: none; will-change: transform; }
+  .muni-base { fill: #06080d; stroke: rgba(255,255,255,0.05); transition: 0.2s; cursor: pointer; pointer-events: all; }
+  .muni-base:hover { fill: #111624; stroke: rgba(255,255,255,0.2); }
+  .muni-unlocked { fill: #051d24; stroke: rgba(0,229,255,0.3); transition: 0.2s; cursor: pointer; pointer-events: all; }
+  .muni-unlocked:hover { fill: rgba(0,229,255,0.2); stroke: #00e5ff; }
+  .muni-selected { fill: #00e5ff !important; stroke: #fff !important; filter: drop-shadow(0 0 10px rgba(0,229,255,0.6)); stroke-width: 1.5px !important; z-index: 10; }
+
+  /* SVG Equipo */
+  .comp-polygon { fill: rgba(255,0,234,0.05); stroke: rgba(255,0,234,0.2); stroke-width: 1px; cursor: pointer; pointer-events: auto; transition: 0.2s; }
+  .comp-polygon:hover, .hotspot-active { fill: rgba(255,0,234,0.3); stroke: #ff00ea; stroke-width: 2px; filter: drop-shadow(0 0 10px rgba(255,0,234,0.6)); }
+
+  /* Paneles Laterales */
+  .slide-panel { position: absolute; top: 0; right: 0; width: 100%; max-width: 320px; height: 100%; background: rgba(5,7,10,0.95); backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.1); transform: translateX(100%); transition: transform 0.3s ease; z-index: 40; display: flex; flex-direction: column; }
+  .slide-panel.open { transform: translateX(0); }
+
+  /* Inputs Admin */
+  .admin-input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem; color: #fff; border-radius: 8px; font-size: 0.75rem; outline: none; }
+  .admin-input:focus { border-color: #00e5ff; }
+  .admin-input option { background: #0e1118; color: #fff; }
+  .admin-drag-dot { pointer-events: auto; touch-action: none; cursor: grab; z-index: 50; }
+  .admin-drag-dot:active { cursor: grabbing; transform: scale(1.5); }
+</style>
+</head>
+
+<body class="bg-djBg text-gray-200 h-screen w-screen overflow-hidden flex flex-col p-2 md:p-4 gap-2 md:gap-4 antialiased">
+
+<div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
+
+<header class="w-full shrink-0 h-12 flex justify-between items-center z-50 px-2 relative">
+  <div id="site-title" class="cursor-pointer select-none active:scale-95 transition-transform flex items-center group">
+    <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-2xl">
+      DJ <span class="text-djCyan drop-shadow-[0_0_15px_rgba(0,229,255,0.6)]">VAQUERO</span>
+    </h1>
+  </div>
+  <div class="flex gap-2">
+    <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc hidden sm:flex"><i class="fa-brands fa-soundcloud"></i></a>
+  </div>
+</header>
+
+<main class="flex-1 min-h-0 w-full flex flex-col md:flex-row gap-2 md:gap-4 relative z-10">
+  
+  <nav class="glass-card flex md:flex-col justify-around p-2 md:p-3 shrink-0 order-2 md:order-1 w-full md:w-24 z-50">
+    <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn group w-full py-2 flex flex-col items-center justify-center outline-none">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.2)] bg-djCyan/20 text-djCyan active:scale-90"><i class="fa-solid fa-map-location-dot text-xl"></i></div>
+      <span id="text-nav-tour" class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-djCyan">Tour</span>
+    </button>
+    <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-2 flex flex-col items-center justify-center outline-none">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-white/5 text-gray-500 group-hover:bg-djMagenta/20 group-hover:text-djMagenta active:scale-90"><i class="fa-solid fa-sliders text-xl"></i></div>
+      <span id="text-nav-setup" class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-gray-500 group-hover:text-djMagenta">Equipo</span>
+    </button>
+    <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-2 flex flex-col items-center justify-center outline-none">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-white/5 text-gray-500 group-hover:bg-djYellow/20 group-hover:text-djYellow active:scale-90"><i class="fa-solid fa-compact-disc text-xl"></i></div>
+      <span id="text-nav-mashups" class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-gray-500 group-hover:text-djYellow">Mashups</span>
+    </button>
+  </nav>
+
+  <div class="glass-card flex-1 relative order-1 md:order-2 overflow-hidden w-full h-full">
+    
+    <div id="view-tour" class="app-view active bg-[#030407]">
+      <div class="absolute top-4 left-4 z-30 flex items-center gap-2 w-[calc(100%-2rem)] md:w-80">
+        <div class="relative flex-1">
+          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-10 pr-4 py-3 text-sm rounded-xl text-white outline-none focus:border-djCyan transition-colors">
+          <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+          <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50"></ul>
+        </div>
+        <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-11 h-11 rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors active:scale-95"><i class="fa-solid fa-expand"></i></button>
+      </div>
+      
+      <div class="w-full h-full relative cursor-grab active:cursor-grabbing overflow-hidden" id="tour-viewport">
+        <div class="zoom-layer" id="tour-layer"></div>
+      </div>
+      
+      <div id="info-overlay" class="slide-panel">
+        <div class="p-4 border-b border-white/10 flex justify-between items-start bg-black/50">
+          <div>
+            <h3 id="info-title" class="text-xl font-display font-black text-white uppercase tracking-tighter">ZONA</h3>
+            <div id="info-status" class="flex items-center gap-2 mt-1"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona zona</span></div>
+          </div>
+          <button id="btn-close-tour" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/20 text-gray-400 flex items-center justify-center transition-colors"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div id="info-events" class="flex-1 p-4 overflow-y-auto custom-scrollbar flex flex-col gap-3"></div>
+      </div>
+    </div>
+
+    <div id="view-setup" class="app-view bg-[#030407]">
+      <div class="absolute top-4 left-4 z-30 pointer-events-none">
+        <h2 class="font-display font-black text-djMagenta text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,234,0.4)]"><i class="fa-solid fa-headphones mr-2"></i> Setup DJ</h2>
+      </div>
+      <div class="w-full h-full flex justify-center items-center p-4 relative overflow-hidden">
+        <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block select-none touch-none">
+          <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[85vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
+          <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
+          <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
+        </div>
+      </div>
+      <p id="admin-hint" class="absolute bottom-4 left-4 text-djMagenta text-[10px] hidden font-bold bg-black/95 px-3 py-1.5 rounded-lg border border-djMagenta/40 z-50 animate-pulse"><i class="fa-solid fa-wrench mr-2"></i> MODO EDICIÓN</p>
+      
+      <div id="setup-overlay" class="slide-panel">
+        <div class="p-4 border-b border-white/10 flex justify-between items-start bg-black/50">
+          <div>
+            <div id="setup-status" class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full bg-djMagenta"></div><span class="text-djMagenta text-[10px] font-bold uppercase tracking-widest">Activo</span></div>
+            <h3 id="setup-t" class="text-lg font-display font-black text-white uppercase tracking-tighter"></h3>
+          </div>
+          <button id="btn-close-setup" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/20 text-gray-400 flex items-center justify-center transition-colors"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="flex-1 p-4 overflow-y-auto custom-scrollbar">
+          <p id="setup-d" class="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap"></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-mashups" class="app-view bg-[#030407]">
+      <div class="p-4 border-b border-white/10 shrink-0">
+        <h2 class="font-display font-black text-djYellow text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.4)]"><i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 3s;"></i> Tracks Exclusivos</h2>
+      </div>
+      <div id="mashups-grid" class="flex-1 p-4 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 content-start"></div>
+    </div>
+
+  </div>
+</main>
+
+<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-sm bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col overflow-hidden">
+  <div id="admin-header" class="bg-black/80 border-b border-white/10 p-3 flex justify-between items-center cursor-move">
+    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase text-white">Panel Admin</span></div>
+    <button id="btn-close-admin" class="w-6 h-6 text-gray-400 hover:text-white"><i class="fa-solid fa-times"></i></button>
+  </div>
+  <div class="p-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+    <p class="text-xs text-gray-400 text-center italic">Interfaz de admin básica unificada.</p>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  const $ = i => document.getElementById(i);
+  const $$ = q => document.querySelectorAll(q);
+  const on = (e, t, c, o) => e.addEventListener(t, c, o);
+  const tog = (e, c, f) => e?.classList[f ? 'add' : 'remove'](c);
+  const crSvg = t => document.createElementNS("http://www.w3.org/2000/svg", t);
+
+  let dbData = { municipalities: {}, components: {}, mashups: {} };
+  let currMuni = null, sc = 1, pX = 0, pY = 0, reqFr = null, pan = false, sX = 0, sY = 0, svgW = 1000, svgH = 1000, lgEl = null, mLbls = [], isMov = false;
+  const vp = $('tour-viewport'), tLay = $('tour-layer');
+
+  // INICIALIZACIÓN DE FIREBASE PROTEGIDA
+  try {
+    const app = initializeApp({
+      apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
+      authDomain: "djvaquero-851e8.firebaseapp.com",
+      databaseURL: "https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "djvaquero-851e8",
+      storageBucket: "djvaquero-851e8.firebasestorage.app",
+      messagingSenderId: "943264468873",
+      appId: "1:943264468873:web:30725455620a5f737bdb58"
+    });
+    const db = getDatabase(app);
+    onValue(ref(db, '/'), s => {
+      dbData = { municipalities: s.val()?.municipalities || {}, components: s.val()?.components || {}, mashups: s.val()?.mashups || {} };
+      renderMap(); renderComp(); renderMash();
+    });
+  } catch(e) {
+    console.error("Firebase no disponible - Modo sin conexión activo", e);
+  }
+
+  // FUNCIÓN SWITCHVIEW SEGURA (Sin variables dinámicas en las clases)
+  window.switchView = (view) => {
+    ['tour', 'setup', 'mashups'].forEach(v => {
+      const el = $(`view-${v}`);
+      const btn = $(`btn-nav-${v}`);
+      const txt = $(`text-nav-${v}`);
+      if (!el || !btn || !txt) return;
+      
+      const iconDiv = btn.querySelector('div');
+      
+      if (v === view) {
+        el.classList.add('active');
+        if (v === 'tour') {
+          txt.className = "text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-djCyan";
+          iconDiv.className = "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-djCyan/20 text-djCyan shadow-[0_0_15px_rgba(0,229,255,0.2)] active:scale-90";
+          setTimeout(() => $('btn-reset-map')?.click(), 50);
+        } else if (v === 'setup') {
+          txt.className = "text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-djMagenta";
+          iconDiv.className = "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-djMagenta/20 text-djMagenta shadow-[0_0_15px_rgba(255,0,234,0.2)] active:scale-90";
+        } else if (v === 'mashups') {
+          txt.className = "text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-djYellow";
+          iconDiv.className = "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-djYellow/20 text-djYellow shadow-[0_0_15px_rgba(255,214,0,0.2)] active:scale-90";
+        }
+      } else {
+        el.classList.remove('active');
+        if (v === 'tour') {
+          txt.className = "text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-gray-500 group-hover:text-djCyan";
+          iconDiv.className = "w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-300 text-gray-500 group-hover:bg-djCyan/20 group-hover:text-djCyan active:scale-90";
+        } else if (v === 'setup') {
+          txt.className = "text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-gray-500 group-hover:text-djMagenta";
+          iconDiv.className = "w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-300 text-gray-500 group-hover:bg-djMagenta/20 group-hover:text-djMagenta active:scale-90";
+        } else if (v === 'mashups') {
+          txt.className = "text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 transition-colors text-gray-500 group-hover:text-djYellow";
+          iconDiv.className = "w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center transition-all duration-300 text-gray-500 group-hover:bg-djYellow/20 group-hover:text-djYellow active:scale-90";
+        }
+      }
+    });
+  };
+
+  // CARGA DE MAPA SVG
+  fetch('salamanca.svg').then(r => r.ok ? r.text() : Promise.reject()).then(h => {
+    if (!tLay) return;
+    tLay.innerHTML = h;
+    const s = tLay.querySelector('svg');
+    if (!s) { tLay.innerHTML = '<p class="text-djCyan font-bold p-4 text-center">SVG no válido.</p>'; return; }
+    
+    const g = crSvg('g'); g.id = 'labels-group'; g.className.baseVal = 'pointer-events-none';
+    s.style.pointerEvents = 'none'; s.appendChild(g);
+    
+    try { const vb = s.viewBox.baseVal; if (vb && vb.width) { svgW = vb.width; svgH = vb.height; } else { const b = s.getBBox(); svgW = b.width; svgH = b.height; } } catch(e) { svgW = 1000; svgH = 1000; }
+    tLay.style.width = svgW + 'px'; tLay.style.height = svgH + 'px';
+
+    s.querySelectorAll('path,polygon').forEach((el, i) => {
+      const id = el.id || `zona_${i}`; el.id = id; el.className.baseVal = 'muni-base';
+      try { const b = el.getBBox(); if (b.width > 0) { const t = crSvg("text"); t.setAttribute("x", b.x + b.width / 2); t.setAttribute("y", b.y + b.height / 2); t.setAttribute("class", "muni-label transition-opacity duration-200"); t.setAttribute("data-id", id); t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle'); t.setAttribute('font-family', "'Montserrat',sans-serif"); g.appendChild(t); } } catch(e) {}
+      el.onclick = e => { if (isMov) return; e.stopPropagation(); selMuni(id); };
+    });
+    lgEl = g; mLbls = Array.from(g.querySelectorAll('.muni-label'));
+    setTimeout(() => $('btn-reset-map')?.click(), 100);
+    renderMap();
+  }).catch(() => {
+    if (tLay) tLay.innerHTML = `<div class="text-red-500 text-center font-bold p-4 border border-red-500 bg-red-500/10 rounded-xl m-4">Asegúrate de ejecutar esto en un servidor (Live Server) y que exista 'salamanca.svg'</div>`;
+  });
+
+  // GESTOS DEL MAPA (Zoom y Arrastre)
+  const chkBounds = () => { if (!svgW || !vp) return; const rW = vp.clientWidth, rH = vp.clientHeight, mS = Math.min(rW / svgW, rH / svgH) * 0.95; if (sc < mS) sc = mS; if (sc > 15) sc = 15; const mPx = rW - (svgW * sc), mPy = rH - (svgH * sc); pX = svgW * sc <= rW ? (rW - svgW * sc) / 2 : Math.min(0, Math.max(mPx, pX)); pY = svgH * sc <= rH ? (rH - svgH * sc) / 2 : Math.min(0, Math.max(mPy, pY)); };
+  const uTrans = () => { if (tLay) tLay.style.transform = `translate3d(${pX}px,${pY}px,0) scale(${sc})`; uLbls(); reqFr = null; };
+  const uLbls = () => { if (!lgEl || !vp) return; lgEl.className.baseVal = sc < 2.2 ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none'; if (sc < 2.2) return; const fS = 12 / sc; mLbls.forEach(l => { const m = dbData.municipalities[l.dataset.id] || {}; if (!m.name || /^zona/i.test(m.name)) return void(l.style.opacity = '0'); const un = m.status === 'unlocked'; l.setAttribute('fill', un ? '#fff' : 'rgba(255,255,255,0.6)'); l.setAttribute('font-size', `${un ? fS * 1.3 : fS * 0.95}px`); l.style.opacity = '1'; }); };
+  const stPan = (x, y) => { if (!vp) return; sX = x - pX; sY = y - pY; pan = true; isMov = false; vp.style.cursor = 'grabbing'; };
+  const mvPan = (x, y) => { if (!pan) return; isMov = true; pX = x - sX; pY = y - sY; chkBounds(); if (!reqFr) reqFr = requestAnimationFrame(uTrans); };
+
+  if (vp) {
+    on(vp, 'mousedown', e => { if (e.button === 0) stPan(e.clientX, e.clientY); });
+    on(window, 'mousemove', e => mvPan(e.clientX, e.clientY));
+    on(window, 'mouseup', () => { pan = false; if (vp) vp.style.cursor = 'grab'; });
+    on(vp, 'touchstart', e => { isMov = false; if (e.touches.length === 1) stPan(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+    on(vp, 'touchmove', e => { if (pan && e.touches.length === 1) mvPan(e.touches[0].clientX, e.touches[0].clientY); else if (e.touches.length === 2) { e.preventDefault(); const t1 = e.touches[0], t2 = e.touches[1], d = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY), rb = vp.getBoundingClientRect(), mx = ((t1.clientX + t2.clientX) / 2) - rb.left, my = ((t1.clientY + t2.clientY) / 2) - rb.top, tx = (mx - pX) / sc, ty = (my - pY) / sc; sc = sc * (d / (vp.dataset.sd || d)); vp.dataset.sd = d; chkBounds(); pX = mx - tx * sc; pY = my - ty * sc; chkBounds(); if (!reqFr) reqFr = requestAnimationFrame(uTrans); } }, { passive: false });
+    on(vp, 'touchend', () => { pan = false; delete vp.dataset.sd; });
+    on(vp, 'wheel', e => { e.preventDefault(); const rb = vp.getBoundingClientRect(), tx = (e.clientX - rb.left - pX) / sc, ty = (e.clientY - rb.top - pY) / sc; sc = e.deltaY < 0 ? sc * 1.1 : sc / 1.1; chkBounds(); pX = (e.clientX - rb.left) - tx * sc; pY = (e.clientY - rb.top) - ty * sc; chkBounds(); if (!reqFr) reqFr = requestAnimationFrame(uTrans); }, { passive: false });
+  }
+
+  if ($('btn-reset-map')) $('btn-reset-map').onclick = () => { if (!svgW || !vp) return; const rW = vp.clientWidth, rH = vp.clientHeight; sc = Math.min(rW / svgW, rH / svgH) * 0.95; pX = (rW - svgW * sc) / 2; pY = (rH - svgH * sc) / 2; if (!reqFr) reqFr = requestAnimationFrame(uTrans); };
+
+  // RENDERIZADO DE BASE DE DATOS
+  const renderMap = () => { Object.entries(dbData.municipalities || {}).forEach(([id, d]) => { const e = $(id); if (e) { e.className.baseVal = `muni-base ${d.status === 'unlocked' ? 'muni-unlocked' : ''} ${currMuni === id ? 'muni-selected' : ''}`; if (d.status === 'unlocked' && e.parentNode) e.parentNode.appendChild(e); } }); mLbls.forEach(l => { const n = (dbData.municipalities[l.dataset.id] || {}).name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
+  
+  const selMuni = id => { currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name || id) ? id.replace(/_/g, ' ') : (m.name || id); if ($('info-title')) $('info-title').innerText = n; tog($('info-overlay'), 'open', true); if (m.status === 'unlocked') { $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff]"></div><span class="text-djCyan text-[10px] font-bold uppercase">Confirmadas</span>`; let evH = ''; if (m.events) Object.entries(m.events).forEach(([eid, ev]) => { evH += `<div class="bg-white/5 border border-white/10 rounded-xl p-4"><h4 class="text-white font-bold">${ev.place}</h4><p class="text-djCyan text-xs mt-1">${ev.date}</p>${ev.details ? `<p class="text-gray-400 text-xs mt-2">${ev.details}</p>` : ''}</div>`; }); $('info-events').innerHTML = evH || `<p class="text-gray-500 text-xs text-center py-4">Próximamente</p>`; } else { $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Libre</span>`; $('info-events').innerHTML = `<p class="text-gray-400 text-xs text-center py-4">Sin fechas confirmadas aquí.</p>`; } };
+  
+  if ($('btn-close-tour')) $('btn-close-tour').onclick = () => { currMuni = null; renderMap(); tog($('info-overlay'), 'open', false); };
+
+  const selComp = id => { $$('.comp-polygon').forEach(h => h.classList.remove('hotspot-active')); $$(`.comp-id-${id}`).forEach(h => h.classList.add('hotspot-active')); const c = dbData.components[id]; if (!c) return; tog($('setup-overlay'), 'open', true); if ($('setup-t')) $('setup-t').innerText = c.title; if ($('setup-d')) $('setup-d').innerText = c.desc; };
+  const renderComp = () => { const ov = $('setup-svg'); if (!ov) return; ov.innerHTML = ''; Object.entries(dbData.components || {}).forEach(([id, c]) => { (c.figures || []).forEach(f => { if (f.length > 2) { const p = crSvg("polygon"); p.setAttribute("points", f.map(pt => `${pt.x},${pt.y}`).join(' ')); p.setAttribute("class", `comp-polygon comp-id-${id}`); p.onclick = e => { e.stopPropagation(); selComp(id); }; ov.appendChild(p); } }); }); };
+  if ($('btn-close-setup')) $('btn-close-setup').onclick = () => { $$('.comp-polygon').forEach(h => h.classList.remove('hotspot-active')); tog($('setup-overlay'), 'open', false); };
+
+  const renderMash = () => { const g = $('mashups-grid'); if (!g) return; const e = Object.entries(dbData.mashups || {}).sort(); g.innerHTML = e.length ? e.map(([_, d]) => `<div class="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col gap-2 hover:bg-white/10 transition-colors"><h4 class="font-display font-black text-sm text-white"><i class="fa-solid fa-music text-djYellow mr-2"></i>${d.title}</h4>${d.scUrl ? `<iframe class="mt-2 rounded-xl" width="100%" height="80" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe>` : ''}${d.dl ? `<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/20 hover:bg-djYellow text-djYellow hover:text-black mt-2 py-2 rounded-lg text-center text-[10px] font-black uppercase transition-all"><i class="fa-solid fa-download mr-2"></i>Descargar</a>` : ''}</div>`).join('') : '<p class="text-gray-500 text-sm text-center col-span-full">Aún no hay tracks.</p>'; };
+
+  // BUSCADOR BÁSICO
+  if ($('search-muni')) $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if (v.length < 2) return tog(rL, 'hidden', true); let mh = ''; Object.entries(dbData.municipalities || {}).forEach(([id, d]) => { if (d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)) { mh += `<li class="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 text-gray-200" onclick="window.srcMuni('${id}')">${d.name}</li>`; } }); rL.innerHTML = mh || `<li class="px-4 py-3 text-gray-500 text-xs">Sin resultados</li>`; tog(rL, 'hidden', false); };
+  window.srcMuni = id => { selMuni(id); $('search-muni').value = ''; tog($('search-results'), 'hidden', true); };
+</script>
+</body>
+</html>
