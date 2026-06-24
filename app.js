@@ -1,0 +1,206 @@
+const EMAIL_ADMINISTRADOR = "ivanvaquerodj@gmail.com";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+const app=initializeApp({apiKey:"AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",authDomain:"djvaquero-851e8.firebaseapp.com",databaseURL:"https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app",projectId:"djvaquero-851e8"});
+const db=getDatabase(app), auth=getAuth(app), provider=new GoogleAuthProvider();
+const $=i=>document.getElementById(i),$$=q=>document.querySelectorAll(q),on=(e,t,c,o)=>e.addEventListener(t,c,o),tog=(e,c,f)=>e?.classList[f?'add':'remove'](c),crSvg=t=>document.createElementNS("http://www.w3.org/2000/svg",t);
+
+let dbData={municipalities:{},components:{},mashups:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,dL,dT;
+
+const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status');
+const sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status'),sDiv=$('setup-divider');
+
+const sIds=['sec-tour','sec-setup','sec-mashups'];
+const uNav=()=>{
+  let c=sIds[0],sy=window.scrollY,wh=window.innerHeight/2;
+  sIds.forEach(i=>{const e=$(i);if(e&&sy+wh>=e.offsetTop)c=i});
+  $$('.nav-link').forEach(l=>tog(l,'active',l.getAttribute('href')==='#'+c));
+};
+on(window,'scroll',uNav,{passive:true}); window.onload=uNav;
+
+const closeTourPanel = () => { currMuni=null; renderMap(); tog(iAnc, 'open', false); setTimeout(()=>{iTit.innerText='MUNICIPIO'; iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold tracking-widest uppercase">Selecciona zona</span>`; iEvs.innerHTML='';},400); };
+const closeSetupPanel = () => { $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon')); tog(sAnc, 'open', false); setTimeout(()=>{sTit.innerText=''; sDesc.innerText=''; tog(sDiv,'hidden',true); sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] font-bold tracking-widest uppercase">Esperando interacción</span>`;},400); };
+
+$('btn-close-tour').onclick = closeTourPanel;
+$('btn-close-setup').onclick = closeSetupPanel;
+
+const mobScroll=el=>{if(window.innerWidth<1024)el.scrollIntoView({behavior:'smooth',block:'start'})},getGroup=id=>{const n=dbData.municipalities[id]?.name;return!n||/^zona/i.test(n)?[id]:Object.keys(dbData.municipalities).filter(k=>dbData.municipalities[k]?.name===n)};
+
+onValue(ref(db,'/'),s=>{dbData=s.val()||{municipalities:{},components:{},mashups:{}}; renderMap(); renderComp(); renderMash(); updateDds(); if($('a-muni-id').value)popEv($('a-muni-id').value);});
+
+const uLbls=()=>{
+  if(!lgEl)return; lgEl.className.baseVal=sc<2.2?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none'; if(sc<2.2)return;
+  const fS=12/sc,vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>(dbData.municipalities[b.dataset.id]?.status==='unlocked'?1:0)-(dbData.municipalities[a.dataset.id]?.status==='unlocked'?1:0));
+  srt.forEach(l=>{
+    const m=dbData.municipalities[l.dataset.id]; if(!m?.name||/^zona/i.test(m.name))return void(l.style.opacity='0');
+    const un=m.status==='unlocked'; l.setAttribute('fill',un?'#00e5ff':'#fff'); l.setAttribute('font-size',`${un?fS*1.1:fS*0.8}px`); l.setAttribute('font-weight',un?'800':'500'); l.style.stroke=un?'rgba(0,0,0,0.8)':'transparent'; l.style.strokeWidth=un?'2px':'0';
+    const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2; if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');
+    const b={l:br.left,r:br.right,t:br.top,b:br.bottom}; if(!occ.some(o=>b.l-2<o.r&&b.r+2>o.l&&b.t-2<o.b&&b.b+2>o.t)){l.style.opacity='1';occ.push(b)}else l.style.opacity='0';
+  });
+}, chkBounds=()=>{if(!svgW)return;const rW=vp.clientWidth,rH=vp.clientHeight,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>12)sc=12;pX=svgW*sc<=rW?(rW-svgW*sc)/2:Math.min(0,Math.max(rW-svgW*sc,pX));pY=svgH*sc<=rH?(rH-svgH*sc)/2:Math.min(0,Math.max(rH-svgH*sc,pY))}, uTrans=()=>{tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`;uLbls();reqFr=null}, stPan=(x,y)=>{sX=x-pX;sY=y-pY;pan=true;isMov=false;vp.style.cursor='grabbing'}, mvPan=(x,y)=>{if(!pan)return;isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
+
+on(vp,'mousedown',e=>stPan(e.clientX,e.clientY)); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false;vp.style.cursor='grab'});
+on(vp,'touchstart',e=>{isMov=false;if(e.touches.length===1)stPan(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
+on(vp,'touchmove',e=>{if(pan&&e.touches.length===1)mvPan(e.touches[0].clientX,e.touches[0].clientY);else if(e.touches.length===2){e.preventDefault();const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY),rb=vp.getBoundingClientRect(),mx=((t1.clientX+t2.clientX)/2)-rb.left,my=((t1.clientY+t2.clientY)/2)-rb.top,tx=(mx-pX)/sc,ty=(my-pY)/sc;sc=sc*(d/(vp.dataset.sd||d));vp.dataset.sd=d;chkBounds();pX=mx-tx*sc;pY=my-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)}},{passive:false});
+on(vp,'touchend',()=>{pan=false;delete vp.dataset.sd}); on(vp,'wheel',e=>{e.preventDefault();const rb=vp.getBoundingClientRect(),tx=(e.clientX-rb.left-pX)/sc,ty=(e.clientY-rb.top-pY)/sc;sc=e.deltaY<0?sc*1.1:sc/1.1;chkBounds();pX=(e.clientX-rb.left)-tx*sc;pY=(e.clientY-rb.top)-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)},{passive:false});
+$('btn-reset-map').onclick=()=>{if(!svgW)return;const rW=vp.clientWidth,rH=vp.clientHeight;sc=Math.min(rW/svgW,rH/svgH)*0.95;pX=(rW-svgW*sc)/2;pY=(rH-svgH*sc)/2;if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
+
+fetch('salamanca.svg').then(r=>r.text()).then(h=>{
+  tLay.innerHTML=h; const s=tLay.querySelector('svg'),g=crSvg('g'); try{const vb=s.viewBox.baseVal;if(vb.width){svgW=vb.width;svgH=vb.height}else{const b=s.getBBox();svgW=b.width;svgH=b.height}}catch(e){svgW=1000;svgH=1000}
+  tLay.style.width=svgW+'px'; tLay.style.height=svgH+'px'; g.id='labels-group'; g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none'; s.style.pointerEvents='none'; s.appendChild(g);
+  s.querySelectorAll('path,polygon').forEach((el,i)=>{
+    const id=el.id||`zona_${i}`; el.id=id; el.className.baseVal='muni muni-base';
+    try{const b=el.getBBox();if(b.width>0){const t=crSvg("text");t.setAttribute("x",b.x+b.width/2);t.setAttribute("y",b.y+b.height/2);t.setAttribute("class","muni-label transition-opacity duration-200");t.setAttribute("data-id",id);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');t.setAttribute('font-family',"'Montserrat',sans-serif");t.setAttribute('style','pointer-events:none');g.appendChild(t)}}catch(e){}
+    el.onclick=e=>{if(isMov)return;e.stopPropagation();selMuni(id)};
+  }); lgEl=g; mLbls=Array.from(g.querySelectorAll('.muni-label')); requestAnimationFrame(()=>$('btn-reset-map').click()); renderMap();
+});
+
+const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=dbData.municipalities[l.dataset.id]?.name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
+
+const selMuni=id=>{
+  currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));
+  iTit.innerText=n; $('a-muni-id').value=id; $('a-muni-name').value=n; clrEv(); popEv(id);
+  tog(iAnc, 'open', true);
+  
+  if(m.status==='unlocked'){
+    $('a-muni-status').value='unlocked';
+    iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff]"></div><span class="text-djCyan text-[10px] font-bold uppercase tracking-widest">Fechas Confirmadas</span>`;
+    let evHtml='';
+    if(m.events){
+      Object.entries(m.events).forEach(([eid,ev])=>{
+        const hasMedia=ev.media||ev.embed;
+        evHtml+=`
+          <div class="bg-black/40 border border-white/5 rounded-2xl p-5 relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-djCyan shadow-[0_0_10px_#00e5ff]"></div>
+            <div class="flex justify-between items-start gap-4 relative z-10">
+              <div>
+                <h4 class="text-lg font-display font-black text-white leading-tight group-hover:text-djCyan transition-colors">${ev.place}</h4>
+                <p class="text-xs text-djCyan font-bold uppercase tracking-wider mt-1"><i class="fa-regular fa-calendar mr-1"></i> ${ev.date}</p>
+              </div>
+              ${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-djCyan hover:text-black text-white w-8 h-8 rounded-full border border-white/10 transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-xs"></i></button>`:''}
+            </div>
+            ${ev.details?`<p class="text-[13px] text-gray-400 mt-3 leading-relaxed relative z-10">${ev.details}</p>`:''}
+            ${hasMedia?`
+            <div id="media-${eid}" class="hidden mt-4 pt-4 border-t border-white/10 flex flex-col gap-3 relative z-10">
+              ${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-2.5 bg-white/5 hover:bg-white/15 text-white border border-white/10 text-xs font-bold tracking-widest uppercase rounded-xl transition-all"><i class="fa-solid fa-ticket mr-2"></i>Conseguir Entradas</a>`:'').join(''):''}
+              ${ev.embed?`<div class="w-full rounded-xl overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity">${ev.embed}</div>`:''}
+            </div>`:''}
+          </div>`;
+      });
+    }else evHtml=`<p class="text-gray-500 text-sm text-center py-8">Próximamente.</p>`;
+    iEvs.innerHTML=evHtml;
+  }else{
+    $('a-muni-status').value='locked';
+    iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Zona Libre</span>`;
+    iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-sm">Aún no hay fechas confirmadas aquí.</p></div>`;
+  }
+  iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="mt-auto block bg-gradient-to-r from-djCyan to-blue-600 text-black w-full py-4 rounded-xl text-center text-xs font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.2)]">Contactar / Contratar</a>`;
+};
+
+$('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-5 py-3 hover:bg-white/10 text-sm cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot text-djCyan mr-2 opacity-70"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-5 py-3 text-gray-500 text-sm italic">Sin resultados</li>`};
+on(document,'click',e=>{if(!$('search-muni').contains(e.target))tog($('search-results'),'hidden',true)});
+
+const renderMash=()=>{const g=$('mashups-grid'),e=Object.entries(dbData.mashups).sort();g.innerHTML=e.length?e.map(([_,d])=>`
+  <div class="glass-card p-6 flex flex-col justify-between group overflow-hidden gap-5 relative">
+    <div class="absolute -right-4 -top-4 w-24 h-24 bg-djYellow/10 rounded-full blur-2xl group-hover:bg-djYellow/20 transition-colors"></div>
+    <div class="relative z-10">
+      <div class="w-10 h-10 rounded-xl bg-djYellow/10 flex items-center justify-center mb-4 text-djYellow border border-djYellow/20 shadow-lg"><i class="fa-solid fa-music text-lg"></i></div>
+      <h4 class="font-display font-black text-base text-white leading-tight line-clamp-2">${d.title}</h4>
+    </div>
+    <div class="relative z-10 space-y-3">
+      ${d.scUrl?`<div class="w-full h-24 rounded-xl overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}
+      ${d.dl?`<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-3 rounded-xl text-center text-xs font-black uppercase tracking-wider block transition-all shadow-[0_0_15px_rgba(255,214,0,0.1)] hover:shadow-[0_0_20px_rgba(255,214,0,0.4)]"><i class="fa-solid fa-download mr-2"></i>Descargar</a>`:''}
+    </div>
+  </div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
+
+window.selComp=id=>{
+  $$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active','animate-neon'));
+  $$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active','animate-neon'));
+  const c=dbData.components[id]; if(!c)return;
+  tog(sAnc, 'open', true);
+  sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djMagenta shadow-[0_0_8px_#ff00ea]"></div><span class="text-djMagenta text-[10px] font-bold uppercase tracking-widest">Activo</span>`;
+  sTit.innerText=c.title; sDesc.innerText=c.desc; tog(sDiv,'hidden',false);
+};
+const renderComp=()=>{const ov=$('setup-svg');ov.innerHTML='';if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();selComp(id)};ov.appendChild(p)}})})};
+
+const crDot=(pts,idx,pEl,dc)=>{const dt=document.createElement('div');dt.className="absolute w-3 h-3 bg-djMagenta rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot shadow-[0_0_10px_#ff00ea]";dt.style.left=pts[idx].x+'%';dt.style.top=pts[idx].y+'%';on(dt,'contextmenu',e=>{e.preventDefault();e.stopPropagation();pts.splice(idx,1);renderAdminPts()});const mm=e=>{e.preventDefault();const r=$('setup-wrapper').getBoundingClientRect(),x=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)),y=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));dt.style.left=x+'%';dt.style.top=y+'%';pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))};if(pEl)pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' '))},mu=()=>{window.removeEventListener('pointermove',mm);window.removeEventListener('pointerup',mu)};on(dt,'pointerdown',e=>{e.stopPropagation();e.target.setPointerCapture(e.pointerId);on(window,'pointermove',mm);on(window,'pointerup',mu)});dc.appendChild(dt)};
+const renderAdminPts=()=>{const figsUl=$('a-comp-figs'),ptsUl=$('a-comp-pts'),dc=$('admin-pts'),ov=$('setup-svg');dc.innerHTML='';ov.innerHTML=''; $('fig-count').innerText=cFigs.length;
+  figsUl.innerHTML=cFigs.map((f,i)=>{const isEd=editFigIdx===i;return `<li class="flex justify-between items-center bg-black/40 p-2 rounded-lg border ${isEd?'border-djMagenta':'border-white/10'} text-[11px]"><span class="${isEd?'text-djMagenta font-bold':'text-gray-300'}">Polígono ${i+1} (${f.length} nodos)</span><div class="flex gap-3"><button class="text-djCyan hover:text-white" onclick="window.editFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400" onclick="window.delFig(${i})"><i class="fa-solid fa-trash"></i></button></div></li>`}).join('');
+  cFigs.forEach((f,i)=>{const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(255,0,234,0.1)");p.setAttribute("stroke","#ff00ea");p.setAttribute("stroke-width","1");ov.appendChild(p);if(editFigIdx===i)f.forEach((_,ni)=>crDot(f,ni,p,dc))});
+  if(cPts.length){const p=crSvg("polygon");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(0,229,255,0.1)");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc))}
+  ptsUl.innerHTML=cPts.length?cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><span>Nodo ${i+1}: <span class="text-djCyan">${pt.x}% , ${pt.y}%</span></span><button class="text-red-500 hover:text-white" onclick="window.delNode(${i})"><i class="fa-solid fa-times"></i></button></li>`).join(''):'<li class="text-gray-600 text-center py-2 italic border border-dashed border-white/10 rounded-lg">Click izq sobre la imagen para añadir nodos</li>'
+};
+
+window.editFig=i=>{if(editFigIdx===i){editFigIdx=-1;cPts=[]}else{editFigIdx=i;cPts=[...cFigs[i]];cFigs[i]=cPts}renderAdminPts()}; window.delFig=i=>{if(!confirm('¿Borrar zona mapeada?'))return;cFigs.splice(i,1);if(editFigIdx===i){editFigIdx=-1;cPts=[]}else if(editFigIdx>i)editFigIdx--;renderAdminPts()}; window.delNode=i=>{cPts.splice(i,1);renderAdminPts()};
+$('btn-add-fig').onclick=()=>{if(cPts.length<3)return alert("Dibuja al menos 3 nodos para formar una figura");if(editFigIdx<0)cFigs.push([...cPts]);editFigIdx=-1;cPts=[];renderAdminPts()}; $('btn-cl-pts').onclick=()=>{cPts=[];editFigIdx=-1;renderAdminPts()};
+on($('setup-wrapper'),'contextmenu',e=>{e.preventDefault();if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')){if(cPts.length>=3){cFigs.push([...cPts]);cPts=[];editFigIdx=-1;renderAdminPts()}else if(cPts.length>0)alert("Se necesitan 3 nodos mínimo")}});
+$('setup-wrapper').onclick=e=>{if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&!e.target.classList.contains('admin-drag-dot')){const r=$('setup-wrapper').getBoundingClientRect();cPts.push({x:parseFloat(Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)).toFixed(1)),y:parseFloat(Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100)).toFixed(1))});renderAdminPts()}};
+
+$('btn-sv-cp').onclick=()=>{if(!$('a-comp-t').value)return;const aF=[...cFigs];if(cPts.length>2)aF.push([...cPts]);set(ref(db,`components/${$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value}`),{title:$('a-comp-t').value,desc:$('a-comp-d').value,figures:aF});cPts=[];editFigIdx=-1;renderAdminPts()};
+$('btn-dl-cp').onclick=()=>{if(confirm('¿Borrar equipo completo?'))remove(ref(db,`components/${$('a-comp-sel').value}`)).then(()=>{$('a-comp-sel').value='NEW';$('a-comp-sel').dispatchEvent(new Event('change'))})};
+$('a-comp-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){$('a-comp-t').value='';$('a-comp-d').value='';cFigs=[];cPts=[];editFigIdx=-1;tog($('btn-dl-cp'),'hidden',true)}else{const d=dbData.components[v];$('a-comp-t').value=d.title;$('a-comp-d').value=d.desc;cFigs=d.figures?d.figures.map(f=>[...f]):[];cPts=[];editFigIdx=-1;tog($('btn-dl-cp'),'hidden',false)}renderAdminPts()};
+
+window.delEv=(mid,eid)=>{if(confirm('¿Borrar fecha de la gira?')){const u={};getGroup(mid).forEach(gid=>u[`municipalities/${gid}/events/${eid}`]=null);update(ref(db),u)}};
+window.edEv=(m,e)=>{const v=dbData.municipalities[m].events[e];$('a-ev-id').value=e;$('a-ev-p').value=v.place;$('a-ev-d').value=v.date;$('a-ev-desc').value=v.details||'';$('a-ev-m').value=v.media||'';$('a-ev-embed').value=v.embed||'';tog($('btn-cl-ev'),'hidden',false);$('btn-sv-ev').innerText='Actualizar';$('a-ev-t').innerHTML='<i class="fa-solid fa-pen mr-2"></i> Editando Fecha'};
+const popEv=id=>{const m=dbData.municipalities[id],l=$('a-ev-list');l.innerHTML='';if(m?.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-3 py-2 rounded-lg text-xs border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-3 shrink-0"><button class="text-djCyan hover:text-white" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`)};
+const clrEv=()=>{['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>$(i).value='');$('a-ev-t').innerHTML='<i class="fa-solid fa-calendar-plus mr-2"></i> Nueva Fecha';$('btn-sv-ev').innerText='Guardar Fecha';tog($('btn-cl-ev'),'hidden',true)};
+$('btn-cl-ev').onclick=clrEv;
+$('btn-sv-ev').onclick=()=>{const id=$('a-muni-id').value,p=$('a-ev-p').value,eid=$('a-ev-id').value;if(!id)return;const u={},n=$('a-muni-name').value||id,s=$('a-muni-status').value,eI=eid||push(ref(db,`municipalities/${id}/events`)).key,pd=(p||eid)?{place:p,date:$('a-ev-d').value,details:$('a-ev-desc').value,media:$('a-ev-m').value,embed:$('a-ev-embed').value}:null;getGroup(id).forEach(g=>{u[`municipalities/${g}/status`]=s;u[`municipalities/${g}/name`]=n;if(pd)u[`municipalities/${g}/events/${eI}`]=pd});update(ref(db),u).then(()=>{clrEv();selMuni(id)})};
+
+const updateDds=()=>{const c=$('a-comp-sel'),m=$('a-mash-sel'),cv=c.value,mv=m.value;let ch='<option value="NEW">✨ CREAR NUEVO HARDWARE</option>',mh='<option value="NEW">✨ SUBIR NUEVO TRACK</option>';Object.entries(dbData.components).forEach(([i,d])=>ch+=`<option value="${i}">${d.title}</option>`);Object.entries(dbData.mashups).forEach(([i,d])=>mh+=`<option value="${i}">${d.title}</option>`);c.innerHTML=ch;m.innerHTML=mh;if(dbData.components[cv])c.value=cv;if(dbData.mashups[mv])m.value=mv};
+$('a-mash-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-mash-t','a-mash-dl','a-mash-sc'].forEach(i=>$(i).value='');tog($('btn-dl-ms'),'hidden',true)}else{const d=dbData.mashups[v];$('a-mash-t').value=d.title||'';$('a-mash-dl').value=d.dl||'';$('a-mash-sc').value=d.scUrl||'';tog($('btn-dl-ms'),'hidden',false)}};
+$('btn-sv-ms').onclick=async()=>{const t=$('a-mash-t').value;if(!t)return;const b=$('btn-sv-ms');b.disabled=true;b.innerHTML='<i class="fa-solid fa-circle-notch fa-spin"></i>';try{await set(ref(db,`mashups/${$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value}`),{title:t,dl:$('a-mash-dl').value,scUrl:$('a-mash-sc').value});b.innerText='¡PUBLICADO!';setTimeout(()=>{b.innerText='Publicar Track';b.disabled=false},2000)}catch(e){b.disabled=false;b.innerText='Publicar Track'}};
+$('btn-dl-ms').onclick=()=>{if(confirm('¿Eliminar track?'))remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{$('a-mash-sel').value='NEW';$('a-mash-sel').dispatchEvent(new Event('change'))})};
+
+// === ADMIN AUTH ===
+onAuthStateChanged(auth, (user) => {
+  if (!user || user.email !== EMAIL_ADMINISTRADOR) {
+    tog($('admin-panel'), 'hidden', true);
+    $('admin-panel').classList.remove('scale-100');
+    $('admin-panel').classList.add('scale-95');
+    toggleAdminMode(false);
+  }
+});
+
+let cc=0; 
+$('site-title').onclick=()=>{
+  if(++cc>=3){
+    const user = auth.currentUser;
+    if (user && user.email === EMAIL_ADMINISTRADOR) {
+      tog($('admin-panel'), 'hidden', false);
+      setTimeout(()=> { $('admin-panel').classList.remove('scale-95'); $('admin-panel').classList.add('scale-100'); }, 10);
+    } else {
+      signInWithPopup(auth, provider).then((res) => {
+        if (res.user.email === EMAIL_ADMINISTRADOR) {
+          tog($('admin-panel'), 'hidden', false);
+          setTimeout(()=> { $('admin-panel').classList.remove('scale-95'); $('admin-panel').classList.add('scale-100'); }, 10);
+        } else {
+          alert("Acceso denegado: Seguridad habilitada.");
+          signOut(auth);
+        }
+      }).catch(e=>console.error(e));
+    }
+  }
+  setTimeout(()=>cc=0,800);
+};
+
+$('btn-close-admin').onclick=()=>{
+  $('admin-panel').classList.remove('scale-100');
+  $('admin-panel').classList.add('scale-95');
+  setTimeout(()=>{
+    tog($('admin-panel'),'hidden',true);
+    toggleAdminMode(false);
+    if(confirm("¿Cerrar sesión de administrador en este dispositivo?")) signOut(auth);
+  }, 300);
+};
+
+on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;dX=e.clientX;dY=e.clientY;const r=$('admin-panel').getBoundingClientRect();dL=r.left;dT=r.top; $('admin-panel').style.transform='none';}); 
+on(window,'mousemove',e=>{if(drA){$('admin-panel').style.left=`${dL+(e.clientX-dX)}px`;$('admin-panel').style.top=`${dT+(e.clientY-dY)}px`;}}); 
+on(window,'mouseup',()=>drA=false);
+
+['tour','setup','mashups'].forEach(t=>{$(`tab-${t}`).onclick=()=>{actTab=t;const c={tour:'djCyan',setup:'djMagenta',mashups:'djYellow'}[t];['tour','setup','mashups'].forEach(o=>{$(`tab-${o}`).className=o===t?`flex-1 py-3.5 text-${c} border-b-2 border-${c} bg-white/[0.02] transition-colors`:'flex-1 py-3.5 text-gray-500 border-b-2 border-transparent hover:text-white transition-colors';tog($(`sec-a-${o}`),'hidden',o!==t)});toggleAdminMode(t==='setup')}});
+const toggleAdminMode=a=>{tog($('setup-img'),'opacity-50',a);tog($('admin-hint'),'hidden',!a);tog($('admin-pts'),'hidden',!a);a?renderAdminPts():renderComp()};
+</script>
