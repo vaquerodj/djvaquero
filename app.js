@@ -18,6 +18,7 @@ const $ = i => document.getElementById(i), $$ = q => document.querySelectorAll(q
 
 let cacheTour = {}, cacheSetup = {}, cacheMashups = {}, actTab = 'tour', selProvId = '', actCompId = '', compImgsAdmin = [];
 
+// ======= CAMBIO DE VISTAS OPTIMIZADO (FLUIDEZ ABSOLUTA) =======
 window.switchView = function(t) {
   actTab = t;
   ['tour', 'setup', 'mashups'].forEach(o => {
@@ -35,14 +36,17 @@ window.switchView = function(t) {
   });
 };
 
+// Asignar clics a la barra de navegación lateral
 ['tour', 'setup', 'mashups'].forEach(t => {
   if($(`btn-nav-${t}`)) $(`btn-nav-${t}`).onclick = () => window.switchView(t);
 });
 
+// ======= CONEXIÓN REAL-TIME CON FIREBASE =======
 onValue(ref(db, 'tour'), s => { cacheTour = s.val() || {}; renderMapAndEvents(); updateAdminTourSelect(); });
 onValue(ref(db, 'setup'), s => { cacheSetup = s.val() || {}; renderSetupIllustrations(); updateAdminSetupSelect(); });
 onValue(ref(db, 'mashups'), s => { cacheMashups = s.val() || {}; renderMashupsList(); updateAdminMashupsSelect(); });
 
+// ======= LÓGICA DE TOUR Y EVENTOS =======
 const PROVINCIAS_ESP = {
   "ES-AV":"Ávila","ES-BU":"Burgos","ES-LE":"León","ES-P":"Palencia","ES-SA":"Salamanca",
   "ES-SG":"Segovia","ES-SO":"Soria","ES-VA":"Valladolid","ES-ZA":"Zamora","ES-M":"Madrid"
@@ -52,6 +56,7 @@ function renderMapAndEvents() {
   const svg = $('mapa-svg');
   if(!svg) return;
   
+  // Dibujado del mapa estilizado en SVG
   let html = '';
   const paths = {
     "ES-LE": "M70,40 L160,30 L180,90 L140,140 L50,110 Z",
@@ -109,6 +114,7 @@ function showEventsForProvince(id) {
   list.innerHTML = html;
 }
 
+// ======= LÓGICA DE EQUIPO DJ (CABINA INTERACTIVA) =======
 const COMPONENTES_SETUP = {
   "deck-l": "Reproductor Izquierdo",
   "mixer": "Mesa de Mezclas Central",
@@ -163,6 +169,7 @@ function showSetupDetails(id) {
   `;
 }
 
+// ======= LÓGICA DE MASHUPS & EDITS (MÚSICA) =======
 function renderMashupsList() {
   const container = $('lista-mashups');
   if(!container) return;
@@ -175,39 +182,27 @@ function renderMashupsList() {
   let html = '';
   Object.keys(cacheMashups).forEach(k => {
     const item = cacheMashups[k];
-    let scEmbedHtml = '';
-    
-    if(item.soundcloud) {
-      if(item.soundcloud.trim().startsWith('<iframe')) {
-        let cleanIframe = item.soundcloud.replace(/height="[^"]*"/, 'height="166"').replace(/width="[^"]*"/, 'width="100%"');
-        scEmbedHtml = `<div class="w-full mt-3 rounded-xl overflow-hidden h-[166px] bg-black/40 border border-white/5 shadow-inner">${cleanIframe}</div>`;
-      } else {
-        scEmbedHtml = `<div class="w-full mt-3 rounded-xl overflow-hidden h-[166px] bg-black/40 border border-white/5 shadow-inner"><iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(item.soundcloud.trim())}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe></div>`;
-      }
-    }
-
     html += `
-      <div class="glass-card bg-black/30 p-4 flex flex-col gap-1 hover:border-djYellow/30 transition-all duration-300 w-full">
-        <div class="flex justify-between items-center gap-4 w-full">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-10 h-10 rounded-xl bg-djYellow/10 flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-music text-djYellow text-base"></i>
-            </div>
-            <div class="min-w-0">
-              <h4 class="font-display font-bold text-white text-xs md:text-sm truncate pr-2">${item.titulo}</h4>
-              <p class="text-[10px] text-gray-400 font-medium uppercase tracking-wider mt-0.5">VAQUERO EDIT</p>
-            </div>
+      <div class="glass-card bg-black/30 p-3.5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:border-djYellow/30 transition-all duration-300">
+        <div class="flex items-center gap-3 min-w-0 w-full sm:w-auto">
+          <div class="w-10 h-10 rounded-xl bg-djYellow/10 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-music text-djYellow text-base"></i>
           </div>
-          <div class="shrink-0">
-            ${item.descarga ? `<a href="${item.descarga}" target="_blank" class="bg-djYellow hover:scale-105 active:scale-95 text-black font-black text-[10px] px-3 py-2 rounded-xl uppercase tracking-wider transition-all shadow-[0_0_10px_rgba(255,214,0,0.2)] inline-flex items-center gap-1"><i class="fa-solid fa-cloud-arrow-down"></i>Descargar</a>` : ''}
+          <div class="min-w-0">
+            <h4 class="font-display font-bold text-white text-xs md:text-sm truncate pr-2">${item.titulo}</h4>
+            <p class="text-[10px] text-gray-400 font-medium uppercase tracking-wider mt-0.5">VAQUERO EDIT</p>
           </div>
         </div>
-        ${scEmbedHtml}
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+          ${item.soundcloud ? `<a href="${item.soundcloud}" target="_blank" class="flex-1 sm:flex-none text-center bg-white/5 hover:bg-white/10 text-white font-bold text-[10px] px-3 py-2 rounded-xl transition-all border border-white/5"><i class="fa-brands fa-soundcloud mr-1.5 text-orange-500"></i>Escuchar</a>` : ''}
+          ${item.descarga ? `<a href="${item.descarga}" target="_blank" class="flex-1 sm:flex-none text-center bg-djYellow hover:scale-105 active:scale-95 text-black font-black text-[10px] px-3 py-2 rounded-xl uppercase tracking-wider transition-all shadow-[0_0_10px_rgba(255,214,0,0.2)]"><i class="fa-solid fa-cloud-arrow-down mr-1"></i>Descargar</a>` : ''}
+        </div>
       </div>`;
   });
   container.innerHTML = html;
 }
 
+// ======= AUTENTICACIÓN Y MODO ADMINISTRADOR (OCULTO) =======
 let clickCount = 0, clickTimeout;
 if($('site-title')) $('site-title').onclick = () => {
   clickCount++;
@@ -225,6 +220,7 @@ if($('site-title')) $('site-title').onclick = () => {
 
 if($('btn-close-admin')) $('btn-close-admin').onclick = () => { tog($('admin-panel'), 'hidden', true); };
 
+// Control de navegación interna del panel admin
 function handleAdminTab(tab) {
   ['tour', 'setup', 'mashups'].forEach(t => {
     tog($(`sec-a-${t}`), 'hidden', t !== tab);
@@ -234,6 +230,7 @@ function handleAdminTab(tab) {
 }
 ['tour', 'setup', 'mashups'].forEach(t => { if($(`tab-adm-${t}`)) $(`tab-adm-${t}`).onclick = () => handleAdminTab(t); });
 
+// ======= FORMULARIOS Y ACTUALIZACIONES DE BASE DE DATOS =======
 function updateAdminTourSelect() {
   const sel = $('a-tour-prov'); if(!sel) return;
   let h = ''; for(let id in PROVINCIAS_ESP) { h += `<option value="${id}">${PROVINCIAS_ESP[id]}</option>`; }
@@ -291,6 +288,7 @@ if($('btn-dl-ms')) $('btn-dl-ms').onclick = () => {
   const k = $('a-mash-sel').value; if(k !== 'NEW' && confirm("¿Borrar este track permanentemente?")) { remove(ref(db, `mashups/${k}`)).then(() => { alert("Track eliminado."); $('a-mash-sel').value='NEW'; $('a-mash-t').value=''; $('a-mash-dl').value=''; $('a-mash-sc').value=''; tog($('btn-dl-ms'), 'hidden', true); }); }
 };
 
+// Movilidad básica para ventana flotante del panel de administración
 let drA = false, dX, dY;
 if($('admin-header')) on($('admin-header'), 'mousedown', e => {
   if(e.target.closest('button')) return; drA = true;
@@ -301,4 +299,5 @@ if($('admin-header')) on($('admin-header'), 'mousedown', e => {
 on(window, 'mousemove', e => { if(drA && $('admin-panel')) { $('admin-panel').style.left = `${e.clientX - dX}px`; $('admin-panel').style.top = `${e.clientY - dY}px`; } });
 on(window, 'mouseup', () => drA = false);
 
+// Carga de inicio
 window.switchView('tour');
