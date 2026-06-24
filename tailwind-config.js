@@ -18,12 +18,12 @@ tailwind.config = {
       },
       keyframes: {
         glowPulse: { 
-          '0%': { boxShadow: '0 0 10px rgba(0, 229, 255, 0.2)' }, 
-          '100%': { boxShadow: '0 0 25px rgba(0, 229, 255, 0.6)' } 
+          '0%': { boxShadow: '0 0 10px rgba(0, 229, 255, 0.2)', transform: 'translateZ(0)' }, 
+          '100%': { boxShadow: '0 0 25px rgba(0, 229, 255, 0.6)', transform: 'translateZ(0)' } 
         },
         float: { 
-          '0%, 100%': { transform: 'translateY(0)' }, 
-          '50%': { transform: 'translateY(-10px)' } 
+          '0%, 100%': { transform: 'translate3d(0, 0, 0)' }, 
+          '50%': { transform: 'translate3d(0, -10px, 0)' } 
         }
       }
     }
