@@ -229,7 +229,7 @@
       <input type="text" id="a-mash-dl" placeholder="URL Descarga" class="admin-input focus:border-djYellow">
       <input type="text" id="a-mash-sc" placeholder="SoundCloud URL" class="admin-input focus:border-djYellow">
       <div class="flex gap-2">
-        <button id="btn-sv-ms" class="flex-[2] bg-gradient-to-r from-djYellow to-orange-400 text-black font-black py-2.5 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR TRACK</button>
+        <button id="btn-sv-ms" class="flex-[2] bg-gradient-to-r from-djYellow to-orange-400 text-black py-2.5 rounded-lg text-xs hover:scale-105 anim-trans">GUARDAR TRACK</button>
         <button id="btn-dl-ms" class="flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-black rounded-lg text-xs hidden hover:bg-red-500/20 anim-trans">BORRAR</button>
       </div>
     </div>
@@ -240,9 +240,14 @@
 // FIREBASE & UTILS
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const app = initializeApp({ apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI", authDomain: "djvaquero-851e8.firebaseapp.com", databaseURL: "https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app", projectId: "djvaquero-851e8" });
 const db = getDatabase(app);
+const auth = getAuth(app);
+
+// CONFIGURACIÓN DE SEGURIDAD LOCAL
+const MI_GMAIL = 'ivanvaquerodj@gmail.com';
 
 const $ = id => document.getElementById(id);
 const $$ = q => document.querySelectorAll(q);
@@ -457,7 +462,6 @@ const selMuni = id => {
     if (m.events) {
       Object.entries(m.events).forEach(([eid, ev]) => {
         const hasMedia = ev.media || ev.embed;
-        // BOTÓN +INFO MOVIDO ARRIBA A LA DERECHA
         evHtml += `
           <div class="bg-black/30 border border-white/5 rounded-2xl p-5 relative">
             <div class="absolute top-0 left-0 w-1 h-full bg-djCyan rounded-l-2xl"></div>
@@ -677,10 +681,35 @@ $('btn-sv-ms').onclick = async () => {
 };
 $('btn-dl-ms').onclick = () => { if (confirm('¿Eliminar track?')) remove(ref(db, `mashups/${$('a-mash-sel').value}`)).then(() => { $('a-mash-sel').value = 'NEW'; $('a-mash-sel').dispatchEvent(new Event('change')); }); };
 
-// PANEL DISPLAY & DRAG
+// PANEL DISPLAY, LOGIN & DRAG
 let cc = 0;
-$('site-title').onclick = () => { if (++cc >= 3 && prompt("Contraseña:") === "1524") tog($('admin-panel'), 'hidden', false); setTimeout(() => cc = 0, 800); };
-$('btn-close-admin').onclick = () => { tog($('admin-panel'), 'hidden', true); toggleAdminMode(false); };
+$('site-title').onclick = async () => {
+  if (++cc >= 3) {
+    cc = 0;
+    const provider = new GoogleAuthProvider();
+    try {
+      const res = await signInWithPopup(auth, provider);
+      // Validación en frontend (la base de datos también lo bloqueará por seguridad si no coincide)
+      if (res.user.email === MI_GMAIL) {
+        tog($('admin-panel'), 'hidden', false);
+      } else {
+        alert("Acceso denegado: esta cuenta de Google no tiene permisos de administrador.");
+        signOut(auth);
+      }
+    } catch (error) {
+      alert("Error al iniciar sesión con Google.");
+      console.error(error);
+    }
+  }
+  setTimeout(() => cc = 0, 800);
+};
+
+$('btn-close-admin').onclick = () => { 
+  tog($('admin-panel'), 'hidden', true); 
+  toggleAdminMode(false); 
+  signOut(auth); // Cierra sesión al quitar el panel por seguridad
+};
+
 on($('admin-header'), 'mousedown', e => { if (e.target.closest('button')) return; drA = true; dX = e.clientX; dY = e.clientY; const r = $('admin-panel').getBoundingClientRect(); dL = r.left; dT = r.top; });
 on(window, 'mousemove', e => { if (drA) { $('admin-panel').style.left = `${dL + (e.clientX - dX)}px`; $('admin-panel').style.top = `${dT + (e.clientY - dY)}px`; } });
 on(window, 'mouseup', () => drA = false);
