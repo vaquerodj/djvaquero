@@ -15,6 +15,7 @@ tailwind.config = {
       animation: {
         'glow-pulse': 'glowPulse 3s infinite alternate',
         'float': 'float 6s ease-in-out infinite',
+        'spin-slow': 'spin-slow 12s linear infinite',
       },
       keyframes: {
         glowPulse: { 
@@ -24,6 +25,10 @@ tailwind.config = {
         float: { 
           '0%, 100%': { transform: 'translateY(0)' }, 
           '50%': { transform: 'translateY(-10px)' } 
+        },
+        'spin-slow': {
+          'from': { transform: 'rotate(0deg)' },
+          'to': { transform: 'rotate(360deg)' }
         }
       }
     }
