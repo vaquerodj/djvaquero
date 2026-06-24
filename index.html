@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>DJ VAQUERO | Web Oficial</title>
+<link rel="icon" type="image/png" href="logo.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="tailwind-config.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased">
+<div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
+
+<header class="w-full px-2 z-50 flex justify-between items-center relative shrink-0">
+  <div id="site-title" class="cursor-pointer select-none active:scale-95 transition-transform flex items-center gap-2">
+    <h1 class="font-display font-black text-xl md:text-2xl tracking-tighter text-white uppercase drop-shadow-lg">
+      DJ <span class="text-djCyan drop-shadow-[0_0_10px_rgba(0,229,255,0.4)]">VAQUERO</span>
+    </h1>
+  </div>
+  <div class="flex gap-1.5 md:gap-2">
+    <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc hidden sm:flex"><i class="fa-brands fa-soundcloud"></i></a>
+  </div>
+</header>
+
+<main class="w-full flex-grow flex flex-col md:flex-row gap-1.5 md:gap-3 relative z-10 overflow-hidden">
+  
+  <nav class="glass-card flex md:flex-col justify-around md:justify-center gap-1 md:gap-6 p-2 md:w-20 shrink-0 order-2 md:order-1 z-50">
+    <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn nav-active group w-full py-1.5">
+      <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-djCyan/20 transition-colors"><i class="fa-solid fa-map-location-dot text-base md:text-lg"></i></div>
+      <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1">Tour</span>
+    </button>
+    <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-1.5">
+      <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-djMagenta/20 transition-colors"><i class="fa-solid fa-sliders text-base md:text-lg"></i></div>
+      <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1">Equipo</span>
+    </button>
+    <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-1.5">
+      <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-djYellow/20 transition-colors"><i class="fa-solid fa-compact-disc text-base md:text-lg"></i></div>
+      <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1">Mashups</span>
+    </button>
+  </nav>
+
+  <div class="glass-card flex-grow w-full h-full relative overflow-hidden order-1 md:order-2">
+    
+    <div id="view-tour" class="app-view active">
+      <div class="absolute top-3 left-3 z-30 flex items-center gap-2 pointer-events-auto w-[calc(100%-1.5rem)] md:w-80">
+        <div class="relative flex-grow">
+          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-9 pr-3 py-2 text-xs rounded-xl text-white outline-none focus:border-djCyan transition-colors shadow-lg">
+          <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+          <ul id="search-results" class="absolute top-full left-0 w-full mt-1.5 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-xl"></ul>
+        </div>
+        <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-9 h-9 rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors shadow-lg"><i class="fa-solid fa-expand text-xs"></i></button>
+      </div>
+      <div class="w-full h-full bg-[#020305] relative cursor-grab overflow-hidden rounded-2xl" id="tour-viewport">
+        <div class="zoom-layer" id="tour-layer"></div>
+      </div>
+      <div id="info-overlay" class="slide-panel">
+        <div class="p-4 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
+          <div><h3 id="info-title" class="text-lg font-display font-black text-white uppercase tracking-tighter mb-0.5">ZONA</h3><div id="info-status" class="flex items-center gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] font-bold uppercase tracking-widest">Selecciona en el mapa</span></div></div>
+          <button id="btn-close-tour" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-xs"></i></button>
+        </div>
+        <div id="info-events" class="flex-grow flex flex-col gap-3 p-4 overflow-y-auto custom-scrollbar"></div>
+      </div>
+    </div>
+
+    <div id="view-setup" class="app-view bg-[#020305]">
+      <div class="absolute top-4 left-4 z-30 pointer-events-none">
+        <h2 class="font-display font-black text-djMagenta text-xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,234,0.3)]">
+          <i class="fa-solid fa-headphones mr-2 text-djMagenta"></i> Cabina DJ
+        </h2>
+      </div>
+      <div class="w-full h-full flex justify-center items-center p-2 relative">
+        <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block select-none touch-none rounded-xl">
+          <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[85vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
+          <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
+          <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
+        </div>
+      </div>
+      <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[9px] hidden font-bold bg-black/90 px-2.5 py-1 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS ACTIVADA</p>
+      <div id="setup-overlay" class="slide-panel">
+        <div class="p-4 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
+          <div><div id="setup-status" class="flex items-center gap-1.5 mb-0.5"><div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] font-bold uppercase tracking-widest">Hardware</span></div><h3 id="setup-t" class="text-base font-display font-black text-white uppercase tracking-tighter"></h3></div>
+          <button id="btn-close-setup" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-xs"></i></button>
+        </div>
+        <div class="flex-grow p-4 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-xs leading-relaxed whitespace-pre-wrap"></p></div>
+      </div>
+    </div>
+
+    <div id="view-mashups" class="app-view">
+      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
+        <h2 class="font-display font-black text-djYellow text-xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.3)]">
+          <i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 4s;"></i> Tracks Exclusivos
+        </h2>
+      </div>
+      <div id="mashups-grid" class="flex-grow p-4 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 content-start"></div>
+    </div>
+
+  </div>
+</main>
+
+<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[380px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col text-gray-200">
+  <div id="admin-header" class="bg-black/60 border-b border-white/10 p-2.5 flex justify-between items-center cursor-move touch-none">
+    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[9px] uppercase tracking-widest">Admin</span></div>
+    <button id="btn-close-admin" class="w-7 h-7 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-power-off text-xs"></i></button>
+  </div>
+  <div class="flex bg-black/40 text-[9px] font-bold uppercase tracking-widest border-b border-white/5">
+    <button id="tab-tour" class="flex-1 py-2.5 text-djCyan border-b border-djCyan bg-white/[0.02]">Gira</button>
+    <button id="tab-setup" class="flex-1 py-2.5 text-gray-500 hover:text-white transition-colors border-b border-transparent">Setup</button>
+    <button id="tab-mashups" class="flex-1 py-2.5 text-gray-500 hover:text-white transition-colors border-b border-transparent">Tracks</button>
+  </div>
+  <div class="p-3 overflow-y-auto max-h-[65vh] space-y-2.5 custom-scrollbar">
+    
+    <div id="sec-a-tour" class="space-y-2.5">
+      <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
+      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input flex-[2]"><select id="a-muni-status" class="admin-input flex-[1] px-1"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
+      <div id="a-ev-list" class="space-y-1 bg-black/30 p-2 rounded-xl border border-white/5 max-h-24 overflow-y-auto custom-scrollbar"></div>
+      <div class="pt-2 border-t border-white/5 space-y-2">
+        <label id="a-ev-t" class="text-[9px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Fecha</label>
+        <div class="grid grid-cols-2 gap-2"><input type="text" id="a-ev-p" placeholder="Sala" class="admin-input"><input type="date" id="a-ev-d" class="admin-input [color-scheme:dark]"></div>
+        <textarea id="a-ev-desc" placeholder="Detalles..." class="admin-input h-12 resize-none"></textarea>
+        <input type="text" id="a-ev-m" placeholder="URL Tickets" class="admin-input"><textarea id="a-ev-embed" placeholder="Iframe Embed" class="admin-input h-10 resize-none"></textarea>
+        <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2 rounded-xl text-[10px] uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10"><i class="fa-solid fa-rotate-left"></i></button></div>
+      </div>
+    </div>
+    
+    <div id="sec-a-setup" class="space-y-2.5 hidden">
+      <select id="a-comp-sel" class="admin-input"><option value="NEW">✨ NUEVO HARDWARE</option></select>
+      <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input focus:border-djMagenta">
+      <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input h-16 resize-none focus:border-djMagenta"></textarea>
+      
+      <div class="bg-black/40 p-2 rounded-xl border border-white/5 space-y-1.5">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span>
+          <button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1.5 rounded border border-djMagenta/30 text-[9px] font-bold transition-colors"><i class="fa-solid fa-plus mr-1"></i> Añadir polígono</button>
+        </div>
+        
+        <ul id="a-comp-figs" class="space-y-1 max-h-24 overflow-y-auto text-xs custom-scrollbar"></ul>
+        
+        <div id="draw-controls" class="hidden flex-col gap-1.5 mt-2 p-2 border border-djMagenta/30 bg-djMagenta/5 rounded-lg shadow-inner">
+          <span class="text-[9px] text-djMagenta font-bold text-center block mb-1">Toca la imagen de fondo para añadir nodos</span>
+          <ul id="a-comp-pts" class="space-y-1 max-h-24 overflow-y-auto text-[9px] text-gray-300 custom-scrollbar"></ul>
+          <div class="flex gap-2 pt-1">
+            <button id="btn-close-fig" class="flex-[2] bg-djMagenta hover:bg-[#d600c4] text-black font-black py-1.5 rounded-lg text-[9px] uppercase tracking-wider transition-colors"><i class="fa-solid fa-check mr-1"></i> Cerrar Forma</button>
+            <button id="btn-cancel-fig" class="flex-[1] bg-white/10 hover:bg-white/20 text-white font-bold py-1.5 rounded-lg text-[9px] transition-colors">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[3] bg-djMagenta text-black font-black py-2 rounded-xl text-[10px] uppercase shadow-[0_0_10px_rgba(255,0,234,0.3)]">Guardar Componente</button><button id="btn-dl-cp" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[9px]">Borrar</button></div>
+    </div>
+    
+    <div id="sec-a-mashups" class="space-y-2.5 hidden">
+      <select id="a-mash-sel" class="admin-input"><option value="NEW">✨ NUEVO TRACK</option></select>
+      <input type="text" id="a-mash-t" placeholder="Título" class="admin-input focus:border-djYellow">
+      <input type="text" id="a-mash-dl" placeholder="Enlace descarga" class="admin-input focus:border-djYellow">
+      <input type="text" id="a-mash-sc" placeholder="URL SoundCloud" class="admin-input focus:border-djYellow">
+      <div class="flex gap-2 pt-2"><button id="btn-sv-ms" class="flex-[3] bg-djYellow text-black font-black py-2 rounded-xl text-[10px] uppercase shadow-[0_0_10px_rgba(255,214,0,0.3)]">Publicar</button><button id="btn-dl-ms" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[9px]">Borrar</button></div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
