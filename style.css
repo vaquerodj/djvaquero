@@ -1,0 +1,41 @@
+body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,229,255,0.4)}
+.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambient-glow{position:absolute;border-radius:50%;filter:blur(150px);opacity:0.4}
+.glow-1{top:-20%;left:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(0,229,255,0.15) 0%,transparent 70%);animation:float 15s infinite alternate}
+.glow-2{bottom:-20%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(255,0,234,0.15) 0%,transparent 70%);animation:float 18s infinite alternate-reverse}
+.glass-pill{background:rgba(15,18,25,0.65);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.06);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.glass-card{background:linear-gradient(145deg,rgba(20,24,34,0.7) 0%,rgba(10,12,16,0.9) 100%);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.05);border-radius:24px;transition:all 0.4s cubic-bezier(0.2,0.8,0.2,1)}
+.glass-card:hover{border-color:rgba(255,255,255,0.15);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1)}
+.premium-title{font-family:'Montserrat',sans-serif;background:linear-gradient(to bottom right,#ffffff 30%,#888 100%);-webkit-background-clip:text;color:transparent}
+.neon-cyan{color:#00e5ff;text-shadow:0 0 20px rgba(0,229,255,0.5)}
+.neon-magenta{color:#ff00ea;text-shadow:0 0 20px rgba(255,0,234,0.5)}
+.social-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.3s cubic-bezier(0.3,2,0.5,1)}
+.social-icon:hover{color:#fff;transform:scale(1.15) rotate(5deg)}
+.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 10px 20px rgba(220,39,67,0.3)}
+.social-tk:hover{background:#000;box-shadow:0 10px 20px rgba(0,229,255,0.3);color:#00e5ff}
+.social-sc:hover{background:#ff5500;box-shadow:0 10px 20px rgba(255,85,0,0.3)}
+.social-yt:hover{background:#f00;box-shadow:0 10px 20px rgba(255,0,0,0.3)}
+.zoom-layer{position:absolute;transform-origin:0 0;touch-action:none;will-change:transform}
+.muni{cursor:pointer;pointer-events:all;stroke-width:1px!important;transition:all 0.3s}
+.muni-base{fill:#090b10;stroke:rgba(255,255,255,0.05)}
+.muni-base:hover{fill:#151a26;stroke:rgba(255,255,255,0.2)}
+.muni-base.muni-selected{fill:rgba(0,229,255,0.1);stroke:#00e5ff;filter:drop-shadow(0 0 8px rgba(0,229,255,0.4))}
+.muni-unlocked{fill:#062329;stroke:rgba(0,229,255,0.3)}
+.muni-unlocked:hover{fill:rgba(0,229,255,0.2);stroke:#00e5ff}
+.muni-unlocked.muni-selected{fill:#00e5ff!important;stroke:#fff;filter:drop-shadow(0 0 15px rgba(0,229,255,0.8))}
+.comp-polygon{fill:rgba(255,0,234,0.02);stroke:rgba(255,0,234,0.2);stroke-width:0.5px;cursor:pointer;pointer-events:auto;transition:all 0.3s}
+.comp-polygon:hover,.hotspot-active{fill:rgba(255,0,234,0.25);stroke:#ff00ea;stroke-width:1.5px;filter:drop-shadow(0 0 12px rgba(255,0,234,0.6))}
+.nav-link{color:#8a8f98;font-family:'Montserrat',sans-serif;font-size:0.75rem;font-weight:800;text-transform:uppercase;position:relative;transition:color 0.3s}
+.nav-link:hover,.nav-link.active{color:#fff}
+.nav-link::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:2px;background:#00e5ff;transition:width 0.3s ease;border-radius:2px}
+.nav-link.active::after,.nav-link:hover::after{width:100%;box-shadow:0 0 8px #00e5ff}
+.admin-input{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);padding:0.75rem 1rem;color:#fff;border-radius:12px;font-size:0.85rem;outline:none;transition:all 0.3s}
+.admin-input:focus{border-color:rgba(0,229,255,0.5);background:rgba(0,0,0,0.6);box-shadow:0 0 15px rgba(0,229,255,0.1)}
+.admin-drag-dot{pointer-events:auto;touch-action:none;cursor:grab;z-index:50}
+.admin-drag-dot:active{cursor:grabbing}
+.slide-overlay{transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.16,1,0.3,1)}
+.slide-overlay.open{transform:translateX(0)}
