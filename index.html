@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>DJ VAQUERO | Web Oficial</title>
 <link rel="icon" type="image/png" href="logo.png">
-
 <script src="https://cdn.tailwindcss.com"></script>
-
 <script>
 tailwind.config = {
   darkMode: 'class',
@@ -41,10 +39,8 @@ tailwind.config = {
   }
 };
 </script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
-
 <style>
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem}
 @media(min-width: 768px){body{padding:1rem;gap:1rem}}
@@ -57,26 +53,26 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .ambient-glow{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.3;will-change:transform}
 .glow-1{top:-10%;left:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(0,229,255,0.2) 0%,transparent 70%);animation:float 12s infinite alternate}
 .glow-2{bottom:-10%;right:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(255,0,234,0.15) 0%,transparent 70%);animation:float 15s infinite alternate-reverse}
-.glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.8) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04)}
-.social-icon{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.2s ease-out}
-.social-icon:hover{color:#fff;transform:scale(1.1) translateY(-2px)}
-.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.3)}
-.social-tk:hover{background:#000;box-shadow:0 8px 16px rgba(0,229,255,0.3);color:#00e5ff}
-.social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.3)}
-.social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4);color:#fff}
+.glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.75) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04)}
+.social-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);border:1px solid rgba(255,255,255,0.02)}
+.social-icon:hover{color:#fff;transform:scale(1.1) translateY(-3px)}
+.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 20px rgba(220,39,67,0.4)}
+.social-tk:hover{background:#010101;box-shadow:-2px -2px 0 #00e5ff,2px 2px 0 #ff00ea,0 8px 20px rgba(0,0,0,0.7)}
+.social-sc:hover{background:#ff5500;box-shadow:0 8px 20px rgba(255,85,0,0.4)}
+.social-yt:hover{background:#f00;box-shadow:0 8px 20px rgba(255,0,0,0.4)}
 .app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform:scale(0.99) translateY(10px);z-index:0;display:flex;flex-direction:column;border-radius:16px;overflow:hidden}
 .app-view.active{opacity:1;pointer-events:auto;transform:scale(1) translateY(0);z-index:10}
-.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#6b7280;transition:all 0.2s;cursor:pointer;position:relative}
-.nav-btn:hover{color:#fff}
-.nav-active{color:#00e5ff;filter:drop-shadow(0 0 5px rgba(0,229,255,0.4))}
+.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#6b7280;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);cursor:pointer;position:relative}
+.nav-btn:hover{color:#fff;transform:translateY(-1px)}
+.nav-active{color:#00e5ff;filter:drop-shadow(0 0 8px rgba(0,229,255,0.5))}
 .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
-.muni{cursor:pointer;pointer-events:all;stroke-width:1px!important;transition:all 0.2s}
+.muni{cursor:pointer;pointer-events:all;stroke-width:1px!important;transition:all 0.25s ease}
 .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03)}
-.muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)}
-.muni-base.muni-selected{fill:rgba(0,229,255,0.08);stroke:#00e5ff;filter:drop-shadow(0 0 8px rgba(0,229,255,0.3))}
-.muni-unlocked{fill:#051d24;stroke:rgba(0,229,255,0.25)}
-.muni-unlocked:hover{fill:rgba(0,229,255,0.15);stroke:#00e5ff}
-.muni-unlocked.muni-selected{fill:#00e5ff!important;stroke:#fff;filter:drop-shadow(0 0 15px rgba(0,229,255,0.6))}
+.muni-base:hover{fill:#0c101a;stroke:rgba(0,229,255,0.2)}
+.muni-base.muni-selected{fill:#090f1a;stroke:#00e5ff;filter:drop-shadow(0 0 8px rgba(0,229,255,0.4))}
+.muni-unlocked{fill:#031822;stroke:rgba(0,229,255,0.35)}
+.muni-unlocked:hover{fill:#052636;stroke:#00e5ff}
+.muni-unlocked.muni-selected{fill:#00e5ff!important;stroke:#fff;filter:drop-shadow(0 0 16px rgba(0,229,255,0.6))}
 .comp-polygon{fill:rgba(255,0,234,0.02);stroke:rgba(255,0,234,0.1);stroke-width:0.5px;cursor:pointer;pointer-events:auto;transition:all 0.2s}
 .comp-polygon:hover,.hotspot-active{fill:rgba(255,0,234,0.2);stroke:#ff00ea;stroke-width:1.5px;filter:drop-shadow(0 0 10px rgba(255,0,234,0.5))}
 .admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;outline:none;transition:border 0.2s}
@@ -85,7 +81,6 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .admin-drag-dot{pointer-events:auto;touch-action:none;cursor:grab;z-index:50}
 .slide-panel{position:absolute;top:0;right:0;width:100%;max-width:340px;height:100%;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);border-left:1px solid rgba(255,255,255,0.05);transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);z-index:40;display:flex;flex-direction:column}
 .slide-panel.open{transform:translateX(0)}
-
 @keyframes float {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(4vw, 3vh) scale(1.08); }
@@ -110,25 +105,23 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </header>
 
-<main class="w-full flex-grow flex flex-col md:flex-row gap-1.5 md:gap-3 relative z-10 overflow-hidden">
-  
-  <nav class="glass-card flex md:flex-col justify-around md:justify-center gap-1 md:gap-6 p-2 md:w-20 shrink-0 order-2 md:order-1 z-50">
-    <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn nav-active group w-full py-1.5">
-      <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-djCyan/20 transition-colors"><i class="fa-solid fa-map-location-dot text-base md:text-lg"></i></div>
-      <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1">Tour</span>
+<main class="w-full flex-grow flex flex-col md:flex-row gap-2 md:gap-3 relative z-10 overflow-hidden">
+  <nav class="glass-card flex md:flex-col justify-around md:justify-center items-center gap-2 md:gap-8 p-2.5 md:w-24 shrink-0 order-2 md:order-1 z-50 border border-white/[0.03]">
+    <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn nav-active group w-full py-2">
+      <div class="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djCyan/20 group-hover:scale-105 transition-all duration-300 shadow-lg"><i class="fa-solid fa-map-location-dot text-base md:text-lg"></i></div>
+      <span class="text-[9px] md:text-[10px] font-display font-black uppercase tracking-widest mt-1.5">Tour</span>
     </button>
-    <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-1.5">
-      <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-djMagenta/20 transition-colors"><i class="fa-solid fa-sliders text-base md:text-lg"></i></div>
-      <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1">Equipo</span>
+    <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-2">
+      <div class="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djMagenta/20 group-hover:scale-105 transition-all duration-300 shadow-lg"><i class="fa-solid fa-sliders text-base md:text-lg"></i></div>
+      <span class="text-[9px] md:text-[10px] font-display font-black uppercase tracking-widest mt-1.5">Equipo</span>
     </button>
-    <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-1.5">
-      <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-djYellow/20 transition-colors"><i class="fa-solid fa-compact-disc text-base md:text-lg"></i></div>
-      <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1">Mashups</span>
+    <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-2">
+      <div class="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djYellow/20 group-hover:scale-105 transition-all duration-300 shadow-lg"><i class="fa-solid fa-compact-disc text-base md:text-lg"></i></div>
+      <span class="text-[9px] md:text-[10px] font-display font-black uppercase tracking-widest mt-1.5">Mashups</span>
     </button>
   </nav>
 
   <div class="glass-card flex-grow w-full h-full relative overflow-hidden order-1 md:order-2">
-    
     <div id="view-tour" class="app-view active">
       <div class="absolute top-3 left-3 z-30 flex items-center gap-2 pointer-events-auto w-[calc(100%-1.5rem)] md:w-80">
         <div class="relative flex-grow">
@@ -153,7 +146,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     <div id="view-setup" class="app-view bg-[#020305]">
       <div class="absolute top-4 left-4 z-30 pointer-events-none">
         <h2 class="font-display font-black text-djMagenta text-xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,234,0.3)]">
-          <i class="fa-solid fa-headphones mr-2 text-djMagenta"></i> Cabina DJ
+          <i class="fa-solid fa-headphones mr-2 text-djMagenta"></i> Equipo DJ
         </h2>
       </div>
       <div class="w-full h-full flex justify-center items-center p-2 relative">
@@ -176,12 +169,11 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     <div id="view-mashups" class="app-view">
       <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
         <h2 class="font-display font-black text-djYellow text-xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.3)]">
-          <i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 4s;"></i> Tracks Exclusivos
+          <i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 4s;"></i> Mashups & Edits
         </h2>
       </div>
       <div id="mashups-grid" class="flex-grow p-4 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 content-start"></div>
     </div>
-
   </div>
 </main>
 
@@ -196,7 +188,6 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     <button id="tab-mashups" class="flex-1 py-2.5 text-gray-500 hover:text-white transition-colors border-b border-transparent">Tracks</button>
   </div>
   <div class="p-3 overflow-y-auto max-h-[65vh] space-y-2.5 custom-scrollbar">
-    
     <div id="sec-a-tour" class="space-y-2.5">
       <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
       <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input flex-[2]"><select id="a-muni-status" class="admin-input flex-[1] px-1"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
@@ -209,20 +200,16 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
         <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2 rounded-xl text-[10px] uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10"><i class="fa-solid fa-rotate-left"></i></button></div>
       </div>
     </div>
-    
     <div id="sec-a-setup" class="space-y-2.5 hidden">
       <select id="a-comp-sel" class="admin-input"><option value="NEW">✨ NUEVO HARDWARE</option></select>
       <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input focus:border-djMagenta">
       <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input h-16 resize-none focus:border-djMagenta"></textarea>
-      
       <div class="bg-black/40 p-2 rounded-xl border border-white/5 space-y-1.5">
         <div class="flex justify-between items-center mb-1">
           <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span>
           <button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1.5 rounded border border-djMagenta/30 text-[9px] font-bold transition-colors"><i class="fa-solid fa-plus mr-1"></i> Añadir polígono</button>
         </div>
-        
         <ul id="a-comp-figs" class="space-y-1 max-h-24 overflow-y-auto text-xs custom-scrollbar"></ul>
-        
         <div id="draw-controls" class="hidden flex-col gap-1.5 mt-2 p-2 border border-djMagenta/30 bg-djMagenta/5 rounded-lg shadow-inner">
           <span class="text-[9px] text-djMagenta font-bold text-center block mb-1">Toca la imagen de fondo para añadir nodos</span>
           <ul id="a-comp-pts" class="space-y-1 max-h-24 overflow-y-auto text-[9px] text-gray-300 custom-scrollbar"></ul>
@@ -232,10 +219,8 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
           </div>
         </div>
       </div>
-      
       <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[3] bg-djMagenta text-black font-black py-2 rounded-xl text-[10px] uppercase shadow-[0_0_10px_rgba(255,0,234,0.3)]">Guardar Componente</button><button id="btn-dl-cp" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[9px]">Borrar</button></div>
     </div>
-    
     <div id="sec-a-mashups" class="space-y-2.5 hidden">
       <select id="a-mash-sel" class="admin-input"><option value="NEW">✨ NUEVO TRACK</option></select>
       <input type="text" id="a-mash-t" placeholder="Título" class="admin-input focus:border-djYellow">
@@ -271,18 +256,16 @@ function toggleAdminMode(a) {
 
 window.switchView = (view) => {
   if (view !== 'setup') toggleAdminMode(false);
-  
   ['tour', 'setup', 'mashups'].forEach(v => {
     const el = $(`view-${v}`), btn = $(`btn-nav-${v}`);
     if(!el || !btn) return;
     if(v === view) {
       el.classList.add('active'); btn.classList.add('nav-active');
       const colors = {tour:'djCyan', setup:'djMagenta', mashups:'djYellow'};
-      btn.querySelector('div').className = `w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center transition-colors bg-${colors[v]}/20 text-${colors[v]}`;
-      if(v==='tour') setTimeout(()=> $('btn-reset-map')?.click(), 100); 
+      btn.querySelector('div').className = `w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-300 bg-${colors[v]}/20 text-${colors[v]} scale-105 shadow-lg`;
     } else {
       el.classList.remove('active'); btn.classList.remove('nav-active');
-      btn.querySelector('div').className = `w-9 h-9 md:w-10 md:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors`;
+      btn.querySelector('div').className = `w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-all duration-300`;
     }
   });
 };
@@ -301,16 +284,16 @@ onValue(ref(db,'/'),s=>{
     components: val.components || {},
     mashups: val.mashups || {}
   };
-  try{renderMap();}catch(e){console.error("Map render:",e);}
-  try{renderComp();}catch(e){console.error("Comp render:",e);}
-  try{renderMash();}catch(e){console.error("Mash render:",e);}
-  try{updateDds();}catch(e){console.error("DDS:",e);}
+  try{renderMap();}catch(e){}
+  try{renderComp();}catch(e){}
+  try{renderMash();}catch(e){}
+  try{updateDds();}catch(e){}
   if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
 });
 
-const uLbls=()=>{if(!lgEl||!vp)return;lgEl.className.baseVal=sc<2.2?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';if(sc<2.2)return;const fS=12/sc,vW=vp.clientWidth||vp.getBoundingClientRect().width,vH=vp.clientHeight||vp.getBoundingClientRect().height,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));srt.forEach(l=>{const m=dbData.municipalities[l.dataset.id]||{};if(!m.name||/^zona/i.test(m.name))return void(l.style.opacity='0');const un=m.status==='unlocked';if(un){l.setAttribute('fill','#ffffff');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.4}px`);l.setAttribute('font-size',`${fS*1.3}px`);l.setAttribute('font-weight','900')}else{l.setAttribute('fill','rgba(255,255,255,0.6)');l.setAttribute('stroke','rgba(0,0,0,0.8)');l.setAttribute('stroke-width',`${fS*0.25}px`);l.setAttribute('font-size',`${fS*0.95}px`);l.setAttribute('font-weight','700')}l.setAttribute('paint-order','stroke fill');l.setAttribute('stroke-linejoin','round');const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2;if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');const b={l:br.left,r:br.right,t:br.top,b:br.bottom};if(!occ.some(o=>b.l-2<o.r&&b.r+2>o.l&&b.t-2<o.b&&b.b+2>o.t)){l.style.opacity='1';occ.push(b)}else l.style.opacity='0'})};
+const uLbls=()=>{if(!lgEl||!vp)return;lgEl.className.baseVal=sc<2.2?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';if(sc<2.2)return;const fS=12/sc,vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));srt.forEach(l=>{const m=dbData.municipalities[l.dataset.id]||{};if(!m.name||/^zona/i.test(m.name))return void(l.style.opacity='0');const un=m.status==='unlocked';if(un){l.setAttribute('fill','#ffffff');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.4}px`);l.setAttribute('font-size',`${fS*1.3}px`);l.setAttribute('font-weight','900')}else{l.setAttribute('fill','rgba(255,255,255,0.6)');l.setAttribute('stroke','rgba(0,0,0,0.8)');l.setAttribute('stroke-width',`${fS*0.25}px`);l.setAttribute('font-size',`${fS*0.95}px`);l.setAttribute('font-weight','700')}l.setAttribute('paint-order','stroke fill');l.setAttribute('stroke-linejoin','round');const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2;if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');const b={l:br.left,r:br.right,t:br.top,b:br.bottom};if(!occ.some(o=>b.l-2<o.r&&b.r+2>o.l&&b.t-2<o.b&&b.b+2>o.t)){l.style.opacity='1';occ.push(b)}else l.style.opacity='0'})};
 
-const chkBounds=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth||vp.getBoundingClientRect().width,rH=vp.clientHeight||vp.getBoundingClientRect().height,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>15)sc=15;const minPx=rW-(svgW*sc),minPy=rH-(svgH*sc);if(svgW*sc<=rW)pX=(rW-svgW*sc)/2;else pX=Math.min(0,Math.max(minPx,pX));if(svgH*sc<=rH)pY=(rH-svgH*sc)/2;else pY=Math.min(0,Math.max(minPy,pY))};
+const chkBounds=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>15)sc=15;const minPx=rW-(svgW*sc),minPy=rH-(svgH*sc);if(svgW*sc<=rW)pX=(rW-svgW*sc)/2;else pX=Math.min(0,Math.max(minPx,pX));if(svgH*sc<=rH)pY=(rH-svgH*sc)/2;else pY=Math.min(0,Math.max(minPy,pY))};
 const uTrans=()=>{if(tLay)tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`;uLbls();reqFr=null};
 const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;pan=true;isMov=false;vp.style.cursor='grabbing'};
 const mvPan=(x,y)=>{if(!pan)return;isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
@@ -325,37 +308,22 @@ if(vp) {
   on(vp,'wheel',e=>{e.preventDefault();const rb=vp.getBoundingClientRect(),tx=(e.clientX-rb.left-pX)/sc,ty=(e.clientY-rb.top-pY)/sc;sc=e.deltaY<0?sc*1.1:sc/1.1;chkBounds();pX=(e.clientX-rb.left)-tx*sc;pY=(e.clientY-rb.top)-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)},{passive:false});
 }
 
-if($('btn-reset-map')) $('btn-reset-map').onclick=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth||vp.getBoundingClientRect().width,rH=vp.clientHeight||vp.getBoundingClientRect().height;sc=Math.min(rW/svgW,rH/svgH)*0.95;pX=(rW-svgW*sc)/2;pY=(rH-svgH*sc)/2;if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
+if($('btn-reset-map')) $('btn-reset-map').onclick=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight;sc=Math.min(rW/svgW,rH/svgH)*0.95;pX=(rW-svgW*sc)/2;pY=(rH-svgH*sc)/2;if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
 
-fetch('salamanca.svg').then(r=>{
-  if(!r.ok) throw new Error("Archivo salamanca.svg no encontrado.");
-  return r.text();
-}).then(h=>{
-  if(!tLay) return;
-  tLay.innerHTML=h;
-  const s=tLay.querySelector('svg');
-  if(!s) {
-    tLay.innerHTML = '<div class="text-djCyan text-center p-10 font-bold">No se detectó un archivo SVG válido.</div>';
-    return;
-  }
-  const g=crSvg('g');
+fetch('salamanca.svg').then(r=>{if(!r.ok)throw new Error();return r.text()}).then(h=>{
+  if(!tLay)return;tLay.innerHTML=h;const s=tLay.querySelector('svg');if(!s)return;const g=crSvg('g');
   try{const vb=s.viewBox.baseVal;if(vb&&vb.width){svgW=vb.width;svgH=vb.height}else{const b=s.getBBox();svgW=b.width;svgH=b.height}}catch(e){svgW=1000;svgH=1000}
-  tLay.style.width=svgW+'px';tLay.style.height=svgH+'px';g.id='labels-group';g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none';s.style.pointerEvents='none';s.appendChild(g);
+  tLay.style.width=svgW+'px';tLay.style.height=svgH+'px';g.id='labels-group';g.className.baseVal='opacity-0 pointer-events-none';s.style.pointerEvents='none';s.appendChild(g);
   s.querySelectorAll('path,polygon').forEach((el,i)=>{const id=el.id||`zona_${i}`;el.id=id;el.className.baseVal='muni muni-base';try{const b=el.getBBox();if(b.width>0){const t=crSvg("text");t.setAttribute("x",b.x+b.width/2);t.setAttribute("y",b.y+b.height/2);t.setAttribute("class","muni-label transition-opacity duration-200");t.setAttribute("data-id",id);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');t.setAttribute('font-family',"'Montserrat',sans-serif");t.setAttribute('style','pointer-events:none');g.appendChild(t)}}catch(e){}el.onclick=e=>{if(isMov)return;e.stopPropagation();selMuni(id)}});
-  lgEl=g;mLbls=Array.from(g.querySelectorAll('.muni-label'));
-  setTimeout(()=>$('btn-reset-map')?.click(), 100);
-  renderMap();
-}).catch(err => {
-  console.error("Error cargando mapa:", err);
-  if(tLay) tLay.innerHTML = `<div class="text-red-500 flex items-center justify-center h-full w-full font-bold text-center p-4">Sube 'salamanca.svg' al mismo directorio.</div>`;
-});
+  lgEl=g;mLbls=Array.from(g.querySelectorAll('.muni-label'));setTimeout(()=>$('btn-reset-map')?.click(),100);renderMap();
+}).catch(()=>{if(tLay)tLay.innerHTML=`<div class="text-red-500 flex items-center justify-center h-full w-full font-bold text-center p-4">Sube 'salamanca.svg' al mismo directorio.</div>`});
 
 const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
-const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-1.5 h-1.5 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff]"></div><span class="text-djCyan text-[9px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/40 border border-white/5 rounded-xl p-3 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-xs font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[9px] text-djCyan font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-djCyan hover:text-black text-white w-6 h-6 rounded-lg border border-white/10 transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[9px]"></i></button>`:''}</div>${ev.details?`<p class="text-[10px] text-gray-400 mt-1.5 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-2 pt-2 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-1.5 bg-white/5 hover:bg-white/15 text-white border border-white/10 text-[9px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-8 text-center"><i class="fa-solid fa-envelope-open-text text-2xl text-gray-600 mb-3"></i><p class="text-gray-400 text-[11px]">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="mt-auto block bg-gradient-to-r from-djCyan to-blue-600 text-black w-full py-2.5 rounded-xl text-center text-[10px] font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all">Contratar</a>`};
+const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-1.5 h-1.5 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff]"></div><span class="text-djCyan text-[9px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/40 border border border-white/5 rounded-xl p-3 relative"><div class="absolute top-0 left-0 w-1 h-full bg-djCyan"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-xs font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[9px] text-djCyan font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-djCyan hover:text-black text-white w-6 h-6 rounded-lg border border-white/10 transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[9px]"></i></button>`:''}</div>${ev.details?`<p class="text-[10px] text-gray-400 mt-1.5 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-2 pt-2 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-1.5 bg-white/5 hover:bg-white/15 text-white border border-white/10 text-[9px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-xs text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-8 text-center"><i class="fa-solid fa-envelope-open-text text-2xl text-gray-600 mb-3"></i><p class="text-gray-400 text-[11px]">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="mt-auto block bg-gradient-to-r from-djCyan to-blue-600 text-black w-full py-2.5 rounded-xl text-center text-[10px] font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all">Contratar</a>`};
 if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-3 py-2.5 hover:bg-white/10 text-[11px] cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot text-djCyan mr-2 opacity-70"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-3 py-2.5 text-gray-500 text-[11px] italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
-const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/40 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/60"><div class="absolute -right-4 -top-4 w-16 h-16 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/15 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-xs text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-[10px]"></i>${d.title}</h4></div><div class="relative z-10 space-y-2">${d.scUrl?`<div class="w-full h-16 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2 rounded-lg text-center text-[9px] font-black uppercase tracking-wider block transition-all"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-xs p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
+const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/40 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/60"><div class="absolute -right-4 -top-4 w-16 h-16 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/15 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-xs text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-[10px]"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-16 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="w-full bg-transparent hover:bg-djYellow text-djYellow hover:text-black border-2 border-djYellow/40 hover:border-djYellow py-2 rounded-lg text-center text-[10px] font-display font-black uppercase tracking-widest block transition-all duration-300 shadow-md hover:shadow-[0_0_15px_rgba(255,214,0,0.4)]"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-xs p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
 
 window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);if(sStat)sStat.innerHTML=`<div class="w-1.5 h-1.5 rounded-full bg-djMagenta shadow-[0_0_8px_#ff00ea]"></div><span class="text-djMagenta text-[8px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
 const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&$('admin-panel')&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();selComp(id)};ov.appendChild(p)}})})};
@@ -365,44 +333,35 @@ const crDot=(pts,idx,pEl,dc)=>{const dt=document.createElement('div');dt.classNa
 const renderAdminPts=()=>{
   const figsUl=$('a-comp-figs'),ptsUl=$('a-comp-pts'),dc=$('admin-pts'),ov=$('setup-svg');
   if(!figsUl||!ptsUl||!dc||!ov)return;
-  dc.innerHTML=''; ov.innerHTML='';
-  tog($('draw-controls'), 'hidden', !isDrawing);
-  tog($('btn-add-fig'), 'hidden', isDrawing);
-  
+  dc.innerHTML='';ov.innerHTML='';
+  tog($('draw-controls'),'hidden',!isDrawing);tog($('btn-add-fig'),'hidden',isDrawing);
   figsUl.innerHTML=cFigs.map((f,i)=>{
-    if(editFigIdx===i) return '';
-    return `<li class="flex justify-between items-center bg-black/40 px-2 py-1.5 rounded-lg border border-white/10 text-[9px] transition-colors hover:border-djMagenta/50"><span class="text-gray-300"><i class="fa-solid fa-draw-polygon text-djMagenta/50 mr-1.5"></i>Polígono ${i+1} <span class="text-gray-500">(${f.length} ptos)</span></span><div class="flex gap-2"><button class="text-djCyan hover:text-white transition-colors" onclick="window.editFig(${i})" title="Editar"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delFig(${i})" title="Eliminar"><i class="fa-solid fa-trash"></i></button></div></li>`;
+    if(editFigIdx===i)return '';
+    return `<li class="flex justify-between items-center bg-black/40 px-2 py-1.5 rounded-lg border border-white/10 text-[9px] transition-colors hover:border-djMagenta/50"><span class="text-gray-300"><i class="fa-solid fa-draw-polygon text-djMagenta/50 mr-1.5"></i>Polígono ${i+1} <span class="text-gray-500">(${f.length} ptos)</span></span><div class="flex gap-2"><button class="text-djCyan hover:text-white transition-colors" onclick="window.editFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delFig(${i})"><i class="fa-solid fa-trash"></i></button></div></li>`;
   }).join('');
-  
   cFigs.forEach((f,i)=>{
-    if(editFigIdx===i) return;
-    const p=crSvg("polygon");
-    p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));
-    p.setAttribute("fill","rgba(255,0,234,0.05)");
-    p.setAttribute("stroke","rgba(255,0,234,0.4)");
-    p.setAttribute("stroke-width","1");
-    ov.appendChild(p);
+    if(editFigIdx===i)return;
+    const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(255,0,234,0.05)");p.setAttribute("stroke","rgba(255,0,234,0.4)");p.setAttribute("stroke-width","1");ov.appendChild(p);
   });
-  
   if(isDrawing){
     if(cPts.length>0){
       if(cPts.length>2){
         const p=crSvg("polygon");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(0,229,255,0.1)");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1.5");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));
-      } else {
+      }else{
         const p=crSvg("polyline");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","none");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1.5");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));
       }
     }
     ptsUl.innerHTML=cPts.length?cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-2 py-1 rounded border border-white/5"><span class="font-mono text-[8px] text-gray-400"><span class="text-djCyan font-bold mr-1">${i+1}.</span> X: ${pt.x}% | Y: ${pt.y}%</span><button class="text-red-500/70 hover:text-red-500 transition-colors" onclick="window.delNode(${i})"><i class="fa-solid fa-times"></i></button></li>`).join(''):'<li class="text-gray-500 text-center py-2 text-[9px] italic border border-dashed border-white/10 rounded"><i class="fa-solid fa-hand-pointer block mb-1 text-[12px]"></i>Clic en la imagen para añadir nodos</li>';
-  } else { ptsUl.innerHTML = ''; }
+  }else{ptsUl.innerHTML=''}
 };
 
-window.editFig=i=>{isDrawing=true; editFigIdx=i; cPts=[...cFigs[i]]; renderAdminPts()}; 
-window.delFig=i=>{if(!confirm('¿Eliminar polígono?'))return; cFigs.splice(i,1); if(editFigIdx===i){isDrawing=false; editFigIdx=-1; cPts=[]}else if(editFigIdx>i)editFigIdx--; renderAdminPts()}; 
-window.delNode=i=>{cPts.splice(i,1); renderAdminPts()};
+window.editFig=i=>{isDrawing=true;editFigIdx=i;cPts=[...cFigs[i]];renderAdminPts()}; 
+window.delFig=i=>{if(!confirm('¿Eliminar polígono?'))return;cFigs.splice(i,1);if(editFigIdx===i){isDrawing=false;editFigIdx=-1;cPts=[]}else if(editFigIdx>i)editFigIdx--;renderAdminPts()}; 
+window.delNode=i=>{cPts.splice(i,1);renderAdminPts()};
 
-if($('btn-add-fig')) $('btn-add-fig').onclick=()=>{isDrawing=true; cPts=[]; editFigIdx=-1; renderAdminPts()};
-if($('btn-cancel-fig')) $('btn-cancel-fig').onclick=()=>{isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()};
-if($('btn-close-fig')) $('btn-close-fig').onclick=()=>{if(cPts.length<3) return alert("Añade al menos 3 nodos para cerrar la figura."); if(editFigIdx>=0) cFigs[editFigIdx]=[...cPts]; else cFigs.push([...cPts]); isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()};
+if($('btn-add-fig')) $('btn-add-fig').onclick=()=>{isDrawing=true;cPts=[];editFigIdx=-1;renderAdminPts()};
+if($('btn-cancel-fig')) $('btn-cancel-fig').onclick=()=>{isDrawing=false;cPts=[];editFigIdx=-1;renderAdminPts()};
+if($('btn-close-fig')) $('btn-close-fig').onclick=()=>{if(cPts.length<3)return alert("Añade al menos 3 nodos.");if(editFigIdx>=0)cFigs[editFigIdx]=[...cPts];else cFigs.push([...cPts]);isDrawing=false;cPts=[];editFigIdx=-1;renderAdminPts()};
 
 if($('setup-wrapper')) $('setup-wrapper').onclick=e=>{if(actTab==='setup'&&$('admin-panel')&&!$('admin-panel').classList.contains('hidden')&&isDrawing&&!e.target.classList.contains('admin-drag-dot')){const r=$('setup-wrapper').getBoundingClientRect();cPts.push({x:parseFloat(Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)).toFixed(1)),y:parseFloat(Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100)).toFixed(1))});renderAdminPts()}};
 
@@ -423,7 +382,7 @@ if($('btn-sv-ms')) $('btn-sv-ms').onclick=async()=>{const t=$('a-mash-t')?.value
 if($('btn-dl-ms')) $('btn-dl-ms').onclick=()=>{if(confirm('¿Eliminar track?'))remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{if($('a-mash-sel')){$('a-mash-sel').value='NEW';$('a-mash-sel').dispatchEvent(new Event('change'))}})};
 
 onAuthStateChanged(auth,(user)=>{if(!user||user.email!==EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',true);toggleAdminMode(false)}});
-let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{alert("Acceso Denegado.");signOut(auth)}}).catch(e=>console.error(e))}}setTimeout(()=>cc=0,800)};
+let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{alert("Acceso Denegado.");signOut(auth)}}).catch(()=>{})}}setTimeout(()=>cc=0,800)};
 if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{tog($('admin-panel'),'hidden',true);toggleAdminMode(false);if(confirm("¿Cerrar sesión de admin?"))signOut(auth)};
 
 if($('admin-header')) on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;const p=$('admin-panel'),r=p.getBoundingClientRect();p.style.transform='none';p.style.left=r.left+'px';p.style.top=r.top+'px';dX=e.clientX-r.left;dY=e.clientY-r.top;});
