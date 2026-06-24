@@ -31,7 +31,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
 
 <style>
-  /* Limpieza y Scrollbar */
+  /* Limpieza y Scrollbar Compacto */
   ::-webkit-scrollbar { width: 0; height: 0; }
   .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
   .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
@@ -44,24 +44,24 @@
   .glow-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0,229,255,0.3) 0%, transparent 70%); }
   .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(255,0,234,0.2) 0%, transparent 70%); }
 
-  /* Glassmorphism */
+  /* Glassmorphism Estricto */
   .glass-card {
-    background: rgba(10, 15, 25, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(8, 12, 20, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 1.25rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
   }
 
-  /* Vistas de la App (Fluidez y visibilidad) */
+  /* Vistas de la App */
   .app-view {
     position: absolute;
     inset: 0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: scale(0.98);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    transform: scale(0.99);
     z-index: 0;
     display: flex;
     flex-direction: column;
@@ -75,51 +75,70 @@
     z-index: 10;
   }
 
-  /* Redes Sociales */
-  .social-icon { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.05); color: #a1a1aa; transition: 0.3s ease; border: 1px solid transparent; }
-  .social-ig:hover, .social-ig:active { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; box-shadow: 0 5px 15px rgba(220,39,67,0.4); }
-  .social-tk:hover, .social-tk:active { background: #010101; color: #fff; box-shadow: -2px -2px 0 #ff0050, 2px 2px 0 #00f2fe; border-color: transparent; }
-  .social-sc:hover, .social-sc:active { background: #ff5500; color: #fff; box-shadow: 0 5px 15px rgba(255,85,0,0.4); border-color: #ff5500; }
-  .social-yt:hover, .social-yt:active { background: #f00; color: #fff; box-shadow: 0 5px 15px rgba(255,0,0,0.4); border-color: #f00; }
+  /* Redes Sociales con efecto Glitch unificado y personalizado por color */
+  .social-icon { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    width: 38px; 
+    height: 38px; 
+    border-radius: 12px; 
+    background: #010101; 
+    color: #fff; 
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease; 
+    border: 1px solid rgba(255,255,255,0.1); 
+  }
+  .social-icon:active { transform: scale(0.92); }
+  
+  .social-ig:hover { box-shadow: -2px -2px 0 #e1306c, 2px 2px 0 #fccc63; border-color: transparent; }
+  .social-tk:hover { box-shadow: -2px -2px 0 #ff0050, 2px 2px 0 #00f2fe; border-color: transparent; }
+  .social-sc:hover { box-shadow: -2px -2px 0 #ff5500, 2px 2px 0 #ffaa00; border-color: transparent; }
+  .social-yt:hover { box-shadow: -2px -2px 0 #ff0000, 2px 2px 0 #ffffff; border-color: transparent; }
 
-  /* SVG Mapa (Fijada borrosidad con precision geométrica) */
-  .zoom-layer { position: absolute; transform-origin: 0 0; touch-action: none; will-change: transform; }
-  #tour-layer svg { shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
-  .muni-label { font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 2px rgba(0,0,0,1); }
+  /* SVG Mapa (Corrección radical de borrosidad mediante vector-effects) */
+  .zoom-layer { position: absolute; transform-origin: 0 0; touch-action: none; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  #tour-layer svg { shape-rendering: geometricPrecision; text-rendering: geometricPrecision; image-rendering: -webkit-optimize-contrast; }
+  
+  .muni-base, .muni-unlocked, .muni-selected-unlocked, .muni-selected-locked { 
+    vector-effect: non-scaling-stroke !important; 
+    pointer-events: all; 
+    cursor: pointer; 
+    transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease;
+  }
+  
+  .muni-label { 
+    font-weight: 900; 
+    text-shadow: 0 1px 2px rgba(0,0,0,1), 0 2px 5px rgba(0,0,0,1); 
+    letter-spacing: 0.02em; 
+    pointer-events: none;
+  }
 
-  /* Estados de Municipios Optimizados */
-  /* 1. Municipio Libre (No iluminado) */
-  .muni-base { fill: #06080d; stroke: rgba(255,255,255,0.08); transition: 0.2s; cursor: pointer; pointer-events: all; }
-  .muni-base:hover { fill: #111624; stroke: rgba(255,255,255,0.25); }
+  /* Los 4 Estados Claros y Reactivos de los Municipios */
+  .muni-base { fill: #05070c; stroke: rgba(255,255,255,0.08); stroke-width: 1px; }
+  .muni-base:hover { fill: #0f1422; stroke: rgba(255,255,255,0.25); }
 
-  /* 2. Municipio Confirmado (Iluminado) */
-  .muni-unlocked { fill: rgba(0, 229, 255, 0.08); stroke: rgba(0, 229, 255, 0.4); transition: 0.2s; cursor: pointer; pointer-events: all; }
-  .muni-unlocked:hover { fill: rgba(0, 229, 255, 0.18); stroke: #00e5ff; filter: drop-shadow(0 0 8px rgba(0,229,255,0.4)); }
+  .muni-unlocked { fill: rgba(0, 229, 255, 0.05); stroke: rgba(0, 229, 255, 0.35); stroke-width: 1px; }
+  .muni-unlocked:hover { fill: rgba(0, 229, 255, 0.15); stroke: #00e5ff; filter: drop-shadow(0 0 6px rgba(0,229,255,0.4)); }
 
-  /* 3. Municipio Seleccionado e Iluminado (Unlocked) */
-  .muni-selected-unlocked { fill: #00e5ff !important; stroke: #ffffff !important; filter: drop-shadow(0 0 15px rgba(0,229,255,0.8)) !important; stroke-width: 2px !important; z-index: 30; cursor: pointer; }
-
-  /* 4. Municipio Seleccionado y NO Iluminado (Locked) */
-  .muni-selected-locked { fill: #3a4750 !important; stroke: #ffffff !important; filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)) !important; stroke-width: 2px !important; z-index: 30; cursor: pointer; }
+  .muni-selected-unlocked { fill: #00e5ff !important; stroke: #ffffff !important; stroke-width: 2px !important; filter: drop-shadow(0 0 12px rgba(0,229,255,0.7)) !important; z-index: 30; }
+  .muni-selected-locked { fill: #2c3740 !important; stroke: #ffffff !important; stroke-width: 2px !important; filter: drop-shadow(0 0 8px rgba(255,255,255,0.3)) !important; z-index: 30; }
 
   /* SVG Equipo */
-  .comp-polygon { fill: rgba(255,0,234,0.05); stroke: rgba(255,0,234,0.2); stroke-width: 1px; cursor: pointer; pointer-events: auto; transition: 0.2s; }
-  .comp-polygon:hover, .hotspot-active { fill: rgba(255,0,234,0.3); stroke: #ff00ea; stroke-width: 2px; filter: drop-shadow(0 0 10px rgba(255,0,234,0.6)); }
+  .comp-polygon { fill: rgba(255,0,234,0.04); stroke: rgba(255,0,234,0.18); stroke-width: 1px; cursor: pointer; pointer-events: auto; transition: 0.2s; vector-effect: non-scaling-stroke; }
+  .comp-polygon:hover, .hotspot-active { fill: rgba(255,0,234,0.25); stroke: #ff00ea; stroke-width: 2px; filter: drop-shadow(0 0 8px rgba(255,0,234,0.5)); }
 
-  /* Paneles Laterales */
-  .slide-panel { position: absolute; top: 0; right: 0; width: 100%; max-width: 320px; height: 100%; background: rgba(5,7,10,0.95); backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.1); transform: translateX(100%); transition: transform 0.3s ease; z-index: 40; display: flex; flex-direction: column; }
+  /* Paneles Deslizable Desplegables */
+  .slide-panel { position: absolute; top: 0; right: 0; width: 100%; max-width: 320px; height: 100%; background: rgba(4,6,10,0.96); backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.08); transform: translateX(100%); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); z-index: 40; display: flex; flex-direction: column; }
   .slide-panel.open { transform: translateX(0); }
 
-  /* Inputs Admin */
-  .admin-input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem; color: #fff; border-radius: 8px; font-size: 0.75rem; outline: none; }
+  /* Inputs de Configuración Admin */
+  .admin-input { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem; color: #fff; border-radius: 10px; font-size: 0.75rem; outline: none; transition: border-color 0.2s; }
   .admin-input:focus { border-color: #00e5ff; }
-  .admin-input option { background: #0e1118; color: #fff; }
-  .admin-drag-dot { pointer-events: auto; touch-action: none; cursor: grab; z-index: 50; }
-  .admin-drag-dot:active { cursor: grabbing; transform: scale(1.5); }
+  .admin-input option { background: #090d16; color: #fff; }
 </style>
 </head>
 
-<body class="bg-djBg text-gray-200 h-screen w-screen overflow-hidden flex flex-col p-2 md:p-4 gap-2 md:gap-4 antialiased">
+<body class="bg-djBg text-gray-200 h-screen w-screen overflow-hidden flex flex-col p-2 md:p-4 gap-2 md:gap-4 antialiased font-body">
 
 <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
 
@@ -184,16 +203,14 @@
 
     <div id="view-setup" class="app-view bg-[#030407]">
       <div class="absolute top-4 left-4 z-30 pointer-events-none">
-        <h2 class="font-display font-black text-djMagenta text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,234,0.4)]"><i class="fa-solid fa-headphones mr-2"></i> Setup DJ</h2>
+        <h2 class="font-display font-black text-djMagenta text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,234,0.4)]"><i class="fa-solid fa-headphones mr-2"></i> Equipo DJ</h2>
       </div>
       <div class="w-full h-full flex justify-center items-center p-4 relative overflow-hidden">
         <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block select-none touch-none">
           <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[85vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
           <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
-          <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
         </div>
       </div>
-      <p id="admin-hint" class="absolute bottom-4 left-4 text-djMagenta text-[10px] hidden font-bold bg-black/95 px-3 py-1.5 rounded-lg border border-djMagenta/40 z-50 animate-pulse"><i class="fa-solid fa-wrench mr-2"></i> MODO EDICIÓN</p>
       
       <div id="setup-overlay" class="slide-panel">
         <div class="p-4 border-b border-white/10 flex justify-between items-start bg-black/50">
@@ -211,7 +228,7 @@
 
     <div id="view-mashups" class="app-view bg-[#030407]">
       <div class="p-4 border-b border-white/10 shrink-0">
-        <h2 class="font-display font-black text-djYellow text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.4)]"><i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 3s;"></i> Tracks Exclusivos</h2>
+        <h2 class="font-display font-black text-djYellow text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.4)]"><i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 3s;"></i> Mashups & Edits</h2>
       </div>
       <div id="mashups-grid" class="flex-1 p-4 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 content-start"></div>
     </div>
@@ -219,32 +236,79 @@
   </div>
 </main>
 
-<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-sm bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col overflow-hidden">
-  <div id="admin-header" class="bg-black/80 border-b border-white/10 p-3 flex justify-between items-center cursor-move">
-    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase text-white">Panel Admin</span></div>
-    <button id="btn-close-admin" class="w-6 h-6 text-gray-400 hover:text-white"><i class="fa-solid fa-times"></i></button>
+<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-md bg-[#090d16]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col overflow-hidden text-sm">
+  <div id="admin-header" class="bg-black/40 border-b border-white/10 p-4 flex justify-between items-center cursor-move select-none">
+    <div class="flex items-center gap-2">
+      <div class="w-2.5 h-2.5 rounded-full bg-red-500 anonymity shadow-[0_0_8px_#ef4444]"></div>
+      <span class="font-display font-black text-xs uppercase tracking-wider text-white">Panel Control de Administración</span>
+    </div>
+    <button id="btn-close-admin" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-times"></i></button>
   </div>
-  <div class="p-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
-    <p class="text-xs text-gray-400 text-center italic">Interfaz de admin básica unificada.</p>
+  
+  <div class="flex border-b border-white/5 bg-black/20 text-[10px] font-bold uppercase tracking-wider select-none">
+    <button id="tab-adm-map" class="flex-1 py-3 text-center border-b-2 border-djCyan text-djCyan bg-white/5">Mapa</button>
+    <button id="tab-adm-mash" class="flex-1 py-3 text-center border-b-2 border-transparent text-gray-400 hover:text-white">Mashups</button>
+    <button id="tab-adm-eq" class="flex-1 py-3 text-center border-b-2 border-transparent text-gray-400 hover:text-white">Equipo</button>
+  </div>
+
+  <div class="p-4 max-h-[60vh] overflow-y-auto custom-scrollbar space-y-4 flex-1">
+    <div id="sec-adm-map" class="space-y-3">
+      <div>
+        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Zona a Modificar</label>
+        <select id="adm-muni-select" class="admin-input"></select>
+      </div>
+      <div class="p-3 bg-white/5 rounded-xl border border-white/5 flex justify-between items-center">
+        <span class="text-xs font-bold text-white uppercase">Estado del Municipio</span>
+        <button id="btn-adm-toggle-status" class="px-3 py-2 rounded-lg font-black text-[10px] uppercase transition-all bg-gray-700 text-white">Bloqueado (Libre)</button>
+      </div>
+      <div id="adm-events-box" class="space-y-2 border-t border-white/5 pt-3">
+        <label class="block text-[11px] font-bold text-djCyan uppercase tracking-wider">Añadir Evento / Fecha</label>
+        <input type="text" id="adm-ev-place" placeholder="Lugar (ej: Discoteca Tanganika, Plaza)" class="admin-input">
+        <input type="text" id="adm-ev-date" placeholder="Fecha (ej: 14 AGOSTO - 23:30h)" class="admin-input">
+        <input type="text" id="adm-ev-details" placeholder="Detalles u observaciones (Opcional)" class="admin-input">
+        <button id="btn-adm-add-event" class="w-full bg-djCyan/20 border border-djCyan/40 text-djCyan hover:bg-djCyan hover:text-black py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all">Vincular Fecha</button>
+        <div id="adm-curr-events" class="space-y-1 mt-2"></div>
+      </div>
+    </div>
+
+    <div id="sec-adm-mash" class="space-y-3 hidden">
+      <label class="block text-[11px] font-bold text-djYellow uppercase tracking-wider">Subir Nuevo Track</label>
+      <input type="text" id="adm-mash-title" placeholder="Título Completo del Mashup" class="admin-input">
+      <input type="text" id="adm-mash-sc" placeholder="URL Completa de SoundCloud" class="admin-input">
+      <input type="text" id="adm-mash-dl" placeholder="URL de Descarga Directa (Drive, Mega...)" class="admin-input">
+      <button id="btn-adm-add-mash" class="w-full bg-djYellow/20 border border-djYellow/40 text-djYellow hover:bg-djYellow hover:text-black py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all">Insertar en la Web</button>
+      <div class="border-t border-white/5 pt-3 space-y-2">
+        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider">Lista Actual (Eliminar)</label>
+        <div id="adm-list-mashups" class="space-y-1.5"></div>
+      </div>
+    </div>
+
+    <div id="sec-adm-eq" class="space-y-3 hidden">
+      <label class="block text-[11px] font-bold text-djMagenta uppercase tracking-wider">Modificar Hardware Informativo</label>
+      <select id="adm-eq-select" class="admin-input"></select>
+      <input type="text" id="adm-eq-title" placeholder="Título comercial" class="admin-input">
+      <textarea id="adm-eq-desc" rows="4" placeholder="Especificaciones, modelo, funciones..." class="admin-input h-24 resize-none"></textarea>
+      <button id="btn-adm-save-eq" class="w-full bg-djMagenta/20 border border-djMagenta/40 text-djMagenta hover:bg-djMagenta hover:text-black py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all">Guardar Datos de Equipo</button>
+    </div>
   </div>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getDatabase, ref, onValue, update, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
   const $ = i => document.getElementById(i);
   const $$ = q => document.querySelectorAll(q);
-  const on = (e, t, c, o) => e.addEventListener(t, c, o);
+  const on = (e, t, c, o) => e?.addEventListener(t, c, o);
   const tog = (e, c, f) => e?.classList[f ? 'add' : 'remove'](c);
   const crSvg = t => document.createElementNS("http://www.w3.org/2000/svg", t);
 
   let dbData = { municipalities: {}, components: {}, mashups: {} };
   let currMuni = null, sc = 1, pX = 0, pY = 0, reqFr = null, pan = false, sX = 0, sY = 0, svgW = 1000, svgH = 1000, lgEl = null, mLbls = [], isMov = false;
+  let activeTab = 'map', dbRef = null;
   const vp = $('tour-viewport'), tLay = $('tour-layer');
 
-  // INICIALIZACIÓN DE FIREBASE PROTEGIDA
+  // CONFIGURACIÓN E INICIALIZACIÓN DE FIREBASE
   try {
     const app = initializeApp({
       apiKey: "AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",
@@ -255,23 +319,21 @@
       messagingSenderId: "943264468873",
       appId: "1:943264468873:web:30725455620a5f737bdb58"
     });
-    const db = getDatabase(app);
-    onValue(ref(db, '/'), s => {
-      dbData = { municipalities: s.val()?.municipalities || {}, components: s.val()?.components || {}, mashups: s.val()?.mashups || {} };
-      renderMap(); renderComp(); renderMash();
+    dbRef = getDatabase(app);
+    onValue(ref(dbRef, '/'), s => {
+      const data = s.val() || {};
+      dbData = { municipalities: data.municipalities || {}, components: data.components || {}, mashups: data.mashups || {} };
+      renderMap(); renderComp(); renderMash(); syncAdminPanel();
     });
   } catch(e) {
-    console.error("Firebase no disponible - Modo sin conexión activo", e);
+    console.error("Modo sin conexión - Firebase desconectado", e);
   }
 
-  // FUNCIÓN SWITCHVIEW SEGURA
+  // NAVEGACIÓN GENERAL REESTRUCTURADA
   window.switchView = (view) => {
     ['tour', 'setup', 'mashups'].forEach(v => {
-      const el = $(`view-${v}`);
-      const btn = $(`btn-nav-${v}`);
-      const txt = $(`text-nav-${v}`);
+      const el = $(`view-${v}`), btn = $(`btn-nav-${v}`), txt = $(`text-nav-${v}`);
       if (!el || !btn || !txt) return;
-      
       const iconDiv = btn.querySelector('div');
       
       if (v === view) {
@@ -303,36 +365,43 @@
     });
   };
 
-  // CARGA DE MAPA SVG
+  // SVG PROCESAMIENTO MAPA
   fetch('salamanca.svg').then(r => r.ok ? r.text() : Promise.reject()).then(h => {
-    if (!tLay) return;
-    tLay.innerHTML = h;
-    const s = tLay.querySelector('svg');
-    if (!s) { tLay.innerHTML = '<p class="text-djCyan font-bold p-4 text-center">SVG no válido.</p>'; return; }
+    if (!tLay) return; tLay.innerHTML = h;
+    const s = tLay.querySelector('svg'); if (!s) return;
     
     const g = crSvg('g'); g.id = 'labels-group'; g.className.baseVal = 'pointer-events-none';
     s.style.pointerEvents = 'none'; s.appendChild(g);
     
-    try { const vb = s.viewBox.baseVal; if (vb && vb.width) { svgW = vb.width; svgH = vb.height; } else { const b = s.getBBox(); svgW = b.width; svgH = b.height; } } catch(e) { svgW = 1000; svgH = 1000; }
+    try { const vb = s.viewBox.baseVal; svgW = vb.width || 1000; svgH = vb.height || 1000; } catch(e) { svgW = 1000; svgH = 1000; }
     tLay.style.width = svgW + 'px'; tLay.style.height = svgH + 'px';
 
     s.querySelectorAll('path,polygon').forEach((el, i) => {
       const id = el.id || `zona_${i}`; el.id = id; el.className.baseVal = 'muni-base';
-      try { const b = el.getBBox(); if (b.width > 0) { const t = crSvg("text"); t.setAttribute("x", b.x + b.width / 2); t.setAttribute("y", b.y + b.height / 2); t.setAttribute("class", "muni-label transition-opacity duration-200"); t.setAttribute("data-id", id); t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle'); t.setAttribute('font-family', "'Montserrat',sans-serif"); g.appendChild(t); } } catch(e) {}
+      try { 
+        const b = el.getBBox(); 
+        if (b.width > 0) { 
+          const t = crSvg("text"); t.setAttribute("x", b.x + b.width / 2); t.setAttribute("y", b.y + b.height / 2); 
+          t.setAttribute("class", "muni-label transition-opacity duration-200"); t.setAttribute("data-id", id); 
+          t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle'); 
+          t.setAttribute('font-family', "'Montserrat',sans-serif"); g.appendChild(t); 
+        } 
+      } catch(e) {}
       el.onclick = e => { if (isMov) return; e.stopPropagation(); selMuni(id); };
     });
     lgEl = g; mLbls = Array.from(g.querySelectorAll('.muni-label'));
+    populateMuniSelect();
     setTimeout(() => $('btn-reset-map')?.click(), 100);
     renderMap();
   }).catch(() => {
-    if (tLay) tLay.innerHTML = `<div class="text-red-500 text-center font-bold p-4 border border-red-500 bg-red-500/10 rounded-xl m-4">Asegúrate de ejecutar esto en un servidor (Live Server) y que exista 'salamanca.svg'</div>`;
+    if (tLay) tLay.innerHTML = `<div class="text-red-500 text-center font-bold p-4">Falta archivo 'salamanca.svg' o ejecución local.</div>`;
   });
 
-  // GESTOS DEL MAPA (Zoom y Arrastre)
-  const chkBounds = () => { if (!svgW || !vp) return; const rW = vp.clientWidth, rH = vp.clientHeight, mS = Math.min(rW / svgW, rH / svgH) * 0.95; if (sc < mS) sc = mS; if (sc > 15) sc = 15; const mPx = rW - (svgW * sc), mPy = rH - (svgH * sc); pX = svgW * sc <= rW ? (rW - svgW * sc) / 2 : Math.min(0, Math.max(mPx, pX)); pY = svgH * sc <= rH ? (rH - svgH * sc) / 2 : Math.min(0, Math.max(mPy, pY)); };
+  // ZOOM & DRAG FLUIDO SIN BORROSIDAD
+  const chkBounds = () => { if (!svgW || !vp) return; const rW = vp.clientWidth, rH = vp.clientHeight, mS = Math.min(rW / svgW, rH / svgH) * 0.95; if (sc < mS) sc = mS; if (sc > 18) sc = 18; const mPx = rW - (svgW * sc), mPy = rH - (svgH * sc); pX = svgW * sc <= rW ? (rW - svgW * sc) / 2 : Math.min(0, Math.max(mPx, pX)); pY = svgH * sc <= rH ? (rH - svgH * sc) / 2 : Math.min(0, Math.max(mPy, pY)); };
   const uTrans = () => { if (tLay) tLay.style.transform = `translate3d(${pX}px,${pY}px,0) scale(${sc})`; uLbls(); reqFr = null; };
-  const uLbls = () => { if (!lgEl || !vp) return; lgEl.className.baseVal = sc < 2.2 ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none'; if (sc < 2.2) return; const fS = 12 / sc; mLbls.forEach(l => { const m = dbData.municipalities[l.dataset.id] || {}; if (!m.name || /^zona/i.test(m.name)) return void(l.style.opacity = '0'); const un = m.status === 'unlocked'; l.setAttribute('fill', un ? '#fff' : 'rgba(255,255,255,0.6)'); l.setAttribute('font-size', `${un ? fS * 1.3 : fS * 0.95}px`); l.style.opacity = '1'; }); };
-  const stPan = (x, y) => { if (!vp) return; sX = x - pX; sY = y - pY; pan = true; isMov = false; vp.style.cursor = 'grabbing'; };
+  const uLbls = () => { if (!lgEl) return; lgEl.className.baseVal = sc < 2.5 ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none'; if (sc < 2.5) return; const fS = 11.5 / sc; mLbls.forEach(l => { const m = dbData.municipalities[l.dataset.id] || {}; if (!m.name || /^zona/i.test(m.name)) return void(l.style.opacity = '0'); const un = m.status === 'unlocked'; l.setAttribute('fill', un ? '#ffffff' : 'rgba(255,255,255,0.55)'); l.setAttribute('font-size', `${un ? fS * 1.25 : fS * 0.9}px`); l.style.opacity = '1'; }); };
+  const stPan = (x, y) => { sX = x - pX; sY = y - pY; pan = true; isMov = false; if (vp) vp.style.cursor = 'grabbing'; };
   const mvPan = (x, y) => { if (!pan) return; isMov = true; pX = x - sX; pY = y - sY; chkBounds(); if (!reqFr) reqFr = requestAnimationFrame(uTrans); };
 
   if (vp) {
@@ -342,71 +411,240 @@
     on(vp, 'touchstart', e => { isMov = false; if (e.touches.length === 1) stPan(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
     on(vp, 'touchmove', e => { if (pan && e.touches.length === 1) mvPan(e.touches[0].clientX, e.touches[0].clientY); else if (e.touches.length === 2) { e.preventDefault(); const t1 = e.touches[0], t2 = e.touches[1], d = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY), rb = vp.getBoundingClientRect(), mx = ((t1.clientX + t2.clientX) / 2) - rb.left, my = ((t1.clientY + t2.clientY) / 2) - rb.top, tx = (mx - pX) / sc, ty = (my - pY) / sc; sc = sc * (d / (vp.dataset.sd || d)); vp.dataset.sd = d; chkBounds(); pX = mx - tx * sc; pY = my - ty * sc; chkBounds(); if (!reqFr) reqFr = requestAnimationFrame(uTrans); } }, { passive: false });
     on(vp, 'touchend', () => { pan = false; delete vp.dataset.sd; });
-    on(vp, 'wheel', e => { e.preventDefault(); const rb = vp.getBoundingClientRect(), tx = (e.clientX - rb.left - pX) / sc, ty = (e.clientY - rb.top - pY) / sc; sc = e.deltaY < 0 ? sc * 1.1 : sc / 1.1; chkBounds(); pX = (e.clientX - rb.left) - tx * sc; pY = (e.clientY - rb.top) - ty * sc; chkBounds(); if (!reqFr) reqFr = requestAnimationFrame(uTrans); }, { passive: false });
+    on(vp, 'wheel', e => { e.preventDefault(); const rb = vp.getBoundingClientRect(), tx = (e.clientX - rb.left - pX) / sc, ty = (e.clientY - rb.top - pY) / sc; sc = e.deltaY < 0 ? sc * 1.12 : sc / 1.12; chkBounds(); pX = (e.clientX - rb.left) - tx * sc; pY = (e.clientY - rb.top) - ty * sc; chkBounds(); if (!reqFr) reqFr = requestAnimationFrame(uTrans); }, { passive: false });
   }
+  on($('btn-reset-map'), 'click', () => { if (!svgW || !vp) return; const rW = vp.clientWidth, rH = vp.clientHeight; sc = Math.min(rW / svgW, rH / svgH) * 0.95; pX = (rW - svgW * sc) / 2; pY = (rH - svgH * sc) / 2; if (!reqFr) reqFr = requestAnimationFrame(uTrans); });
 
-  if ($('btn-reset-map')) $('btn-reset-map').onclick = () => { if (!svgW || !vp) return; const rW = vp.clientWidth, rH = vp.clientHeight; sc = Math.min(rW / svgW, rH / svgH) * 0.95; pX = (rW - svgW * sc) / 2; pY = (rH - svgH * sc) / 2; if (!reqFr) reqFr = requestAnimationFrame(uTrans); };
-
-  // RENDERIZADO DE BASE DE DATOS (Fijados los 4 estados del mapa)
-  const renderMap = () => { 
-    Object.entries(dbData.municipalities || {}).forEach(([id, d]) => { 
-      const e = $(id); 
-      if (e) { 
-        const isUnlocked = d.status === 'unlocked';
-        const isSelected = currMuni === id;
-        let cls = 'muni-base';
-
-        if (isUnlocked && isSelected) cls = 'muni-selected-unlocked';
-        else if (!isUnlocked && isSelected) cls = 'muni-selected-locked';
-        else if (isUnlocked) cls = 'muni-unlocked';
-
-        e.className.baseVal = cls; 
-        if (isUnlocked && e.parentNode) e.parentNode.appendChild(e); 
-      } 
-    }); 
-    mLbls.forEach(l => { const n = (dbData.municipalities[l.dataset.id] || {}).name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); 
-    uLbls(); 
+  // PINTADO DE CAPAS CON ESTADOS SEPARADOS COMPLETOS
+  const renderMap = () => {
+    Object.entries(dbData.municipalities || {}).forEach(([id, d]) => {
+      const e = $(id); if (!e) return;
+      const isUnlocked = d.status === 'unlocked', isSelected = currMuni === id;
+      let cls = 'muni-base';
+      if (isUnlocked && isSelected) cls = 'muni-selected-unlocked';
+      else if (!isUnlocked && isSelected) cls = 'muni-selected-locked';
+      else if (isUnlocked) cls = 'muni-unlocked';
+      e.className.baseVal = cls;
+    });
+    mLbls.forEach(l => { const n = (dbData.municipalities[l.dataset.id] || {}).name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; });
+    uLbls();
   };
-  
-  const selMuni = id => { currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name || id) ? id.replace(/_/g, ' ') : (m.name || id); if ($('info-title')) $('info-title').innerText = n; tog($('info-overlay'), 'open', true); if (m.status === 'unlocked') { $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff]"></div><span class="text-djCyan text-[10px] font-bold uppercase">Confirmadas</span>`; let evH = ''; if (m.events) Object.entries(m.events).forEach(([eid, ev]) => { evH += `<div class="bg-white/5 border border-white/10 rounded-xl p-4"><h4 class="text-white font-bold">${ev.place}</h4><p class="text-djCyan text-xs mt-1">${ev.date}</p>${ev.details ? `<p class="text-gray-400 text-xs mt-2">${ev.details}</p>` : ''}</div>`; }); $('info-events').innerHTML = evH || `<p class="text-gray-500 text-xs text-center py-4">Próximamente</p>`; } else { $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Libre</span>`; $('info-events').innerHTML = `<p class="text-gray-400 text-xs text-center py-4">Sin fechas confirmadas aquí.</p>`; } };
-  
-  if ($('btn-close-tour')) $('btn-close-tour').onclick = () => { currMuni = null; renderMap(); tog($('info-overlay'), 'open', false); };
 
-  const selComp = id => { $$('.comp-polygon').forEach(h => h.classList.remove('hotspot-active')); $$(`.comp-id-${id}`).forEach(h => h.classList.add('hotspot-active')); const c = dbData.components[id]; if (!c) return; tog($('setup-overlay'), 'open', true); if ($('setup-t')) $('setup-t').innerText = c.title; if ($('setup-d')) $('setup-d').innerText = c.desc; };
-  const renderComp = () => { const ov = $('setup-svg'); if (!ov) return; ov.innerHTML = ''; Object.entries(dbData.components || {}).forEach(([id, c]) => { (c.figures || []).forEach(f => { if (f.length > 2) { const p = crSvg("polygon"); p.setAttribute("points", f.map(pt => `${pt.x},${pt.y}`).join(' ')); p.setAttribute("class", `comp-polygon comp-id-${id}`); p.onclick = e => { e.stopPropagation(); selComp(id); }; ov.appendChild(p); } }); }); };
-  if ($('btn-close-setup')) $('btn-close-setup').onclick = () => { $$('.comp-polygon').forEach(h => h.classList.remove('hotspot-active')); tog($('setup-overlay'), 'open', false); };
+  const selMuni = id => {
+    currMuni = id; renderMap();
+    const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name || id) ? id.replace(/_/g, ' ') : (m.name || id);
+    if ($('info-title')) $('info-title').innerText = n;
+    tog($('info-overlay'), 'open', true);
+    
+    if (m.status === 'unlocked') {
+      $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff]"></div><span class="text-djCyan text-[10px] font-bold uppercase tracking-wider">Confirmado</span>`;
+      let evH = '';
+      if (m.events) Object.entries(m.events).forEach(([eid, ev]) => {
+        evH += `<div class="bg-white/5 border border-white/10 rounded-xl p-3"><h4 class="text-white font-bold text-sm">${ev.place}</h4><p class="text-djCyan text-[11px] font-bold mt-0.5"><i class="fa-regular fa-calendar mr-1.5"></i>${ev.date}</p>${ev.details ? `<p class="text-gray-400 text-xs mt-1.5 border-t border-white/5 pt-1">${ev.details}</p>` : ''}</div>`;
+      });
+      $('info-events').innerHTML = evH || `<p class="text-gray-500 text-xs text-center py-4">Próximamente más detalles.</p>`;
+    } else {
+      $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Disponible / Libre</span>`;
+      $('info-events').innerHTML = `<p class="text-gray-400 text-xs text-center py-4">Zona libre. Contacta para cerrar fecha.</p>`;
+    }
+    $('adm-muni-select').value = id;
+    updateAdminMuniSubView();
+  };
+  on($('btn-close-tour'), 'click', () => { currMuni = null; renderMap(); tog($('info-overlay'), 'open', false); });
 
-  // RENDERIZADO DE MASHUPS OPTIMIZADO (Solucionado tamaño de tarjetas e iframe de SoundCloud)
-  const renderMash = () => { 
-    const g = $('mashups-grid'); 
-    if (!g) return; 
-    const e = Object.entries(dbData.mashups || {}).sort(); 
-    g.innerHTML = e.length ? e.map(([_, d]) => `
-      <div class="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col justify-between min-h-[280px] hover:bg-white/10 transition-colors">
+  // PINTADO DE EQUIPO DJ
+  const renderComp = () => {
+    const ov = $('setup-svg'); if (!ov) return; ov.innerHTML = '';
+    const selBox = $('adm-eq-select'); const prevSel = selBox?.value;
+    if (selBox) selBox.innerHTML = '';
+
+    Object.entries(dbData.components || {}).forEach(([id, c]) => {
+      if (selBox) selBox.innerHTML += `<option value="${id}">${c.title || id}</option>`;
+      (c.figures || []).forEach(f => {
+        if (f.length > 2) {
+          const p = crSvg("polygon"); p.setAttribute("points", f.map(pt => `${pt.x},${pt.y}`).join(' '));
+          p.setAttribute("class", `comp-polygon comp-id-${id}`);
+          p.onclick = e => { e.stopPropagation(); selComp(id); };
+          ov.appendChild(p);
+        }
+      });
+    });
+    if (selBox && prevSel) selBox.value = prevSel;
+  };
+  const selComp = id => {
+    $$('.comp-polygon').forEach(h => h.classList.remove('hotspot-active'));
+    $$(`.comp-id-${id}`).forEach(h => h.classList.add('hotspot-active'));
+    const c = dbData.components[id]; if (!c) return;
+    tog($('setup-overlay'), 'open', true);
+    if ($('setup-t')) $('setup-t').innerText = c.title || '';
+    if ($('setup-d')) $('setup-d').innerText = c.desc || '';
+  };
+  on($('btn-close-setup'), 'click', () => { $$('.comp-polygon').forEach(h => h.classList.remove('hotspot-active')); tog($('setup-overlay'), 'open', false); });
+
+  // RENDERIZADO AJUSTADO DE MASHUPS & EDITS (Dimensiones óptimas + Descarga Integrada)
+  const renderMash = () => {
+    const g = $('mashups-grid'); if (!g) return;
+    const e = Object.entries(dbData.mashups || {}).sort();
+    g.innerHTML = e.length ? e.map(([id, d]) => `
+      <div class="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col justify-between min-h-[290px] hover:bg-white/10 transition-colors">
         <div class="flex flex-col gap-2">
-          <h4 class="font-display font-black text-sm text-white truncate"><i class="fa-solid fa-music text-djYellow mr-2"></i>${d.title}</h4>
+          <h4 class="font-display font-black text-xs text-white truncate"><i class="fa-solid fa-music text-djYellow mr-2"></i>${d.title}</h4>
           ${d.scUrl ? `<iframe class="mt-1 rounded-xl w-full h-[166px]" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=false"></iframe>` : ''}
         </div>
-        ${d.dl ? `<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/20 hover:bg-djYellow text-djYellow hover:text-black mt-3 py-2 rounded-lg text-center text-[10px] font-black uppercase transition-all"><i class="fa-solid fa-download mr-2"></i>Descargar</a>` : ''}
+        ${d.dl ? `<a href="${d.dl}" target="_blank" class="w-full block bg-white/[0.03] border border-djYellow/30 text-djYellow hover:bg-djYellow/20 hover:border-djYellow hover:shadow-[0_0_15px_rgba(255,214,0,0.3)] mt-4 py-2.5 rounded-xl text-center text-[11px] font-bold tracking-widest uppercase transition-all backdrop-blur-md"><i class="fa-solid fa-arrow-down-to-line mr-2"></i>Descargar Track</a>` : ''}
       </div>
-    `).join('') : '<p class="text-gray-500 text-sm text-center col-span-full">Aún no hay tracks.</p>'; 
+    `).join('') : '<p class="text-gray-500 text-xs text-center col-span-full py-6">No hay tracks disponibles por el momento.</p>';
   };
 
   // BUSCADOR BÁSICO
-  if ($('search-muni')) $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if (v.length < 2) return tog(rL, 'hidden', true); let mh = ''; Object.entries(dbData.municipalities || {}).forEach(([id, d]) => { if (d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)) { mh += `<li class="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 text-gray-200" onclick="window.srcMuni('${id}')">${d.name}</li>`; } }); rL.innerHTML = mh || `<li class="px-4 py-3 text-gray-500 text-xs">Sin resultados</li>`; tog(rL, 'hidden', false); };
+  on($('search-muni'), 'input', e => {
+    const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = '';
+    if (v.length < 2) return tog(rL, 'hidden', true);
+    let mh = '';
+    Object.entries(dbData.municipalities || {}).forEach(([id, d]) => {
+      if (d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)) {
+        mh += `<li class="px-4 py-2.5 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 text-gray-200" onclick="window.srcMuni('${id}')">${d.name}</li>`;
+      }
+    });
+    rL.innerHTML = mh || `<li class="px-4 py-2.5 text-gray-500 text-xs">Sin resultados</li>`;
+    tog(rL, 'hidden', false);
+  });
   window.srcMuni = id => { selMuni(id); $('search-muni').value = ''; tog($('search-results'), 'hidden', true); };
 
-  // CONTROL DEL MODO ADMIN (Fijada activación del botón DJ VAQUERO)
-  if ($('site-title')) {
-    on($('site-title'), 'click', () => {
-      tog($('admin-panel'), 'hidden', false);
+  // --- LÓGICA COMPLETA DEL PANEL DE MODO ADMIN (CRUD OPERATIVO DESDE LA WEB) ---
+  
+  // Mostrar / Ocultar Panel Admin al clickar en "DJ VAQUERO"
+  on($('site-title'), 'click', () => tog($('admin-panel'), 'hidden', false));
+  on($('btn-close-admin'), 'click', () => tog($('admin-panel'), 'hidden', true));
+
+  // Hacer el panel admin arrastrable con el ratón/puntero
+  let isDragging = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
+  on($('admin-header'), 'mousedown', e => {
+    initialX = e.clientX - xOffset; initialY = e.clientY - yOffset;
+    if (e.target === $('admin-header') || $('admin-header').contains(e.target)) isDragging = true;
+  });
+  on(window, 'mousemove', e => {
+    if (isDragging) {
+      e.preventDefault();
+      currentX = e.clientX - initialX; currentY = e.clientY - initialY;
+      xOffset = currentX; yOffset = currentY;
+      $('admin-panel').style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px))`;
+    }
+  });
+  on(window, 'mouseup', () => isDragging = false);
+
+  // Sistema de Pestañas del Panel Admin
+  const setTab = tab => {
+    activeTab = tab;
+    ['map', 'mash', 'eq'].forEach(t => {
+      const btn = $(`tab-adm-${t}`), sec = $(`sec-adm-${t}`);
+      const isAct = t === tab;
+      tog(sec, 'hidden', !isAct);
+      if(btn) {
+        btn.className = `flex-1 py-3 text-center border-b-2 font-bold transition-all ${isAct ? 'border-djCyan text-djCyan bg-white/5' : 'border-transparent text-gray-400 hover:text-white'}`;
+      }
     });
-  }
-  if ($('btn-close-admin')) {
-    on($('btn-close-admin'), 'click', () => {
-      tog($('admin-panel'), 'hidden', true);
+  };
+  on($('tab-adm-map'), 'click', () => setTab('map'));
+  on($('tab-adm-mash'), 'click', () => setTab('mash'));
+  on($('tab-adm-eq'), 'click', () => setTab('eq'));
+
+  // Rellenar selectores del Admin al iniciar
+  const populateMuniSelect = () => {
+    const s = $('adm-muni-select'); if(!s) return; s.innerHTML = '';
+    const items = Object.keys(dbData.municipalities).length ? Object.entries(dbData.municipalities) : Array.from(document.querySelectorAll('#tour-layer path, #tour-layer polygon')).map(e => [e.id, {name: e.id}]);
+    items.sort((a,b) => (a[1].name || a[0]).localeCompare(b[1].name || b[0])).forEach(([id, d]) => {
+      const n = /^zona/i.test(d.name || id) ? id.replace(/_/g, ' ') : (d.name || id);
+      s.innerHTML += `<option value="${id}">${n}</option>`;
     });
-  }
+  };
+
+  const updateAdminMuniSubView = () => {
+    const id = $('adm-muni-select').value; if(!id) return;
+    const m = dbData.municipalities[id] || { status: 'locked' };
+    const isUn = m.status === 'unlocked';
+    
+    const btnStatus = $('btn-adm-toggle-status');
+    btnStatus.innerText = isUn ? 'Confirmado (Iluminado)' : 'Bloqueado (Libre)';
+    btnStatus.className = `px-3 py-2 rounded-lg font-black text-[10px] uppercase transition-all ${isUn ? 'bg-djCyan text-black shadow-[0_0_10px_rgba(0,229,255,0.4)]' : 'bg-gray-800 text-gray-400'}`;
+    
+    tog($('adm-events-box'), 'hidden', !isUn);
+    
+    const evBox = $('adm-curr-events'); evBox.innerHTML = '';
+    if(m.events) {
+      Object.entries(m.events).forEach(([eid, ev]) => {
+        evBox.innerHTML += `
+          <div class="flex justify-between items-center bg-black/40 p-2 rounded-lg border border-white/5 text-xs">
+            <span class="truncate text-gray-300 max-w-[180px]">${ev.date} - ${ev.place}</span>
+            <button class="text-red-400 hover:text-red-500 p-1 font-bold" onclick="window.admDelEvent('${id}','${eid}')"><i class="fa-solid fa-trash-can"></i></button>
+          </div>`;
+      });
+    }
+  };
+  on($('adm-muni-select'), 'change', updateAdminMuniSubView);
+
+  // Sincronización continua de datos en formularios Admin
+  const syncAdminPanel = () => {
+    if(!Object.keys(dbData.municipalities).length) return;
+    if(!$('adm-muni-select').innerHTML) populateMuniSelect();
+    updateAdminMuniSubView();
+
+    // Listar Mashups en Admin para poder borrarlos
+    const listM = $('adm-list-mashups'); if(listM) {
+      listM.innerHTML = Object.entries(dbData.mashups).map(([id, m]) => `
+        <div class="flex justify-between items-center bg-black/40 p-2 rounded-lg border border-white/5 text-xs">
+          <span class="truncate text-gray-300 max-w-[220px]">${m.title}</span>
+          <button class="text-red-400 hover:text-red-500 font-bold p-1" onclick="window.admDelMash('${id}')"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+      `).join('') || '<p class="text-gray-600 text-[11px] py-1 text-center">No hay tracks cargados.</p>';
+    }
+  };
+
+  // Acciones Firebase CRUD del Panel de Control
+  on($('btn-adm-toggle-status'), 'click', () => {
+    const id = $('adm-muni-select').value; if(!id || !dbRef) return;
+    const currentStatus = (dbData.municipalities[id] || {}).status || 'locked';
+    const nextStatus = currentStatus === 'unlocked' ? 'locked' : 'unlocked';
+    const cleanName = /^zona/i.test((dbData.municipalities[id] || {}).name || id) ? id.replace(/_/g, ' ') : ((dbData.municipalities[id] || {}).name || id);
+    
+    update(ref(dbRef, `/municipalities/${id}`), {
+      status: nextStatus,
+      name: cleanName
+    });
+  });
+
+  on($('btn-adm-add-event'), 'click', () => {
+    const id = $('adm-muni-select').value, pl = $('adm-ev-place').value, dt = $('adm-ev-date').value, df = $('adm-ev-details').value;
+    if(!id || !pl || !dt || !dbRef) return alert("Rellena Lugar y Fecha obligatoriamente");
+    const eRef = push(ref(dbRef, `/municipalities/${id}/events`));
+    set(eRef, { place: pl, date: dt, details: df }).then(() => {
+      $('adm-ev-place').value = ''; $('adm-ev-date').value = ''; $('adm-ev-details').value = '';
+    });
+  });
+
+  window.admDelEvent = (muniId, eventId) => { if(dbRef) remove(ref(dbRef, `/municipalities/${muniId}/events/${eventId}`)); };
+
+  on($('btn-adm-add-mash'), 'click', () => {
+    const t = $('adm-mash-title').value, scUrl = $('adm-mash-sc').value, dl = $('adm-mash-dl').value;
+    if(!t || !dbRef) return alert("El título es obligatorio");
+    const mRef = push(ref(dbRef, '/mashups'));
+    set(mRef, { title: t, scUrl: scUrl, dl: dl }).then(() => {
+      $('adm-mash-title').value = ''; $('adm-mash-sc').value = ''; $('adm-mash-dl').value = '';
+    });
+  });
+
+  window.admDelMash = id => { if(dbRef) remove(ref(dbRef, `/mashups/${id}`)); };
+
+  // Gestión de Guardado de Info de Equipamiento
+  on($('adm-eq-select'), 'change', e => {
+    const id = e.target.value; const c = dbData.components[id];
+    if(c) { $('adm-eq-title').value = c.title || ''; $('adm-eq-desc').value = c.desc || ''; }
+  });
+  on($('btn-adm-save-eq'), 'click', () => {
+    const id = $('adm-eq-select').value, t = $('adm-eq-title').value, d = $('adm-eq-desc').value;
+    if(!id || !dbRef) return;
+    update(ref(dbRef, `/components/${id}`), { title: t, desc: d }).then(() => alert("Datos del Equipo actualizados con éxito"));
+  });
 </script>
 </body>
 </html>
