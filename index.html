@@ -16,13 +16,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="antialiased selection:bg-djCyan selection:text-black text-gray-200">
+<body ontouchstart="" class="antialiased selection:bg-djCyan selection:text-black text-gray-200">
 <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
 
 <header class="w-full px-4 py-2 z-50 flex justify-between items-center relative shrink-0 animate-fade-in">
   <div id="site-title" class="cursor-pointer select-none active:scale-95 transition-transform flex items-center gap-2 group">
     <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-2xl">
-      DJ <span class="text-djCyan drop-shadow-[0_0_15px_rgba(0,229,255,0.6)] group-hover:text-white transition-colors duration-300">VAQUERO</span>
+      DJ <span class="text-djCyan drop-shadow-[0_0_15px_rgba(0,229,255,0.6)] transition-colors duration-300">VAQUERO</span>
     </h1>
   </div>
   <div class="flex gap-2 md:gap-3">
@@ -38,15 +38,15 @@
   <nav class="glass-card flex md:flex-col justify-around md:justify-center gap-2 md:gap-8 p-3 md:w-24 shrink-0 order-2 md:order-1 z-50 mb-2 md:mb-0 shadow-2xl backdrop-blur-2xl">
     <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn nav-active group w-full py-2">
       <div class="w-12 h-12 rounded-2xl bg-djCyan/20 text-djCyan flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.2)] group-hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] group-active:scale-90"><i class="fa-solid fa-map-location-dot text-xl"></i></div>
-      <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Tour</span>
+      <span id="text-nav-tour" class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 text-djCyan transition-colors">Tour</span>
     </button>
     <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-2">
       <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djMagenta/20 group-hover:text-djMagenta transition-all duration-300 group-active:scale-90"><i class="fa-solid fa-sliders text-xl"></i></div>
-      <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Equipo</span>
+      <span id="text-nav-setup" class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 text-gray-500 transition-colors">Equipo</span>
     </button>
     <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-2">
       <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djYellow/20 group-hover:text-djYellow transition-all duration-300 group-active:scale-90"><i class="fa-solid fa-compact-disc text-xl"></i></div>
-      <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Mashups</span>
+      <span id="text-nav-mashups" class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2 text-gray-500 transition-colors">Mashups</span>
     </button>
   </nav>
 
