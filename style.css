@@ -1,22 +1,25 @@
-body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;padding:0;height:100vh;overflow:hidden;-webkit-tap-highlight-color:transparent}
 ::-webkit-scrollbar{width:0;height:0}
 .custom-scrollbar::-webkit-scrollbar{width:4px;height:4px}
 .custom-scrollbar::-webkit-scrollbar-track{background:transparent}
-.custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px}
+.custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:10px}
 .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:rgba(0,229,255,0.4)}
 .ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.ambient-glow{position:absolute;border-radius:50%;filter:blur(150px);opacity:0.4;will-change:transform}
-.glow-1{top:-20%;left:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(0,229,255,0.15) 0%,transparent 70%);animation:float 15s infinite alternate}
-.glow-2{bottom:-20%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(255,0,234,0.12) 0%,transparent 70%);animation:float 18s infinite alternate-reverse}
-.glass-card{background:linear-gradient(145deg,rgba(15,18,25,0.6) 0%,rgba(5,7,10,0.8) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05);transition:all 0.3s ease}
-.glass-card:hover{border-color:rgba(255,255,255,0.15);box-shadow:0 25px 50px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1)}
-.premium-title{font-family:'Montserrat',sans-serif;background:linear-gradient(to bottom right,#ffffff 30%,#888 100%);-webkit-background-clip:text;color:transparent}
-.neon-cyan{color:#00e5ff;text-shadow:0 0 20px rgba(0,229,255,0.5)}
-.social-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.3s cubic-bezier(0.3,2,0.5,1)}
-.social-icon:hover{color:#fff;transform:scale(1.15) rotate(5deg)}
+.ambient-glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.4;will-change:transform}
+.glow-1{top:-10%;left:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(0,229,255,0.2) 0%,transparent 70%);animation:float 12s infinite alternate}
+.glow-2{bottom:-10%;right:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(255,0,234,0.15) 0%,transparent 70%);animation:float 15s infinite alternate-reverse}
+.glass-card{background:linear-gradient(145deg,rgba(15,18,25,0.7) 0%,rgba(5,7,10,0.9) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
+.social-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.3s}
+.social-icon:hover{color:#fff;transform:scale(1.1) translateY(-2px)}
 .social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.3)}
 .social-tk:hover{background:#000;box-shadow:0 8px 16px rgba(0,229,255,0.3);color:#00e5ff}
 .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.3)}
+.social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4);color:#fff}
+.app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.4s cubic-bezier(0.2,0.8,0.2,1);transform:scale(0.98);z-index:0;display:flex;flex-direction:column}
+.app-view.active{opacity:1;pointer-events:auto;transform:scale(1);z-index:10}
+.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#6b7280;transition:all 0.3s;cursor:pointer;position:relative}
+.nav-btn:hover{color:#fff}
+.nav-active{color:#00e5ff;filter:drop-shadow(0 0 8px rgba(0,229,255,0.5))}
 .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none;will-change:transform}
 .muni{cursor:pointer;pointer-events:all;stroke-width:1px!important;transition:all 0.3s}
 .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.04)}
@@ -28,8 +31,8 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;overf
 .comp-polygon{fill:rgba(255,0,234,0.02);stroke:rgba(255,0,234,0.15);stroke-width:0.5px;cursor:pointer;pointer-events:auto;transition:all 0.3s}
 .comp-polygon:hover,.hotspot-active{fill:rgba(255,0,234,0.25);stroke:#ff00ea;stroke-width:1.5px;filter:drop-shadow(0 0 12px rgba(255,0,234,0.6))}
 .admin-input{width:100%;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);padding:0.6rem 0.8rem;color:#fff;border-radius:10px;font-size:0.75rem;outline:none;transition:all 0.3s}
-.admin-input:focus{border-color:rgba(0,229,255,0.5);background:rgba(0,0,0,0.7);box-shadow:0 0 10px rgba(0,229,255,0.1)}
+.admin-input:focus{border-color:rgba(0,229,255,0.5);background:rgba(0,0,0,0.7)}
 .admin-input option{background:#0e1118}
 .admin-drag-dot{pointer-events:auto;touch-action:none;cursor:grab;z-index:50}
-.slide-overlay{transform:translateX(100%);transition:transform 0.4s cubic-bezier(0.2,0.8,0.2,1)}
-.slide-overlay.open{transform:translateX(0)}
+.slide-panel{position:absolute;top:0;right:0;width:100%;max-width:380px;height:100%;background:rgba(7,9,14,0.95);backdrop-filter:blur(20px);border-left:1px solid rgba(255,255,255,0.1);transform:translateX(100%);transition:transform 0.4s cubic-bezier(0.2,0.8,0.2,1);z-index:40;display:flex;flex-direction:column}
+.slide-panel.open{transform:translateX(0)}
