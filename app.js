@@ -15,16 +15,46 @@ const sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setu
 
 window.switchView = (view) => {
   ['tour', 'setup', 'mashups'].forEach(v => {
-    const el = $(`view-${v}`), btn = $(`btn-nav-${v}`);
-    if(!el || !btn) return;
+    const el = document.getElementById(`view-${v}`);
+    const btn = document.getElementById(`btn-nav-${v}`);
+    const txt = document.getElementById(`text-nav-${v}`);
+    if(!el || !btn || !txt) return;
+    
+    const iconDiv = btn.querySelector('div');
+    
     if(v === view) {
-      el.classList.add('active'); btn.classList.add('nav-active');
-      const colors = {tour:'djCyan', setup:'djMagenta', mashups:'djYellow'};
-      btn.querySelector('div').className = `w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(var(--${colors[v]}-rgb),0.2)] bg-${colors[v]}/20 text-${colors[v]}`;
-      if(v==='tour') setTimeout(()=> $('btn-reset-map')?.click(), 100); 
+      el.classList.add('active'); 
+      btn.classList.add('nav-active');
+      txt.classList.remove('text-gray-500');
+      
+      if (v === 'tour') {
+        iconDiv.className = 'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-djCyan/20 text-djCyan shadow-[0_0_15px_rgba(0,229,255,0.2)] group-active:scale-90';
+        txt.classList.add('text-djCyan');
+        setTimeout(()=> document.getElementById('btn-reset-map')?.click(), 100); 
+      }
+      if (v === 'setup') {
+        iconDiv.className = 'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-djMagenta/20 text-djMagenta shadow-[0_0_15px_rgba(255,0,234,0.2)] group-active:scale-90';
+        txt.classList.add('text-djMagenta');
+      }
+      if (v === 'mashups') {
+        iconDiv.className = 'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 bg-djYellow/20 text-djYellow shadow-[0_0_15px_rgba(255,214,0,0.2)] group-active:scale-90';
+        txt.classList.add('text-djYellow');
+      }
     } else {
-      el.classList.remove('active'); btn.classList.remove('nav-active');
-      btn.querySelector('div').className = `w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors duration-300`;
+      el.classList.remove('active'); 
+      btn.classList.remove('nav-active');
+      txt.classList.remove('text-djCyan', 'text-djMagenta', 'text-djYellow');
+      txt.classList.add('text-gray-500');
+      
+      if (v === 'tour') {
+        iconDiv.className = 'w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djCyan/20 group-hover:text-djCyan transition-all duration-300 group-active:scale-90';
+      }
+      if (v === 'setup') {
+        iconDiv.className = 'w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djMagenta/20 group-hover:text-djMagenta transition-all duration-300 group-active:scale-90';
+      }
+      if (v === 'mashups') {
+        iconDiv.className = 'w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-djYellow/20 group-hover:text-djYellow transition-all duration-300 group-active:scale-90';
+      }
     }
   });
 };
