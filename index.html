@@ -8,7 +8,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="tailwind-config.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased">
@@ -81,13 +81,13 @@
           <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
         </div>
       </div>
-      <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[9px] hidden font-bold bg-black/90 px-2.5 py-1 rounded-lg border border-djMagenta/30 z-50">EDICIÓN ACTIVADA</p>
+      <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[9px] hidden font-bold bg-black/90 px-2.5 py-1 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS ACTIVADA</p>
       <div id="setup-overlay" class="slide-panel">
         <div class="p-4 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
           <div><div id="setup-status" class="flex items-center gap-1.5 mb-0.5"><div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] font-bold uppercase tracking-widest">Hardware</span></div><h3 id="setup-t" class="text-base font-display font-black text-white uppercase tracking-tighter"></h3></div>
           <button id="btn-close-setup" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-xs"></i></button>
         </div>
-        <div class="flex-grow p-4 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-xs leading-relaxed"></p></div>
+        <div class="flex-grow p-4 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-xs leading-relaxed whitespace-pre-wrap"></p></div>
       </div>
     </div>
 
@@ -105,7 +105,7 @@
 
 <div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[380px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-2.5 flex justify-between items-center cursor-move touch-none">
-    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[9px] uppercase tracking-widest">Admin Panel</span></div>
+    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[9px] uppercase tracking-widest">Admin</span></div>
     <button id="btn-close-admin" class="w-7 h-7 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-power-off text-xs"></i></button>
   </div>
   <div class="flex bg-black/40 text-[9px] font-bold uppercase tracking-widest border-b border-white/5">
@@ -114,6 +114,7 @@
     <button id="tab-mashups" class="flex-1 py-2.5 text-gray-500 hover:text-white transition-colors border-b border-transparent">Tracks</button>
   </div>
   <div class="p-3 overflow-y-auto max-h-[65vh] space-y-2.5 custom-scrollbar">
+    
     <div id="sec-a-tour" class="space-y-2.5">
       <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
       <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input flex-[2]"><select id="a-muni-status" class="admin-input flex-[1] px-1"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
@@ -126,29 +127,33 @@
         <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2 rounded-xl text-[10px] uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10"><i class="fa-solid fa-rotate-left"></i></button></div>
       </div>
     </div>
+    
     <div id="sec-a-setup" class="space-y-2.5 hidden">
       <select id="a-comp-sel" class="admin-input"><option value="NEW">✨ NUEVO HARDWARE</option></select>
-      <input type="text" id="a-comp-t" placeholder="Modelo / Componente" class="admin-input focus:border-djMagenta">
-      <textarea id="a-comp-d" placeholder="Especificaciones, marca..." class="admin-input h-14 resize-none focus:border-djMagenta"></textarea>
+      <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input focus:border-djMagenta">
+      <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input h-16 resize-none focus:border-djMagenta"></textarea>
       
-      <div class="bg-black/40 p-2 rounded-xl border border-white/5 space-y-2">
-        <div class="flex items-center justify-between border-b border-white/5 pb-1.5">
-          <span class="text-[9px] font-bold text-djMagenta uppercase tracking-widest">Polígonos de interacción</span>
-          <button id="btn-draw-mode" class="bg-djMagenta/10 hover:bg-djMagenta hover:text-black border border-djMagenta/30 text-djMagenta font-bold text-[9px] px-2 py-1 rounded transition-colors flex items-center gap-1">
-            <i class="fa-solid fa-vector-square"></i> <span>Nuevo Polígono</span>
-          </button>
+      <div class="bg-black/40 p-2 rounded-xl border border-white/5 space-y-1.5">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span>
+          <button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1.5 rounded border border-djMagenta/30 text-[9px] font-bold transition-colors"><i class="fa-solid fa-plus mr-1"></i> Añadir polígono</button>
         </div>
         
-        <ul id="a-comp-figs" class="space-y-1 max-h-24 overflow-y-auto custom-scrollbar"></ul>
+        <ul id="a-comp-figs" class="space-y-1 max-h-24 overflow-y-auto text-xs custom-scrollbar"></ul>
         
-        <div class="bg-black/40 p-1.5 rounded-lg border border-white/5 space-y-1">
-          <p class="text-[8px] text-gray-400 font-medium">Nodos activos (Doble clic en imagen para borrar o arrastra):</p>
-          <ul id="a-comp-pts" class="grid grid-cols-2 gap-1 max-h-16 overflow-y-auto text-[8px] custom-scrollbar"></ul>
+        <div id="draw-controls" class="hidden flex-col gap-1.5 mt-2 p-2 border border-djMagenta/30 bg-djMagenta/5 rounded-lg shadow-inner">
+          <span class="text-[9px] text-djMagenta font-bold text-center block mb-1">Toca la imagen de fondo para añadir nodos</span>
+          <ul id="a-comp-pts" class="space-y-1 max-h-24 overflow-y-auto text-[9px] text-gray-300 custom-scrollbar"></ul>
+          <div class="flex gap-2 pt-1">
+            <button id="btn-close-fig" class="flex-[2] bg-djMagenta hover:bg-[#d600c4] text-black font-black py-1.5 rounded-lg text-[9px] uppercase tracking-wider transition-colors"><i class="fa-solid fa-check mr-1"></i> Cerrar Forma</button>
+            <button id="btn-cancel-fig" class="flex-[1] bg-white/10 hover:bg-white/20 text-white font-bold py-1.5 rounded-lg text-[9px] transition-colors">Cancelar</button>
+          </div>
         </div>
       </div>
-
+      
       <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[3] bg-djMagenta text-black font-black py-2 rounded-xl text-[10px] uppercase shadow-[0_0_10px_rgba(255,0,234,0.3)]">Guardar Componente</button><button id="btn-dl-cp" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[9px]">Borrar</button></div>
     </div>
+    
     <div id="sec-a-mashups" class="space-y-2.5 hidden">
       <select id="a-mash-sel" class="admin-input"><option value="NEW">✨ NUEVO TRACK</option></select>
       <input type="text" id="a-mash-t" placeholder="Título" class="admin-input focus:border-djYellow">
