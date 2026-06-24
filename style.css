@@ -29,13 +29,11 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .muni-unlocked{fill:#051d24;stroke:rgba(0,229,255,0.25)}
 .muni-unlocked:hover{fill:rgba(0,229,255,0.15);stroke:#00e5ff}
 .muni-unlocked.muni-selected{fill:#00e5ff!important;stroke:#fff;filter:drop-shadow(0 0 15px rgba(0,229,255,0.6))}
-.muni-label{font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:-0.02em;pointer-events:none;user-select:none;paint-order:stroke fill;stroke:#030408;stroke-linejoin:round;text-shadow:0 2px 5px rgba(0,0,0,0.9)}
-.comp-polygon{fill:rgba(255,0,234,0.03);stroke:rgba(255,0,234,0.15);stroke-width:0.5px;cursor:pointer;pointer-events:auto;transition:all 0.2s}
-.comp-polygon:hover,.hotspot-active{fill:rgba(255,0,234,0.25);stroke:#ff00ea;stroke-width:1.5px;filter:drop-shadow(0 0 10px rgba(255,0,234,0.5))}
+.comp-polygon{fill:rgba(255,0,234,0.02);stroke:rgba(255,0,234,0.1);stroke-width:0.5px;cursor:pointer;pointer-events:auto;transition:all 0.2s}
+.comp-polygon:hover,.hotspot-active{fill:rgba(255,0,234,0.2);stroke:#ff00ea;stroke-width:1.5px;filter:drop-shadow(0 0 10px rgba(255,0,234,0.5))}
 .admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;outline:none;transition:border 0.2s}
 .admin-input:focus{border-color:rgba(0,229,255,0.5);background:rgba(0,0,0,0.8)}
 .admin-input option{background:#0e1118}
-.admin-drag-dot{pointer-events:auto;touch-action:none;cursor:grab;z-index:60;transition:transform 0.15s, background-color 0.15s;box-shadow:0 0 10px rgba(0,0,0,0.8)}
-.admin-drag-dot:hover{transform:translate(-50%,-50%) scale(1.35);background-color:#fff!important}
+.admin-drag-dot{pointer-events:auto;touch-action:none;cursor:grab;z-index:50}
 .slide-panel{position:absolute;top:0;right:0;width:100%;max-width:340px;height:100%;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);border-left:1px solid rgba(255,255,255,0.05);transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);z-index:40;display:flex;flex-direction:column}
 .slide-panel.open{transform:translateX(0)}
