@@ -75,20 +75,32 @@
     z-index: 10;
   }
 
-  /* Redes Sociales (Ajustado el hover y active) */
+  /* Redes Sociales */
   .social-icon { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.05); color: #a1a1aa; transition: 0.3s ease; border: 1px solid transparent; }
   .social-ig:hover, .social-ig:active { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; box-shadow: 0 5px 15px rgba(220,39,67,0.4); }
-  .social-tk:hover, .social-tk:active { background: #000; color: #00e5ff; box-shadow: 0 5px 15px rgba(0,229,255,0.4); border-color: #00e5ff; }
+  .social-tk:hover, .social-tk:active { background: #010101; color: #fff; box-shadow: -2px -2px 0 #ff0050, 2px 2px 0 #00f2fe; border-color: transparent; }
   .social-sc:hover, .social-sc:active { background: #ff5500; color: #fff; box-shadow: 0 5px 15px rgba(255,85,0,0.4); border-color: #ff5500; }
   .social-yt:hover, .social-yt:active { background: #f00; color: #fff; box-shadow: 0 5px 15px rgba(255,0,0,0.4); border-color: #f00; }
 
-  /* SVG Mapa */
+  /* SVG Mapa (Fijada borrosidad con precision geométrica) */
   .zoom-layer { position: absolute; transform-origin: 0 0; touch-action: none; will-change: transform; }
-  .muni-base { fill: #06080d; stroke: rgba(255,255,255,0.05); transition: 0.2s; cursor: pointer; pointer-events: all; }
-  .muni-base:hover { fill: #111624; stroke: rgba(255,255,255,0.2); }
-  .muni-unlocked { fill: #051d24; stroke: rgba(0,229,255,0.3); transition: 0.2s; cursor: pointer; pointer-events: all; }
-  .muni-unlocked:hover { fill: rgba(0,229,255,0.2); stroke: #00e5ff; }
-  .muni-selected { fill: #00e5ff !important; stroke: #fff !important; filter: drop-shadow(0 0 10px rgba(0,229,255,0.6)); stroke-width: 1.5px !important; z-index: 10; }
+  #tour-layer svg { shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
+  .muni-label { font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 2px rgba(0,0,0,1); }
+
+  /* Estados de Municipios Optimizados */
+  /* 1. Municipio Libre (No iluminado) */
+  .muni-base { fill: #06080d; stroke: rgba(255,255,255,0.08); transition: 0.2s; cursor: pointer; pointer-events: all; }
+  .muni-base:hover { fill: #111624; stroke: rgba(255,255,255,0.25); }
+
+  /* 2. Municipio Confirmado (Iluminado) */
+  .muni-unlocked { fill: rgba(0, 229, 255, 0.08); stroke: rgba(0, 229, 255, 0.4); transition: 0.2s; cursor: pointer; pointer-events: all; }
+  .muni-unlocked:hover { fill: rgba(0, 229, 255, 0.18); stroke: #00e5ff; filter: drop-shadow(0 0 8px rgba(0,229,255,0.4)); }
+
+  /* 3. Municipio Seleccionado e Iluminado (Unlocked) */
+  .muni-selected-unlocked { fill: #00e5ff !important; stroke: #ffffff !important; filter: drop-shadow(0 0 15px rgba(0,229,255,0.8)) !important; stroke-width: 2px !important; z-index: 30; cursor: pointer; }
+
+  /* 4. Municipio Seleccionado y NO Iluminado (Locked) */
+  .muni-selected-locked { fill: #3a4750 !important; stroke: #ffffff !important; filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)) !important; stroke-width: 2px !important; z-index: 30; cursor: pointer; }
 
   /* SVG Equipo */
   .comp-polygon { fill: rgba(255,0,234,0.05); stroke: rgba(255,0,234,0.2); stroke-width: 1px; cursor: pointer; pointer-events: auto; transition: 0.2s; }
@@ -252,7 +264,7 @@
     console.error("Firebase no disponible - Modo sin conexión activo", e);
   }
 
-  // FUNCIÓN SWITCHVIEW SEGURA (Sin variables dinámicas en las clases)
+  // FUNCIÓN SWITCHVIEW SEGURA
   window.switchView = (view) => {
     ['tour', 'setup', 'mashups'].forEach(v => {
       const el = $(`view-${v}`);
@@ -335,8 +347,26 @@
 
   if ($('btn-reset-map')) $('btn-reset-map').onclick = () => { if (!svgW || !vp) return; const rW = vp.clientWidth, rH = vp.clientHeight; sc = Math.min(rW / svgW, rH / svgH) * 0.95; pX = (rW - svgW * sc) / 2; pY = (rH - svgH * sc) / 2; if (!reqFr) reqFr = requestAnimationFrame(uTrans); };
 
-  // RENDERIZADO DE BASE DE DATOS
-  const renderMap = () => { Object.entries(dbData.municipalities || {}).forEach(([id, d]) => { const e = $(id); if (e) { e.className.baseVal = `muni-base ${d.status === 'unlocked' ? 'muni-unlocked' : ''} ${currMuni === id ? 'muni-selected' : ''}`; if (d.status === 'unlocked' && e.parentNode) e.parentNode.appendChild(e); } }); mLbls.forEach(l => { const n = (dbData.municipalities[l.dataset.id] || {}).name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); uLbls(); };
+  // RENDERIZADO DE BASE DE DATOS (Fijados los 4 estados del mapa)
+  const renderMap = () => { 
+    Object.entries(dbData.municipalities || {}).forEach(([id, d]) => { 
+      const e = $(id); 
+      if (e) { 
+        const isUnlocked = d.status === 'unlocked';
+        const isSelected = currMuni === id;
+        let cls = 'muni-base';
+
+        if (isUnlocked && isSelected) cls = 'muni-selected-unlocked';
+        else if (!isUnlocked && isSelected) cls = 'muni-selected-locked';
+        else if (isUnlocked) cls = 'muni-unlocked';
+
+        e.className.baseVal = cls; 
+        if (isUnlocked && e.parentNode) e.parentNode.appendChild(e); 
+      } 
+    }); 
+    mLbls.forEach(l => { const n = (dbData.municipalities[l.dataset.id] || {}).name; l.textContent = (!n || /^zona/i.test(n)) ? '' : n; }); 
+    uLbls(); 
+  };
   
   const selMuni = id => { currMuni = id; renderMap(); const m = dbData.municipalities[id] || {}, n = /^zona/i.test(m.name || id) ? id.replace(/_/g, ' ') : (m.name || id); if ($('info-title')) $('info-title').innerText = n; tog($('info-overlay'), 'open', true); if (m.status === 'unlocked') { $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff]"></div><span class="text-djCyan text-[10px] font-bold uppercase">Confirmadas</span>`; let evH = ''; if (m.events) Object.entries(m.events).forEach(([eid, ev]) => { evH += `<div class="bg-white/5 border border-white/10 rounded-xl p-4"><h4 class="text-white font-bold">${ev.place}</h4><p class="text-djCyan text-xs mt-1">${ev.date}</p>${ev.details ? `<p class="text-gray-400 text-xs mt-2">${ev.details}</p>` : ''}</div>`; }); $('info-events').innerHTML = evH || `<p class="text-gray-500 text-xs text-center py-4">Próximamente</p>`; } else { $('info-status').innerHTML = `<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Libre</span>`; $('info-events').innerHTML = `<p class="text-gray-400 text-xs text-center py-4">Sin fechas confirmadas aquí.</p>`; } };
   
@@ -346,11 +376,37 @@
   const renderComp = () => { const ov = $('setup-svg'); if (!ov) return; ov.innerHTML = ''; Object.entries(dbData.components || {}).forEach(([id, c]) => { (c.figures || []).forEach(f => { if (f.length > 2) { const p = crSvg("polygon"); p.setAttribute("points", f.map(pt => `${pt.x},${pt.y}`).join(' ')); p.setAttribute("class", `comp-polygon comp-id-${id}`); p.onclick = e => { e.stopPropagation(); selComp(id); }; ov.appendChild(p); } }); }); };
   if ($('btn-close-setup')) $('btn-close-setup').onclick = () => { $$('.comp-polygon').forEach(h => h.classList.remove('hotspot-active')); tog($('setup-overlay'), 'open', false); };
 
-  const renderMash = () => { const g = $('mashups-grid'); if (!g) return; const e = Object.entries(dbData.mashups || {}).sort(); g.innerHTML = e.length ? e.map(([_, d]) => `<div class="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col gap-2 hover:bg-white/10 transition-colors"><h4 class="font-display font-black text-sm text-white"><i class="fa-solid fa-music text-djYellow mr-2"></i>${d.title}</h4>${d.scUrl ? `<iframe class="mt-2 rounded-xl" width="100%" height="80" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe>` : ''}${d.dl ? `<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/20 hover:bg-djYellow text-djYellow hover:text-black mt-2 py-2 rounded-lg text-center text-[10px] font-black uppercase transition-all"><i class="fa-solid fa-download mr-2"></i>Descargar</a>` : ''}</div>`).join('') : '<p class="text-gray-500 text-sm text-center col-span-full">Aún no hay tracks.</p>'; };
+  // RENDERIZADO DE MASHUPS OPTIMIZADO (Solucionado tamaño de tarjetas e iframe de SoundCloud)
+  const renderMash = () => { 
+    const g = $('mashups-grid'); 
+    if (!g) return; 
+    const e = Object.entries(dbData.mashups || {}).sort(); 
+    g.innerHTML = e.length ? e.map(([_, d]) => `
+      <div class="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col justify-between min-h-[280px] hover:bg-white/10 transition-colors">
+        <div class="flex flex-col gap-2">
+          <h4 class="font-display font-black text-sm text-white truncate"><i class="fa-solid fa-music text-djYellow mr-2"></i>${d.title}</h4>
+          ${d.scUrl ? `<iframe class="mt-1 rounded-xl w-full h-[166px]" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=false"></iframe>` : ''}
+        </div>
+        ${d.dl ? `<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/20 hover:bg-djYellow text-djYellow hover:text-black mt-3 py-2 rounded-lg text-center text-[10px] font-black uppercase transition-all"><i class="fa-solid fa-download mr-2"></i>Descargar</a>` : ''}
+      </div>
+    `).join('') : '<p class="text-gray-500 text-sm text-center col-span-full">Aún no hay tracks.</p>'; 
+  };
 
   // BUSCADOR BÁSICO
   if ($('search-muni')) $('search-muni').oninput = e => { const v = e.target.value.toLowerCase().trim(), rL = $('search-results'); rL.innerHTML = ''; if (v.length < 2) return tog(rL, 'hidden', true); let mh = ''; Object.entries(dbData.municipalities || {}).forEach(([id, d]) => { if (d?.name && !/^zona/i.test(d.name) && d.name.toLowerCase().includes(v)) { mh += `<li class="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 text-gray-200" onclick="window.srcMuni('${id}')">${d.name}</li>`; } }); rL.innerHTML = mh || `<li class="px-4 py-3 text-gray-500 text-xs">Sin resultados</li>`; tog(rL, 'hidden', false); };
   window.srcMuni = id => { selMuni(id); $('search-muni').value = ''; tog($('search-results'), 'hidden', true); };
+
+  // CONTROL DEL MODO ADMIN (Fijada activación del botón DJ VAQUERO)
+  if ($('site-title')) {
+    on($('site-title'), 'click', () => {
+      tog($('admin-panel'), 'hidden', false);
+    });
+  }
+  if ($('btn-close-admin')) {
+    on($('btn-close-admin'), 'click', () => {
+      tog($('admin-panel'), 'hidden', true);
+    });
+  }
 </script>
 </body>
 </html>
