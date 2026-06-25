@@ -45,15 +45,15 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .app-view.active{opacity:1;pointer-events:auto;transform:scale(1) translateY(0);z-index:10}
 .nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative}
 .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
-.muni{pointer-events:all;stroke-width:1px!important;transition:all 0.3s ease}
-.muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03)}
+.muni{pointer-events:all;transition:all 0.3s ease}
+.muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px}
 .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)}
-.muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px!important;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))}
-.muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent)}
+.muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))}
+.muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px}
 .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)}
-.muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px!important;filter:drop-shadow(0 0 12px var(--tc))}
-.comp-polygon{fill:color-mix(in srgb, var(--tc) 2%, transparent);stroke:color-mix(in srgb, var(--tc) 15%, transparent);stroke-width:0.3px!important;pointer-events:auto;transition:all 0.2s}
-.comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 25%, transparent);stroke:var(--tc);stroke-width:0.8px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 60%, transparent))}
+.muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
+.comp-polygon{fill:color-mix(in srgb, var(--tc) 2%, transparent);stroke:color-mix(in srgb, var(--tc) 15%, transparent);stroke-width:0.1px!important;pointer-events:auto;transition:all 0.2s}
+.comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 25%, transparent);stroke:var(--tc);stroke-width:0.4px!important;filter:drop-shadow(0 0 3px color-mix(in srgb, var(--tc) 60%, transparent))}
 .admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;outline:none;transition:border 0.2s}
 .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.8)} .admin-input option{background:#0e1118}
 .slide-panel{position:absolute;z-index:40;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column}
@@ -64,6 +64,18 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .theme-text{color:var(--tc);text-shadow:0 0 10px color-mix(in srgb, var(--tc) 40%, transparent)}
 .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)}
 .theme-border{border-color:var(--tc)}
+
+/* CRAZY MODE */
+@keyframes ee-idle { 0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 5px var(--tc)); } 50% { transform: scale(1.1) translateY(-6px); filter: drop-shadow(0 0 15px var(--tc)); } }
+#ee-img { animation: ee-idle 2s infinite ease-in-out; }
+@keyframes crazy {
+    0% { filter: hue-rotate(0deg) invert(0); transform: translate(3px, 2px) rotate(0deg); }
+    25% { filter: hue-rotate(90deg) invert(0.3); transform: translate(-3px, -2px) rotate(2deg) scale(1.02); }
+    50% { filter: hue-rotate(180deg) invert(0); transform: translate(2px, 3px) rotate(-2deg); }
+    75% { filter: hue-rotate(270deg) invert(0.3); transform: translate(-2px, 2px) rotate(0deg) scale(0.98); }
+    100% { filter: hue-rotate(360deg) invert(0); transform: translate(2px, -2px) rotate(1deg); }
+}
+.crazy-mode { animation: crazy 0.15s infinite; filter: saturate(3); }
 </style>
 </head>
 <body class="antialiased">
@@ -121,7 +133,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
         <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors shadow-lg"><i class="fa-solid fa-expand text-sm"></i></button>
       </div>
       <div class="w-full h-full content-area">
-        <div class="w-full h-full bg-black/40 relative cursor-grab overflow-hidden rounded-2xl" id="tour-viewport"><div class="zoom-layer" id="tour-layer"></div></div>
+        <div class="w-full h-full bg-black/40 relative overflow-hidden rounded-2xl" id="tour-viewport"><div class="zoom-layer" id="tour-layer"></div></div>
       </div>
       <div id="info-overlay" class="slide-panel">
         <div class="p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
@@ -161,7 +173,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </main>
 
-<img id="ee-img" src="vaquero.svg" alt="Vaquero Easter Egg" class="fixed bottom-4 right-4 w-12 h-12 z-[100] animate-bounce drop-shadow-[0_0_10px_var(--tc)] transition-transform duration-200" style="transform-origin: center;" title="¡Púlsame!">
+<img id="ee-img" src="vaquero.svg" alt="Vaquero" class="fixed bottom-4 right-4 w-12 h-12 z-[100] drop-shadow-[0_0_10px_var(--tc)] transition-all duration-200" style="transform-origin: center;" title="¡Púlsame!">
 
 <div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[400px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none">
@@ -242,12 +254,20 @@ const $=i=>document.getElementById(i),$$=q=>document.querySelectorAll(q),on=(e,t
 let dbData={municipalities:{},components:{},mashups:{},config:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false;
 const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
 
-// Easter egg logic
+// EASTER EGG LOGIC
 let eeC=0; const eeI=$('ee-img'), au=new Audio('tag.flac');
 if(eeI) eeI.onclick=()=>{
-  eeC++; eeI.style.transform=`scale(${1+(eeC*0.35)}) rotate(${eeC%2===0?10:-10}deg)`;
-  if(eeC>=3){ au.play(); setTimeout(()=>{eeC=0; eeI.style.transform='scale(1) rotate(0)'},800); }
+  eeC++; eeI.style.animation='none';
+  eeI.style.transform=`scale(${1+(eeC*0.4)}) rotate(${eeC%2===0?15:-15}deg)`;
+  eeI.style.filter=`brightness(${1+(eeC*0.2)}) drop-shadow(0 0 ${eeC*15}px var(--tc)) hue-rotate(${eeC*45}deg)`;
+  if(eeC>=3){
+    document.body.classList.add('crazy-mode');
+    au.play();
+    eeI.style.transform='scale(3) rotate(360deg)';
+    eeI.style.pointerEvents='none';
+  } else { setTimeout(()=>{ if(eeC>0 && eeC<3) eeI.style.transform=`scale(${1+(eeC*0.2)}) rotate(0)`; }, 200); }
 };
+au.onended = () => { document.body.classList.remove('crazy-mode'); eeC=0; eeI.style.pointerEvents='auto'; eeI.style.transform=''; eeI.style.filter=''; eeI.style.animation=''; };
 
 function toggleAdminMode(a) { tog($('setup-img'),'opacity-50',a); tog($('admin-pts'),'hidden',!a); if(!a){isDrawing=false;cPts=[];editFigIdx=-1}; a?renderAdminPts():renderComp(); }
 
@@ -255,7 +275,6 @@ window.switchView = (view) => {
   if(view !== 'setup') toggleAdminMode(false);
   const colors = {tour: '#00e5ff', setup: '#ff00ea', mashups: '#ffd600'}, cClass = {tour: 'djCyan', setup: 'djMagenta', mashups: 'djYellow'};
   document.documentElement.style.setProperty('--tc', colors[view]);
-  
   ['tour', 'setup', 'mashups'].forEach(v => {
     const el = $(`view-${v}`), btn = $(`btn-nav-${v}`), isAct = v === view;
     if(!el || !btn) return;
@@ -278,12 +297,7 @@ onValue(ref(db,'/'),s=>{
   const tk = dbData.config.ticker || "12 OCT - SALAMANCA | 31 OCT - MADRID | ¡MÁS POR CONFIRMAR!";
   if($('ticker-text-1')) $('ticker-text-1').innerText = tk; if($('ticker-text-2')) $('ticker-text-2').innerText = tk; if($('a-ticker-input')) $('a-ticker-input').value = tk;
   
-  if(isFirstLoad) {
-      isFirstLoad = false;
-      const loader = $('loader');
-      if(loader) { loader.style.opacity = '0'; setTimeout(()=>loader.remove(), 500); }
-  }
-
+  if(isFirstLoad) { isFirstLoad = false; const loader = $('loader'); if(loader) { loader.style.opacity = '0'; setTimeout(()=>loader.remove(), 500); } }
   try{renderMap(); renderComp(); renderMash(); updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
 });
 
@@ -316,7 +330,7 @@ const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{}
 if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
-const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-24 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
+const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-44 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
 
 window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);$('view-setup').classList.add('panel-active');if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djMagenta shadow-[0_0_8px_#ff00ea]"></div><span class="text-djMagenta text-[10px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
 const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&$('admin-panel')&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();selComp(id)};ov.appendChild(p)}})})};
@@ -348,7 +362,7 @@ if($('btn-sv-ticker')) $('btn-sv-ticker').onclick=()=>{const v=$('a-ticker-input
 
 onAuthStateChanged(auth,(user)=>{if(!user||user.email!==EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',true);toggleAdminMode(false)}});
 let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{alert("Acceso Denegado.");signOut(auth)}}).catch(e=>{})}}setTimeout(()=>cc=0,800)};
-if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{if(confirm("¿Cerrar sesión de admin?")){tog($('admin-panel'),'hidden',true);toggleAdminMode(false);signOut(auth)}};
+if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{if(confirm("¿Cerrar panel de administración?")){tog($('admin-panel'),'hidden',true);toggleAdminMode(false);}};
 
 if($('admin-header')) on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;const p=$('admin-panel'),r=p.getBoundingClientRect();p.style.transform='none';p.style.left=r.left+'px';p.style.top=r.top+'px';dX=e.clientX-r.left;dY=e.clientY-r.top;});
 on(window,'mousemove',e=>{if(drA&&$('admin-panel')){$('admin-panel').style.left=`${e.clientX-dX}px`;$('admin-panel').style.top=`${e.clientY-dY}px`}}); on(window,'mouseup',()=>drA=false);
