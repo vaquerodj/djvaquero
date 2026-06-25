@@ -26,8 +26,7 @@ tailwind.config = {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root { --tc: #00e5ff; }
-*{cursor:url('cursor.png'),auto}
-a,button,.cursor-pointer,input,select,textarea,.nav-btn,.social-icon,.muni,.comp-polygon,.admin-drag-dot{cursor:url('cursor.png'),pointer!important}
+*, *::before, *::after { cursor: url('cursor.png'), auto !important; }
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease}
 @media(min-width: 768px){body{padding:1rem;gap:1rem}}
 ::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
@@ -64,17 +63,26 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .marquee-container{mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
 .theme-text{color:var(--tc);text-shadow:0 0 10px color-mix(in srgb, var(--tc) 40%, transparent)}
 .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)}
+.theme-border{border-color:var(--tc)}
 </style>
 </head>
 <body class="antialiased">
+
+<div id="loader" class="fixed inset-0 z-[999] bg-[#030408] flex items-center justify-center transition-opacity duration-500">
+  <div class="flex flex-col items-center">
+    <h1 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text transition-colors">VAQUERO</span></h1>
+    <div class="mt-6 w-10 h-10 border-4 theme-border border-t-transparent rounded-full animate-spin transition-colors"></div>
+  </div>
+</div>
+
 <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
 
 <header class="w-full px-2 z-50 flex justify-between items-center relative shrink-0">
-  <div id="site-title" class="cursor-pointer select-none active:scale-95 transition-transform flex items-center shrink-0 mr-2">
+  <div id="site-title" class="select-none active:scale-95 transition-transform flex items-center shrink-0 mr-2">
     <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text transition-colors duration-300">VAQUERO</span></h1>
   </div>
   
-  <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container cursor-pointer" onclick="window.switchView('tour')">
+  <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container hover:bg-white/5 transition-colors" onclick="window.switchView('tour')">
      <div id="ticker-display" class="whitespace-nowrap text-[10px] md:text-xs text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
         <div class="animate-marquee shrink-0 px-4"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
         <div class="animate-marquee shrink-0 px-4" aria-hidden="true"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -153,8 +161,10 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </main>
 
-<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[400px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col text-gray-200">
-  <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center cursor-move touch-none">
+<img id="ee-img" src="vaquero.svg" alt="Vaquero Easter Egg" class="fixed bottom-4 right-4 w-12 h-12 z-[100] animate-bounce drop-shadow-[0_0_10px_var(--tc)] transition-transform duration-200" style="transform-origin: center;" title="¡Púlsame!">
+
+<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[400px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
+  <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none">
     <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
     <button id="btn-close-admin" class="w-8 h-8 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-power-off text-sm"></i></button>
   </div>
@@ -232,12 +242,20 @@ const $=i=>document.getElementById(i),$$=q=>document.querySelectorAll(q),on=(e,t
 let dbData={municipalities:{},components:{},mashups:{},config:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false;
 const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
 
+// Easter egg logic
+let eeC=0; const eeI=$('ee-img'), au=new Audio('tag.flac');
+if(eeI) eeI.onclick=()=>{
+  eeC++; eeI.style.transform=`scale(${1+(eeC*0.35)}) rotate(${eeC%2===0?10:-10}deg)`;
+  if(eeC>=3){ au.play(); setTimeout(()=>{eeC=0; eeI.style.transform='scale(1) rotate(0)'},800); }
+};
+
 function toggleAdminMode(a) { tog($('setup-img'),'opacity-50',a); tog($('admin-pts'),'hidden',!a); if(!a){isDrawing=false;cPts=[];editFigIdx=-1}; a?renderAdminPts():renderComp(); }
 
 window.switchView = (view) => {
   if(view !== 'setup') toggleAdminMode(false);
   const colors = {tour: '#00e5ff', setup: '#ff00ea', mashups: '#ffd600'}, cClass = {tour: 'djCyan', setup: 'djMagenta', mashups: 'djYellow'};
   document.documentElement.style.setProperty('--tc', colors[view]);
+  
   ['tour', 'setup', 'mashups'].forEach(v => {
     const el = $(`view-${v}`), btn = $(`btn-nav-${v}`), isAct = v === view;
     if(!el || !btn) return;
@@ -254,10 +272,18 @@ if($('btn-close-tour')) $('btn-close-tour').onclick=closeTourPanel; if($('btn-cl
 
 const getGroup=id=>{const m=dbData.municipalities||{},n=m[id]?.name;return !n||/^zona/i.test(n)?[id]:Object.keys(m).filter(k=>m[k]?.name===n)};
 
+let isFirstLoad = true;
 onValue(ref(db,'/'),s=>{
   const v = s.val() || {}; dbData = { municipalities: v.municipalities||{}, components: v.components||{}, mashups: v.mashups||{}, config: v.config||{} };
   const tk = dbData.config.ticker || "12 OCT - SALAMANCA | 31 OCT - MADRID | ¡MÁS POR CONFIRMAR!";
   if($('ticker-text-1')) $('ticker-text-1').innerText = tk; if($('ticker-text-2')) $('ticker-text-2').innerText = tk; if($('a-ticker-input')) $('a-ticker-input').value = tk;
+  
+  if(isFirstLoad) {
+      isFirstLoad = false;
+      const loader = $('loader');
+      if(loader) { loader.style.opacity = '0'; setTimeout(()=>loader.remove(), 500); }
+  }
+
   try{renderMap(); renderComp(); renderMash(); updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
 });
 
@@ -265,11 +291,11 @@ const uLbls=()=>{if(!lgEl||!vp)return;lgEl.className.baseVal=sc<2.2?'opacity-0 t
 
 const chkBounds=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>15)sc=15;const minPx=rW-(svgW*sc),minPy=rH-(svgH*sc);if(svgW*sc<=rW)pX=(rW-svgW*sc)/2;else pX=Math.min(0,Math.max(minPx,pX));if(svgH*sc<=rH)pY=(rH-svgH*sc)/2;else pY=Math.min(0,Math.max(minPy,pY))};
 const uTrans=()=>{if(tLay)tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`;uLbls();reqFr=null};
-const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;pan=true;isMov=false;vp.style.cursor='grabbing'};
+const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;pan=true;isMov=false;};
 const mvPan=(x,y)=>{if(!pan)return;isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
 
 if(vp) {
-  on(vp,'mousedown',e=>stPan(e.clientX,e.clientY)); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false;if(vp)vp.style.cursor="url('cursor.png'), grab"});
+  on(vp,'mousedown',e=>stPan(e.clientX,e.clientY)); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false});
   on(vp,'touchstart',e=>{isMov=false;if(e.touches.length===1)stPan(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
   on(vp,'touchmove',e=>{if(pan&&e.touches.length===1)mvPan(e.touches[0].clientX,e.touches[0].clientY);else if(e.touches.length===2){e.preventDefault();const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY),rb=vp.getBoundingClientRect(),mx=((t1.clientX+t2.clientX)/2)-rb.left,my=((t1.clientY+t2.clientY)/2)-rb.top,tx=(mx-pX)/sc,ty=(my-pY)/sc;sc=sc*(d/(vp.dataset.sd||d));vp.dataset.sd=d;chkBounds();pX=mx-tx*sc;pY=my-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)}},{passive:false});
   on(vp,'touchend',()=>{pan=false;delete vp.dataset.sd});
