@@ -26,7 +26,9 @@ tailwind.config = {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root { --tc: #00e5ff; }
-body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem; transition: --tc 0.5s ease;}
+*{cursor:url('cursor.png'),auto}
+a,button,.cursor-pointer,input,select,textarea,.nav-btn,.social-icon,.muni,.comp-polygon,.admin-drag-dot{cursor:url('cursor.png'),pointer!important}
+body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease}
 @media(min-width: 768px){body{padding:1rem;gap:1rem}}
 ::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
 .ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -37,22 +39,22 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .social-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.2s ease-out}
 .social-icon:hover{color:#fff;transform:scale(1.1) translateY(-2px)}
 .social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.3)}
-.social-tk:hover{background:#000;box-shadow:0 8px 16px rgba(0,229,255,0.3);color:#00e5ff}
+.social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea}
 .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.3)}
-.social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4);color:#fff}
+.social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4)}
 .app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform:scale(0.99) translateY(10px);z-index:0;display:flex;flex-direction:column;border-radius:16px;overflow:hidden}
 .app-view.active{opacity:1;pointer-events:auto;transform:scale(1) translateY(0);z-index:10}
-.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;cursor:pointer;position:relative}
+.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative}
 .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
-.muni{cursor:pointer;pointer-events:all;stroke-width:1px!important;transition:all 0.3s ease}
+.muni{pointer-events:all;stroke-width:1px!important;transition:all 0.3s ease}
 .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03)}
 .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)}
-.muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-dasharray:4;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))}
+.muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px!important;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))}
 .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent)}
 .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)}
-.muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;filter:drop-shadow(0 0 12px var(--tc))}
-.comp-polygon{fill:color-mix(in srgb, var(--tc) 2%, transparent);stroke:color-mix(in srgb, var(--tc) 15%, transparent);stroke-width:0.5px;cursor:pointer;pointer-events:auto;transition:all 0.2s}
-.comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 25%, transparent);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 6px color-mix(in srgb, var(--tc) 60%, transparent))}
+.muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px!important;filter:drop-shadow(0 0 12px var(--tc))}
+.comp-polygon{fill:color-mix(in srgb, var(--tc) 2%, transparent);stroke:color-mix(in srgb, var(--tc) 15%, transparent);stroke-width:0.3px!important;pointer-events:auto;transition:all 0.2s}
+.comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 25%, transparent);stroke:var(--tc);stroke-width:0.8px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 60%, transparent))}
 .admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;outline:none;transition:border 0.2s}
 .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.8)} .admin-input option{background:#0e1118}
 .slide-panel{position:absolute;z-index:40;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column}
@@ -62,7 +64,6 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .marquee-container{mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
 .theme-text{color:var(--tc);text-shadow:0 0 10px color-mix(in srgb, var(--tc) 40%, transparent)}
 .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)}
-.theme-border{border-color:var(--tc)}
 </style>
 </head>
 <body class="antialiased">
@@ -73,8 +74,8 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text transition-colors duration-300">VAQUERO</span></h1>
   </div>
   
-  <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container">
-     <div id="ticker-display" class="whitespace-nowrap text-[10px] md:text-xs text-white font-bold uppercase tracking-widest absolute flex">
+  <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container cursor-pointer" onclick="window.switchView('tour')">
+     <div id="ticker-display" class="whitespace-nowrap text-[10px] md:text-xs text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
         <div class="animate-marquee shrink-0 px-4"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
         <div class="animate-marquee shrink-0 px-4" aria-hidden="true"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
      </div>
@@ -124,9 +125,6 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     </div>
 
     <div id="view-setup" class="app-view bg-black/40">
-      <div class="absolute top-4 left-4 z-30 pointer-events-none">
-        <h2 class="font-display font-black text-djMagenta text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,234,0.3)]"><i class="fa-solid fa-headphones mr-2 text-djMagenta"></i> Cabina DJ</h2>
-      </div>
       <div class="w-full h-full content-area p-2">
         <div class="w-full h-full flex justify-center items-center relative">
           <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block select-none touch-none rounded-xl">
@@ -136,6 +134,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
           </div>
         </div>
       </div>
+      <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[10px] hidden font-bold bg-black/90 px-3 py-1.5 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS ACTIVADA</p>
       <div id="setup-overlay" class="slide-panel">
         <div class="p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start shrink-0">
           <div><div id="setup-status" class="flex items-center gap-1.5 mb-1"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Hardware</span></div><h3 id="setup-t" class="text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
@@ -239,7 +238,6 @@ window.switchView = (view) => {
   if(view !== 'setup') toggleAdminMode(false);
   const colors = {tour: '#00e5ff', setup: '#ff00ea', mashups: '#ffd600'}, cClass = {tour: 'djCyan', setup: 'djMagenta', mashups: 'djYellow'};
   document.documentElement.style.setProperty('--tc', colors[view]);
-  
   ['tour', 'setup', 'mashups'].forEach(v => {
     const el = $(`view-${v}`), btn = $(`btn-nav-${v}`), isAct = v === view;
     if(!el || !btn) return;
@@ -271,7 +269,7 @@ const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;pan=true;isMov=false;vp.style.
 const mvPan=(x,y)=>{if(!pan)return;isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
 
 if(vp) {
-  on(vp,'mousedown',e=>stPan(e.clientX,e.clientY)); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false;if(vp)vp.style.cursor='grab'});
+  on(vp,'mousedown',e=>stPan(e.clientX,e.clientY)); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false;if(vp)vp.style.cursor="url('cursor.png'), grab"});
   on(vp,'touchstart',e=>{isMov=false;if(e.touches.length===1)stPan(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
   on(vp,'touchmove',e=>{if(pan&&e.touches.length===1)mvPan(e.touches[0].clientX,e.touches[0].clientY);else if(e.touches.length===2){e.preventDefault();const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY),rb=vp.getBoundingClientRect(),mx=((t1.clientX+t2.clientX)/2)-rb.left,my=((t1.clientY+t2.clientY)/2)-rb.top,tx=(mx-pX)/sc,ty=(my-pY)/sc;sc=sc*(d/(vp.dataset.sd||d));vp.dataset.sd=d;chkBounds();pX=mx-tx*sc;pY=my-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)}},{passive:false});
   on(vp,'touchend',()=>{pan=false;delete vp.dataset.sd});
@@ -299,7 +297,7 @@ const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(a
 
 const crDot=(pts,idx,pEl,dc)=>{const dt=document.createElement('div');dt.className="absolute w-3 h-3 bg-djCyan rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot hover:scale-125 transition-transform shadow-lg";dt.style.left=pts[idx].x+'%';dt.style.top=pts[idx].y+'%';on(dt,'contextmenu',e=>{e.preventDefault();e.stopPropagation();pts.splice(idx,1);renderAdminPts()});const mm=e=>{e.preventDefault();const w=$('setup-wrapper');if(!w)return;const r=w.getBoundingClientRect(),x=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)),y=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));dt.style.left=x+'%';dt.style.top=y+'%';pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))};if(pEl)pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' '))},mu=()=>{window.removeEventListener('pointermove',mm);window.removeEventListener('pointerup',mu)};on(dt,'pointerdown',e=>{e.stopPropagation();e.target.setPointerCapture(e.pointerId);on(window,'pointermove',mm);on(window,'pointerup',mu)});dc.appendChild(dt)};
 
-const renderAdminPts=()=>{const figsUl=$('a-comp-figs'),ptsUl=$('a-comp-pts'),dc=$('admin-pts'),ov=$('setup-svg');if(!figsUl||!ptsUl||!dc||!ov)return;dc.innerHTML=''; ov.innerHTML='';tog($('draw-controls'), 'hidden', !isDrawing);tog($('btn-add-fig'), 'hidden', isDrawing);figsUl.innerHTML=cFigs.map((f,i)=>{if(editFigIdx===i) return '';return `<li class="flex justify-between items-center bg-black/40 px-3 py-2 rounded-lg border border-white/10 text-[10px] transition-colors hover:border-djMagenta/50"><span class="text-gray-300"><i class="fa-solid fa-draw-polygon text-djMagenta/50 mr-1.5"></i>Polígono ${i+1}</span><div class="flex gap-2"><button class="text-djCyan hover:text-white transition-colors" onclick="window.editFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delFig(${i})"><i class="fa-solid fa-trash"></i></button></div></li>`;}).join('');cFigs.forEach((f,i)=>{if(editFigIdx===i) return;const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(255,0,234,0.1)");p.setAttribute("stroke","rgba(255,0,234,0.6)");p.setAttribute("stroke-width","1.5");ov.appendChild(p);});if(isDrawing){if(cPts.length>0){if(cPts.length>2){const p=crSvg("polygon");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(0,229,255,0.1)");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","2");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}else{const p=crSvg("polyline");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","none");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","2");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}}ptsUl.innerHTML=cPts.length?cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><span class="font-mono text-[9px] text-gray-400"><span class="text-djCyan font-bold mr-1">${i+1}.</span> X: ${pt.x}% | Y: ${pt.y}%</span><button class="text-red-500/70 hover:text-red-500 transition-colors" onclick="window.delNode(${i})"><i class="fa-solid fa-times"></i></button></li>`).join(''):'<li class="text-gray-500 text-center py-3 text-[10px] italic border border-dashed border-white/10 rounded-lg"><i class="fa-solid fa-hand-pointer block mb-1.5 text-[14px]"></i>Clic en la imagen para añadir nodos</li>';}else{ ptsUl.innerHTML = ''; }};
+const renderAdminPts=()=>{const figsUl=$('a-comp-figs'),ptsUl=$('a-comp-pts'),dc=$('admin-pts'),ov=$('setup-svg');if(!figsUl||!ptsUl||!dc||!ov)return;dc.innerHTML=''; ov.innerHTML='';tog($('draw-controls'), 'hidden', !isDrawing);tog($('btn-add-fig'), 'hidden', isDrawing);figsUl.innerHTML=cFigs.map((f,i)=>{if(editFigIdx===i) return '';return `<li class="flex justify-between items-center bg-black/40 px-3 py-2 rounded-lg border border-white/10 text-[10px] transition-colors hover:border-djMagenta/50"><span class="text-gray-300"><i class="fa-solid fa-draw-polygon text-djMagenta/50 mr-1.5"></i>Polígono ${i+1}</span><div class="flex gap-2"><button class="text-djCyan hover:text-white transition-colors" onclick="window.editFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delFig(${i})"><i class="fa-solid fa-trash"></i></button></div></li>`;}).join('');cFigs.forEach((f,i)=>{if(editFigIdx===i) return;const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(255,0,234,0.1)");p.setAttribute("stroke","rgba(255,0,234,0.6)");p.setAttribute("stroke-width","0.5");ov.appendChild(p);});if(isDrawing){if(cPts.length>0){if(cPts.length>2){const p=crSvg("polygon");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(0,229,255,0.1)");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}else{const p=crSvg("polyline");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","none");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}}ptsUl.innerHTML=cPts.length?cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><span class="font-mono text-[9px] text-gray-400"><span class="text-djCyan font-bold mr-1">${i+1}.</span> X: ${pt.x}% | Y: ${pt.y}%</span><button class="text-red-500/70 hover:text-red-500 transition-colors" onclick="window.delNode(${i})"><i class="fa-solid fa-times"></i></button></li>`).join(''):'<li class="text-gray-500 text-center py-3 text-[10px] italic border border-dashed border-white/10 rounded-lg"><i class="fa-solid fa-hand-pointer block mb-1.5 text-[14px]"></i>Clic en la imagen para añadir nodos</li>';}else{ ptsUl.innerHTML = ''; }};
 
 window.editFig=i=>{isDrawing=true; editFigIdx=i; cPts=[...cFigs[i]]; renderAdminPts()}; window.delFig=i=>{if(!confirm('¿Eliminar polígono?'))return; cFigs.splice(i,1); if(editFigIdx===i){isDrawing=false; editFigIdx=-1; cPts=[]}else if(editFigIdx>i)editFigIdx--; renderAdminPts()}; window.delNode=i=>{cPts.splice(i,1); renderAdminPts()};
 if($('btn-add-fig')) $('btn-add-fig').onclick=()=>{isDrawing=true; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-cancel-fig')) $('btn-cancel-fig').onclick=()=>{isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-close-fig')) $('btn-close-fig').onclick=()=>{if(cPts.length<3) return alert("Añade al menos 3 nodos."); if(editFigIdx>=0) cFigs[editFigIdx]=[...cPts]; else cFigs.push([...cPts]); isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()};
@@ -324,7 +322,7 @@ if($('btn-sv-ticker')) $('btn-sv-ticker').onclick=()=>{const v=$('a-ticker-input
 
 onAuthStateChanged(auth,(user)=>{if(!user||user.email!==EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',true);toggleAdminMode(false)}});
 let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{alert("Acceso Denegado.");signOut(auth)}}).catch(e=>{})}}setTimeout(()=>cc=0,800)};
-if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{tog($('admin-panel'),'hidden',true);toggleAdminMode(false);if(confirm("¿Cerrar sesión de admin?"))signOut(auth)};
+if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{if(confirm("¿Cerrar sesión de admin?")){tog($('admin-panel'),'hidden',true);toggleAdminMode(false);signOut(auth)}};
 
 if($('admin-header')) on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;const p=$('admin-panel'),r=p.getBoundingClientRect();p.style.transform='none';p.style.left=r.left+'px';p.style.top=r.top+'px';dX=e.clientX-r.left;dY=e.clientY-r.top;});
 on(window,'mousemove',e=>{if(drA&&$('admin-panel')){$('admin-panel').style.left=`${e.clientX-dX}px`;$('admin-panel').style.top=`${e.clientY-dY}px`}}); on(window,'mouseup',()=>drA=false);
