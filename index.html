@@ -7,13 +7,13 @@
 <link rel="icon" type="image/png" href="logo.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config = { darkMode: 'class', theme: { extend: { colors: { djBg: '#030408', djCyan: '#00e5ff', djMagenta: '#ff00ea', djYellow: '#ffd600' }, fontFamily: { display: ['Montserrat', 'sans-serif'], body: ['Inter', 'sans-serif'] }, animation: { 'float': 'float 6s ease-in-out infinite', 'marquee': 'marquee 25s linear infinite' }, keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } }, marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } } } } } };
+tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}}}}}};
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
-:root { --tc: #00e5ff; }
-body:not(.admin-active), body:not(.admin-active) * { cursor: url('cursor.png') 2 2, auto !important; }
+:root{--tc:#00e5ff;}
+body:not(.admin-active),body:not(.admin-active) *{cursor:url('cursor.png') 2 2,auto!important;}
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease}
 @media(min-width: 768px){body{padding:1rem;gap:1rem}}
 ::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
@@ -24,18 +24,14 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.3)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea} .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.3)} .social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4)}
 .app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform:scale(0.99) translateY(10px);z-index:0;display:flex;flex-direction:column;border-radius:16px;overflow:hidden} .app-view.active{opacity:1;pointer-events:auto;transform:scale(1) translateY(0);z-index:10}
 .nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative} .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
-.muni{pointer-events:all;transition:all 0.3s ease} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
-.comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 20%, transparent);stroke:var(--tc);stroke-width:0.8px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 60%, transparent))}
+.muni{pointer-events:all;transition:all 0.3s ease;outline:none} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
+.comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s;outline:none} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 15%, transparent);stroke:var(--tc);stroke-width:0.6px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 50%, transparent))}
 .admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;outline:none;transition:border 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.8)} .admin-input option{background:#0e1118}
-.slide-panel{position:absolute;z-index:40;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column} .content-area{transition:padding 0.3s cubic-bezier(0.4,0,0.2,1);box-sizing:border-box}
+.slide-panel{position:absolute;z-index:40;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;overflow:hidden} .content-area{transition:padding 0.3s cubic-bezier(0.4,0,0.2,1);box-sizing:border-box}
 @media (max-width: 767px) { .slide-panel{bottom:0;left:0;right:0;width:100%;height:45%;max-width:100%;border-top:1px solid rgba(255,255,255,0.05);transform:translateY(100%);border-radius:16px 16px 0 0} .slide-panel.open{transform:translateY(0)} .panel-active .content-area{padding-bottom:45%} }
 @media (min-width: 768px) { .slide-panel{top:0;right:0;height:100%;width:340px;max-width:340px;border-left:1px solid rgba(255,255,255,0.05);transform:translateX(100%)} .slide-panel.open{transform:translateX(0)} .panel-active .content-area{padding-right:340px} }
 .marquee-container{mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
 .theme-text{color:var(--tc);text-shadow:0 0 10px color-mix(in srgb, var(--tc) 40%, transparent)} .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)} .theme-border{border-color:var(--tc)}
-@keyframes ee-idle { 0%, 100% { transform: scale(1) translateY(0) rotate(0deg); filter: drop-shadow(0 0 8px var(--tc)); } 25% { transform: scale(1.1) translateY(-5px) rotate(-8deg); filter: drop-shadow(0 0 15px var(--tc)); } 75% { transform: scale(1.1) translateY(-5px) rotate(8deg); filter: drop-shadow(0 0 15px var(--tc)); } }
-#ee-img { animation: ee-idle 1.5s infinite ease-in-out; }
-.ee-word { opacity: 0; transform: translateY(20px) scale(0.8); animation: ee-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-@keyframes ee-pop { to { opacity: 1; transform: translateY(0) scale(1); } }
 </style>
 </head>
 <body class="antialiased">
@@ -47,8 +43,18 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </div>
 
-<div id="ee-overlay" class="fixed inset-0 bg-[#010203] z-[9999] flex flex-col items-center justify-center hidden backdrop-blur-md transition-opacity">
-  <div id="ee-text" class="flex flex-col items-center justify-center text-center gap-2 md:gap-4 p-4"></div>
+<div id="ee-overlay" class="fixed inset-0 bg-[#010203] z-[9999] flex flex-col items-center justify-center hidden backdrop-blur-xl transition-opacity">
+  <div class="flex flex-col items-center justify-center text-center">
+    <div class="flex gap-2 md:gap-4 text-2xl md:text-5xl text-white/90 font-bold mb-2 md:mb-4">
+      <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">ESTÁS</span>
+      <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">ESCUCHANDO</span>
+      <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">A</span>
+    </div>
+    <div class="flex gap-3 md:gap-6 text-6xl sm:text-7xl md:text-9xl theme-text font-black drop-shadow-[0_0_20px_var(--tc)]">
+      <span class="ee-w opacity-0 scale-50 transition-all duration-500">DJ</span>
+      <span class="ee-w opacity-0 scale-50 transition-all duration-500">VAQUERO.</span>
+    </div>
+  </div>
 </div>
 
 <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
@@ -113,7 +119,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
         <div class="w-full h-full flex justify-center items-center relative">
           <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block select-none touch-none rounded-xl">
             <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[85vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
-            <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
+            <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20 outline-none"></svg>
             <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
           </div>
         </div>
@@ -137,7 +143,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </main>
 
-<img id="ee-img" src="vaquero.png" alt="Vaquero" class="fixed bottom-4 right-4 w-12 h-12 z-[100] transition-transform duration-200" style="transform-origin: center;" title="¡Púlsame!">
+<img id="ee-img" src="vaquero.png" alt="Vaquero" class="fixed bottom-4 right-4 w-12 h-12 z-[100] transition-transform duration-100 ease-out" style="transform-origin: center;" title="¡Púlsame!">
 
 <div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
@@ -227,31 +233,20 @@ const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('
 // EASTER EGG LOGIC
 let eeC=0; const eeI=$('ee-img'), au=new Audio('tag.flac');
 if(eeI) eeI.onclick=()=>{
-  eeC++; eeI.style.animation='none';
-  eeI.style.transform=`scale(${1+(eeC*0.4)}) rotate(${eeC%2===0?15:-15}deg)`;
+  eeC++;
   if(eeC>=3){
-    const ov=$('ee-overlay'), txt=$('ee-text');
-    ov.classList.remove('hidden'); au.play(); eeI.style.pointerEvents='none'; txt.innerHTML='';
-    const arr = [
-      {w:'ESTÁS', t:0, c:'text-2xl md:text-3xl text-gray-300 tracking-widest'},
-      {w:'ESCUCHANDO', t:500, c:'text-4xl md:text-5xl text-djCyan font-black tracking-widest'},
-      {w:'A', t:1000, c:'text-xl md:text-2xl text-gray-400 italic'},
-      {w:'DJ', t:1500, c:'text-7xl md:text-8xl text-djMagenta font-black drop-shadow-[0_0_15px_#ff00ea] leading-none'},
-      {w:'VAQUERO.', t:2500, c:'text-7xl md:text-9xl text-djYellow font-black drop-shadow-[0_0_20px_#ffd600] leading-none'}
-    ];
-    arr.forEach(i=>{ setTimeout(()=>{ txt.innerHTML+=`<div class="ee-word ${i.c}">${i.w}</div>`; }, i.t); });
-    setTimeout(()=>{ ov.classList.add('hidden'); eeC=0; eeI.style.pointerEvents='auto'; eeI.style.transform=''; eeI.style.animation=''; }, 5500);
-  } else { setTimeout(()=>{ if(eeC>0 && eeC<3) eeI.style.transform=`scale(${1+(eeC*0.2)}) rotate(0)`; }, 200); }
+    const ov=$('ee-overlay'), ws=$$('.ee-w');
+    ov.classList.remove('hidden'); au.play(); eeI.style.pointerEvents='none';
+    [0, 500, 1000, 1750, 2750].forEach((t,i)=>setTimeout(()=>ws[i].classList.remove('opacity-0','translate-y-4','scale-50'), t));
+    setTimeout(()=>{ ov.classList.add('hidden'); eeC=0; eeI.style.pointerEvents='auto'; eeI.style.transform=''; ws.forEach(w=>w.classList.add('opacity-0','translate-y-4','scale-50')); }, 6000);
+  } else { eeI.style.transform=`scale(${1+(eeC*0.2)}) rotate(${eeC%2===0?20:-20}deg)`; setTimeout(()=>{if(eeC>0&&eeC<3)eeI.style.transform=`scale(${1+(eeC*0.1)}) rotate(0)`},150); }
 };
 
 window.trackClick = (type) => { set(ref(db, `analytics/${type}`), (dbData.analytics?.[type] || 0) + 1); };
 
 function toggleAdminMode(a) { 
-  tog(document.body, 'admin-active', a);
-  tog($('setup-img'),'opacity-50',a); 
-  tog($('admin-pts'),'hidden',!a); 
-  if(!a){isDrawing=false;cPts=[];editFigIdx=-1}; 
-  a?renderAdminPts():renderComp(); 
+  tog(document.body, 'admin-active', a); tog($('setup-img'),'opacity-50',a); tog($('admin-pts'),'hidden',!a); 
+  if(!a){isDrawing=false;cPts=[];editFigIdx=-1}; a?renderAdminPts():renderComp(); 
 }
 
 window.switchView = (view) => {
@@ -264,11 +259,11 @@ window.switchView = (view) => {
     tog(el, 'active', isAct);
     btn.className = isAct ? `nav-btn w-full py-1.5 text-${cClass[v]} font-bold uppercase tracking-widest text-xs` : `nav-btn group w-full py-1.5 text-gray-500 hover:text-${cClass[v]} font-bold uppercase tracking-widest text-xs`;
     btn.querySelector('div').className = isAct ? `w-11 h-11 md:w-14 md:h-14 rounded-2xl flex items-center justify-center transition-colors bg-${cClass[v]}/20 text-${cClass[v]} shadow-[0_0_10px_var(--tc)]` : `w-11 h-11 md:w-14 md:h-14 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-${cClass[v]}/10 group-hover:text-${cClass[v]} transition-colors text-gray-400`;
-    if(isAct && v==='tour') setTimeout(()=> $('btn-reset-map')?.click(), 100); 
+    if(isAct && v==='tour' && !document.body.classList.contains('admin-active')) setTimeout(()=> $('btn-reset-map')?.click(), 100); 
   });
 };
 
-const closeTourPanel=()=>{currMuni=null;renderMap();tog(iAnc,'open',false);$('view-tour').classList.remove('panel-active');setTimeout(()=>{if(iTit)iTit.innerText='ZONA';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona en el mapa</span>`;if(iEvs)iEvs.innerHTML='';if(!document.body.classList.contains('admin-active')) $('btn-reset-map')?.click();},300)};
+const closeTourPanel=()=>{currMuni=null;renderMap();tog(iAnc,'open',false);$('view-tour').classList.remove('panel-active');setTimeout(()=>{if(iTit)iTit.innerText='ZONA';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona en el mapa</span>`;if(iEvs)iEvs.innerHTML='';},300)};
 const closeSetupPanel=()=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));tog(sAnc,'open',false);$('view-setup').classList.remove('panel-active');setTimeout(()=>{if(sTit)sTit.innerText='';if(sDesc)sDesc.innerText='';if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Hardware</span>`;},300)};
 if($('btn-close-tour')) $('btn-close-tour').onclick=closeTourPanel; if($('btn-close-setup')) $('btn-close-setup').onclick=closeSetupPanel;
 
@@ -311,7 +306,7 @@ fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
 });
 
 const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
-const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);$('view-tour').classList.add('panel-active');if(!document.body.classList.contains('admin-active')) setTimeout(()=>$('btn-reset-map')?.click(),300);if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-white/10 text-white w-7 h-7 rounded-lg transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>`:''}</div>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[10px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5 theme-text"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="mt-auto flex items-center justify-center gap-2 bg-gradient-to-r from-djCyan via-blue-500 to-djMagenta text-white w-full py-4 rounded-xl text-center text-sm font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`};
+const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);$('view-tour').classList.add('panel-active');if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-white/10 text-white w-7 h-7 rounded-lg transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>`:''}</div>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[10px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5 theme-text"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="mt-auto flex items-center justify-center gap-2 bg-gradient-to-r from-djCyan via-blue-500 to-djMagenta text-white w-full py-4 rounded-xl text-center text-sm font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`};
 if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
