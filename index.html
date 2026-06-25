@@ -26,7 +26,7 @@ tailwind.config = {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root { --tc: #00e5ff; }
-*, *::before, *::after { cursor: url('cursor.png'), auto !important; }
+body:not(.admin-active), body:not(.admin-active) * { cursor: url('cursor.png') 16 16, auto !important; }
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease}
 @media(min-width: 768px){body{padding:1rem;gap:1rem}}
 ::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
@@ -64,18 +64,8 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .theme-text{color:var(--tc);text-shadow:0 0 10px color-mix(in srgb, var(--tc) 40%, transparent)}
 .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)}
 .theme-border{border-color:var(--tc)}
-
-/* CRAZY MODE */
 @keyframes ee-idle { 0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 5px var(--tc)); } 50% { transform: scale(1.1) translateY(-6px); filter: drop-shadow(0 0 15px var(--tc)); } }
 #ee-img { animation: ee-idle 2s infinite ease-in-out; }
-@keyframes crazy {
-    0% { filter: hue-rotate(0deg) invert(0); transform: translate(3px, 2px) rotate(0deg); }
-    25% { filter: hue-rotate(90deg) invert(0.3); transform: translate(-3px, -2px) rotate(2deg) scale(1.02); }
-    50% { filter: hue-rotate(180deg) invert(0); transform: translate(2px, 3px) rotate(-2deg); }
-    75% { filter: hue-rotate(270deg) invert(0.3); transform: translate(-2px, 2px) rotate(0deg) scale(0.98); }
-    100% { filter: hue-rotate(360deg) invert(0); transform: translate(2px, -2px) rotate(1deg); }
-}
-.crazy-mode { animation: crazy 0.15s infinite; filter: saturate(3); }
 </style>
 </head>
 <body class="antialiased">
@@ -85,6 +75,10 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     <h1 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text transition-colors">VAQUERO</span></h1>
     <div class="mt-6 w-10 h-10 border-4 theme-border border-t-transparent rounded-full animate-spin transition-colors"></div>
   </div>
+</div>
+
+<div id="ee-overlay" class="fixed inset-0 bg-[#000] z-[9999] flex items-center justify-center hidden">
+  <h1 id="ee-text" class="text-4xl md:text-7xl lg:text-9xl font-display font-black theme-text uppercase tracking-tighter text-center transition-all duration-75"></h1>
 </div>
 
 <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
@@ -173,10 +167,10 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </main>
 
-<img id="ee-img" src="vaquero.svg" alt="Vaquero" class="fixed bottom-4 right-4 w-12 h-12 z-[100] drop-shadow-[0_0_10px_var(--tc)] transition-all duration-200" style="transform-origin: center;" title="¡Púlsame!">
+<img id="ee-img" src="vaquero.svg" alt="Vaquero" class="fixed bottom-4 right-4 w-12 h-12 z-[100] drop-shadow-[0_0_10px_var(--tc)] transition-transform duration-200" style="transform-origin: center;" title="¡Púlsame!">
 
-<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[400px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
-  <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none">
+<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
+  <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
     <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
     <button id="btn-close-admin" class="w-8 h-8 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-power-off text-sm"></i></button>
   </div>
@@ -232,6 +226,11 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     </div>
 
     <div id="sec-a-general" class="space-y-3 hidden">
+      <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
+        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-chart-simple mr-1"></i> Analíticas Rápidas</span>
+        <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg text-xs"><span class="text-gray-300">Clics 'Contratar' (Tour)</span><span id="stat-contract" class="font-black text-djCyan">0</span></div>
+        <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg text-xs"><span class="text-gray-300">Clics 'Descargar' (Mashups)</span><span id="stat-mashups" class="font-black text-djYellow">0</span></div>
+      </div>
       <div class="space-y-2">
         <label class="text-[10px] text-gray-400 font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-bolt mr-1"></i> Texto Marquesina Promocional</label>
         <textarea id="a-ticker-input" placeholder="Ej: 12 OCT - SALAMANCA | 31 OCT - MADRID..." class="admin-input h-24 resize-none text-xs focus:border-white"></textarea>
@@ -251,7 +250,7 @@ const app=initializeApp({apiKey:"AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",authDo
 const db=getDatabase(app),auth=getAuth(app),provider=new GoogleAuthProvider();
 const $=i=>document.getElementById(i),$$=q=>document.querySelectorAll(q),on=(e,t,c,o)=>e.addEventListener(t,c,o),tog=(e,c,f)=>e?.classList[f?'add':'remove'](c),crSvg=t=>document.createElementNS("http://www.w3.org/2000/svg",t);
 
-let dbData={municipalities:{},components:{},mashups:{},config:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false;
+let dbData={municipalities:{},components:{},mashups:{},config:{},analytics:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false;
 const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
 
 // EASTER EGG LOGIC
@@ -261,18 +260,29 @@ if(eeI) eeI.onclick=()=>{
   eeI.style.transform=`scale(${1+(eeC*0.4)}) rotate(${eeC%2===0?15:-15}deg)`;
   eeI.style.filter=`brightness(${1+(eeC*0.2)}) drop-shadow(0 0 ${eeC*15}px var(--tc)) hue-rotate(${eeC*45}deg)`;
   if(eeC>=3){
-    document.body.classList.add('crazy-mode');
-    au.play();
-    eeI.style.transform='scale(3) rotate(360deg)';
-    eeI.style.pointerEvents='none';
+    const ov=$('ee-overlay'), txt=$('ee-text');
+    ov.classList.remove('hidden'); au.play(); eeI.style.pointerEvents='none';
+    ['ESTÁS','ESCUCHANDO','A','DJ','VAQUERO',''].forEach((w,i)=>{
+      setTimeout(()=>{
+        txt.innerText=w;
+        if(!w){ ov.classList.add('hidden'); eeC=0; eeI.style.pointerEvents='auto'; eeI.style.transform=''; eeI.style.filter=''; eeI.style.animation=''; }
+      }, [0, 500, 1000, 1500, 2000, 3500][i]);
+    });
   } else { setTimeout(()=>{ if(eeC>0 && eeC<3) eeI.style.transform=`scale(${1+(eeC*0.2)}) rotate(0)`; }, 200); }
 };
-au.onended = () => { document.body.classList.remove('crazy-mode'); eeC=0; eeI.style.pointerEvents='auto'; eeI.style.transform=''; eeI.style.filter=''; eeI.style.animation=''; };
 
-function toggleAdminMode(a) { tog($('setup-img'),'opacity-50',a); tog($('admin-pts'),'hidden',!a); if(!a){isDrawing=false;cPts=[];editFigIdx=-1}; a?renderAdminPts():renderComp(); }
+window.trackClick = (type) => { set(ref(db, `analytics/${type}`), (dbData.analytics?.[type] || 0) + 1); };
+
+function toggleAdminMode(a) { 
+  tog(document.body, 'admin-active', a);
+  tog($('setup-img'),'opacity-50',a); 
+  tog($('admin-pts'),'hidden',!a); 
+  if(!a){isDrawing=false;cPts=[];editFigIdx=-1}; 
+  a?renderAdminPts():renderComp(); 
+}
 
 window.switchView = (view) => {
-  if(view !== 'setup') toggleAdminMode(false);
+  if(view !== 'setup' && !$('admin-panel').classList.contains('hidden')) toggleAdminMode(false);
   const colors = {tour: '#00e5ff', setup: '#ff00ea', mashups: '#ffd600'}, cClass = {tour: 'djCyan', setup: 'djMagenta', mashups: 'djYellow'};
   document.documentElement.style.setProperty('--tc', colors[view]);
   ['tour', 'setup', 'mashups'].forEach(v => {
@@ -293,9 +303,11 @@ const getGroup=id=>{const m=dbData.municipalities||{},n=m[id]?.name;return !n||/
 
 let isFirstLoad = true;
 onValue(ref(db,'/'),s=>{
-  const v = s.val() || {}; dbData = { municipalities: v.municipalities||{}, components: v.components||{}, mashups: v.mashups||{}, config: v.config||{} };
+  const v = s.val() || {}; dbData = { municipalities: v.municipalities||{}, components: v.components||{}, mashups: v.mashups||{}, config: v.config||{}, analytics: v.analytics||{} };
   const tk = dbData.config.ticker || "12 OCT - SALAMANCA | 31 OCT - MADRID | ¡MÁS POR CONFIRMAR!";
   if($('ticker-text-1')) $('ticker-text-1').innerText = tk; if($('ticker-text-2')) $('ticker-text-2').innerText = tk; if($('a-ticker-input')) $('a-ticker-input').value = tk;
+  if($('stat-contract')) $('stat-contract').innerText = dbData.analytics.contract || 0;
+  if($('stat-mashups')) $('stat-mashups').innerText = dbData.analytics.mashup || 0;
   
   if(isFirstLoad) { isFirstLoad = false; const loader = $('loader'); if(loader) { loader.style.opacity = '0'; setTimeout(()=>loader.remove(), 500); } }
   try{renderMap(); renderComp(); renderMash(); updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
@@ -326,14 +338,14 @@ fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
 });
 
 const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
-const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);$('view-tour').classList.add('panel-active');setTimeout(()=>$('btn-reset-map')?.click(),300);if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-white/10 text-white w-7 h-7 rounded-lg transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>`:''}</div>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[10px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5 theme-text"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" class="mt-auto block theme-bg text-black w-full py-3 rounded-xl text-center text-xs font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all shadow-lg">Contratar</a>`};
+const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);$('view-tour').classList.add('panel-active');setTimeout(()=>$('btn-reset-map')?.click(),300);if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-white/10 text-white w-7 h-7 rounded-lg transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>`:''}</div>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[10px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5 theme-text"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="mt-auto block theme-bg text-black w-full py-3 rounded-xl text-center text-xs font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all shadow-lg">Contratar</a>`};
 if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
-const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-44 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
+const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-40 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
 
 window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);$('view-setup').classList.add('panel-active');if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djMagenta shadow-[0_0_8px_#ff00ea]"></div><span class="text-djMagenta text-[10px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
-const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&$('admin-panel')&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();selComp(id)};ov.appendChild(p)}})})};
+const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();selComp(id)};ov.appendChild(p)}})})};
 
 const crDot=(pts,idx,pEl,dc)=>{const dt=document.createElement('div');dt.className="absolute w-3 h-3 bg-djCyan rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot hover:scale-125 transition-transform shadow-lg";dt.style.left=pts[idx].x+'%';dt.style.top=pts[idx].y+'%';on(dt,'contextmenu',e=>{e.preventDefault();e.stopPropagation();pts.splice(idx,1);renderAdminPts()});const mm=e=>{e.preventDefault();const w=$('setup-wrapper');if(!w)return;const r=w.getBoundingClientRect(),x=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)),y=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));dt.style.left=x+'%';dt.style.top=y+'%';pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))};if(pEl)pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' '))},mu=()=>{window.removeEventListener('pointermove',mm);window.removeEventListener('pointerup',mu)};on(dt,'pointerdown',e=>{e.stopPropagation();e.target.setPointerCapture(e.pointerId);on(window,'pointermove',mm);on(window,'pointerup',mu)});dc.appendChild(dt)};
 
@@ -341,7 +353,7 @@ const renderAdminPts=()=>{const figsUl=$('a-comp-figs'),ptsUl=$('a-comp-pts'),dc
 
 window.editFig=i=>{isDrawing=true; editFigIdx=i; cPts=[...cFigs[i]]; renderAdminPts()}; window.delFig=i=>{if(!confirm('¿Eliminar polígono?'))return; cFigs.splice(i,1); if(editFigIdx===i){isDrawing=false; editFigIdx=-1; cPts=[]}else if(editFigIdx>i)editFigIdx--; renderAdminPts()}; window.delNode=i=>{cPts.splice(i,1); renderAdminPts()};
 if($('btn-add-fig')) $('btn-add-fig').onclick=()=>{isDrawing=true; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-cancel-fig')) $('btn-cancel-fig').onclick=()=>{isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-close-fig')) $('btn-close-fig').onclick=()=>{if(cPts.length<3) return alert("Añade al menos 3 nodos."); if(editFigIdx>=0) cFigs[editFigIdx]=[...cPts]; else cFigs.push([...cPts]); isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()};
-if($('setup-wrapper')) $('setup-wrapper').onclick=e=>{if(actTab==='setup'&&$('admin-panel')&&!$('admin-panel').classList.contains('hidden')&&isDrawing&&!e.target.classList.contains('admin-drag-dot')){const r=$('setup-wrapper').getBoundingClientRect();cPts.push({x:parseFloat(Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)).toFixed(1)),y:parseFloat(Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100)).toFixed(1))});renderAdminPts()}};
+if($('setup-wrapper')) $('setup-wrapper').onclick=e=>{if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&isDrawing&&!e.target.classList.contains('admin-drag-dot')){const r=$('setup-wrapper').getBoundingClientRect();cPts.push({x:parseFloat(Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)).toFixed(1)),y:parseFloat(Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100)).toFixed(1))});renderAdminPts()}};
 if($('btn-sv-cp')) $('btn-sv-cp').onclick=()=>{if(!$('a-comp-t')||!$('a-comp-t').value)return;const aF=[...cFigs];if(isDrawing&&cPts.length>2)aF.push([...cPts]);set(ref(db,`components/${$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value}`),{title:$('a-comp-t').value,desc:$('a-comp-d').value,figures:aF});isDrawing=false;cPts=[];editFigIdx=-1;renderAdminPts()};
 if($('btn-dl-cp')) $('btn-dl-cp').onclick=()=>{if(confirm('¿Borrar equipo completo?'))remove(ref(db,`components/${$('a-comp-sel').value}`)).then(()=>{if($('a-comp-sel')){$('a-comp-sel').value='NEW';$('a-comp-sel').dispatchEvent(new Event('change'))}})};
 if($('a-comp-sel')) $('a-comp-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-comp-t','a-comp-d'].forEach(i=>{if($(i))$(i).value=''});cFigs=[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',true)}else{const d=dbData.components[v]||{};if($('a-comp-t'))$('a-comp-t').value=d.title||'';if($('a-comp-d'))$('a-comp-d').value=d.desc||'';cFigs=d.figures?d.figures.map(f=>[...f]):[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',false)}renderAdminPts()};
@@ -361,7 +373,7 @@ if($('btn-dl-ms')) $('btn-dl-ms').onclick=()=>{if(confirm('¿Eliminar track?'))r
 if($('btn-sv-ticker')) $('btn-sv-ticker').onclick=()=>{const v=$('a-ticker-input')?.value; if(!v)return; set(ref(db, `config/ticker`), v).then(()=>{const b=$('btn-sv-ticker'); b.innerText='¡Guardado!'; setTimeout(()=>b.innerText='Guardar Ajustes', 1500)})};
 
 onAuthStateChanged(auth,(user)=>{if(!user||user.email!==EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',true);toggleAdminMode(false)}});
-let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false)}else{alert("Acceso Denegado.");signOut(auth)}}).catch(e=>{})}}setTimeout(()=>cc=0,800)};
+let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false); toggleAdminMode(actTab==='setup');}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false); toggleAdminMode(actTab==='setup');}else{alert("Acceso Denegado.");signOut(auth)}}).catch(e=>{})}}setTimeout(()=>cc=0,800)};
 if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{if(confirm("¿Cerrar panel de administración?")){tog($('admin-panel'),'hidden',true);toggleAdminMode(false);}};
 
 if($('admin-header')) on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;const p=$('admin-panel'),r=p.getBoundingClientRect();p.style.transform='none';p.style.left=r.left+'px';p.style.top=r.top+'px';dX=e.clientX-r.left;dY=e.clientY-r.top;});
