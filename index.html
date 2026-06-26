@@ -13,13 +13,14 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root{--tc:#00e5ff;}
+body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease;user-select:none;-webkit-user-select:none;}
+input,textarea,select{user-select:text;-webkit-user-select:text;}
 body:not(.admin-active),body:not(.admin-active) *{cursor:url('cursor.png') 2 2,auto!important;}
-body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease}
 @media(min-width:768px){body{padding:1rem;gap:1rem}}
 ::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
 .ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden} .ambient-glow{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.35;will-change:transform;transition:background 0.8s ease}
 .glow-1{top:-10%;left:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} .glow-2{bottom:-10%;right:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
-.glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.85) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
+.glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.85) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
 .social-icon{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.2s ease-out} 
 @media(min-width:768px){.social-icon{width:38px;height:38px;border-radius:10px;}}
 .social-icon:hover{color:#fff;transform:scale(1.1) translateY(-2px)}
@@ -34,9 +35,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 @media(max-width:767px){ .slide-panel{bottom:0;left:0;right:0;width:100%;height:45%;max-width:100%;border-top:1px solid rgba(255,255,255,0.05);transform:translateY(100%);border-radius:16px 16px 0 0} .slide-panel.open{transform:translateY(0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translateY(-15%); } }
 @media(min-width:768px){ .slide-panel{top:0;right:0;height:100%;width:340px;max-width:340px;border-left:1px solid rgba(255,255,255,0.05);transform:translateX(100%)} .slide-panel.open{transform:translateX(0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translateX(-120px); } }
 .marquee-container{mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
-.theme-text{color:var(--tc);text-shadow:0 0 10px color-mix(in srgb, var(--tc) 40%, transparent)} .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)} .theme-border{border-color:var(--tc)}
-@keyframes ee-idle { 0%, 100% { transform: scale(1) translateY(0) rotate(0deg); filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); } 25% { transform: scale(1.15) translateY(-6px) rotate(-8deg); filter: drop-shadow(0 0 15px var(--tc)); } 75% { transform: scale(1.15) translateY(-6px) rotate(8deg); filter: drop-shadow(0 0 15px var(--tc)); } }
-#ee-img { animation: ee-idle 1.3s infinite ease-in-out; }
+.theme-text{color:var(--tc);transition:color 0.3s ease;} .theme-drop{filter:drop-shadow(0 0 10px color-mix(in srgb, var(--tc) 40%, transparent));} .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)} .theme-border{border-color:var(--tc)}
 .ee-word { opacity: 0; transform: translateY(30px) scale(0.8); animation: ee-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 @keyframes ee-pop { to { opacity: 1; transform: translateY(0) scale(1); } }
 </style>
@@ -45,8 +44,8 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 
 <div id="loader" class="fixed inset-0 z-[999] bg-[#030408] flex items-center justify-center transition-opacity duration-500">
   <div class="flex flex-col items-center">
-    <h1 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text transition-colors">VAQUERO</span></h1>
-    <div class="mt-6 w-10 h-10 border-4 theme-border border-t-transparent rounded-full animate-spin transition-colors"></div>
+    <h1 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
+    <div class="mt-6 w-10 h-10 border-4 theme-border border-t-transparent rounded-full animate-spin"></div>
   </div>
 </div>
 
@@ -57,7 +56,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
       <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">ESCUCHANDO</span>
       <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">A</span>
     </div>
-    <div class="w-full flex flex-wrap justify-center gap-x-2 theme-text font-black text-[15vw] md:text-[12vw] drop-shadow-[0_0_30px_var(--tc)] leading-none">
+    <div class="w-full flex flex-wrap justify-center gap-x-2 theme-text font-black text-[15vw] md:text-[12vw] theme-drop leading-none">
       <span class="ee-w opacity-0 scale-50 transition-all duration-500">DJ</span>
       <span class="ee-w opacity-0 scale-50 transition-all duration-500">VAQUERO.</span>
     </div>
@@ -67,14 +66,14 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 <div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
 
 <header class="w-full px-2 z-50 flex justify-between items-center relative shrink-0">
-  <div id="site-title" class="select-none active:scale-95 transition-transform flex items-center shrink-0 mr-1 md:mr-2 cursor-pointer">
-    <h1 class="font-display font-black text-lg md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text transition-colors duration-300">VAQUERO</span></h1>
+  <div id="site-title" class="active:scale-95 transition-transform flex items-center shrink-0 mr-1 md:mr-2 cursor-pointer">
+    <h1 class="font-display font-black text-lg md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
   </div>
   
   <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-7 md:h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container hover:bg-white/5 transition-colors cursor-pointer" onclick="window.switchView('tour')">
      <div id="ticker-display" class="whitespace-nowrap text-[9px] md:text-xs text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
-        <div class="animate-marquee shrink-0 px-4"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
-        <div class="animate-marquee shrink-0 px-4" aria-hidden="true"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <div class="animate-marquee shrink-0 px-4"><span class="theme-text"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <div class="animate-marquee shrink-0 px-4" aria-hidden="true"><span class="theme-text"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
      </div>
   </div>
 
@@ -97,14 +96,21 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djYellow font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
       <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djYellow/10 group-hover:text-djYellow flex items-center justify-center transition-colors"><i class="fa-solid fa-compact-disc text-xs md:text-xl"></i></div><span class="mt-1">Mashups</span>
     </button>
-    <button id="btn-nav-promoters" onclick="window.switchView('promoters')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djGreen font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djGreen/10 group-hover:text-djGreen flex items-center justify-center transition-colors"><i class="fa-solid fa-calculator text-xs md:text-xl"></i></div><span class="mt-1 truncate max-w-full">Promotores</span>
+    <button id="btn-nav-booking" onclick="window.switchView('booking')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djGreen font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
+      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djGreen/10 group-hover:text-djGreen flex items-center justify-center transition-colors"><i class="fa-solid fa-calculator text-xs md:text-xl"></i></div><span class="mt-1 truncate max-w-full">Booking</span>
     </button>
   </nav>
 
   <div class="glass-card flex-grow w-full h-full relative overflow-hidden order-1 md:order-2 border-t md:border-t-0 border-white/5">
-    <div id="view-tour" class="app-view active">
-      <div class="absolute top-3 left-3 right-3 z-30 flex items-center gap-2 pointer-events-auto">
+    
+    <div id="view-tour" class="app-view active bg-black/40">
+      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
+        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+          <i class="fa-solid fa-map-location-dot mr-2 ee-trigger cursor-pointer transition-transform"></i> Tour Oficial
+        </h2>
+        <p class="text-[10px] text-gray-400 mt-1">Pueblos conquistados y mapa interactivo.</p>
+      </div>
+      <div class="flex items-center gap-2 p-3 bg-white/[0.02] border-b border-white/5 shrink-0 z-30 relative">
         <div class="relative flex-grow max-w-sm">
           <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-9 pr-3 py-2 text-xs rounded-xl text-white outline-none focus:border-djCyan transition-colors shadow-lg">
           <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
@@ -113,24 +119,15 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
         <button id="btn-toggle-tour" class="bg-black/80 border border-white/10 hover:border-djCyan text-djCyan px-3 h-[34px] rounded-xl flex items-center justify-center text-xs font-bold uppercase tracking-widest transition-colors shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-1.5"></i> Mapa</button>
         <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-[34px] h-[34px] rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors shadow-lg hidden"><i class="fa-solid fa-expand text-sm"></i></button>
       </div>
-
-      <div id="tour-album-container" class="w-full h-full bg-black/40 relative overflow-y-auto custom-scrollbar pt-16 px-4 pb-4">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex items-center gap-3 mb-6 border-b border-white/10 pb-3">
-            <i class="fa-solid fa-book-open text-djCyan text-xl md:text-2xl drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]"></i>
-            <h2 class="font-display font-black text-white text-lg md:text-xl uppercase tracking-widest">Pueblos Conquistados</h2>
-          </div>
-          <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5 content-start"></div>
-        </div>
+      <div id="tour-album-container" class="w-full flex-grow relative overflow-y-auto custom-scrollbar p-4">
+        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5 content-start max-w-6xl mx-auto"></div>
       </div>
-
-      <div id="tour-map-container" class="w-full h-full bg-black/40 relative overflow-hidden rounded-2xl hidden">
+      <div id="tour-map-container" class="w-full flex-grow relative overflow-hidden hidden">
         <div class="w-full h-full content-area relative" id="tour-viewport"><div class="zoom-layer" id="tour-layer"></div></div>
       </div>
-
       <div id="info-overlay" class="slide-panel">
         <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
-          <div><h3 id="info-title" class="text-lg md:text-xl font-display font-black text-white uppercase tracking-tighter mb-0.5">TOUR</h3><div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Selecciona en el mapa</span></div></div>
+          <div><h3 id="info-title" class="text-lg md:text-xl font-display font-black text-white uppercase tracking-tighter mb-0.5">TOUR</h3><div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Selecciona</span></div></div>
           <button id="btn-close-tour" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
         <div id="info-events" class="flex-grow flex flex-col gap-3 p-4 md:p-5 overflow-y-auto custom-scrollbar"></div>
@@ -138,10 +135,16 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     </div>
 
     <div id="view-setup" class="app-view bg-black/40">
-      <div class="w-full h-full content-area p-2 relative">
+      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0 z-10 relative">
+        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+          <i class="fa-solid fa-sliders mr-2 ee-trigger cursor-pointer transition-transform"></i> Equipo Técnico
+        </h2>
+        <p class="text-[10px] text-gray-400 mt-1">Hardware y configuración en cabina.</p>
+      </div>
+      <div class="w-full flex-grow p-2 relative">
         <div class="w-full h-full flex justify-center items-center relative">
           <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block select-none touch-none rounded-xl">
-            <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[85vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
+            <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[75vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
             <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20 outline-none"></svg>
             <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
           </div>
@@ -150,7 +153,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
       <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[10px] hidden font-bold bg-black/90 px-3 py-1.5 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS</p>
       <div id="setup-overlay" class="slide-panel">
         <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start shrink-0">
-          <div><div id="setup-status" class="flex items-center gap-1.5 mb-1"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Hardware</span></div><h3 id="setup-t" class="text-base md:text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
+          <div><div id="setup-status" class="flex items-center gap-1.5 mb-1"><div class="w-2 h-2 rounded-full theme-bg"></div><span class="theme-text text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Activo</span></div><h3 id="setup-t" class="text-base md:text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
           <button id="btn-close-setup" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
         <div class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-xs md:text-sm leading-relaxed whitespace-pre-wrap"></p></div>
@@ -158,15 +161,20 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
     </div>
 
     <div id="view-mashups" class="app-view bg-black/40">
-      <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black text-djYellow text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.3)]"><i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 4s;"></i> Mashups & Edits</h2>
+      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
+        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+          <i class="fa-solid fa-compact-disc mr-2 ee-trigger cursor-pointer transition-transform animate-spin" style="animation-duration: 4s;"></i> Mashups & Edits
+        </h2>
+        <p class="text-[10px] text-gray-400 mt-1">Tracks exclusivos, mixes y descargas directas.</p>
       </div>
       <div id="mashups-grid" class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 content-start"></div>
     </div>
 
-    <div id="view-promoters" class="app-view bg-black/40 flex flex-col overflow-hidden">
+    <div id="view-booking" class="app-view bg-black/40 flex flex-col overflow-hidden">
       <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black text-djGreen text-xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(0,255,136,0.3)]"><i class="fa-solid fa-file-invoice-dollar mr-2"></i> Presupuesto Estimado</h2>
+        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+          <i class="fa-solid fa-file-invoice-dollar mr-2 ee-trigger cursor-pointer transition-transform"></i> Booking Oficial
+        </h2>
         <p class="text-[10px] text-gray-400 mt-1">Configura los parámetros para calcular tu cotización.</p>
       </div>
       <div class="flex-grow flex items-center justify-center p-2 w-full overflow-y-auto md:overflow-hidden custom-scrollbar">
@@ -188,8 +196,6 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </main>
 
-<img id="ee-img" src="vaquero.png" alt="Vaquero" class="fixed bottom-4 right-4 w-14 h-14 md:w-16 md:h-16 z-[100] transition-transform duration-100 ease-out cursor-pointer hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" style="transform-origin: center;" title="¡Púlsame!">
-
 <div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
     <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
@@ -204,14 +210,14 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   <div class="p-4 overflow-y-auto max-h-[65vh] space-y-3 custom-scrollbar">
     <div id="sec-a-tour" class="space-y-3">
       <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
-      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input text-xs"><select id="a-muni-status" class="admin-input px-1 text-xs"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
+      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input text-xs flex-1"><select id="a-muni-status" class="admin-input px-1 text-xs w-24"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
+      <input type="text" id="a-muni-img" placeholder="URL Imagen Cromo Pueblo" class="admin-input text-xs">
       <div id="a-ev-list" class="space-y-1 bg-black/30 p-2 rounded-xl border border-white/5 max-h-28 overflow-y-auto custom-scrollbar"></div>
       <div class="pt-2 border-t border-white/5 space-y-2">
-        <label id="a-ev-t" class="text-[10px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Fecha</label>
+        <label id="a-ev-t" class="text-[10px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Añadir Fecha</label>
         <div class="grid grid-cols-2 gap-2"><input type="text" id="a-ev-p" placeholder="Sala" class="admin-input text-xs"><input type="date" id="a-ev-d" class="admin-input text-xs [color-scheme:dark]"></div>
         <textarea id="a-ev-desc" placeholder="Detalles..." class="admin-input h-14 resize-none text-xs"></textarea>
-        <input type="text" id="a-ev-img" placeholder="URL Imagen Álbum" class="admin-input text-xs">
-        <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10"><i class="fa-solid fa-rotate-left"></i></button></div>
+        <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar Info Pueblo</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10"><i class="fa-solid fa-rotate-left"></i></button></div>
       </div>
     </div>
     
@@ -267,20 +273,22 @@ const db=getDatabase(app),auth=getAuth(app),provider=new GoogleAuthProvider(),$=
 let dbData={municipalities:{},components:{},mashups:{},config:{},analytics:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false, tourMode='album';
 const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
 
-// EASTER EGG REVOLUCIONADO
-let eeC=0; const eeI=$('ee-img'), au=new Audio('tag.flac');
-if(eeI) eeI.onclick=()=>{
-  eeC++; if(eeC>=3){
-    const ov=$('ee-overlay'), ws=$$('.ee-w'); eeI.style.display='none'; ov.classList.remove('hidden');
-    try { au.currentTime = 0; au.play().catch(e=>{}); } catch(e){}
-    [0, 400, 800, 1400, 2200].forEach((t,i)=>setTimeout(()=>ws[i].classList.remove('opacity-0','translate-y-4','scale-50'), t));
-    setTimeout(()=>{ ov.classList.add('hidden'); eeC=0; eeI.style.display='block'; ws.forEach(w=>w.classList.add('opacity-0','translate-y-4','scale-50')); }, 5500);
-  } else { eeI.style.transform=`scale(${1+(eeC*0.15)}) rotate(${eeC*10}deg)`; setTimeout(()=>eeI.style.transform='', 150); }
-};
+// EASTER EGG GLOBAL (Iconos en Secciones)
+let eeC=0; const au=new Audio('tag.flac');
+$$('.ee-trigger').forEach(el=>{
+  el.onclick=(e)=>{
+    e.stopPropagation(); eeC++; el.style.transform=`scale(${1+(eeC*0.15)}) rotate(${eeC*20}deg)`; setTimeout(()=>el.style.transform='',150);
+    if(eeC>=3){
+      const ov=$('ee-overlay'), ws=$$('.ee-w'); ov.classList.remove('hidden'); try{au.currentTime=0;au.play().catch(e=>{});}catch(e){}
+      [0,400,800,1400,2200].forEach((t,i)=>setTimeout(()=>ws[i].classList.remove('opacity-0','translate-y-4','scale-50'), t));
+      setTimeout(()=>{ ov.classList.add('hidden'); eeC=0; ws.forEach(w=>w.classList.add('opacity-0','translate-y-4','scale-50')); }, 5500);
+    }
+  }
+});
 
 window.calcBudget=()=>{
   const type=$('p-type')?.value, duration=parseInt($('p-duration')?.value)||2, sound=$('p-sound')?.value, location=$('p-location')?.value;
-  if(!type) return; let base=type==='festival'?480:type==='private'?350:250, ex=duration-2, tM=base+(ex>0?ex*70:0)+(sound==='full'?240:0)+(location==='regional'?80:location==='national'?220:0);
+  let base=type==='festival'?480:type==='private'?350:250, ex=duration-2, tM=base+(ex>0?ex*70:0)+(sound==='full'?240:0)+(location==='regional'?80:location==='national'?220:0);
   if($('p-result')) $('p-result').innerText=`${tM}€ - ${Math.round(tM*1.25)}€`;
 };
 window.trackClick=t=>set(ref(db, `analytics/${t}`), (dbData.analytics?.[t]||0)+1);
@@ -288,23 +296,20 @@ function toggleAdminMode(a){tog(document.body,'admin-active',a);tog($('setup-img
 
 window.switchView=v=>{
   if(v!=='setup'&&!$('admin-panel').classList.contains('hidden'))toggleAdminMode(false);
-  const c={tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',promoters:'#00ff88'}, cl={tour:'djCyan',setup:'djMagenta',mashups:'djYellow',promoters:'djGreen'};
+  const c={tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',booking:'#00ff88'}, cl={tour:'djCyan',setup:'djMagenta',mashups:'djYellow',booking:'djGreen'};
   document.documentElement.style.setProperty('--tc',c[v]);
-  ['tour','setup','mashups','promoters'].forEach(x=>{
-    const el=$(`view-${x}`), b=$(`btn-nav-${x}`); if(!el||!b)return; const a=x===v; tog(el,'active',a);
+  ['tour','setup','mashups','booking'].forEach(x=>{
+    const el=$(`view-${x}`), b=$(`btn-nav-${x}`), a=x===v; tog(el,'active',a); if(!b)return;
     b.className=a?`nav-btn w-full py-1 text-${cl[x]} font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs`:`nav-btn group w-full py-1 text-gray-500 hover:text-${cl[x]} font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs`;
     b.querySelector('div').className=a?`w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center transition-colors bg-${cl[x]}/20 text-${cl[x]} shadow-[0_0_10px_var(--tc)]`:`w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-${cl[x]}/10 group-hover:text-${cl[x]} transition-colors text-gray-400`;
     if(a&&x==='tour'&&!document.body.classList.contains('admin-active')) setTimeout(()=>$('btn-reset-map')?.click(), 100); 
-    if(a&&x==='promoters') window.calcBudget();
+    if(a&&x==='booking') window.calcBudget();
   });
 };
 
-// Lógica de Toggle Tour View (Álbum / Mapa)
 const togTourView=(force)=>{
-  tourMode=force||(tourMode==='album'?'map':'album');
-  const isM=tourMode==='map', bt=$('btn-toggle-tour');
-  tog($('tour-album-container'),'hidden',isM); tog($('tour-map-container'),'hidden',!isM);
-  tog($('btn-reset-map'),'hidden',!isM);
+  tourMode=force||(tourMode==='album'?'map':'album'); const isM=tourMode==='map', bt=$('btn-toggle-tour');
+  tog($('tour-album-container'),'hidden',isM); tog($('tour-map-container'),'hidden',!isM); tog($('btn-reset-map'),'hidden',!isM);
   if(bt) bt.innerHTML=isM?'<i class="fa-solid fa-book-open mr-1.5"></i> Álbum':'<i class="fa-solid fa-map mr-1.5"></i> Mapa';
   if(isM) setTimeout(()=>$('btn-reset-map')?.click(),50); else clTour();
 };
@@ -327,13 +332,11 @@ onValue(ref(db,'/'),s=>{
   try{renderMap();renderComp();renderMash();renderAlbum();updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
 });
 
-// Render Álbum
 const renderAlbum=()=>{
   const g=$('album-grid'); if(!g)return;
   const m=Object.entries(dbData.municipalities||{}).filter(([_,d])=>d.status==='unlocked');
   g.innerHTML=m.length?m.map(([id,d])=>{
-    let img='logo.png'; if(d.events){ const ev=Object.values(d.events).find(e=>e.image); if(ev) img=ev.image; }
-    const n=/^zona/i.test(d.name||id)?id.replace(/_/g,' '):(d.name||id.replace(/_/g,' '));
+    let img=d.img||'logo.png'; const n=/^zona/i.test(d.name||id)?id.replace(/_/g,' '):(d.name||id.replace(/_/g,' '));
     return `<div class="glass-card overflow-hidden cursor-pointer group hover:border-djCyan transition-all flex flex-col items-center justify-center relative p-1" onclick="window.selMuni('${id}')"><div class="h-28 w-full bg-black relative overflow-hidden rounded-xl border border-white/5"><img src="${img}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"></div><div class="p-2 w-full text-center"><h3 class="font-display font-black text-white text-[10px] md:text-xs uppercase tracking-tight truncate">${n}</h3></div></div>`;
   }).join(''):'<p class="text-gray-500 text-xs col-span-full text-center py-10 w-full italic">Aún no hay pueblos conquistados.</p>';
 };
@@ -371,7 +374,7 @@ fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
 const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
 window.selMuni=id=>{
   currMuni=id; renderMap(); const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));
-  if(iTit)iTit.innerText=n; if($('a-muni-id'))$('a-muni-id').value=id; if($('a-muni-name'))$('a-muni-name').value=n; clrEv(); popEv(id); tog(iAnc,'open',true); $('view-tour').classList.add('panel-active');
+  if(iTit)iTit.innerText=n; if($('a-muni-id'))$('a-muni-id').value=id; if($('a-muni-name'))$('a-muni-name').value=n; if($('a-muni-img'))$('a-muni-img').value=m.img||''; clrEv(); popEv(id); tog(iAnc,'open',true); $('view-tour').classList.add('panel-active');
   if(m.status==='unlocked'){
     if($('a-muni-status'))$('a-muni-status').value='unlocked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;
     let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-3 md:p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;
@@ -401,11 +404,11 @@ if($('btn-dl-cp')) $('btn-dl-cp').onclick=()=>{if(confirm('¿Borrar equipo?'))re
 if($('a-comp-sel')) $('a-comp-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-comp-t','a-comp-d'].forEach(i=>{if($(i))$(i).value=''});cFigs=[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',true)}else{const d=dbData.components[v]||{};if($('a-comp-t'))$('a-comp-t').value=d.title||'';if($('a-comp-d'))$('a-comp-d').value=d.desc||'';cFigs=d.figures?d.figures.map(f=>[...f]):[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',false)}renderAdminPts()};
 
 window.delEv=(mid,eid)=>{if(confirm('¿Borrar fecha?')){const u={};getGroup(mid).forEach(gid=>u[`municipalities/${gid}/events/${eid}`]=null);update(ref(db),u)}};
-window.edEv=(m,e)=>{const v=(dbData.municipalities[m]||{}).events[e]||{};if($('a-ev-id'))$('a-ev-id').value=e;if($('a-ev-p'))$('a-ev-p').value=v.place||'';if($('a-ev-d'))$('a-ev-d').value=v.date||'';if($('a-ev-desc'))$('a-ev-desc').value=v.details||'';if($('a-ev-img'))$('a-ev-img').value=v.image||'';tog($('btn-cl-ev'),'hidden',false);if($('btn-sv-ev'))$('btn-sv-ev').innerText='OK';if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-pen mr-1"></i> Editando';};
+window.edEv=(m,e)=>{const v=(dbData.municipalities[m]||{}).events[e]||{};if($('a-ev-id'))$('a-ev-id').value=e;if($('a-ev-p'))$('a-ev-p').value=v.place||'';if($('a-ev-d'))$('a-ev-d').value=v.date||'';if($('a-ev-desc'))$('a-ev-desc').value=v.details||'';tog($('btn-cl-ev'),'hidden',false);if($('btn-sv-ev'))$('btn-sv-ev').innerText='OK';if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-pen mr-1"></i> Editando';};
 const popEv=id=>{const m=dbData.municipalities[id]||{},l=$('a-ev-list');if(!l)return;l.innerHTML='';if(m.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-3 py-2 rounded-lg text-[10px] border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-3 shrink-0"><button class="text-djCyan hover:text-white" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);};
-const clrEv=()=>{['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-img'].forEach(i=>{if($(i))$(i).value=''});if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-plus mr-1"></i> Fecha';if($('btn-sv-ev'))$('btn-sv-ev').innerText='Guardar';tog($('btn-cl-ev'),'hidden',true)};
+const clrEv=()=>{['a-ev-id','a-ev-p','a-ev-d','a-ev-desc'].forEach(i=>{if($(i))$(i).value=''});if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-plus mr-1"></i> Añadir Fecha';if($('btn-sv-ev'))$('btn-sv-ev').innerText='Guardar Info Pueblo';tog($('btn-cl-ev'),'hidden',true)};
 if($('btn-cl-ev')) $('btn-cl-ev').onclick=clrEv;
-if($('btn-sv-ev')) $('btn-sv-ev').onclick=()=>{const id=$('a-muni-id')?.value,p=$('a-ev-p')?.value,eid=$('a-ev-id')?.value;if(!id)return;const u={},n=$('a-muni-name')?.value||id,s=$('a-muni-status')?.value,eI=eid||push(ref(db,`municipalities/${id}/events`)).key,pd=(p||eid)?{place:p,date:$('a-ev-d')?.value,details:$('a-ev-desc')?.value,image:$('a-ev-img')?.value}:null;getGroup(id).forEach(g=>{u[`municipalities/${g}/status`]=s;u[`municipalities/${g}/name`]=n;if(pd)u[`municipalities/${g}/events/${eI}`]=pd});update(ref(db),u).then(()=>{clrEv();selMuni(id)})};
+if($('btn-sv-ev')) $('btn-sv-ev').onclick=()=>{const id=$('a-muni-id')?.value,p=$('a-ev-p')?.value,eid=$('a-ev-id')?.value;if(!id)return;const u={},n=$('a-muni-name')?.value||id,s=$('a-muni-status')?.value,i=$('a-muni-img')?.value||null,eI=eid||push(ref(db,`municipalities/${id}/events`)).key,pd=(p||eid)?{place:p,date:$('a-ev-d')?.value,details:$('a-ev-desc')?.value}:null;getGroup(id).forEach(g=>{u[`municipalities/${g}/status`]=s;u[`municipalities/${g}/name`]=n;u[`municipalities/${g}/img`]=i;if(pd)u[`municipalities/${g}/events/${eI}`]=pd});update(ref(db),u).then(()=>{clrEv();selMuni(id)})};
 
 const updateDds=()=>{const c=$('a-comp-sel'),m=$('a-mash-sel');if(!c||!m)return;const cv=c.value,mv=m.value;let ch='<option value="NEW">✨ NUEVO HARDWARE</option>',mh='<option value="NEW">✨ NUEVO TRACK</option>';Object.entries(dbData.components||{}).forEach(([i,d])=>ch+=`<option value="${i}">${d.title}</option>`);Object.entries(dbData.mashups||{}).forEach(([i,d])=>mh+=`<option value="${i}">${d.title}</option>`);c.innerHTML=ch;m.innerHTML=mh;if((dbData.components||{})[cv])c.value=cv;if((dbData.mashups||{})[mv])m.value=mv};
 if($('a-mash-sel')) $('a-mash-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-mash-t','a-mash-dl','a-mash-sc'].forEach(i=>{if($(i))$(i).value=''});tog($('btn-dl-ms'),'hidden',true)}else{const d=dbData.mashups[v]||{};if($('a-mash-t'))$('a-mash-t').value=d.title||'';if($('a-mash-dl'))$('a-mash-dl').value=d.dl||'';if($('a-mash-sc'))$('a-mash-sc').value=d.scUrl||'';tog($('btn-dl-ms'),'hidden',false)}};
