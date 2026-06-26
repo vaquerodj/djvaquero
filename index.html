@@ -2,70 +2,68 @@
 <html lang="es" class="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <title>DJ VAQUERO | Web Oficial</title>
 <link rel="icon" type="image/png" href="logo.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600',djGreen:'#00ff88'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite','pulse-fast':'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}}}}}};
+tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#020306',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600',djGreen:'#00ff88'},fontFamily:{display:['Space Grotesk','sans-serif'],body:['Plus Jakarta Sans','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-8px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}}}}}};
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{--tc:#00e5ff;}
 body:not(.admin-active),body:not(.admin-active) *{cursor:url('cursor.png') 2 2,auto!important;}
-body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease}
-@media(min-width: 768px){body{padding:1rem;gap:1rem}}
-::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
-.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden} .ambient-glow{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.35;will-change:transform;transition:background 0.8s ease}
-.glow-1{top:-10%;left:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} .glow-2{bottom:-10%;right:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
-.glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.85) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
-.social-icon{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.2s ease-out} 
-@media(min-width: 768px){.social-icon{width:38px;height:38px;border-radius:10px;}}
-.social-icon:hover{color:#fff;transform:scale(1.1) translateY(-2px)}
-.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.3)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea} .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.3)} .social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4)}
-.app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform:scale(0.99) translateY(10px);z-index:0;display:flex;flex-direction:column;border-radius:16px;overflow:hidden} .app-view.active{opacity:1;pointer-events:auto;transform:scale(1) translateY(0);z-index:10}
-.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative} .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
-.muni{pointer-events:all;transition:all 0.3s ease;outline:none} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
-.comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s;outline:none} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 15%, transparent);stroke:var(--tc);stroke-width:0.6px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 50%, transparent))}
-.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;outline:none;transition:border 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.8)} .admin-input option{background:#0e1118}
-.slide-panel{position:absolute;z-index:40;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;overflow:hidden}
+body{background-color:#020306;color:#f3f4f6;font-family:'Plus Jakarta Sans',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease}
+@media(min-width:768px){body{padding:1rem;gap:1rem}}
+::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:4px;height:4px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
+.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden} .ambient-glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.25;will-change:transform}
+.glow-1{top:-10%;left:-10%;width:60vw;height:60vw;background:radial-gradient(circle,color-mix(in srgb,var(--tc) 40%,transparent) 0%,transparent 70%);animation:float 10s infinite alternate} .glow-2{bottom:-10%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle,color-mix(in srgb,var(--tc) 25%,transparent) 0%,transparent 70%);animation:float 12s infinite alternate-reverse}
+.glass-card{background:linear-gradient(145deg,rgba(8,11,19,0.75) 0%,rgba(3,5,8,0.92) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06)}
+.social-icon{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.03);color:#a1a1aa;border:1px solid rgba(255,255,255,0.03);transition:all 0.25s cubic-bezier(0.4,0,0.2,1)} 
+@media(min-width:768px){.social-icon{width:40px;height:40px;border-radius:12px;}}
+.social-icon:hover{color:#fff;transform:scale(1.1) translateY(-2px);border-color:rgba(255,255,255,0.15)}
+.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 20px rgba(220,39,67,0.35)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 10px rgba(0,229,255,0.5),2px -2px 10px rgba(255,0,234,0.5)} .social-sc:hover{background:#ff5500;box-shadow:0 8px 20px rgba(255,85,0,0.35)} .social-yt:hover{background:#f00;box-shadow:0 8px 20px rgba(255,0,0,0.35)}
+.app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);transform:scale(0.985) translateY(12px);z-index:0;display:flex;flex-direction:column;border-radius:20px;overflow:hidden} .app-view.active{opacity:1;pointer-events:auto;transform:scale(1) translateY(0);z-index:10}
+.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.25s ease;position:relative} .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
+.muni{pointer-events:all;transition:all 0.3s ease;outline:none} .muni-base{fill:#05070c;stroke:rgba(255,255,255,0.02);stroke-width:1px} .muni-base:hover{fill:#0e121f;stroke:rgba(255,255,255,0.12)} .muni-base.muni-selected{fill:color-mix(in srgb,var(--tc) 15%,#05070c);stroke:var(--tc);stroke-width:1.6px;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--tc) 50%,transparent))} .muni-unlocked{fill:color-mix(in srgb,var(--tc) 10%,#010204);stroke:color-mix(in srgb,var(--tc) 35%,transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb,var(--tc) 22%,#010204);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.6px;filter:drop-shadow(0 0 14px var(--tc))}
+.comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s;outline:none} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb,var(--tc) 18%,transparent);stroke:var(--tc);stroke-width:0.7px!important;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--tc) 60%,transparent))}
+.admin-input{width:100%;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.08);padding:0.6rem 0.8rem;color:#fff;border-radius:10px;font-size:0.75rem;outline:none;transition:all 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.75);box-shadow:0 0 10px color-mix(in srgb,var(--tc) 15%,transparent)} .admin-input option{background:#0a0d14}
+.slide-panel{position:absolute;z-index:40;background:rgba(4,6,10,0.97);backdrop-filter:blur(28px);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;overflow:hidden}
 #tour-viewport, #setup-wrapper { transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
-@media (max-width: 767px) { 
-  .slide-panel{bottom:0;left:0;right:0;width:100%;height:45%;max-width:100%;border-top:1px solid rgba(255,255,255,0.05);transform:translateY(100%);border-radius:16px 16px 0 0} .slide-panel.open{transform:translateY(0)} 
+@media (max-width:767px){
+  .slide-panel{bottom:0;left:0;right:0;width:100%;height:48%;max-width:100%;border-top:1px solid rgba(255,255,255,0.06);transform:translateY(100%);border-radius:20px 20px 0 0} .slide-panel.open{transform:translateY(0)} 
   body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translateY(-15%); }
 }
-@media (min-width: 768px) { 
-  .slide-panel{top:0;right:0;height:100%;width:340px;max-width:340px;border-left:1px solid rgba(255,255,255,0.05);transform:translateX(100%)} .slide-panel.open{transform:translateX(0)} 
-  body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translateX(-120px); }
+@media (min-width:768px){
+  .slide-panel{top:0;right:0;height:100%;width:350px;max-width:350px;border-left:1px solid rgba(255,255,255,0.06);transform:translateX(100%)} .slide-panel.open{transform:translateX(0)} 
+  body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translateX(-175px); }
 }
-.marquee-container{mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
-.theme-text{color:var(--tc);text-shadow:0 0 10px color-mix(in srgb, var(--tc) 40%, transparent)} .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)} .theme-border{border-color:var(--tc)}
-@keyframes ee-idle { 0%, 100% { transform: scale(1) translateY(0) rotate(0deg); filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); } 25% { transform: scale(1.15) translateY(-6px) rotate(-8deg); filter: drop-shadow(0 0 15px var(--tc)); } 75% { transform: scale(1.15) translateY(-6px) rotate(8deg); filter: drop-shadow(0 0 15px var(--tc)); } }
-#ee-img { animation: ee-idle 1.3s infinite ease-in-out; }
-.ee-word { opacity: 0; transform: translateY(30px) scale(0.8); animation: ee-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+.marquee-container{mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent)}
+.theme-text{color:var(--tc);text-shadow:0 0 12px color-mix(in srgb,var(--tc) 45%,transparent)} .theme-bg{background:color-mix(in srgb,var(--tc) 20%,transparent);color:var(--tc);box-shadow:0 0 12px color-mix(in srgb,var(--tc) 35%,transparent)} .theme-border{border-color:var(--tc)}
+@keyframes ee-idle { 0%, 100% { transform: scale(1) translateY(0) rotate(0deg); filter: drop-shadow(0 0 5px rgba(255,255,255,0.15)); } 25% { transform: scale(1.12) translateY(-5px) rotate(-6deg); filter: drop-shadow(0 0 15px var(--tc)); } 75% { transform: scale(1.12) translateY(-5px) rotate(6deg); filter: drop-shadow(0 0 15px var(--tc)); } }
+#ee-img { animation: ee-idle 1.4s infinite ease-in-out; }
+.ee-word { opacity: 0; transform: translateY(25px) scale(0.85); animation: ee-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 @keyframes ee-pop { to { opacity: 1; transform: translateY(0) scale(1); } }
-.ee-flash { animation: ee-strobe 0.2s infinite alternate; }
-@keyframes ee-strobe { from { background-color: #010203; } to { background-color: #0c0014; } }
 </style>
 </head>
 <body class="antialiased">
 
-<div id="loader" class="fixed inset-0 z-[999] bg-[#030408] flex items-center justify-center transition-opacity duration-500">
+<div id="loader" class="fixed inset-0 z-[999] bg-[#020306] flex items-center justify-center transition-opacity duration-500">
   <div class="flex flex-col items-center">
-    <h1 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text transition-colors">VAQUERO</span></h1>
-    <div class="mt-6 w-10 h-10 border-4 theme-border border-t-transparent rounded-full animate-spin transition-colors"></div>
+    <h1 class="font-display font-black text-4xl md:text-6xl tracking-tighter text-white uppercase animate-pulse drop-shadow-2xl">DJ <span class="theme-text transition-colors">VAQUERO</span></h1>
+    <div class="mt-6 w-12 h-12 border-4 theme-border border-t-transparent rounded-full animate-spin transition-colors"></div>
   </div>
 </div>
 
-<div id="ee-overlay" class="fixed inset-0 bg-[#010203] z-[9999] flex flex-col items-center justify-center hidden backdrop-blur-xl transition-opacity">
+<div id="ee-overlay" class="fixed inset-0 bg-[#010103] z-[9999] flex flex-col items-center justify-center hidden backdrop-blur-2xl transition-opacity">
   <div class="flex flex-col items-center justify-center font-display uppercase tracking-tighter w-full max-w-5xl px-4">
     <div class="flex justify-between w-full text-white/90 font-bold text-2xl md:text-5xl lg:text-7xl mb-2 md:mb-4">
       <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">ESTÁS</span>
       <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">ESCUCHANDO</span>
       <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">A</span>
     </div>
-    <div class="flex justify-between w-full theme-text font-black text-6xl md:text-9xl lg:text-[12rem] drop-shadow-[0_0_20px_var(--tc)] leading-none">
+    <div class="flex justify-between w-full theme-text font-black text-6xl md:text-9xl lg:text-[12rem] drop-shadow-[0_0_25px_var(--tc)] leading-none">
       <span class="ee-w opacity-0 scale-50 transition-all duration-500">DJ</span>
       <span class="ee-w opacity-0 scale-50 transition-all duration-500">VAQUERO.</span>
     </div>
@@ -76,17 +74,17 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 
 <header class="w-full px-2 z-50 flex justify-between items-center relative shrink-0">
   <div id="site-title" class="select-none active:scale-95 transition-transform flex items-center shrink-0 mr-1 md:mr-2">
-    <h1 class="font-display font-black text-lg md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text transition-colors duration-300">VAQUERO</span></h1>
+    <h1 class="font-display font-black text-xl md:text-4xl tracking-tighter text-white uppercase drop-shadow-xl">DJ <span class="theme-text transition-colors duration-300">VAQUERO</span></h1>
   </div>
   
-  <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-7 md:h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container hover:bg-white/5 transition-colors" onclick="window.switchView('tour')">
+  <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-8 md:h-10 relative flex items-center bg-black/50 rounded-xl border border-white/5 marquee-container hover:bg-white/10 transition-colors cursor-pointer" onclick="window.switchView('tour')">
      <div id="ticker-display" class="whitespace-nowrap text-[9px] md:text-xs text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
         <div class="animate-marquee shrink-0 px-4"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
         <div class="animate-marquee shrink-0 px-4" aria-hidden="true"><span class="theme-text transition-colors"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
      </div>
   </div>
 
-  <div class="flex gap-1 md:gap-2 shrink-0 ml-1">
+  <div class="flex gap-1.5 md:gap-2.5 shrink-0 ml-1">
     <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram"></i></a>
     <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok"></i></a>
     <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube"></i></a>
@@ -94,19 +92,19 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </header>
 
-<main class="w-full flex-grow flex flex-col md:flex-row gap-1.5 md:gap-3 relative z-10 overflow-hidden">
-  <nav class="glass-card flex md:flex-col justify-around md:justify-center gap-1 md:gap-5 p-1.5 md:p-2 md:w-24 shrink-0 order-2 md:order-1 z-50">
-    <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn w-full py-1 text-djCyan font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-djCyan/20 text-djCyan shadow-[0_0_10px_rgba(0,229,255,0.4)] flex items-center justify-center transition-colors"><i class="fa-solid fa-map-location-dot text-xs md:text-xl"></i></div><span class="mt-1">Tour</span>
+<main class="w-full flex-grow flex flex-col md:flex-row gap-2 md:gap-4 relative z-10 overflow-hidden">
+  <nav class="glass-card grid grid-cols-4 md:flex md:flex-col justify-center gap-1.5 md:gap-6 p-1.5 md:p-3 md:w-24 shrink-0 order-2 md:order-1 z-50">
+    <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn w-full py-2 text-djCyan font-bold uppercase tracking-widest text-[9px] md:text-[11px]">
+      <div class="w-9 h-9 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-djCyan/20 text-djCyan shadow-[0_0_12px_rgba(0,229,255,0.4)] flex items-center justify-center transition-all border border-djCyan/30"><i class="fa-solid fa-map-location-dot text-sm md:text-xl"></i></div><span class="mt-1 block truncate px-0.5">Tour</span>
     </button>
-    <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djMagenta font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djMagenta/10 group-hover:text-djMagenta flex items-center justify-center transition-colors"><i class="fa-solid fa-sliders text-xs md:text-xl"></i></div><span class="mt-1">Equipo</span>
+    <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-2 text-gray-400 hover:text-djMagenta font-bold uppercase tracking-widest text-[9px] md:text-[11px]">
+      <div class="w-9 h-9 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djMagenta/10 group-hover:text-djMagenta group-hover:border-djMagenta/30 border border-transparent flex items-center justify-center transition-all"><i class="fa-solid fa-sliders text-sm md:text-xl"></i></div><span class="mt-1 block truncate px-0.5">Equipo</span>
     </button>
-    <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djYellow font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djYellow/10 group-hover:text-djYellow flex items-center justify-center transition-colors"><i class="fa-solid fa-compact-disc text-xs md:text-xl"></i></div><span class="mt-1">Mashups</span>
+    <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-2 text-gray-400 hover:text-djYellow font-bold uppercase tracking-widest text-[9px] md:text-[11px]">
+      <div class="w-9 h-9 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djYellow/10 group-hover:text-djYellow group-hover:border-djYellow/30 border border-transparent flex items-center justify-center transition-all"><i class="fa-solid fa-compact-disc text-sm md:text-xl"></i></div><span class="mt-1 block truncate px-0.5">Mashups</span>
     </button>
-    <button id="btn-nav-promoters" onclick="window.switchView('promoters')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djGreen font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djGreen/10 group-hover:text-djGreen flex items-center justify-center transition-colors"><i class="fa-solid fa-calculator text-xs md:text-xl"></i></div><span class="mt-1 truncate max-w-full">Promotores</span>
+    <button id="btn-nav-promotores" onclick="window.switchView('promotores')" class="nav-btn group w-full py-2 text-gray-400 hover:text-djGreen font-bold uppercase tracking-widest text-[9px] md:text-[11px]">
+      <div class="w-9 h-9 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djGreen/10 group-hover:text-djGreen group-hover:border-djGreen/30 border border-transparent flex items-center justify-center transition-all"><i class="fa-solid fa-calculator text-sm md:text-xl"></i></div><span class="mt-1 block truncate px-0.5">Promotores</span>
     </button>
   </nav>
 
@@ -125,7 +123,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
       </div>
       <div id="info-overlay" class="slide-panel">
         <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
-          <div><h3 id="info-title" class="text-lg md:text-xl font-display font-black text-white uppercase tracking-tighter mb-0.5">TOUR</h3><div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Selecciona en el mapa</span></div></div>
+          <div><h3 id="info-title" class="text-lg md:text-xl font-display font-black text-white uppercase tracking-tighter mb-0.5">ZONA</h3><div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona en el mapa</span></div></div>
           <button id="btn-close-tour" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
         <div id="info-events" class="flex-grow flex flex-col gap-3 p-4 md:p-5 overflow-y-auto custom-scrollbar"></div>
@@ -145,7 +143,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
       <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[10px] hidden font-bold bg-black/90 px-3 py-1.5 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS</p>
       <div id="setup-overlay" class="slide-panel">
         <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start shrink-0">
-          <div><div id="setup-status" class="flex items-center gap-1.5 mb-1"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Hardware</span></div><h3 id="setup-t" class="text-base md:text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
+          <div><div id="setup-status" class="flex items-center gap-1.5 mb-1"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Hardware</span></div><h3 id="setup-t" class="text-base md:text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
           <button id="btn-close-setup" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
         <div class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-xs md:text-sm leading-relaxed whitespace-pre-wrap"></p></div>
@@ -154,56 +152,62 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 
     <div id="view-mashups" class="app-view bg-black/40">
       <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black text-djYellow text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.3)]"><i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration: 4s;"></i> Mashups & Edits</h2>
+        <h2 class="font-display font-black text-djYellow text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,214,0,0.3)]"><i class="fa-solid fa-compact-disc mr-2 text-djYellow animate-spin" style="animation-duration:4s;"></i> Mashups & Edits</h2>
       </div>
       <div id="mashups-grid" class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 content-start"></div>
     </div>
 
-    <div id="view-promoters" class="app-view bg-black/40 overflow-y-auto custom-scrollbar">
+    <div id="view-promotores" class="app-view bg-black/40">
       <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black text-djGreen text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(0,255,136,0.3)]"><i class="fa-solid fa-file-invoice-dollar mr-2"></i> Presupuesto Estimado</h2>
-        <p class="text-xs text-gray-400 mt-1">Configura los parámetros del evento para calcular una cotización aproximada.</p>
+        <h2 class="font-display font-black text-djGreen text-xl md:text-2xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(0,255,136,0.3)]"><i class="fa-solid fa-handshake mr-2 text-djGreen"></i> Promotores</h2>
       </div>
-      <div class="p-4 md:p-6 max-w-xl mx-auto w-full">
-        <div class="glass-card p-5 space-y-4 border-djGreen/20">
-          <div>
-            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-1.5">Tipo de Evento</label>
-            <select id="p-type" class="admin-input text-xs" onchange="window.calcBudget()">
-              <option value="club">Discoteca / Club Nocturno</option>
-              <option value="festival">Festival / Macrofiesta / Fiesta de Pueblo</option>
-              <option value="private">Fiesta Privada / Boda / Graduación</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-1.5">Duración de la Actuación</label>
-            <select id="p-duration" class="admin-input text-xs" onchange="window.calcBudget()">
-              <option value="2">Set Corto (Hasta 2 Horas)</option>
-              <option value="3">Set Estándar (3 Horas)</option>
-              <option value="4">Set Extendido (Más de 4 Horas)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-1.5">Equipamiento Técnico e Infraestructura</label>
-            <select id="p-sound" class="admin-input text-xs" onchange="window.calcBudget()">
-              <option value="none">La sala u organizador aporta cabina, sonido e iluminación</option>
-              <option value="full">DJ aporta cabina completa, sonido e iluminación profesional</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-1.5">Ubicación y Desplazamiento</label>
-            <select id="p-location" class="admin-input text-xs" onchange="window.calcBudget()">
-              <option value="local">Salamanca o alrededores (Misma provincia)</option>
-              <option value="regional">Castilla y León / Provincias limítrofes</option>
-              <option value="national">Resto de España / Larga distancia</option>
-            </select>
-          </div>
-          <div class="pt-4 border-t border-white/5 flex flex-col items-center justify-center text-center">
-            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Inversión Estimada</span>
-            <div id="p-result" class="text-3xl md:text-4xl font-display font-black text-djGreen my-2 drop-shadow-[0_0_15px_rgba(0,255,136,0.4)]">---</div>
-            <p class="text-[10px] text-gray-500 max-w-xs mb-4">El rango final varía en función de la fecha seleccionada y la envergadura del rider técnico.</p>
-            <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djGreen text-black font-black w-full py-3.5 rounded-xl text-center text-xs uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(0,255,136,0.3)]">
-              <i class="fa-solid fa-paper-plane"></i> Solicitar Fecha / Contratar
-            </a>
+      <div class="flex-grow p-4 md:p-6 overflow-y-auto custom-scrollbar flex flex-col items-center justify-start md:justify-center">
+        <div class="w-full max-w-xl bg-black/60 border border-white/10 rounded-2xl p-5 md:p-6 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-32 h-32 bg-djGreen/5 rounded-full blur-2xl"></div>
+          <h3 class="text-xs font-display font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2 border-b border-white/5 pb-2"><i class="fa-solid fa-calculator text-djGreen"></i> Calculadora de Contratación</h3>
+          
+          <div class="space-y-4">
+            <div>
+              <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-1.5">Tipo de Evento</label>
+              <select id="calc-type" class="admin-input text-xs py-2.5 bg-zinc-900 border-white/10 rounded-xl focus:border-djGreen w-full">
+                <option value="club">Discoteca / Club de Noche</option>
+                <option value="festival">Festival / Macroevento Público</option>
+                <option value="private">Fiesta Privada / Evento Corporativo</option>
+              </select>
+            </div>
+            
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <label class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Duración de la Sesión</label>
+                <span id="calc-hours-val" class="text-xs font-mono font-bold text-djGreen bg-djGreen/10 px-2 py-0.5 rounded-md">2 Horas</span>
+              </div>
+              <input type="range" id="calc-hours" min="1" max="8" value="2" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-djGreen focus:outline-none">
+            </div>
+            
+            <div>
+              <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-1.5">Equipamiento Técnico Requerido</label>
+              <select id="calc-gear" class="admin-input text-xs py-2.5 bg-zinc-900 border-white/10 rounded-xl focus:border-djGreen w-full">
+                <option value="none">No requerido (El local o festival ya aporta el rider técnico)</option>
+                <option value="basic">Equipo Básico (Sonido P.A. hasta 150 personas + Iluminación LED funcional)</option>
+                <option value="premium">Equipo Premium (Sonido de Alta Potencia + Cabina DJ Completa + Show de Luces Láser y Efectos)</option>
+              </select>
+            </div>
+            
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <label class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Distancia de Desplazamiento (Desde Salamanca)</label>
+                <span id="calc-dist-val" class="text-xs font-mono font-bold text-djGreen bg-djGreen/10 px-2 py-0.5 rounded-md">0 km</span>
+              </div>
+              <input type="range" id="calc-dist" min="0" max="500" step="10" value="0" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-djGreen focus:outline-none">
+            </div>
+            
+            <div class="mt-6 p-4 rounded-xl bg-zinc-950/80 border border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div class="text-center sm:text-left">
+                <span class="block text-[9px] uppercase font-bold text-gray-500 tracking-widest">Presupuesto Estimado</span>
+                <span id="calc-total" class="text-2xl md:text-3xl font-display font-black text-djGreen drop-shadow-[0_0_10px_rgba(0,255,136,0.2)]">300€</span>
+              </div>
+              <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="w-full sm:w-auto text-center bg-djGreen hover:bg-emerald-400 text-black font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(0,255,136,0.3)] hover:scale-[1.03] active:scale-95 whitespace-nowrap"><i class="fa-solid fa-paper-plane mr-1.5"></i> Solicitar Fecha</a>
+            </div>
           </div>
         </div>
       </div>
@@ -211,9 +215,9 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   </div>
 </main>
 
-<img id="ee-img" src="vaquero.png" alt="Vaquero" class="fixed bottom-4 right-4 w-14 h-14 md:w-16 md:h-16 z-[100] transition-transform duration-100 ease-out cursor-pointer" style="transform-origin: center;" title="¡Púlsame!">
+<img id="ee-img" src="vaquero.png" alt="Vaquero" class="fixed bottom-4 right-4 w-14 h-14 md:w-16 md:h-16 z-[100] transition-transform duration-100 ease-out cursor-pointer" style="transform-origin:center;" title="¡Púlsame!">
 
-<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
+<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#06080e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
     <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
     <button id="btn-close-admin" class="w-8 h-8 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-power-off text-sm"></i></button>
@@ -227,7 +231,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
   <div class="p-4 overflow-y-auto max-h-[65vh] space-y-3 custom-scrollbar">
     <div id="sec-a-tour" class="space-y-3">
       <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
-      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona (Vínculo por nombre)" class="admin-input text-xs"><select id="a-muni-status" class="admin-input px-1 text-xs"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
+      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona (Vínculo por nombre)" class="admin-input text-xs"><select id="a-muni-status" class="admin-input flex-[1] px-1 text-xs"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
       <div id="a-ev-list" class="space-y-1 bg-black/30 p-2 rounded-xl border border-white/5 max-h-28 overflow-y-auto custom-scrollbar"></div>
       <div class="pt-2 border-t border-white/5 space-y-2">
         <label id="a-ev-t" class="text-[10px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Fecha</label>
@@ -296,28 +300,14 @@ const db=getDatabase(app),auth=getAuth(app),provider=new GoogleAuthProvider(),$=
 let dbData={municipalities:{},components:{},mashups:{},config:{},analytics:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false;
 const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
 
-// EASTER EGG REVOLUCIONADO
+// EASTER EGG (Mantenido exactamente idéntico y sincronizado según tus instrucciones)
 let eeC=0; const eeI=$('ee-img'), au=new Audio('tag.flac');
 if(eeI) eeI.onclick=()=>{
   eeC++; if(eeC>=3){
-    const ov=$('ee-overlay'), ws=$$('.ee-w'); eeI.style.display='none'; ov.classList.remove('hidden'); ov.classList.add('ee-flash');
-    try { au.currentTime = 0; au.play().catch(e=>{}); } catch(e){}
-    [0, 400, 800, 1400, 2200].forEach((t,i)=>setTimeout(()=>ws[i].classList.remove('opacity-0','translate-y-4','scale-50'), t));
-    setTimeout(()=>{ ov.classList.add('hidden'); ov.classList.remove('ee-flash'); eeC=0; eeI.style.display='block'; ws.forEach(w=>w.classList.add('opacity-0','translate-y-4','scale-50')); }, 5500);
-  } else { eeI.style.transform=`scale(${1+(eeC*0.15)}) rotate(${eeC*10}deg)`; setTimeout(()=>eeI.style.transform='', 150); }
-};
-
-// CALCULADORA DINÁMICA DE PRESUPUESTO
-window.calcBudget=()=>{
-  const type=$('p-type')?.value, duration=parseInt($('p-duration')?.value)||2, sound=$('p-sound')?.value, location=$('p-location')?.value;
-  if(!type) return;
-  let base=250; if(type==='festival') base=480; if(type==='private') base=350;
-  let extraHours=duration-2, durationCost=extraHours>0?extraHours*70:0;
-  let soundCost=sound==='full'?240:0;
-  let travelCost=0; if(location==='regional') travelCost=80; if(location==='national') travelCost=220;
-  let totalMin=base+durationCost+soundCost+travelCost;
-  let totalMax=Math.round(totalMin*1.25);
-  if($('p-result')) $('p-result').innerText=`${totalMin}€ - ${totalMax}€`;
+    const ov=$('ee-overlay'), ws=$$('.ee-w'); eeI.style.display='none'; ov.classList.remove('hidden'); au.play();
+    [0, 500, 1000, 1750, 2750].forEach((t,i)=>setTimeout(()=>ws[i].classList.remove('opacity-0','translate-y-4','scale-50'), t));
+    setTimeout(()=>{ ov.classList.add('hidden'); eeC=0; eeI.style.display='block'; ws.forEach(w=>w.classList.add('opacity-0','translate-y-4','scale-50')); }, 6000);
+  } else { eeI.style.transform=`scale(${1+(eeC*0.1)})`; setTimeout(()=>eeI.style.transform='', 150); }
 };
 
 window.trackClick = t => set(ref(db, `analytics/${t}`), (dbData.analytics?.[t]||0)+1);
@@ -326,18 +316,17 @@ function toggleAdminMode(a) { tog(document.body, 'admin-active', a); tog($('setu
 
 window.switchView = v => {
   if(v!=='setup' && !$('admin-panel').classList.contains('hidden')) toggleAdminMode(false);
-  const col={tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',promoters:'#00ff88'}, cls={tour:'djCyan',setup:'djMagenta',mashups:'djYellow',promoters:'djGreen'};
+  const col={tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',promotores:'#00ff88'}, cls={tour:'djCyan',setup:'djMagenta',mashups:'djYellow',promotores:'djGreen'};
   document.documentElement.style.setProperty('--tc', col[v]);
-  ['tour', 'setup', 'mashups', 'promoters'].forEach(x => {
-    const el=$(`view-${x}`), btn=$(`btn-nav-${x}`); if(!el||!btn)return; const a=x===v; tog(el,'active',a);
-    btn.className = a ? `nav-btn w-full py-1 text-${cls[x]} font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs` : `nav-btn group w-full py-1 text-gray-500 hover:text-${cls[x]} font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs`;
-    btn.querySelector('div').className = a ? `w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center transition-colors bg-${cls[x]}/20 text-${cls[x]} shadow-[0_0_10px_var(--tc)]` : `w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-${cls[x]}/10 group-hover:text-${cls[x]} transition-colors text-gray-400`;
+  ['tour', 'setup', 'mashups', 'promotores'].forEach(x => {
+    const el=$(`view-${x}`), btn=$(`btn-nav-${x}`), a=x===v; if(!el||!btn)return; tog(el,'active',a);
+    btn.className = a ? `nav-btn w-full py-2 text-${cls[x]} font-bold uppercase tracking-widest text-[9px] md:text-[11px]` : `nav-btn group w-full py-2 text-gray-400 hover:text-${cls[x]} font-bold uppercase tracking-widest text-[9px] md:text-[11px]`;
+    btn.querySelector('div').className = a ? `w-9 h-9 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center transition-colors bg-${cls[x]}/20 text-${cls[x]} shadow-[0_0_12px_var(--tc)] border border-${cls[x]}/30` : `w-9 h-9 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-${cls[x]}/10 group-hover:text-${cls[x]} group-hover:border-${cls[x]}/30 border border-transparent transition-all text-gray-400`;
     if(a&&x==='tour'&&!document.body.classList.contains('admin-active')) setTimeout(()=>$('btn-reset-map')?.click(), 100); 
-    if(a&&x==='promoters') window.calcBudget();
   });
 };
 
-const clTour=()=>{currMuni=null;renderMap();tog(iAnc,'open',false);$('view-tour').classList.remove('panel-active');setTimeout(()=>{if(iTit)iTit.innerText='TOUR';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona en el mapa</span>`;if(iEvs)iEvs.innerHTML='';},300)};
+const clTour=()=>{currMuni=null;renderMap();tog(iAnc,'open',false);$('view-tour').classList.remove('panel-active');setTimeout(()=>{if(iTit)iTit.innerText='ZONA';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona en el mapa</span>`;if(iEvs)iEvs.innerHTML='';},300)};
 const clSetup=()=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));tog(sAnc,'open',false);$('view-setup').classList.remove('panel-active');setTimeout(()=>{if(sTit)sTit.innerText='';if(sDesc)sDesc.innerText='';if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Hardware</span>`;},300)};
 if($('btn-close-tour')) $('btn-close-tour').onclick=clTour; if($('btn-close-setup')) $('btn-close-setup').onclick=clSetup;
 
@@ -346,20 +335,46 @@ const getGroup=id=>{const m=dbData.municipalities||{},n=m[id]?.name;return !n||/
 let fL = true;
 onValue(ref(db,'/'),s=>{
   const v = s.val() || {}; dbData = { municipalities: v.municipalities||{}, components: v.components||{}, mashups: v.mashups||{}, config: v.config||{}, analytics: v.analytics||{} };
-  const tk = dbData.config.ticker || "12 OCT - SALAMANCA | 31 OCT - MADRID | ¡MÁS POR CONFIRMAR!";
+  const tk = dbData.config.ticker || "¡MÁS FECHAS POR CONFIRMAR PRÓXIMAMENTE!";
   if($('ticker-text-1')) $('ticker-text-1').innerText = tk; if($('ticker-text-2')) $('ticker-text-2').innerText = tk; if($('a-ticker-input')) $('a-ticker-input').value = tk;
   if($('stat-contract')) $('stat-contract').innerText = dbData.analytics.contract || 0; if($('stat-mashups')) $('stat-mashups').innerText = dbData.analytics.mashup || 0;
   if(fL) { fL=false; const ld=$('loader'); if(ld) { ld.style.opacity='0'; setTimeout(()=>ld.remove(), 500); } }
   try{renderMap(); renderComp(); renderMash(); updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
 });
 
-const uLbls=()=>{if(!lgEl||!vp)return;
-  lgEl.className.baseVal=sc<1.5?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';
-  if(sc<1.5)return;const fS=12/sc,vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
-  srt.forEach(l=>{const m=dbData.municipalities[l.dataset.id]||{};if(!m.name||/^zona/i.test(m.name))return void(l.style.opacity='0');const un=m.status==='unlocked';
-  if(un){l.setAttribute('fill','#00e5ff');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.45}px`);l.setAttribute('font-size',`${fS*1.4}px`);l.setAttribute('font-weight','900')}else{l.setAttribute('fill','rgba(255,255,255,0.8)');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.3}px`);l.setAttribute('font-size',`${fS*1.05}px`);l.setAttribute('font-weight','700')}
-  l.setAttribute('paint-order','stroke fill');l.setAttribute('stroke-linejoin','round');const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2;if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
-  if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b)}else l.style.opacity='0'})};
+// BUG DE MAPA RESOLVIDO: Visibilidad desde etapas tempranas de zoom con prevención estricta de colisiones y legibilidad premium
+const uLbls=()=>{
+  if(!lgEl||!vp)return;
+  const thr = 1.2;
+  lgEl.className.baseVal=sc<thr?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';
+  if(sc<thr)return;
+  const fS=12/sc,vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[];
+  const srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
+  srt.forEach(l=>{
+    const m=dbData.municipalities[l.dataset.id]||{};
+    if(!m.name||/^zona/i.test(m.name))return void(l.style.opacity='0');
+    const un=m.status==='unlocked';
+    if(un){
+      l.setAttribute('fill','#ffffff');
+      l.setAttribute('stroke','#020306');
+      l.setAttribute('stroke-width',`${fS*0.4}px`);
+      l.setAttribute('font-size',`${fS*1.3}px`);
+      l.setAttribute('font-weight','900');
+    }else{
+      l.setAttribute('fill','rgba(255,255,255,0.75)');
+      l.setAttribute('stroke','#020306');
+      l.setAttribute('stroke-width',`${fS*0.25}px`);
+      l.setAttribute('font-size',`${fS*0.95}px`);
+      l.setAttribute('font-weight','700');
+    }
+    l.setAttribute('paint-order','stroke fill');
+    l.setAttribute('stroke-linejoin','round');
+    const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2;
+    if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');
+    const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
+    if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b)}else l.style.opacity='0';
+  });
+};
 
 const chkBounds=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>15)sc=15;const minPx=rW-(svgW*sc),minPy=rH-(svgH*sc);if(svgW*sc<=rW)pX=(rW-svgW*sc)/2;else pX=Math.min(0,Math.max(minPx,pX));if(svgH*sc<=rH)pY=(rH-svgH*sc)/2;else pY=Math.min(0,Math.max(minPy,pY))};
 const uTrans=()=>{if(tLay)tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`;uLbls();reqFr=null};
@@ -379,19 +394,35 @@ fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
   if(!tLay||!h)return; tLay.innerHTML=h; const s=tLay.querySelector('svg'); if(!s)return; const g=crSvg('g');
   try{const vb=s.viewBox.baseVal;if(vb&&vb.width){svgW=vb.width;svgH=vb.height}else{const b=s.getBBox();svgW=b.width;svgH=b.height}}catch(e){svgW=1000;svgH=1000}
   tLay.style.width=svgW+'px';tLay.style.height=svgH+'px';g.id='labels-group';g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none';s.style.pointerEvents='none';s.appendChild(g);
-  s.querySelectorAll('path,polygon').forEach((el,i)=>{const id=el.id||`zona_${i}`;el.id=id;el.className.baseVal='muni muni-base';try{const b=el.getBBox();if(b.width>0){const t=crSvg("text");t.setAttribute("x",b.x+b.width/2);t.setAttribute("y",b.y+b.height/2);t.setAttribute("class","muni-label transition-opacity duration-200");t.setAttribute("data-id",id);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');t.setAttribute('font-family',"'Montserrat',sans-serif");t.setAttribute('style','pointer-events:none');g.appendChild(t)}}catch(e){}el.onclick=e=>{if(isMov)return;e.stopPropagation();selMuni(id)}});
+  s.querySelectorAll('path,polygon').forEach((el,i)=>{const id=el.id||`zona_${i}`;el.id=id;el.className.baseVal='muni muni-base';try{const b=el.getBBox();if(b.width>0){const t=crSvg("text");t.setAttribute("x",b.x+b.width/2);t.setAttribute("y",b.y+b.height/2);t.setAttribute("class","muni-label transition-opacity duration-200");t.setAttribute("data-id",id);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');t.setAttribute('font-family',"'Space Grotesk',sans-serif");t.setAttribute('style','pointer-events:none');g.appendChild(t)}}catch(e){}el.onclick=e=>{if(isMov)return;e.stopPropagation();selMuni(id)}});
   lgEl=g;mLbls=Array.from(g.querySelectorAll('.muni-label')); setTimeout(()=>$('btn-reset-map')?.click(),100); renderMap();
 });
 
 const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
-const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);$('view-tour').classList.add('panel-active');if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-3 md:p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-white/10 text-white w-7 h-7 rounded-lg transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>`:''}</div>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[10px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5 theme-text"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="mt-auto shrink-0 flex items-center justify-center gap-2 bg-djCyan text-black w-full py-3 md:py-3.5 rounded-xl text-center text-xs font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`};
+const selMuni=id=>{currMuni=id;renderMap();const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));if(iTit)iTit.innerText=n;if($('a-muni-id'))$('a-muni-id').value=id;if($('a-muni-name'))$('a-muni-name').value=n;clrEv();popEv(id);tog(iAnc,'open',true);$('view-tour').classList.add('panel-active');if(m.status==='unlocked'){if($('a-muni-status'))$('a-muni-status').value='unlocked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{const hasMedia=ev.media||ev.embed;evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-3 md:p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><div class="flex justify-between items-start gap-2 relative z-10"><div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p></div>${hasMedia?`<button onclick="document.getElementById('media-${eid}').classList.toggle('hidden');" class="bg-white/5 hover:bg-white/10 text-white w-7 h-7 rounded-lg transition-colors flex items-center justify-center shrink-0"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>`:''}</div>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}${hasMedia?`<div id="media-${eid}" class="hidden mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">${ev.media?ev.media.split(',').map(l=>(l=l.trim())?`<a href="${l}" target="_blank" class="w-full text-center py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[10px] font-bold tracking-widest uppercase rounded-lg transition-all"><i class="fa-solid fa-ticket mr-1.5 theme-text"></i>Entradas</a>`:'').join(''):''}${ev.embed?`<div class="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 opacity-90 hover:opacity-100 transition-opacity text-[10px]">${ev.embed}</div>`:''}</div>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;if(iEvs)iEvs.innerHTML=evHtml}else{if($('a-muni-status'))$('a-muni-status').value='locked';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`}if(iEvs)iEvs.innerHTML+=`<button onclick="window.switchView('promotores')" class="mt-auto shrink-0 flex items-center justify-center gap-2 bg-gradient-to-r from-djCyan via-blue-500 to-djMagenta text-white w-full py-3.5 md:py-4 rounded-xl text-center text-xs md:text-sm font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</button>`};
 if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
-const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-36 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
+const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-36 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-djYellow/10 hover:bg-djYellow text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
 
 window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);$('view-setup').classList.add('panel-active');if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djMagenta shadow-[0_0_8px_#ff00ea]"></div><span class="text-djMagenta text-[10px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
 const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();selComp(id)};ov.appendChild(p)}})})};
+
+// LOGICA INTEGRADORA: Calculadora dinámica del Presupuesto de contratación
+const updateBudget=()=>{
+  const type=$('calc-type').value, hours=parseInt($('calc-hours').value), gear=$('calc-gear').value, dist=parseInt($('calc-dist').value);
+  $('calc-hours-val').innerText=`${hours} ${hours===1?'Hora':'Horas'}`; $('calc-dist-val').innerText=`${dist} km`;
+  let total=300;
+  if(type==='festival')total=500; else if(type==='private')total=400;
+  if(hours>2)total+=(hours-2)*60;
+  if(gear==='basic')total+=150; else if(gear==='premium')total+=400;
+  total+=dist*0.55;
+  $('calc-total').innerText=`${Math.round(total)}€`;
+};
+['calc-type','calc-hours','calc-gear','calc-dist'].forEach(id=>{
+  if($(id)){on($(id),'input',updateBudget);on($(id),'change',updateBudget);}
+});
+setTimeout(updateBudget,500);
 
 const crDot=(pts,idx,pEl,dc)=>{const dt=document.createElement('div');dt.className="absolute w-3 h-3 bg-djCyan rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot hover:scale-125 transition-transform shadow-lg";dt.style.left=pts[idx].x+'%';dt.style.top=pts[idx].y+'%';on(dt,'contextmenu',e=>{e.preventDefault();e.stopPropagation();pts.splice(idx,1);renderAdminPts()});const mm=e=>{e.preventDefault();const w=$('setup-wrapper');if(!w)return;const r=w.getBoundingClientRect(),x=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)),y=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));dt.style.left=x+'%';dt.style.top=y+'%';pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))};if(pEl)pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' '))},mu=()=>{window.removeEventListener('pointermove',mm);window.removeEventListener('pointerup',mu)};on(dt,'pointerdown',e=>{e.stopPropagation();e.target.setPointerCapture(e.pointerId);on(window,'pointermove',mm);on(window,'pointerup',mu)});dc.appendChild(dt)};
 
@@ -406,7 +437,7 @@ if($('a-comp-sel')) $('a-comp-sel').onchange=e=>{const v=e.target.value;if(v==='
 
 window.delEv=(mid,eid)=>{if(confirm('¿Borrar fecha?')){const u={};getGroup(mid).forEach(gid=>u[`municipalities/${gid}/events/${eid}`]=null);update(ref(db),u)}};
 window.edEv=(m,e)=>{const v=(dbData.municipalities[m]||{}).events[e]||{};if($('a-ev-id'))$('a-ev-id').value=e;if($('a-ev-p'))$('a-ev-p').value=v.place||'';if($('a-ev-d'))$('a-ev-d').value=v.date||'';if($('a-ev-desc'))$('a-ev-desc').value=v.details||'';if($('a-ev-m'))$('a-ev-m').value=v.media||'';if($('a-ev-embed'))$('a-ev-embed').value=v.embed||'';tog($('btn-cl-ev'),'hidden',false);if($('btn-sv-ev'))$('btn-sv-ev').innerText='OK';if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-pen mr-1"></i> Editando';};
-const popEv=id=>{const m=dbData.municipalities[id]||{},l=$('a-ev-list');if(!l)return;l.innerHTML='';if(m.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-3 py-2 rounded-lg text-[10px] border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-3 shrink-0"><button class="text-djCyan hover:text-white" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);};
+const popEv=id=>{const m=dbData.municipalities[id]||{},l=$('a-ev-list');if(!l)return;l.innerHTML='';if(m.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-3 py-2 rounded-lg text-[10px] border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-3 shrink-0"><button class="text-djCyan hover:text-white" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`))};
 const clrEv=()=>{['a-ev-id','a-ev-p','a-ev-d','a-ev-desc','a-ev-m','a-ev-embed'].forEach(i=>{if($(i))$(i).value=''});if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-plus mr-1"></i> Fecha';if($('btn-sv-ev'))$('btn-sv-ev').innerText='Guardar';tog($('btn-cl-ev'),'hidden',true)};
 if($('btn-cl-ev')) $('btn-cl-ev').onclick=clrEv;
 if($('btn-sv-ev')) $('btn-sv-ev').onclick=()=>{const id=$('a-muni-id')?.value,p=$('a-ev-p')?.value,eid=$('a-ev-id')?.value;if(!id)return;const u={},n=$('a-muni-name')?.value||id,s=$('a-muni-status')?.value,eI=eid||push(ref(db,`municipalities/${id}/events`)).key,pd=(p||eid)?{place:p,date:$('a-ev-d')?.value,details:$('a-ev-desc')?.value,media:$('a-ev-m')?.value,embed:$('a-ev-embed')?.value}:null;getGroup(id).forEach(g=>{u[`municipalities/${g}/status`]=s;u[`municipalities/${g}/name`]=n;if(pd)u[`municipalities/${g}/events/${eI}`]=pd});update(ref(db),u).then(()=>{clrEv();selMuni(id)})};
