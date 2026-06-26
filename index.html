@@ -10,422 +10,378 @@
 tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600',djGreen:'#00ff88'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite','pulse-fast':'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}}}}}};
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
-:root{--tc:#00e5ff;}
-body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease;user-select:none;-webkit-user-select:none;}
-input,textarea,select{user-select:text;-webkit-user-select:text;}
-body:not(.admin-active),body:not(.admin-active) *{cursor:url('cursor.png') 2 2,auto!important;}
-@media(min-width:768px){body{padding:1rem;gap:1rem}}
-::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
-.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden} .ambient-glow{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.35;will-change:transform;transition:background 0.8s ease}
-.glow-1{top:-10%;left:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} .glow-2{bottom:-10%;right:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
-.glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.85) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
-.social-icon{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.2s ease-out} 
-@media(min-width:768px){.social-icon{width:38px;height:38px;border-radius:10px;}}
-.social-icon:hover{color:#fff;transform:scale(1.1) translateY(-2px)}
-.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.3)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea} .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.3)} .social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4)}
-.app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform:scale(0.99) translateY(10px);z-index:0;display:flex;flex-direction:column;border-radius:16px;overflow:hidden} .app-view.active{opacity:1;pointer-events:auto;transform:scale(1) translateY(0);z-index:10}
-.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative} .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
-.muni{pointer-events:all;transition:all 0.3s ease;outline:none} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
-.comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s;outline:none} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 15%, transparent);stroke:var(--tc);stroke-width:0.6px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 50%, transparent))}
-.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;outline:none;transition:border 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.8)} .admin-input option{background:#0e1118}
-.slide-panel{position:absolute;z-index:40;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;overflow:hidden}
-#tour-viewport, #setup-wrapper { transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
-@media(max-width:767px){ .slide-panel{bottom:0;left:0;right:0;width:100%;height:45%;max-width:100%;border-top:1px solid rgba(255,255,255,0.05);transform:translateY(100%);border-radius:16px 16px 0 0} .slide-panel.open{transform:translateY(0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translateY(-15%); } }
-@media(min-width:768px){ .slide-panel{top:0;right:0;height:100%;width:340px;max-width:340px;border-left:1px solid rgba(255,255,255,0.05);transform:translateX(100%)} .slide-panel.open{transform:translateX(0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translateX(-120px); } }
-.marquee-container{mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
-.theme-text{color:var(--tc);transition:color 0.3s ease;} .theme-drop{filter:drop-shadow(0 0 10px color-mix(in srgb, var(--tc) 40%, transparent));} .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)} .theme-border{border-color:var(--tc)}
-.ee-word { opacity: 0; transform: translateY(30px) scale(0.8); animation: ee-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-@keyframes ee-pop { to { opacity: 1; transform: translateY(0) scale(1); } }
+* { user-select: none !important; -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; scroll-behavior: smooth; }
+input, textarea, select { user-select: auto !important; -webkit-user-select: auto !important; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #030408; }
+::-webkit-scrollbar-thumb { background: #ff00ea; border-radius: 3px; }
+.cromo-glow:hover { box-shadow: 0 0 20px rgba(0,229,255,0.4); border-color: #00e5ff; }
+.glass-panel { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
 </style>
 </head>
-<body class="antialiased">
+<body class="bg-djBg text-white font-body overflow-x-hidden antialiased">
 
-<div id="loader" class="fixed inset-0 z-[999] bg-[#030408] flex items-center justify-center transition-opacity duration-500">
-  <div class="flex flex-col items-center">
-    <h1 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
-    <div class="mt-6 w-10 h-10 border-4 theme-border border-t-transparent rounded-full animate-spin"></div>
-  </div>
+<div class="w-full bg-black border-b border-white/10 py-2 overflow-hidden sticky top-0 z-40 backdrop-blur-md bg-opacity-80">
+    <div class="flex whitespace-nowrap animate-marquee text-xs font-display tracking-widest text-djCyan">
+        <span>✦ DJ VAQUERO EN DIRECTO ✦ PRÓXIMAMENTE NUEVOS MASHUPS ✦ CONTRATACIONES ABIERTAS PARA FIESTAS Y DISCOTECAS ✦ &nbsp;&nbsp;</span>
+        <span>✦ DJ VAQUERO EN DIRECTO ✦ PRÓXIMAMENTE NUEVOS MASHUPS ✦ CONTRATACIONES ABIERTAS PARA FIESTAS Y DISCOTECAS ✦ &nbsp;&nbsp;</span>
+    </div>
 </div>
 
-<div id="ee-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-2xl z-[9999] flex flex-col items-center justify-center hidden transition-all duration-300">
-  <div class="flex flex-wrap justify-center items-center gap-2 md:gap-6 font-display uppercase tracking-tighter w-full max-w-[90vw] text-center px-4">
-    <div class="w-full flex flex-wrap justify-center gap-x-3 gap-y-1 text-white/90 font-bold text-[6vw] md:text-[4vw] mb-2 leading-none">
-      <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">ESTÁS</span>
-      <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">ESCUCHANDO</span>
-      <span class="ee-w opacity-0 translate-y-4 transition-all duration-300">A</span>
-    </div>
-    <div class="w-full flex flex-wrap justify-center gap-x-2 theme-text font-black text-[15vw] md:text-[12vw] theme-drop leading-none">
-      <span class="ee-w opacity-0 scale-50 transition-all duration-500">DJ</span>
-      <span class="ee-w opacity-0 scale-50 transition-all duration-500">VAQUERO.</span>
-    </div>
-  </div>
-</div>
-
-<div class="ambient-bg"><div class="ambient-glow glow-1"></div><div class="ambient-glow glow-2"></div></div>
-
-<header class="w-full px-2 z-50 flex justify-between items-center relative shrink-0">
-  <div id="site-title" class="active:scale-95 transition-transform flex items-center shrink-0 mr-1 md:mr-2 cursor-pointer">
-    <h1 class="font-display font-black text-lg md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
-  </div>
-  
-  <div class="flex-grow overflow-hidden mx-1 md:mx-4 h-7 md:h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container hover:bg-white/5 transition-colors cursor-pointer" onclick="window.switchView('tour')">
-     <div id="ticker-display" class="whitespace-nowrap text-[9px] md:text-xs text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
-        <div class="animate-marquee shrink-0 px-4"><span class="theme-text"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
-        <div class="animate-marquee shrink-0 px-4" aria-hidden="true"><span class="theme-text"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando fechas...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
-     </div>
-  </div>
-
-  <div class="flex gap-1 md:gap-2 shrink-0 ml-1">
-    <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram"></i></a>
-    <a href="https://tiktok.com/@djvaquero__" target="_blank" class="social-icon social-tk"><i class="fa-brands fa-tiktok"></i></a>
-    <a href="https://www.youtube.com/@vaquerodj" target="_blank" class="social-icon social-yt"><i class="fa-brands fa-youtube"></i></a>
-    <a href="https://soundcloud.com/djvaquero" target="_blank" class="social-icon social-sc"><i class="fa-brands fa-soundcloud"></i></a>
-  </div>
+<header class="relative flex flex-col items-center justify-center pt-12 pb-8 px-4 text-center">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,0,234,0.15)_0%,transparent_60%)] pointer-events-none"></div>
+    <img src="logo.png" alt="DJ VAQUERO" class="w-40 h-40 object-contain animate-float drop-shadow-[0_0_30px_rgba(0,229,255,0.3)] mb-4">
+    <h1 class="font-display text-4xl md:text-6xl tracking-tighter uppercase font-black bg-clip-text text-transparent bg-gradient-to-r from-white via-djCyan to-djMagenta">DJ VAQUERO</h1>
+    <p class="text-gray-400 mt-2 tracking-widest text-sm uppercase">El Sonido Imperecedero de las Fiestas</p>
 </header>
 
-<main class="w-full flex-grow flex flex-col md:flex-row gap-1.5 md:gap-3 relative z-10 overflow-hidden">
-  <nav class="glass-card flex md:flex-col justify-around md:justify-center gap-1 md:gap-5 p-1.5 md:p-2 md:w-24 shrink-0 order-2 md:order-1 z-50">
-    <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn w-full py-1 text-djCyan font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-djCyan/20 text-djCyan shadow-[0_0_10px_rgba(0,229,255,0.4)] flex items-center justify-center transition-colors"><i class="fa-solid fa-map-location-dot text-xs md:text-xl"></i></div><span class="mt-1">Tour</span>
-    </button>
-    <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djMagenta font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djMagenta/10 group-hover:text-djMagenta flex items-center justify-center transition-colors"><i class="fa-solid fa-sliders text-xs md:text-xl"></i></div><span class="mt-1">Equipo</span>
-    </button>
-    <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djYellow font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djYellow/10 group-hover:text-djYellow flex items-center justify-center transition-colors"><i class="fa-solid fa-compact-disc text-xs md:text-xl"></i></div><span class="mt-1">Mashups</span>
-    </button>
-    <button id="btn-nav-booking" onclick="window.switchView('booking')" class="nav-btn group w-full py-1 text-gray-500 hover:text-djGreen font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs">
-      <div class="w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djGreen/10 group-hover:text-djGreen flex items-center justify-center transition-colors"><i class="fa-solid fa-calculator text-xs md:text-xl"></i></div><span class="mt-1 truncate max-w-full">Booking</span>
-    </button>
-  </nav>
+<main class="max-w-6xl mx-auto px-4 space-y-16 pb-24">
 
-  <div class="glass-card flex-grow w-full h-full relative overflow-hidden order-1 md:order-2 border-t md:border-t-0 border-white/5">
-    
-    <div id="view-tour" class="app-view active bg-black/40">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
-          <i class="fa-solid fa-map-location-dot mr-2 ee-trigger cursor-pointer transition-transform"></i> Tour Oficial
-        </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Pueblos conquistados y mapa interactivo.</p>
-      </div>
-      <div class="flex items-center gap-2 p-3 bg-white/[0.02] border-b border-white/5 shrink-0 z-30 relative">
-        <div class="relative flex-grow max-w-sm">
-          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-9 pr-3 py-2 text-xs rounded-xl text-white outline-none focus:border-djCyan transition-colors shadow-lg">
-          <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-          <ul id="search-results" class="absolute top-full left-0 w-full mt-1.5 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-xl"></ul>
+    <section id="tour" class="glass-panel rounded-3xl p-6 md:p-8">
+        <h2 class="font-display text-2xl uppercase tracking-wider mb-6 flex items-center gap-2"><i class="fa-solid fa-calendar-days text-djMagenta"></i> Próximas Fechas</h2>
+        <div class="space-y-3" id="tour-list">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-djMagenta/30 transition-all">
+                <div>
+                    <span class="text-xs font-bold text-djMagenta uppercase tracking-wider block mb-1">15 JUL - 23:30h</span>
+                    <h3 class="text-lg font-semibold tracking-tight">Plaza Mayor - Vitigudino</h3>
+                </div>
+                <span class="mt-2 sm:mt-0 px-3 py-1 bg-djMagenta/20 text-djMagenta text-xs uppercase tracking-widest font-bold rounded-full border border-djMagenta/30">Confirmado</span>
+            </div>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-djCyan/30 transition-all">
+                <div>
+                    <span class="text-xs font-bold text-djCyan uppercase tracking-wider block mb-1">22 JUL - 01:00h</span>
+                    <h3 class="text-lg font-semibold tracking-tight">Discoteca Golden - Salamanca</h3>
+                </div>
+                <span class="mt-2 sm:mt-0 px-3 py-1 bg-djCyan/20 text-djCyan text-xs uppercase tracking-widest font-bold rounded-full border border-djCyan/30">Acceso Libre</span>
+            </div>
         </div>
-        <button id="btn-toggle-tour" class="bg-black/80 border border-white/10 hover:border-djCyan text-djCyan px-3 h-[34px] rounded-xl flex items-center justify-center text-xs font-bold uppercase tracking-widest transition-colors shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-1.5"></i> Mapa</button>
-        <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-[34px] h-[34px] rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors shadow-lg hidden"><i class="fa-solid fa-expand text-sm"></i></button>
-      </div>
-      <div id="tour-album-container" class="w-full flex-grow relative overflow-y-auto custom-scrollbar p-4">
-        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5 content-start max-w-6xl mx-auto"></div>
-      </div>
-      <div id="tour-map-container" class="w-full flex-grow relative overflow-hidden hidden">
-        <div class="w-full h-full content-area relative" id="tour-viewport"><div class="zoom-layer" id="tour-layer"></div></div>
-      </div>
-      <div id="info-overlay" class="slide-panel">
-        <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
-          <div><h3 id="info-title" class="text-lg md:text-xl font-display font-black text-white uppercase tracking-tighter mb-0.5">TOUR</h3><div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Selecciona</span></div></div>
-          <button id="btn-close-tour" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-sm"></i></button>
-        </div>
-        <div id="info-events" class="flex-grow flex flex-col gap-3 p-4 md:p-5 overflow-y-auto custom-scrollbar"></div>
-      </div>
-    </div>
+    </section>
 
-    <div id="view-setup" class="app-view bg-black/40">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0 z-10 relative">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
-          <i class="fa-solid fa-sliders mr-2 ee-trigger cursor-pointer transition-transform"></i> Equipo Técnico
-        </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Hardware y configuración en cabina.</p>
-      </div>
-      <div class="w-full flex-grow p-2 relative">
-        <div class="w-full h-full flex justify-center items-center relative">
-          <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block select-none touch-none rounded-xl">
-            <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[75vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
-            <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20 outline-none"></svg>
-            <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
-          </div>
+    <section id="mashups" class="glass-panel rounded-3xl p-6 md:p-8">
+        <h2 class="font-display text-2xl uppercase tracking-wider mb-6 flex items-center gap-2"><i class="fa-solid fa-compact-disc text-djCyan"></i> Mashups & Sesiones</h2>
+        <div id="mashups-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[350px] overflow-y-auto pr-2">
+            <div onclick="selectItem(this, 'mashups')" class="p-4 bg-white/5 rounded-xl border border-white/5 flex items-center justify-between cursor-pointer hover:bg-white/10 transition-all">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-djCyan/10 border border-djCyan/30 rounded-lg flex items-center justify-center text-djCyan"><i class="fa-solid fa-play"></i></div>
+                    <div>
+                        <h4 class="font-semibold text-sm">VAQUERO MASHUP VOL.4</h4>
+                        <p class="text-xs text-gray-400">Verano 2026 Mix</p>
+                    </div>
+                </div>
+                <span class="text-xs text-gray-500">12:45</span>
+            </div>
+            <div onclick="selectItem(this, 'mashups')" class="p-4 bg-white/5 rounded-xl border border-white/5 flex items-center justify-between cursor-pointer hover:bg-white/10 transition-all">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-djMagenta/10 border border-djMagenta/30 rounded-lg flex items-center justify-center text-djMagenta"><i class="fa-solid fa-play"></i></div>
+                    <div>
+                        <h4 class="font-semibold text-sm">Remember Especial Quintos</h4>
+                        <p class="text-xs text-gray-400">90s & 00s Hits</p>
+                    </div>
+                </div>
+                <span class="text-xs text-gray-500 font-body">08:20</span>
+            </div>
         </div>
-      </div>
-      <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[10px] hidden font-bold bg-black/90 px-3 py-1.5 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS</p>
-      <div id="setup-overlay" class="slide-panel">
-        <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start shrink-0">
-          <div><div id="setup-status" class="flex items-center gap-1.5 mb-1"><div class="w-2 h-2 rounded-full theme-bg"></div><span class="theme-text text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Activo</span></div><h3 id="setup-t" class="text-base md:text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
-          <button id="btn-close-setup" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-times text-sm"></i></button>
-        </div>
-        <div class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-xs md:text-sm leading-relaxed whitespace-pre-wrap"></p></div>
-      </div>
-    </div>
+    </section>
 
-    <div id="view-mashups" class="app-view bg-black/40">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
-          <i class="fa-solid fa-compact-disc mr-2 ee-trigger cursor-pointer transition-transform animate-spin" style="animation-duration: 4s;"></i> Mashups & Edits
-        </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Tracks exclusivos, mixes y descargas directas.</p>
-      </div>
-      <div id="mashups-grid" class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 content-start"></div>
-    </div>
-
-    <div id="view-booking" class="app-view bg-black/40 flex flex-col overflow-hidden">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
-          <i class="fa-solid fa-file-invoice-dollar mr-2 ee-trigger cursor-pointer transition-transform"></i> Booking Oficial
-        </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Configura los parámetros para calcular tu cotización.</p>
-      </div>
-      <div class="flex-grow flex items-center justify-center p-2 w-full overflow-y-auto md:overflow-hidden custom-scrollbar">
-        <div class="glass-card w-full max-w-xl p-4 md:p-6 flex flex-col justify-center gap-3 border-djGreen/20 h-auto md:max-h-full">
-          <div><label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Tipo de Evento</label><select id="p-type" class="admin-input text-xs py-1.5" onchange="window.calcBudget()"><option value="club">Discoteca / Club Nocturno</option><option value="festival">Festival / Macrofiesta</option><option value="private">Fiesta Privada / Boda</option></select></div>
-          <div><label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Duración Actuación</label><select id="p-duration" class="admin-input text-xs py-1.5" onchange="window.calcBudget()"><option value="2">Set Corto (Hasta 2 Horas)</option><option value="3">Set Estándar (3 Horas)</option><option value="4">Set Extendido (Más de 4 Horas)</option></select></div>
-          <div><label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Equipamiento</label><select id="p-sound" class="admin-input text-xs py-1.5" onchange="window.calcBudget()"><option value="none">El organizador aporta cabina/sonido/luces</option><option value="full">DJ aporta equipo completo profesional</option></select></div>
-          <div><label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Ubicación</label><select id="p-location" class="admin-input text-xs py-1.5" onchange="window.calcBudget()"><option value="local">Salamanca o alrededores</option><option value="regional">Castilla y León</option><option value="national">Resto de España</option></select></div>
-          <div class="pt-3 mt-1 border-t border-white/5 flex flex-col items-center text-center shrink-0">
-            <span class="text-[9px] uppercase font-bold tracking-widest text-gray-400">Inversión Estimada</span>
-            <div id="p-result" class="text-2xl md:text-4xl font-display font-black text-djGreen my-1 drop-shadow-[0_0_15px_rgba(0,255,136,0.4)]">---</div>
-            <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djGreen text-black font-black w-full py-2.5 rounded-xl text-xs uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(0,255,136,0.3)] mt-2">
-              <i class="fa-solid fa-paper-plane"></i> Solicitar / Contratar
-            </a>
-          </div>
+    <section id="album" class="glass-panel rounded-3xl p-6 md:p-8 space-y-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h2 class="font-display text-2xl uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-trophy text-djYellow"></i> Territorios Conquistados</h2>
+                <p class="text-xs text-gray-400 mt-1">Haz clic en un municipio para localizarlo en el mapa y centrar la vista.</p>
+            </div>
+            <div class="bg-black/40 px-4 py-2 rounded-xl border border-white/10 text-right">
+                <span class="text-xs text-gray-400 uppercase block">Progreso Global</span>
+                <span class="font-display text-xl text-djYellow font-black">24 / 120 Pueblos</span>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+
+        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[400px] overflow-y-auto pr-2 p-2">
+            <div onclick="selectItem(this, 'album')" class="cromo-glow glass-panel relative rounded-2xl p-4 overflow-hidden transition-all duration-300 transform hover:-translate-y-1 cursor-pointer flex flex-col items-center justify-between text-center min-h-[160px]">
+                <div class="absolute -right-6 -top-6 w-16 h-16 bg-gradient-to-br from-djGreen to-transparent opacity-20 rounded-full"></div>
+                <div class="w-12 h-12 rounded-full bg-djGreen/10 border border-djGreen/30 flex items-center justify-center text-djGreen text-lg mb-2 shadow-[0_0_15px_rgba(0,255,136,0.1)]">
+                    <i class="fa-solid fa-flag shadow-sm"></i>
+                </div>
+                <h3 class="font-display text-sm tracking-tight font-bold text-white uppercase line-clamp-2">Guijuelo</h3>
+                <span class="mt-2 text-[10px] font-bold tracking-widest bg-djGreen/20 text-djGreen px-2 py-0.5 rounded-full border border-djGreen/30 uppercase">Conquistado</span>
+            </div>
+            <div onclick="selectItem(this, 'album')" class="cromo-glow glass-panel relative rounded-2xl p-4 overflow-hidden transition-all duration-300 transform hover:-translate-y-1 cursor-pointer flex flex-col items-center justify-between text-center min-h-[160px]">
+                <div class="absolute -right-6 -top-6 w-16 h-16 bg-gradient-to-br from-djGreen to-transparent opacity-20 rounded-full"></div>
+                <div class="w-12 h-12 rounded-full bg-djGreen/10 border border-djGreen/30 flex items-center justify-center text-djGreen text-lg mb-2 shadow-[0_0_15px_rgba(0,255,136,0.1)]">
+                    <i class="fa-solid fa-flag shadow-sm"></i>
+                </div>
+                <h3 class="font-display text-sm tracking-tight font-bold text-white uppercase line-clamp-2">Ciudad Rodrigo</h3>
+                <span class="mt-2 text-[10px] font-bold tracking-widest bg-djGreen/20 text-djGreen px-2 py-0.5 rounded-full border border-djGreen/30 uppercase">Conquistado</span>
+            </div>
+            <div class="glass-panel relative rounded-2xl p-4 opacity-40 flex flex-col items-center justify-between text-center min-h-[160px] border-dashed">
+                <div class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 text-lg mb-2">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="font-display text-sm tracking-tight font-bold text-gray-400 uppercase">Béjar</h3>
+                <span class="mt-2 text-[10px] font-bold tracking-widest bg-white/10 text-gray-400 px-2 py-0.5 rounded-full uppercase">Bloqueado</span>
+            </div>
+            <div class="glass-panel relative rounded-2xl p-4 opacity-40 flex flex-col items-center justify-between text-center min-h-[160px] border-dashed">
+                <div class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 text-lg mb-2">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="font-display text-sm tracking-tight font-bold text-gray-400 uppercase">Ledesma</h3>
+                <span class="mt-2 text-[10px] font-bold tracking-widest bg-white/10 text-gray-400 px-2 py-0.5 rounded-full uppercase">Bloqueado</span>
+            </div>
+        </div>
+
+        <div id="map-viewport" class="w-full h-64 bg-black/50 border border-white/10 rounded-2xl overflow-hidden relative flex items-center justify-center">
+            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div id="map-target-indicator" class="text-center z-10 transition-all duration-500">
+                <i class="fa-solid fa-location-crosshairs text-djCyan text-3xl animate-pulse"></i>
+                <p id="map-label" class="text-xs font-display tracking-widest mt-2 text-gray-400 uppercase">Selecciona un elemento para enfocar mapa</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="glass-panel rounded-3xl p-6 md:p-8">
+        <div class="mb-6">
+            <h2 class="font-display text-2xl uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-bolt text-djMagenta"></i> Presupuesto Express & Booking</h2>
+            <p class="text-xs text-amber-400/90 font-medium bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl mt-3 flex items-start gap-2">
+                <i class="fa-solid fa-triangle-exclamation mt-0.5 flex-shrink-0"></i>
+                <span>Los precios mostrados a continuación son estrictamente aproximados y orientativos, calculados de manera automatizada. Quedan sujetos a la confirmación de la disponibilidad de la fecha, variables logísticas externas y requerimientos o especificaciones técnicas finales del evento.</span>
+            </p>
+        </div>
+
+        <form id="booking-form" class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="event.preventDefault();">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Tipo de Evento</label>
+                    <select id="tipo-evento" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-djMagenta transition-all" onchange="toggleBookingFields(); calculatePrice();">
+                        <option value="discoteca">Discotecas / Pubs</option>
+                        <option value="pueblo">Fiestas de Pueblo / Quintos</option>
+                        <option value="privada">Fiestas Privadas (Cumpleaños, Bodas, Bautizos...)</option>
+                    </select>
+                </div>
+
+                <div id="wrapper-equipo" class="transition-all duration-300">
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">¿Es necesario aportar Equipo de Sonido/Iluminación?</label>
+                    <select id="necesita-equipo" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-djMagenta transition-all" onchange="toggleBookingFields(); calculatePrice();">
+                        <option value="no">No (Solo controladora necesaria - Configuración estándar)</option>
+                        <option value="si">Sí (Montaje completo de sonido e iluminación)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs uppercase tracking-widest text-gray-400 font-bold">Duración de la Sesión</label>
+                        <span id="duracion-val" class="text-sm font-bold text-djCyan font-display">3 Horas</span>
+                    </div>
+                    <input type="range" id="duracion-dj" min="2" max="6" value="3" class="w-full accent-djCyan bg-white/10 h-2 rounded-lg cursor-pointer" oninput="document.getElementById('duracion-val').innerText = this.value + ' Horas'; calculatePrice();">
+                </div>
+
+                <div id="wrapper-horario" class="hidden transition-all duration-300">
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Hora de Comienzo Estimada</label>
+                    <select id="hora-inicio" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-djCyan transition-all" onchange="calculatePrice();">
+                        <option value="16">Tarde (16:00 Aprox)</option>
+                        <option value="18">Tarde-Noche (18:00 Aprox)</option>
+                        <option value="21">Noche Primera Hora (21:00 Aprox)</option>
+                        <option value="0">Medianoche (00:00 Aprox - Hora Base)</option>
+                        <option value="1">Madrugada (01:00 AM)</option>
+                        <option value="2">Madrugada (02:00 AM)</option>
+                        <option value="3">Madrugada (03:00 AM)</option>
+                        <option value="4">Madrugada (04:00 AM)</option>
+                        <option value="5">Madrugada (05:00 AM)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Ubicación del Evento</label>
+                    <select id="ubicacion-evento" class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-djMagenta transition-all" onchange="toggleBookingFields(); calculatePrice();">
+                        <option value="salamanca">Salamanca Capital</option>
+                        <option value="fuera">Fuera de Salamanca</option>
+                    </select>
+                </div>
+
+                <div id="wrapper-municipio" class="hidden transition-all duration-300">
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Indica el Municipio / Localidad</label>
+                    <input type="text" id="municipio-nombre" placeholder="Ej. Alba de Tormes, Guijuelo..." class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-djCyan transition-all" oninput="calculatePrice();">
+                    <p id="distancia-feedback" class="text-[11px] text-djCyan mt-1 font-mono italic"></p>
+                </div>
+            </div>
+
+            <div class="bg-black/40 border border-white/10 rounded-2xl p-6 flex flex-col justify-between items-center text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(0,229,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+                <div class="w-full">
+                    <span class="text-xs tracking-widest uppercase text-gray-400 font-bold block mb-2">Presupuesto Estimado</span>
+                    <div id="precio-total" class="font-display text-5xl md:text-6xl font-black text-djGreen my-4 drop-shadow-[0_0_20px_rgba(0,255,136,0.2)]">0.00€</div>
+                    <div class="text-xs text-gray-400 max-w-xs mx-auto space-y-1 border-t border-white/5 pt-4 text-left font-mono">
+                        <div class="flex justify-between"><span>Precio Base / Hora:</span><span id="breakdown-base">0€/h</span></div>
+                        <div class="flex justify-between"><span>Recargo Madrugada:</span><span id="breakdown-horas" class="text-djMagenta">0€</span></div>
+                        <div class="flex justify-between"><span>Kilometraje Desplazamiento:</span><span id="breakdown-km" class="text-djCyan">0€</span></div>
+                    </div>
+                </div>
+                <button type="button" class="w-full mt-6 bg-gradient-to-r from-djMagenta to-djCyan text-black font-display font-black text-xs uppercase tracking-widest py-4 px-6 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-djMagenta/10">
+                    Reservar Fecha Ahora
+                </button>
+            </div>
+        </form>
+    </section>
+
 </main>
 
-<div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
-  <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
-    <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
-    <button id="btn-close-admin" class="w-8 h-8 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-power-off text-sm"></i></button>
-  </div>
-  <div class="flex bg-black/40 text-[10px] font-bold uppercase tracking-widest border-b border-white/5">
-    <button id="tab-tour" class="flex-1 py-3 text-djCyan border-b-2 border-djCyan bg-white/[0.02]">Gira</button>
-    <button id="tab-setup" class="flex-1 py-3 text-gray-500 hover:text-white transition-colors border-b-2 border-transparent">Setup</button>
-    <button id="tab-mashups" class="flex-1 py-3 text-gray-500 hover:text-white transition-colors border-b-2 border-transparent">Tracks</button>
-    <button id="tab-general" class="flex-1 py-3 text-gray-500 hover:text-white transition-colors border-b-2 border-transparent">Ajustes</button>
-  </div>
-  <div class="p-4 overflow-y-auto max-h-[65vh] space-y-3 custom-scrollbar">
-    <div id="sec-a-tour" class="space-y-3">
-      <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
-      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input text-xs flex-1"><select id="a-muni-status" class="admin-input px-1 text-xs w-24"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
-      <input type="text" id="a-muni-img" placeholder="URL Imagen Cromo Pueblo" class="admin-input text-xs">
-      <div id="a-ev-list" class="space-y-1 bg-black/30 p-2 rounded-xl border border-white/5 max-h-28 overflow-y-auto custom-scrollbar"></div>
-      <div class="pt-2 border-t border-white/5 space-y-2">
-        <label id="a-ev-t" class="text-[10px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Añadir Fecha</label>
-        <div class="grid grid-cols-2 gap-2"><input type="text" id="a-ev-p" placeholder="Sala" class="admin-input text-xs"><input type="date" id="a-ev-d" class="admin-input text-xs [color-scheme:dark]"></div>
-        <textarea id="a-ev-desc" placeholder="Detalles..." class="admin-input h-14 resize-none text-xs"></textarea>
-        <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar Info Pueblo</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10"><i class="fa-solid fa-rotate-left"></i></button></div>
-      </div>
-    </div>
-    
-    <div id="sec-a-setup" class="space-y-3 hidden">
-      <select id="a-comp-sel" class="admin-input text-xs"><option value="NEW">✨ NUEVO HARDWARE</option></select>
-      <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input text-xs focus:border-djMagenta">
-      <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input text-xs h-20 resize-none focus:border-djMagenta"></textarea>
-      <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
-        <div class="flex justify-between items-center mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span><button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1.5 rounded border border-djMagenta/30 text-[10px] font-bold"><i class="fa-solid fa-plus mr-1"></i> Añadir</button></div>
-        <ul id="a-comp-figs" class="space-y-1 max-h-28 overflow-y-auto text-xs custom-scrollbar"></ul>
-        <div id="draw-controls" class="hidden flex-col gap-2 mt-2 p-2 border border-djMagenta/30 bg-djMagenta/5 rounded-lg shadow-inner">
-          <span class="text-[10px] text-djMagenta font-bold text-center block mb-1">Toca la imagen</span>
-          <ul id="a-comp-pts" class="space-y-1 max-h-28 overflow-y-auto text-[10px] text-gray-300 custom-scrollbar"></ul>
-          <div class="flex gap-2 pt-1"><button id="btn-close-fig" class="flex-[2] bg-djMagenta text-black font-black py-2 rounded-lg text-[10px] uppercase tracking-wider"><i class="fa-solid fa-check mr-1"></i> Cerrar</button><button id="btn-cancel-fig" class="flex-[1] bg-white/10 hover:bg-white/20 text-white font-bold py-2 rounded-lg text-[10px]">Cancelar</button></div>
-        </div>
-      </div>
-      <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[3] bg-djMagenta text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,0,234,0.3)]">Guardar</button><button id="btn-dl-cp" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px]">Borrar</button></div>
-    </div>
-    
-    <div id="sec-a-mashups" class="space-y-3 hidden">
-      <select id="a-mash-sel" class="admin-input text-xs"><option value="NEW">✨ NUEVO TRACK</option></select>
-      <input type="text" id="a-mash-t" placeholder="Título" class="admin-input text-xs focus:border-djYellow">
-      <input type="text" id="a-mash-dl" placeholder="Enlace descarga" class="admin-input text-xs focus:border-djYellow">
-      <input type="text" id="a-mash-sc" placeholder="URL SoundCloud" class="admin-input text-xs focus:border-djYellow">
-      <div class="flex gap-2 pt-2"><button id="btn-sv-ms" class="flex-[3] bg-djYellow text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,214,0,0.3)]">Publicar</button><button id="btn-dl-ms" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px]">Borrar</button></div>
-    </div>
+<footer class="w-full bg-black/80 border-t border-white/10 py-8 text-center text-xs text-gray-500 font-mono tracking-wider">
+    <p>&copy; 2026 DJ VAQUERO. Todos los derechos reservados. Diseñado para Máximo Rendimiento.</p>
+</footer>
 
-    <div id="sec-a-general" class="space-y-3 hidden">
-      <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
-        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-chart-simple mr-1"></i> Analíticas Rápidas</span>
-        <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg text-xs"><span class="text-gray-300">Clics 'Contratar'</span><span id="stat-contract" class="font-black text-djCyan">0</span></div>
-        <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg text-xs"><span class="text-gray-300">Clics 'Descargar'</span><span id="stat-mashups" class="font-black text-djYellow">0</span></div>
-        <button id="btn-reset-stats" class="w-full mt-2 bg-red-500/10 text-red-500 hover:bg-red-500/30 py-1.5 rounded-lg text-[10px] font-bold transition-colors"><i class="fa-solid fa-rotate-left mr-1"></i>Resetear</button>
-      </div>
-      <div class="space-y-2">
-        <label class="text-[10px] text-gray-400 font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-bolt mr-1"></i> Marquesina Promocional</label>
-        <textarea id="a-ticker-input" class="admin-input h-24 resize-none text-xs focus:border-white"></textarea>
-      </div>
-      <button id="btn-sv-ticker" class="w-full bg-white text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,255,255,0.3)]">Guardar Ajustes</button>
+<div id="admin-panel" class="hidden fixed bottom-6 right-6 w-80 glass-panel rounded-2xl shadow-2xl z-50 overflow-hidden border border-djMagenta/30">
+    <div id="admin-header" class="bg-black/60 px-4 py-3 border-b border-white/10 flex items-center justify-between cursor-move">
+        <span class="text-xs font-display tracking-widest text-djMagenta font-bold"><i class="fa-solid fa-lock-open mr-1"></i> Admin Central</span>
+        <button id="btn-close-admin" class="text-gray-400 hover:text-white transition-all text-sm"><i class="fa-solid fa-xmark"></i></button>
     </div>
-  </div>
+    <div class="p-4 space-y-3 text-xs">
+        <p class="text-gray-400">Panel de Control Unificado.</p>
+        <button class="w-full py-2 bg-white/5 border border-white/10 rounded-lg hover:border-djCyan/40 text-left px-3 text-djCyan"><i class="fa-solid fa-plus mr-2"></i>Añadir Nueva Fecha</button>
+        <button class="w-full py-2 bg-white/5 border border-white/10 rounded-lg hover:border-djMagenta/40 text-left px-3 text-djMagenta"><i class="fa-solid fa-upload mr-2"></i>Subir Nuevo Mashup</button>
+    </div>
 </div>
 
-<script type="module">
-const EMAIL_ADMINISTRADOR="ivanvaquerodj@gmail.com";
-import{initializeApp}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import{getDatabase,ref,onValue,update,push,remove,set}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-import{getAuth,signInWithPopup,GoogleAuthProvider,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+<script>
+// Selectores y atajos globales optimizados
+const $ = id => document.getElementById(id);
+const on = (el, type, fn) => el && el.addEventListener(type, fn);
 
-const app=initializeApp({apiKey:"AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",authDomain:"djvaquero-851e8.firebaseapp.com",databaseURL:"https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app",projectId:"djvaquero-851e8",storageBucket:"djvaquero-851e8.firebasestorage.app",messagingSenderId:"943264468873",appId:"1:943264468873:web:30725455620a5f737bdb58"});
-const db=getDatabase(app),auth=getAuth(app),provider=new GoogleAuthProvider(),$=i=>document.getElementById(i),$$=q=>document.querySelectorAll(q),on=(e,t,c,o)=>e.addEventListener(t,c,o),tog=(e,c,f)=>e?.classList[f?'add':'remove'](c),crSvg=t=>document.createElementNS("http://www.w3.org/2000/svg",t);
-
-let dbData={municipalities:{},components:{},mashups:{},config:{},analytics:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false, tourMode='album';
-const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
-
-// EASTER EGG GLOBAL (Iconos en Secciones)
-let eeC=0; const au=new Audio('tag.flac');
-$$('.ee-trigger').forEach(el=>{
-  el.onclick=(e)=>{
-    e.stopPropagation(); eeC++; el.style.transform=`scale(${1+(eeC*0.15)}) rotate(${eeC*20}deg)`; setTimeout(()=>el.style.transform='',150);
-    if(eeC>=3){
-      const ov=$('ee-overlay'), ws=$$('.ee-w'); ov.classList.remove('hidden'); try{au.currentTime=0;au.play().catch(e=>{});}catch(e){}
-      [0,400,800,1400,2200].forEach((t,i)=>setTimeout(()=>ws[i].classList.remove('opacity-0','translate-y-4','scale-50'), t));
-      setTimeout(()=>{ ov.classList.add('hidden'); eeC=0; ws.forEach(w=>w.classList.add('opacity-0','translate-y-4','scale-50')); }, 5500);
+// Mecánica Unificada de Selección y Desplazamiento Sincronizado (Álbum, Mashups, etc)
+function selectItem(element, sectionId) {
+    if(!element) return;
+    
+    // Quitar estados activos anteriores dentro del mismo contenedor
+    const siblings = element.parentNode.children;
+    for(let sibling of siblings) {
+        sibling.classList.remove('border-djCyan', 'border-djMagenta', 'bg-white/10');
     }
-  }
-});
+    
+    // Aplicar resalte estético según sección
+    const accentClass = sectionId === 'album' ? 'border-djCyan' : 'border-djMagenta';
+    element.classList.add(accentClass, 'bg-white/10');
 
-window.calcBudget=()=>{
-  const type=$('p-type')?.value, duration=parseInt($('p-duration')?.value)||2, sound=$('p-sound')?.value, location=$('p-location')?.value;
-  let base=type==='festival'?480:type==='private'?350:250, ex=duration-2, tM=base+(ex>0?ex*70:0)+(sound==='full'?240:0)+(location==='regional'?80:location==='national'?220:0);
-  if($('p-result')) $('p-result').innerText=`${tM}€ - ${Math.round(tM*1.25)}€`;
-};
-window.trackClick=t=>set(ref(db, `analytics/${t}`), (dbData.analytics?.[t]||0)+1);
-function toggleAdminMode(a){tog(document.body,'admin-active',a);tog($('setup-img'),'opacity-50',a);tog($('admin-pts'),'hidden',!a);if(!a){isDrawing=false;cPts=[];editFigIdx=-1};a?renderAdminPts():renderComp()}
+    // Comportamiento de desplazamiento solicitado para que el elemento permanezca centrado en pantalla/scroll
+    element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
-window.switchView=v=>{
-  if(v!=='setup'&&!$('admin-panel').classList.contains('hidden'))toggleAdminMode(false);
-  const c={tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',booking:'#00ff88'}, cl={tour:'djCyan',setup:'djMagenta',mashups:'djYellow',booking:'djGreen'};
-  document.documentElement.style.setProperty('--tc',c[v]);
-  ['tour','setup','mashups','booking'].forEach(x=>{
-    const el=$(`view-${x}`), b=$(`btn-nav-${x}`), a=x===v; tog(el,'active',a); if(!b)return;
-    b.className=a?`nav-btn w-full py-1 text-${cl[x]} font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs`:`nav-btn group w-full py-1 text-gray-500 hover:text-${cl[x]} font-bold uppercase tracking-widest text-[8px] min-[360px]:text-[10px] md:text-xs`;
-    b.querySelector('div').className=a?`w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center transition-colors bg-${cl[x]}/20 text-${cl[x]} shadow-[0_0_10px_var(--tc)]`:`w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-${cl[x]}/10 group-hover:text-${cl[x]} transition-colors text-gray-400`;
-    if(a&&x==='tour'&&!document.body.classList.contains('admin-active')) setTimeout(()=>$('btn-reset-map')?.click(), 100); 
-    if(a&&x==='booking') window.calcBudget();
-  });
-};
-
-const togTourView=(force)=>{
-  tourMode=force||(tourMode==='album'?'map':'album'); const isM=tourMode==='map', bt=$('btn-toggle-tour');
-  tog($('tour-album-container'),'hidden',isM); tog($('tour-map-container'),'hidden',!isM); tog($('btn-reset-map'),'hidden',!isM);
-  if(bt) bt.innerHTML=isM?'<i class="fa-solid fa-book-open mr-1.5"></i> Álbum':'<i class="fa-solid fa-map mr-1.5"></i> Mapa';
-  if(isM) setTimeout(()=>$('btn-reset-map')?.click(),50); else clTour();
-};
-if($('btn-toggle-tour')) $('btn-toggle-tour').onclick=()=>togTourView();
-window.openMapAndCenter=(id)=>{ togTourView('map'); selMuni(id); };
-
-const clTour=()=>{currMuni=null;renderMap();tog(iAnc,'open',false);$('view-tour').classList.remove('panel-active');setTimeout(()=>{if(iTit)iTit.innerText='TOUR';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Selecciona</span>`;if(iEvs)iEvs.innerHTML='';},300)};
-const clSetup=()=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));tog(sAnc,'open',false);$('view-setup').classList.remove('panel-active');setTimeout(()=>{if(sTit)sTit.innerText='';if(sDesc)sDesc.innerText='';if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Hardware</span>`;},300)};
-if($('btn-close-tour')) $('btn-close-tour').onclick=clTour; if($('btn-close-setup')) $('btn-close-setup').onclick=clSetup;
-
-const getGroup=id=>{const m=dbData.municipalities||{},n=m[id]?.name;return !n||/^zona/i.test(n)?[id]:Object.keys(m).filter(k=>m[k]?.name===n)};
-
-let fL=true;
-onValue(ref(db,'/'),s=>{
-  const v=s.val()||{}; dbData={municipalities:v.municipalities||{},components:v.components||{},mashups:v.mashups||{},config:v.config||{},analytics:v.analytics||{}};
-  const tk=dbData.config.ticker||"PRÓXIMAS FECHAS POR CONFIRMAR";
-  if($('ticker-text-1')) $('ticker-text-1').innerText=tk; if($('ticker-text-2')) $('ticker-text-2').innerText=tk; if($('a-ticker-input')) $('a-ticker-input').value=tk;
-  if($('stat-contract')) $('stat-contract').innerText=dbData.analytics.contract||0; if($('stat-mashups')) $('stat-mashups').innerText=dbData.analytics.mashup||0;
-  if(fL){fL=false;const ld=$('loader');if(ld){ld.style.opacity='0';setTimeout(()=>ld.remove(),500);}}
-  try{renderMap();renderComp();renderMash();renderAlbum();updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
-});
-
-const renderAlbum=()=>{
-  const g=$('album-grid'); if(!g)return;
-  const m=Object.entries(dbData.municipalities||{}).filter(([_,d])=>d.status==='unlocked');
-  g.innerHTML=m.length?m.map(([id,d])=>{
-    let img=d.img||'logo.png'; const n=/^zona/i.test(d.name||id)?id.replace(/_/g,' '):(d.name||id.replace(/_/g,' '));
-    return `<div class="glass-card overflow-hidden cursor-pointer group hover:border-djCyan transition-all flex flex-col items-center justify-center relative p-1" onclick="window.selMuni('${id}')"><div class="h-28 w-full bg-black relative overflow-hidden rounded-xl border border-white/5"><img src="${img}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"></div><div class="p-2 w-full text-center"><h3 class="font-display font-black text-white text-[10px] md:text-xs uppercase tracking-tight truncate">${n}</h3></div></div>`;
-  }).join(''):'<p class="text-gray-500 text-xs col-span-full text-center py-10 w-full italic">Aún no hay pueblos conquistados.</p>';
-};
-
-const uLbls=()=>{if(!lgEl||!vp)return;
-  lgEl.className.baseVal=sc<1.5?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';
-  if(sc<1.5)return;const fS=8/sc,vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
-  srt.forEach(l=>{const m=dbData.municipalities[l.dataset.id]||{};if(!m.name||/^zona/i.test(m.name))return void(l.style.opacity='0');const un=m.status==='unlocked';
-  if(un){l.setAttribute('fill','#00e5ff');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.4}px`);l.setAttribute('font-size',`${fS*1.2}px`);l.setAttribute('font-weight','900')}else{l.setAttribute('fill','rgba(255,255,255,0.7)');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.2}px`);l.setAttribute('font-size',`${fS*0.8}px`);l.setAttribute('font-weight','700')}
-  l.setAttribute('paint-order','stroke fill');l.setAttribute('stroke-linejoin','round');const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2;if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
-  if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b)}else l.style.opacity='0'})};
-
-const chkBounds=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>15)sc=15;const minPx=rW-(svgW*sc),minPy=rH-(svgH*sc);if(svgW*sc<=rW)pX=(rW-svgW*sc)/2;else pX=Math.min(0,Math.max(minPx,pX));if(svgH*sc<=rH)pY=(rH-svgH*sc)/2;else pY=Math.min(0,Math.max(minPy,pY))};
-const uTrans=()=>{if(tLay)tLay.style.transform=`translate(${pX}px,${pY}px) scale(${sc})`;uLbls();reqFr=null};
-const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;pan=true;isMov=false;};
-const mvPan=(x,y)=>{if(!pan)return;isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
-
-if(vp){
-  on(vp,'mousedown',e=>stPan(e.clientX,e.clientY)); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false});
-  on(vp,'touchstart',e=>{isMov=false;if(e.touches.length===1)stPan(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
-  on(vp,'touchmove',e=>{if(pan&&e.touches.length===1)mvPan(e.touches[0].clientX,e.touches[0].clientY);else if(e.touches.length===2){e.preventDefault();const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY),rb=vp.getBoundingClientRect(),mx=((t1.clientX+t2.clientX)/2)-rb.left,my=((t1.clientY+t2.clientY)/2)-rb.top,tx=(mx-pX)/sc,ty=(my-pY)/sc;sc=sc*(d/(vp.dataset.sd||d));vp.dataset.sd=d;chkBounds();pX=mx-tx*sc;pY=my-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)}},{passive:false});
-  on(vp,'touchend',()=>{pan=false;delete vp.dataset.sd});
-  on(vp,'wheel',e=>{e.preventDefault();const rb=vp.getBoundingClientRect(),tx=(e.clientX-rb.left-pX)/sc,ty=(e.clientY-rb.top-pY)/sc;sc=e.deltaY<0?sc*1.1:sc/1.1;chkBounds();pX=(e.clientX-rb.left)-tx*sc;pY=(e.clientY-rb.top)-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)},{passive:false});
+    // Actualización reactiva del mapa simulado si corresponde al álbum
+    if(sectionId === 'album') {
+        const municipio = element.querySelector('h3').innerText;
+        $('map-label').innerText = `Enfocado en: Localidad de ${municipio}`;
+        $('map-target-indicator').classList.add('scale-110', 'text-djCyan');
+        setTimeout(() => $('map-target-indicator').classList.remove('scale-110'), 300);
+    }
 }
-if($('btn-reset-map')) $('btn-reset-map').onclick=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight;sc=Math.min(rW/svgW,rH/svgH)*0.95;pX=(rW-svgW*sc)/2;pY=(rH-svgH*sc)/2;if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
 
-fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
-  if(!tLay||!h)return; tLay.innerHTML=h; const s=tLay.querySelector('svg'); if(!s)return; const g=crSvg('g');
-  try{const vb=s.viewBox.baseVal;if(vb&&vb.width){svgW=vb.width;svgH=vb.height}else{const b=s.getBBox();svgW=b.width;svgH=b.height}}catch(e){svgW=1000;svgH=1000}
-  tLay.style.width=svgW+'px';tLay.style.height=svgH+'px';g.id='labels-group';g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none';s.style.pointerEvents='none';s.appendChild(g);
-  s.querySelectorAll('path,polygon').forEach((el,i)=>{const id=el.id||`zona_${i}`;el.id=id;el.className.baseVal='muni muni-base';try{const b=el.getBBox();if(b.width>0){const t=crSvg("text");t.setAttribute("x",b.x+b.width/2);t.setAttribute("y",b.y+b.height/2);t.setAttribute("class","muni-label transition-opacity duration-200");t.setAttribute("data-id",id);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');t.setAttribute('font-family',"'Montserrat',sans-serif");t.setAttribute('style','pointer-events:none');g.appendChild(t)}}catch(e){}el.onclick=e=>{if(isMov)return;e.stopPropagation();window.selMuni(id)}});
-  lgEl=g;mLbls=Array.from(g.querySelectorAll('.muni-label')); setTimeout(()=>$('btn-reset-map')?.click(),100); renderMap();
-});
+// Controladores de visibilidad dinámica del cotizador del Booking
+function toggleBookingFields() {
+    const tipo = $('tipo-evento').value;
+    const ubicacion = $('ubicacion-evento').value;
+    
+    // Mostrar/Ocultar opción de equipo basado en Discoteca
+    if(tipo === 'discoteca') {
+        $('wrapper-equipo').style.display = 'block';
+    } else {
+        $('wrapper-equipo').style.display = 'none';
+    }
 
-const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
-window.selMuni=id=>{
-  currMuni=id; renderMap(); const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));
-  if(iTit)iTit.innerText=n; if($('a-muni-id'))$('a-muni-id').value=id; if($('a-muni-name'))$('a-muni-name').value=n; if($('a-muni-img'))$('a-muni-img').value=m.img||''; clrEv(); popEv(id); tog(iAnc,'open',true); $('view-tour').classList.add('panel-active');
-  if(m.status==='unlocked'){
-    if($('a-muni-status'))$('a-muni-status').value='unlocked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;
-    let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-3 md:p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;
-    if(iEvs)iEvs.innerHTML=evHtml;
-  }else{
-    if($('a-muni-status'))$('a-muni-status').value='locked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;
-    if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`;
-  }
-  if(iEvs)iEvs.innerHTML+=`<div class="mt-auto shrink-0 flex flex-col gap-2 w-full"><button onclick="window.openMapAndCenter('${id}')" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-2.5 rounded-xl text-center text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button><a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djCyan text-black w-full py-3 md:py-3.5 rounded-xl text-center text-xs font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a></div>`;
+    // Mostrar/Ocultar Horas según tipo de evento (Pueblo o Discoteca con Equipo)
+    const necesitaEquipo = $('necesita-equipo').value === 'si';
+    if(tipo === 'pueblo' || (tipo === 'discoteca' && necesitaEquipo)) {
+        $('wrapper-horario').style.display = 'block';
+    } else {
+        $('wrapper-horario').style.display = 'none';
+    }
+
+    // Mostrar/Ocultar input de Municipio fuera de Salamanca
+    if(ubicacion === 'fuera') {
+        $('wrapper-municipio').style.display = 'block';
+    } else {
+        $('wrapper-municipio').style.display = 'none';
+    }
+}
+
+// Cálculo Dinámico y Matemático de Precios en tiempo real
+function calculatePrice() {
+    const tipo = $('tipo-evento').value;
+    const necesitaEquipo = $('necesita-equipo').value === 'si';
+    const duracion = parseInt($('duracion-dj').value) || 2;
+    const hora = parseInt($('hora-inicio').value) || 0;
+    const ubicacion = $('ubicacion-evento').value;
+    const municipio = $('municipio-nombre').value.trim();
+
+    let precioPorHora = 0;
+    let extraInicioTotal = 0;
+    let distanciaKm = 0;
+
+    // 1. Determinar precio por hora base según tipo de evento y equipo
+    if (tipo === 'discoteca') {
+        if (necesitaEquipo) {
+            precioPorHora = 60; // Se comporta como Fiestas de Pueblo
+        } else {
+            precioPorHora = 25; // Tarifa fija por hora sin equipo
+        }
+    } else if (tipo === 'pueblo') {
+        precioPorHora = 60;
+    } else if (tipo === 'privada') {
+        precioPorHora = 75;
+    }
+
+    // 2. Regla especial horaria (Fiestas de pueblo o discotecas con equipo)
+    if (tipo === 'pueblo' || (tipo === 'discoteca' && necesitaEquipo)) {
+        // Horas por la tarde (valores mayores de 12 a 23 en el select) o 0 (medianoche) no aplican penalización de madrugada avanzada
+        // Por cada hora a partir de las 12 de la noche (01:00 AM = 1 hora tras medianoche, 02:00 AM = 2 horas, etc.) se suman 15€ directos al total.
+        if (hora > 0 && hora <= 6) {
+            extraInicioTotal = hora * 15;
+        }
+    }
+
+    // 3. Cálculo de Distancia geográfica simulada determinista estable
+    if (ubicacion === 'fuera' && municipio.length > 0) {
+        // Genera una distancia en KM de manera interna y matemática simulada basada en el nombre del pueblo para evitar peticiones externas inestables
+        distanciaKm = (municipio.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 75) + 15;
+        $('distancia-feedback').innerText = `Distancia estimada de Salamanca: ~${distanciaKm} km`;
+    } else {
+        $('distancia-feedback').innerText = '';
+    }
+
+    // 4. Procesamiento final de sumas
+    const costeBase = precioPorHora * duracion;
+    const costeDesplazamiento = distanciaKm * 0.25;
+    const precioFinal = costeBase + extraInicioTotal + costeDesplazamiento;
+
+    // Actualizaciones de la interfaz de usuario en tiempo real
+    $('precio-total').innerText = `${precioFinal.toFixed(2)}€`;
+    $('breakdown-base').innerText = `${precioPorHora}€/h`;
+    $('breakdown-horas').innerText = `${extraInicioTotal}€`;
+    $('breakdown-km').innerText = `${costeDesplazamiento.toFixed(2)}€`;
+}
+
+// Inicialización de flujos fluidos al cargar la web
+window.onload = () => {
+    toggleBookingFields();
+    calculatePrice();
 };
-if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
-on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
-const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-36 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
-
-window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);$('view-setup').classList.add('panel-active');if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djMagenta shadow-[0_0_8px_#ff00ea]"></div><span class="text-djMagenta text-[10px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
-const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();window.selComp(id)};ov.appendChild(p)}})})};
-
-const crDot=(pts,idx,pEl,dc)=>{const dt=document.createElement('div');dt.className="absolute w-3 h-3 bg-djCyan rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot hover:scale-125 transition-transform shadow-lg";dt.style.left=pts[idx].x+'%';dt.style.top=pts[idx].y+'%';on(dt,'contextmenu',e=>{e.preventDefault();e.stopPropagation();pts.splice(idx,1);renderAdminPts()});const mm=e=>{e.preventDefault();const w=$('setup-wrapper');if(!w)return;const r=w.getBoundingClientRect(),x=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)),y=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));dt.style.left=x+'%';dt.style.top=y+'%';pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))};if(pEl)pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' '))},mu=()=>{window.removeEventListener('pointermove',mm);window.removeEventListener('pointerup',mu)};on(dt,'pointerdown',e=>{e.stopPropagation();e.target.setPointerCapture(e.pointerId);on(window,'pointermove',mm);on(window,'pointerup',mu)});dc.appendChild(dt)};
-const renderAdminPts=()=>{const figsUl=$('a-comp-figs'),ptsUl=$('a-comp-pts'),dc=$('admin-pts'),ov=$('setup-svg');if(!figsUl||!ptsUl||!dc||!ov)return;dc.innerHTML=''; ov.innerHTML='';tog($('draw-controls'),'hidden',!isDrawing);tog($('btn-add-fig'),'hidden',isDrawing);figsUl.innerHTML=cFigs.map((f,i)=>editFigIdx===i?'':`<li class="flex justify-between items-center bg-black/40 px-3 py-2 rounded-lg border border-white/10 text-[10px] transition-colors hover:border-djMagenta/50"><span class="text-gray-300"><i class="fa-solid fa-draw-polygon text-djMagenta/50 mr-1.5"></i>Polígono ${i+1}</span><div class="flex gap-2"><button class="text-djCyan hover:text-white transition-colors" onclick="window.editFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delFig(${i})"><i class="fa-solid fa-trash"></i></button></div></li>`).join('');cFigs.forEach((f,i)=>{if(editFigIdx===i) return;const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(255,0,234,0.1)");p.setAttribute("stroke","rgba(255,0,234,0.6)");p.setAttribute("stroke-width","0.5");ov.appendChild(p);});if(isDrawing){if(cPts.length>0){if(cPts.length>2){const p=crSvg("polygon");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(0,229,255,0.1)");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}else{const p=crSvg("polyline");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","none");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}}ptsUl.innerHTML=cPts.length?cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><span class="font-mono text-[9px] text-gray-400"><span class="text-djCyan font-bold mr-1">${i+1}.</span> X: ${pt.x}% | Y: ${pt.y}%</span><button class="text-red-500/70 hover:text-red-500 transition-colors" onclick="window.delNode(${i})"><i class="fa-solid fa-times"></i></button></li>`).join(''):'<li class="text-gray-500 text-center py-3 text-[10px] italic border border-dashed border-white/10 rounded-lg"><i class="fa-solid fa-hand-pointer block mb-1.5 text-[14px]"></i>Clic en la imagen</li>'}else ptsUl.innerHTML=''};
-
-window.editFig=i=>{isDrawing=true; editFigIdx=i; cPts=[...cFigs[i]]; renderAdminPts()}; window.delFig=i=>{if(!confirm('¿Eliminar polígono?'))return; cFigs.splice(i,1); if(editFigIdx===i){isDrawing=false; editFigIdx=-1; cPts=[]}else if(editFigIdx>i)editFigIdx--; renderAdminPts()}; window.delNode=i=>{cPts.splice(i,1); renderAdminPts()};
-if($('btn-add-fig')) $('btn-add-fig').onclick=()=>{isDrawing=true; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-cancel-fig')) $('btn-cancel-fig').onclick=()=>{isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-close-fig')) $('btn-close-fig').onclick=()=>{if(cPts.length<3) return alert("Añade al menos 3 nodos."); if(editFigIdx>=0) cFigs[editFigIdx]=[...cPts]; else cFigs.push([...cPts]); isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()};
-if($('setup-wrapper')) $('setup-wrapper').onclick=e=>{if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&isDrawing&&!e.target.classList.contains('admin-drag-dot')){const r=$('setup-wrapper').getBoundingClientRect();cPts.push({x:parseFloat(Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)).toFixed(1)),y:parseFloat(Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100)).toFixed(1))});renderAdminPts()}};
-if($('btn-sv-cp')) $('btn-sv-cp').onclick=()=>{if(!$('a-comp-t')||!$('a-comp-t').value)return;const aF=[...cFigs];if(isDrawing&&cPts.length>2)aF.push([...cPts]);set(ref(db,`components/${$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value}`),{title:$('a-comp-t').value,desc:$('a-comp-d').value,figures:aF});isDrawing=false;cPts=[];editFigIdx=-1;renderAdminPts()};
-if($('btn-dl-cp')) $('btn-dl-cp').onclick=()=>{if(confirm('¿Borrar equipo?'))remove(ref(db,`components/${$('a-comp-sel').value}`)).then(()=>{if($('a-comp-sel')){$('a-comp-sel').value='NEW';$('a-comp-sel').dispatchEvent(new Event('change'))}})};
-if($('a-comp-sel')) $('a-comp-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-comp-t','a-comp-d'].forEach(i=>{if($(i))$(i).value=''});cFigs=[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',true)}else{const d=dbData.components[v]||{};if($('a-comp-t'))$('a-comp-t').value=d.title||'';if($('a-comp-d'))$('a-comp-d').value=d.desc||'';cFigs=d.figures?d.figures.map(f=>[...f]):[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',false)}renderAdminPts()};
-
-window.delEv=(mid,eid)=>{if(confirm('¿Borrar fecha?')){const u={};getGroup(mid).forEach(gid=>u[`municipalities/${gid}/events/${eid}`]=null);update(ref(db),u)}};
-window.edEv=(m,e)=>{const v=(dbData.municipalities[m]||{}).events[e]||{};if($('a-ev-id'))$('a-ev-id').value=e;if($('a-ev-p'))$('a-ev-p').value=v.place||'';if($('a-ev-d'))$('a-ev-d').value=v.date||'';if($('a-ev-desc'))$('a-ev-desc').value=v.details||'';tog($('btn-cl-ev'),'hidden',false);if($('btn-sv-ev'))$('btn-sv-ev').innerText='OK';if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-pen mr-1"></i> Editando';};
-const popEv=id=>{const m=dbData.municipalities[id]||{},l=$('a-ev-list');if(!l)return;l.innerHTML='';if(m.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-3 py-2 rounded-lg text-[10px] border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-3 shrink-0"><button class="text-djCyan hover:text-white" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);};
-const clrEv=()=>{['a-ev-id','a-ev-p','a-ev-d','a-ev-desc'].forEach(i=>{if($(i))$(i).value=''});if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-plus mr-1"></i> Añadir Fecha';if($('btn-sv-ev'))$('btn-sv-ev').innerText='Guardar Info Pueblo';tog($('btn-cl-ev'),'hidden',true)};
-if($('btn-cl-ev')) $('btn-cl-ev').onclick=clrEv;
-if($('btn-sv-ev')) $('btn-sv-ev').onclick=()=>{const id=$('a-muni-id')?.value,p=$('a-ev-p')?.value,eid=$('a-ev-id')?.value;if(!id)return;const u={},n=$('a-muni-name')?.value||id,s=$('a-muni-status')?.value,i=$('a-muni-img')?.value||null,eI=eid||push(ref(db,`municipalities/${id}/events`)).key,pd=(p||eid)?{place:p,date:$('a-ev-d')?.value,details:$('a-ev-desc')?.value}:null;getGroup(id).forEach(g=>{u[`municipalities/${g}/status`]=s;u[`municipalities/${g}/name`]=n;u[`municipalities/${g}/img`]=i;if(pd)u[`municipalities/${g}/events/${eI}`]=pd});update(ref(db),u).then(()=>{clrEv();selMuni(id)})};
-
-const updateDds=()=>{const c=$('a-comp-sel'),m=$('a-mash-sel');if(!c||!m)return;const cv=c.value,mv=m.value;let ch='<option value="NEW">✨ NUEVO HARDWARE</option>',mh='<option value="NEW">✨ NUEVO TRACK</option>';Object.entries(dbData.components||{}).forEach(([i,d])=>ch+=`<option value="${i}">${d.title}</option>`);Object.entries(dbData.mashups||{}).forEach(([i,d])=>mh+=`<option value="${i}">${d.title}</option>`);c.innerHTML=ch;m.innerHTML=mh;if((dbData.components||{})[cv])c.value=cv;if((dbData.mashups||{})[mv])m.value=mv};
-if($('a-mash-sel')) $('a-mash-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-mash-t','a-mash-dl','a-mash-sc'].forEach(i=>{if($(i))$(i).value=''});tog($('btn-dl-ms'),'hidden',true)}else{const d=dbData.mashups[v]||{};if($('a-mash-t'))$('a-mash-t').value=d.title||'';if($('a-mash-dl'))$('a-mash-dl').value=d.dl||'';if($('a-mash-sc'))$('a-mash-sc').value=d.scUrl||'';tog($('btn-dl-ms'),'hidden',false)}};
-if($('btn-sv-ms')) $('btn-sv-ms').onclick=async()=>{const t=$('a-mash-t')?.value;if(!t)return;const b=$('btn-sv-ms');b.disabled=true;b.innerHTML='...';try{await set(ref(db,`mashups/${$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value}`),{title:t,dl:$('a-mash-dl')?.value,scUrl:$('a-mash-sc')?.value});b.innerText='¡OK!';setTimeout(()=>{b.innerText='Publicar';b.disabled=false},1500)}catch(e){b.disabled=false;b.innerText='Publicar'}};
-if($('btn-dl-ms')) $('btn-dl-ms').onclick=()=>{if(confirm('¿Eliminar track?'))remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{if($('a-mash-sel')){$('a-mash-sel').value='NEW';$('a-mash-sel').dispatchEvent(new Event('change'))}})};
-
-if($('btn-sv-ticker')) $('btn-sv-ticker').onclick=()=>{const v=$('a-ticker-input')?.value; if(!v)return; set(ref(db, `config/ticker`), v).then(()=>{const b=$('btn-sv-ticker'); b.innerText='¡Guardado!'; setTimeout(()=>b.innerText='Guardar Ajustes', 1500)})};
-if($('btn-reset-stats')) $('btn-reset-stats').onclick=()=>{if(confirm('¿Poner contadores a 0?')) set(ref(db, 'analytics'), {contract:0, mashup:0});};
-
-onAuthStateChanged(auth,(user)=>{if(!user||user.email!==EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',true);toggleAdminMode(false)}});
-let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false); toggleAdminMode(actTab==='setup');}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false); toggleAdminMode(actTab==='setup');}else{alert("Acceso Denegado.");signOut(auth)}}).catch(e=>{})}}setTimeout(()=>cc=0,800)};
-if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{if(confirm("¿Cerrar panel de administración?")){tog($('admin-panel'),'hidden',true);toggleAdminMode(false);}};
-
-if($('admin-header')) on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;const p=$('admin-panel'),r=p.getBoundingClientRect();p.style.transform='none';p.style.left=r.left+'px';p.style.top=r.top+'px';dX=e.clientX-r.left;dY=e.clientY-r.top;});
-on(window,'mousemove',e=>{if(drA&&$('admin-panel')){$('admin-panel').style.left=`${e.clientX-dX}px`;$('admin-panel').style.top=`${e.clientY-dY}px`}}); on(window,'mouseup',()=>drA=false);
-
-['tour','setup','mashups','general'].forEach(t=>{if($(`tab-${t}`))$(`tab-${t}`).onclick=()=>{actTab=t;const c={tour:'djCyan',setup:'djMagenta',mashups:'djYellow',general:'white'}[t];['tour','setup','mashups','general'].forEach(o=>{if($(`tab-${o}`))$(`tab-${o}`).className=o===t?`flex-1 py-3 text-${c} border-b-2 border-${c} bg-white/[0.02] transition-colors`:'flex-1 py-3 text-gray-500 border-b-2 border-transparent hover:text-white transition-colors';tog($(`sec-a-${o}`),'hidden',o!==t)});toggleAdminMode(t==='setup')}});
+// Mecánica simplificada para arrastrar el panel administrativo opcional por pantalla si fuese necesario
+let drA = false, dX = 0, dY = 0;
+on($('admin-header'), 'mousedown', e => {
+    if (e.target.closest('button')) return;
+    drA = true;
+    const p = $('admin-panel'), r = p.getBoundingClientRect();
+    p.style.transform = 'none';
+    p.style.left = r.left + 'px';
+    p.style.top = r.top + 'px';
+    dX = e.clientX - r.left;
+    dY = e.clientY - r.top;
+});
+on(window, 'mousemove', e => {
+    if (drA && $('admin-panel')) {
+        $('admin-panel').style.left = `${e.clientX - dX}px`;
+        $('admin-panel').style.top = `${e.clientY - dY}px`;
+    }
+});
+on(window, 'mouseup', () => drA = false);
+on($('btn-close-admin'), 'click', () => $('admin-panel').style.display = 'none');
 </script>
 </body>
 </html>
