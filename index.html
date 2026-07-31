@@ -3,22 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta property="og:site_name" content="DJ VAQUERO">
 <title>DJ VAQUERO | Web Oficial</title>
 <meta name="description" content="Web Oficial de DJ Vaquero. Fechas de tour, setup, mashups y booking.">
 <meta property="og:title" content="DJ VAQUERO | Web Oficial">
 <meta property="og:description" content="Web Oficial de DJ Vaquero. Fechas de tour, setup, mashups y booking.">
-<meta property="og:image" content="logo.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "DJ VAQUERO",
-  "url": "https://vaquerodj.github.io/djvaquero/"
-}
-</script>
-<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+<meta property="og:image" content="image_d65724.png">
+<link rel="icon" type="image/png" sizes="32x32" href="image_d65724.png">
+<link rel="apple-touch-icon" href="image_d65724.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600',djGreen:'#00ff88'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite','pulse-fast':'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}}}}}};
@@ -31,7 +22,7 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'
 input,textarea,select{user-select:text;-webkit-user-select:text;}
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease;}
 @media(min-width:768px){body{padding:1rem;gap:1rem}}
-::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:3px;height:3px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
+::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:4px;height:4px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
 .ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden} .ambient-glow{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.35;will-change:transform;transition:background 0.8s ease}
 .glow-1{top:-10%;left:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} .glow-2{bottom:-10%;right:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
 .glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.85) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
@@ -43,15 +34,15 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative} .zoom-layer{position:absolute;transform-origin:0 0;touch-action:none}
 .muni{pointer-events:all;transition:all 0.3s ease} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
 .comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 15%, transparent);stroke:var(--tc);stroke-width:0.6px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 50%, transparent))}
-.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);padding:0.5rem 0.7rem;color:#fff;border-radius:8px;font-size:0.75rem;transition:border 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.8)} .admin-input option{background:#0e1118}
+.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);padding:0.6rem 0.8rem;color:#fff;border-radius:10px;font-size:0.75rem;transition:all 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.9);box-shadow:0 0 8px color-mix(in srgb, var(--tc) 30%, transparent)} .admin-input option{background:#0e1118}
 input[type=range] { -webkit-appearance: none; background: transparent; }
 input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--tc); margin-top: -5px; box-shadow: 0 0 10px var(--tc); cursor: pointer; transition: transform 0.1s; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: var(--tc); margin-top: -6px; box-shadow: 0 0 12px var(--tc); cursor: pointer; transition: transform 0.1s; }
 input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
 .slide-panel{position:absolute;z-index:40;background:rgba(5,7,10,0.98);backdrop-filter:blur(25px);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;overflow:hidden;will-change:transform}
 #tour-viewport, #setup-wrapper, #tour-album-container { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); will-change: transform, padding; }
-@media(max-width:767px){ .slide-panel{bottom:0;left:0;right:0;width:100%;height:45%;max-width:100%;border-top:1px solid rgba(255,255,255,0.05);transform:translate3d(0,100%,0);border-radius:16px 16px 0 0} .slide-panel.open{transform:translate3d(0,0,0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translate3d(0,-22vh,0); } body:not(.admin-active) .panel-active #tour-album-container { padding-bottom: 50vh; } }
-@media(min-width:768px){ .slide-panel{top:0;right:0;height:100%;width:340px;max-width:340px;border-left:1px solid rgba(255,255,255,0.05);transform:translate3d(100%,0,0)} .slide-panel.open{transform:translate3d(0,0,0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translate3d(-170px,0,0); } body:not(.admin-active) .panel-active #tour-album-container { padding-right: 360px; } }
+@media(max-width:767px){ .slide-panel{bottom:0;left:0;right:0;width:100%;height:55%;max-width:100%;border-top:1px solid rgba(255,255,255,0.05);transform:translate3d(0,100%,0);border-radius:20px 20px 0 0} .slide-panel.open{transform:translate3d(0,0,0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translate3d(0,-25vh,0); } body:not(.admin-active) .panel-active #tour-album-container { padding-bottom: 60vh; } }
+@media(min-width:768px){ .slide-panel{top:0;right:0;height:100%;width:360px;max-width:360px;border-left:1px solid rgba(255,255,255,0.05);transform:translate3d(100%,0,0)} .slide-panel.open{transform:translate3d(0,0,0)} body:not(.admin-active) .panel-active #tour-viewport, body:not(.admin-active) .panel-active #setup-wrapper { transform: translate3d(-180px,0,0); } body:not(.admin-active) .panel-active #tour-album-container { padding-right: 380px; } }
 .marquee-container{mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
 .theme-text{color:var(--tc);transition:color 0.3s ease;} .theme-drop{filter:drop-shadow(0 0 10px color-mix(in srgb, var(--tc) 40%, transparent));} .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)} .theme-border{border-color:var(--tc)}
 .ee-word { opacity: 0; transform: translateY(30px) scale(0.8); animation: ee-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
@@ -122,129 +113,135 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
   <div class="glass-card flex-grow w-full h-full relative overflow-hidden order-1 md:order-2 border-t md:border-t-0 border-white/5">
     
     <div id="view-tour" class="app-view active bg-black/40">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+      <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.01] shrink-0">
+        <h2 class="font-display font-black theme-text theme-drop text-xl md:text-2xl uppercase tracking-widest flex items-center">
           <i class="fa-solid fa-map-location-dot mr-2 ee-trigger cursor-pointer transition-transform"></i> Tour Oficial
         </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Pueblos conquistados y mapa interactivo.</p>
+        <p class="text-[10px] md:text-xs text-gray-400 mt-1">Pueblos conquistados y mapa interactivo.</p>
       </div>
       <div class="flex items-center gap-2 p-3 bg-white/[0.02] border-b border-white/5 shrink-0 z-30 relative">
         <div class="relative flex-grow max-w-sm">
-          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-9 pr-3 py-2 text-xs rounded-xl text-white focus:border-djCyan transition-colors shadow-lg">
+          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-9 pr-3 py-2.5 text-xs rounded-xl text-white focus:border-djCyan transition-colors shadow-lg">
           <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
           <ul id="search-results" class="absolute top-full left-0 w-full mt-1.5 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-xl"></ul>
         </div>
-        <button id="btn-toggle-tour" class="bg-black/80 border border-white/10 hover:border-djCyan text-djCyan px-3 h-[34px] rounded-xl flex items-center justify-center text-xs font-bold uppercase tracking-widest transition-colors shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-1.5"></i> Mapa</button>
-        <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-[34px] h-[34px] rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors shadow-lg hidden"><i class="fa-solid fa-expand text-sm"></i></button>
+        <button id="btn-toggle-tour" class="bg-black/80 border border-white/10 hover:border-djCyan text-djCyan px-4 py-2.5 rounded-xl flex items-center justify-center text-xs font-bold uppercase tracking-widest transition-colors shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-1.5"></i> Mapa</button>
+        <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan px-3 py-2.5 rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors shadow-lg hidden"><i class="fa-solid fa-expand text-sm"></i></button>
       </div>
-      <div id="tour-album-container" class="w-full flex-grow relative overflow-y-auto custom-scrollbar p-4">
-        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5 content-start max-w-6xl mx-auto"></div>
+      <div id="tour-album-container" class="w-full flex-grow relative overflow-y-auto custom-scrollbar p-4 md:p-6">
+        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 content-start max-w-7xl mx-auto"></div>
       </div>
       <div id="tour-map-container" class="w-full flex-grow relative overflow-hidden hidden">
         <div class="w-full h-full content-area relative" id="tour-viewport"><div class="zoom-layer" id="tour-layer"></div></div>
       </div>
       <div id="info-overlay" class="slide-panel">
-        <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
-          <div><h3 id="info-title" class="text-lg md:text-xl font-display font-black text-white uppercase tracking-tighter mb-0.5">TOUR</h3><div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Selecciona</span></div></div>
+        <div class="p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start">
+          <div>
+            <h3 id="info-title" class="text-xl font-display font-black text-white uppercase tracking-tighter mb-1">TOUR</h3>
+            <div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona</span></div>
+          </div>
           <button id="btn-close-tour" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
-        <div id="info-events" class="flex-grow flex flex-col gap-3 p-4 md:p-5 overflow-y-auto custom-scrollbar"></div>
+        <div id="info-events" class="flex-grow flex flex-col gap-3 p-5 overflow-y-auto custom-scrollbar"></div>
       </div>
     </div>
 
     <div id="view-setup" class="app-view bg-black/40">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0 z-10 relative">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+      <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.01] shrink-0 z-10 relative">
+        <h2 class="font-display font-black theme-text theme-drop text-xl md:text-2xl uppercase tracking-widest flex items-center">
           <i class="fa-solid fa-sliders mr-2 ee-trigger cursor-pointer transition-transform"></i> Equipo Técnico
         </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Hardware y configuración en cabina.</p>
+        <p class="text-[10px] md:text-xs text-gray-400 mt-1">Hardware y configuración en cabina.</p>
       </div>
-      <div class="w-full flex-grow p-2 relative">
+      <div class="w-full flex-grow p-4 relative">
         <div class="w-full h-full flex justify-center items-center relative">
-          <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block touch-none rounded-xl">
-            <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[75vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
+          <div id="setup-wrapper" class="relative max-w-full max-h-full inline-block touch-none rounded-2xl">
+            <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[70vh] object-contain drop-shadow-2xl" id="setup-img" draggable="false">
             <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
             <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
           </div>
         </div>
       </div>
-      <p id="admin-hint" class="absolute bottom-3 left-3 text-djMagenta text-[10px] hidden font-bold bg-black/90 px-3 py-1.5 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS</p>
+      <p id="admin-hint" class="absolute bottom-4 left-4 text-djMagenta text-[10px] hidden font-bold bg-black/90 px-3 py-1.5 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS</p>
       <div id="setup-overlay" class="slide-panel">
-        <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start shrink-0">
-          <div><div id="setup-status" class="flex items-center gap-1.5 mb-1"><div class="w-2 h-2 rounded-full theme-bg"></div><span class="theme-text text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Activo</span></div><h3 id="setup-t" class="text-base md:text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
+        <div class="p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start shrink-0">
+          <div><div id="setup-status" class="flex items-center gap-1.5 mb-1.5"><div class="w-2 h-2 rounded-full theme-bg"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Activo</span></div><h3 id="setup-t" class="text-lg font-display font-black text-white uppercase tracking-tighter"></h3></div>
           <button id="btn-close-setup" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
-        <div class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-xs md:text-sm leading-relaxed whitespace-pre-wrap"></p></div>
+        <div class="flex-grow p-5 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap"></p></div>
       </div>
     </div>
 
     <div id="view-mashups" class="app-view bg-black/40">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+      <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.01] shrink-0">
+        <h2 class="font-display font-black theme-text theme-drop text-xl md:text-2xl uppercase tracking-widest flex items-center">
           <i class="fa-solid fa-compact-disc mr-2 ee-trigger cursor-pointer transition-transform animate-spin" style="animation-duration: 4s;"></i> Mashups & Edits
         </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Tracks exclusivos, mixes y descargas directas.</p>
+        <p class="text-[10px] md:text-xs text-gray-400 mt-1">Tracks exclusivos, mixes y descargas directas.</p>
       </div>
-      <div id="mashups-grid" class="flex-grow p-4 md:p-5 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 content-start"></div>
+      <div id="mashups-grid" class="flex-grow p-4 md:p-6 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 content-start"></div>
     </div>
 
     <div id="view-booking" class="app-view bg-black/40 flex flex-col overflow-hidden">
-      <div class="p-4 border-b border-white/5 bg-white/[0.01] shrink-0">
-        <h2 class="font-display font-black theme-text theme-drop text-xl uppercase tracking-widest flex items-center">
+      <div class="p-4 md:p-5 border-b border-white/5 bg-white/[0.01] shrink-0">
+        <h2 class="font-display font-black theme-text theme-drop text-xl md:text-2xl uppercase tracking-widest flex items-center">
           <i class="fa-solid fa-file-invoice-dollar mr-2 ee-trigger cursor-pointer transition-transform"></i> Booking Oficial
         </h2>
-        <p class="text-[10px] text-gray-400 mt-1">Configura los parámetros para calcular tu cotización.</p>
+        <p class="text-[10px] md:text-xs text-gray-400 mt-1">Calculadora inteligente y solicitud de fechas.</p>
       </div>
-      <div class="flex-grow flex items-center justify-center p-2 w-full overflow-y-auto md:overflow-hidden custom-scrollbar">
-        <div class="glass-card w-full max-w-xl p-4 md:p-6 flex flex-col justify-center gap-2 md:gap-3 border-djGreen/20 h-auto md:max-h-full">
+      <div class="flex-grow flex items-center justify-center p-4 w-full overflow-y-auto custom-scrollbar">
+        <div class="glass-card w-full max-w-xl p-5 md:p-7 flex flex-col justify-center gap-4 border-djGreen/20 shadow-2xl">
+          
           <div>
-            <label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Tipo de Evento</label>
-            <select id="p-type" class="admin-input text-xs py-1.5" onchange="window.updateBookingUI()">
+            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-compact-disc mr-1 text-djGreen/70"></i> Tipo de Evento</label>
+            <select id="p-type" class="admin-input text-sm" onchange="window.updateBookingUI()">
               <option value="pub">Discotecas / Pubs</option>
               <option value="pueblo">Fiestas de Pueblo / Quintos</option>
               <option value="privada">Fiestas Privadas (Cumpleaños/Boda/Otros)</option>
             </select>
           </div>
+
           <div id="div-eq" class="hidden">
-            <label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">¿Necesita que el DJ ponga equipo?</label>
-            <select id="p-eq" class="admin-input text-xs py-1.5" onchange="window.updateBookingUI()">
-              <option value="no">No (Solo requiere controladora)</option>
+            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-volume-high mr-1 text-djGreen/70"></i> ¿Requiere equipo de sonido/luces?</label>
+            <select id="p-eq" class="admin-input text-sm" onchange="window.updateBookingUI()">
+              <option value="no">No (Solo requiere controladora DJ)</option>
               <option value="si">Sí (Equipo de Sonido e Iluminación completo)</option>
             </select>
           </div>
+
           <div>
-            <div class="flex justify-between mb-1">
-              <label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400">Duración de la sesión</label>
-              <span id="dur-val" class="text-[9px] text-djGreen font-bold bg-djGreen/10 px-2 py-0.5 rounded-md border border-djGreen/30 shadow-[0_0_8px_rgba(0,255,136,0.2)]">2 Horas</span>
+            <div class="flex justify-between mb-2">
+              <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-clock mr-1 text-djGreen/70"></i> Duración de la sesión</label>
+              <span id="dur-val" class="text-[10px] text-djGreen font-bold bg-djGreen/10 px-2 py-0.5 rounded-md border border-djGreen/30 shadow-[0_0_8px_rgba(0,255,136,0.2)]">2 Horas</span>
             </div>
-            <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full mt-1.5" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
+            <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full mt-2" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
           </div>
+
           <div id="div-time" class="hidden">
-            <label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Hora de comienzo (Aprox.)</label>
-            <input type="time" id="p-time" value="00:00" class="admin-input text-xs py-1.5 [color-scheme:dark]" onchange="window.calcBudget()">
+            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-hourglass-start mr-1 text-djGreen/70"></i> Hora de comienzo (Aprox.)</label>
+            <input type="time" id="p-time" value="00:00" class="admin-input text-sm [color-scheme:dark]" onchange="window.calcBudget()">
           </div>
+
           <div>
-            <label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Ubicación</label>
-            <select id="p-loc" class="admin-input text-xs py-1.5" onchange="window.updateBookingUI()">
-              <option value="salamanca">Provincia de Salamanca</option>
-              <option value="fuera">Fuera de Salamanca</option>
-            </select>
-          </div>
-          <div id="div-km-calc" class="hidden">
-            <label class="block text-[9px] uppercase font-bold tracking-wider text-gray-400 mb-1">Municipio de Destino</label>
-            <div class="flex gap-2">
-              <input type="text" id="p-city" placeholder="Ej: Valladolid" class="admin-input text-xs py-1.5 flex-1" onchange="window.calcDist()">
-              <span id="dist-lbl" class="bg-white/5 border border-white/10 rounded-lg px-2 flex items-center justify-center text-[10px] text-djGreen font-bold shrink-0 min-w-[70px] shadow-inner">-- km</span>
+            <label class="block text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-map-location-dot mr-1 text-djGreen/70"></i> Municipio del Evento</label>
+            <div class="flex gap-2 relative">
+              <div class="relative flex-1">
+                <i class="fa-solid fa-city absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+                <input type="text" id="p-city" placeholder="Ej: Salamanca, Peñaranda..." class="admin-input pl-8 text-sm w-full" onchange="window.calcDist()">
+              </div>
+              <span id="dist-lbl" class="bg-black/60 border border-white/10 rounded-xl px-3 flex items-center justify-center text-[11px] text-djGreen font-bold shrink-0 min-w-[85px] shadow-inner">-- km</span>
             </div>
           </div>
-          <div class="pt-2 mt-1 border-t border-white/5 flex flex-col items-center text-center shrink-0">
-            <span class="text-[9px] uppercase font-bold tracking-widest text-gray-400">Inversión Estimada</span>
-            <div id="p-result" class="text-2xl md:text-4xl font-display font-black text-djGreen my-1 drop-shadow-[0_0_15px_rgba(0,255,136,0.4)] transition-all">---</div>
-            <p class="text-[7px] md:text-[8px] text-gray-500 mb-2 px-2 uppercase tracking-wide leading-tight">* Precios aproximados y orientativos, sujetos a disponibilidad, fechas señaladas (Nochevieja, Festivos...), aforo y requerimientos técnicos del rider.</p>
-            <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djGreen text-black font-black w-full py-2.5 rounded-xl text-xs uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(0,255,136,0.3)]">
+          
+          <div class="pt-4 mt-2 border-t border-white/10 flex flex-col items-center text-center shrink-0 bg-white/[0.01] rounded-xl pb-2">
+            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400"><i class="fa-solid fa-money-bill-wave mr-1"></i> Inversión Estimada</span>
+            <div id="p-result" class="text-3xl md:text-5xl font-display font-black text-djGreen my-2 drop-shadow-[0_0_15px_rgba(0,255,136,0.4)] transition-all">---</div>
+            <p class="text-[8px] md:text-[9px] text-gray-500 mb-4 px-4 uppercase tracking-wide leading-relaxed">* Precios aproximados y orientativos, sujetos a disponibilidad, fechas señaladas (Nochevieja, Festivos...), aforo y requerimientos técnicos del rider.</p>
+            <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djGreen text-black font-black w-full py-3.5 rounded-xl text-sm uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,136,0.3)]">
               <i class="fa-solid fa-paper-plane"></i> Solicitar / Contratar
             </a>
           </div>
+
         </div>
       </div>
     </div>
@@ -325,7 +322,9 @@ const db=getDatabase(app),auth=getAuth(app),provider=new GoogleAuthProvider(),$=
 let dbData={municipalities:{},components:{},mashups:{},config:{},analytics:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false,tourMode='album';
 const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
 
-let eeC=0; const au=new Audio('tag.flac'); window.bookingKm=0;
+let eeC=0; const au=new Audio('tag.flac'); 
+window.bookingKm=0; window.isSalamanca=true;
+
 $$('.ee-trigger').forEach(el=>{
   el.onclick=e=>{
     e.stopPropagation(); eeC++; el.style.transform=`scale(${1+(eeC*0.15)}) rotate(${eeC*20}deg)`; setTimeout(()=>el.style.transform='',150);
@@ -339,37 +338,43 @@ $$('.ee-trigger').forEach(el=>{
 
 window.calcDist = async () => {
   const c = $('p-city')?.value, lbl = $('dist-lbl');
-  if(!c){ window.bookingKm=0; lbl.innerText='-- km'; window.calcBudget(); return; }
+  if(!c){ window.bookingKm=0; window.isSalamanca=true; lbl.innerText='-- km'; window.calcBudget(); return; }
   lbl.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i>';
   try {
     let r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(c)}, España`);
     let d = await r.json();
     if(d&&d[0]){
-      let a = 0.5 - Math.cos((parseFloat(d[0].lat) - 40.9701) * 0.0174532925) / 2 + Math.cos(40.9701 * 0.0174532925) * Math.cos(parseFloat(d[0].lat) * 0.0174532925) * (1 - Math.cos((parseFloat(d[0].lon) - -5.6635) * 0.0174532925)) / 2;
-      window.bookingKm = Math.round(12742 * Math.asin(Math.sqrt(a)) * 1.25);
-      lbl.innerText = window.bookingKm + ' km';
-    } else { window.bookingKm=0; lbl.innerText='0 km'; }
-  } catch(e) { window.bookingKm=0; lbl.innerText='Err'; }
+      if(d[0].display_name.toLowerCase().includes("salamanca")) {
+          window.isSalamanca = true;
+          window.bookingKm = 0;
+          lbl.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Local';
+      } else {
+          window.isSalamanca = false;
+          let a = 0.5 - Math.cos((parseFloat(d[0].lat) - 40.9701) * 0.0174532925) / 2 + Math.cos(40.9701 * 0.0174532925) * Math.cos(parseFloat(d[0].lat) * 0.0174532925) * (1 - Math.cos((parseFloat(d[0].lon) - -5.6635) * 0.0174532925)) / 2;
+          window.bookingKm = Math.round(12742 * Math.asin(Math.sqrt(a)) * 1.25);
+          lbl.innerText = window.bookingKm + ' km';
+      }
+    } else { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Err'; }
+  } catch(e) { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Err'; }
   window.calcBudget();
 };
 
 window.updateBookingUI=()=>{
-  const t=$('p-type').value, l=$('p-loc').value, e=$('p-eq').value;
+  const t=$('p-type').value, e=$('p-eq').value;
   $('div-eq').classList.toggle('hidden',t!=='pub');
   $('div-time').classList.toggle('hidden',!(t==='pueblo'||(t==='pub'&&e==='si')));
-  $('div-km-calc').classList.toggle('hidden',l!=='fuera');
   window.calcBudget();
 };
 
 window.calcBudget=()=>{
-  const t=$('p-type')?.value, d=parseInt($('p-dur')?.value)||2, e=$('p-eq')?.value, l=$('p-loc')?.value;
+  const t=$('p-type')?.value, d=parseInt($('p-dur')?.value)||2, e=$('p-eq')?.value;
   let r=25; if(t==='privada') r=75; else if(t==='pueblo'||(t==='pub'&&e==='si')) r=60;
   let tot=r*d;
   if(t==='pueblo'||(t==='pub'&&e==='si')){
     const tm=$('p-time')?.value;
     if(tm){const hh=parseInt(tm.split(':')[0]); if(hh>0&&hh<=12)tot+=(15*hh);}
   }
-  if(l==='fuera') tot+=(window.bookingKm*0.25);
+  if(!window.isSalamanca && window.bookingKm > 0) tot += 100 + (window.bookingKm * 0.25);
   if($('p-result')) $('p-result').innerText=`${tot.toFixed(2).replace(/\.00$/,'')}€`;
 };
 
@@ -419,15 +424,15 @@ const renderAlbum=()=>{
   g.innerHTML=m.length?m.map(([id,d])=>{
     if(!d.img||d.img.trim()==='') return '';
     const n=/^zona/i.test(d.name||id)?id.replace(/_/g,' '):(d.name||id.replace(/_/g,' '));
-    return `<div class="glass-card overflow-hidden cursor-pointer group hover:border-djCyan transition-all duration-300 flex flex-col items-center justify-center relative p-1.5 shadow-lg hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transform hover:-translate-y-1" onclick="window.selMuni('${id}')"><div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none rounded-xl"></div><div class="h-28 w-full bg-black relative overflow-hidden rounded-lg border border-white/10"><img src="${d.img}" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out"><div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent h-1/2"></div><div class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff] z-20"></div></div><div class="p-2 w-full text-center relative z-20 -mt-2"><h3 class="font-display font-black text-white text-[10px] md:text-xs uppercase tracking-tight truncate drop-shadow-md">${n}</h3><p class="text-[7px] text-gray-400 mt-0.5 uppercase tracking-widest font-bold">Conquistado</p></div></div>`;
-  }).join(''):'<p class="text-gray-500 text-xs col-span-full text-center py-10 w-full italic">Aún no hay pueblos conquistados.</p>';
+    return `<div class="glass-card overflow-hidden cursor-pointer group hover:border-djCyan transition-all duration-300 flex flex-col items-center justify-center relative p-1.5 shadow-lg hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transform hover:-translate-y-1" onclick="window.selMuni('${id}')"><div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none rounded-xl"></div><div class="h-32 w-full bg-black relative overflow-hidden rounded-xl border border-white/10"><img src="${d.img}" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out"><div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent h-1/2"></div><div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-djCyan shadow-[0_0_8px_#00e5ff] z-20"></div></div><div class="p-3 w-full text-center relative z-20 -mt-3"><h3 class="font-display font-black text-white text-xs md:text-sm uppercase tracking-tight truncate drop-shadow-md">${n}</h3><p class="text-[8px] md:text-[9px] text-gray-400 mt-1 uppercase tracking-widest font-bold">Conquistado</p></div></div>`;
+  }).join(''):'<p class="text-gray-500 text-sm col-span-full text-center py-10 w-full italic">Aún no hay pueblos conquistados.</p>';
 };
 
 const uLbls=()=>{if(!lgEl||!vp)return;
   lgEl.className.baseVal=sc<1.5?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';
   if(sc<1.5)return;const fS=8/sc,vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
   srt.forEach(l=>{const m=dbData.municipalities[l.dataset.id]||{};if(!m.name||/^zona/i.test(m.name))return void(l.style.opacity='0');const un=m.status==='unlocked';
-  if(un){l.setAttribute('fill','#00e5ff');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.4}px`);l.setAttribute('font-size',`${fS*1.2}px`);l.setAttribute('font-weight','900')}else{l.setAttribute('fill','rgba(255,255,255,0.7)');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.2}px`);l.setAttribute('font-size',`${fS*0.8}px`);l.setAttribute('font-weight','700')}
+  if(un){l.setAttribute('fill','#00e5ff');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.6}px`);l.setAttribute('font-size',`${fS*1.4}px`);l.setAttribute('font-weight','900');l.setAttribute('filter','drop-shadow(0px 2px 2px rgba(0,0,0,0.8))');}else{l.setAttribute('fill','rgba(255,255,255,0.8)');l.setAttribute('stroke','#000000');l.setAttribute('stroke-width',`${fS*0.4}px`);l.setAttribute('font-size',`${fS*0.9}px`);l.setAttribute('font-weight','700');l.removeAttribute('filter');}
   l.setAttribute('paint-order','stroke fill');l.setAttribute('stroke-linejoin','round');const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2;if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
   if(!occ.some(o=>b.l-4<o.r&&b.r+4>o.l&&b.t-4<o.b&&b.b+4>o.t)){l.style.opacity='1';occ.push(b)}else l.style.opacity='0'})};
 
@@ -459,16 +464,20 @@ window.selMuni=id=>{
   if(iTit)iTit.innerText=n; if($('a-muni-id'))$('a-muni-id').value=id; if($('a-muni-name'))$('a-muni-name').value=n; if($('a-muni-img'))$('a-muni-img').value=m.img||''; clrEv(); popEv(id); tog(iAnc,'open',true); $('view-tour').classList.add('panel-active');
   if(m.status==='unlocked'){
     if($('a-muni-status'))$('a-muni-status').value='unlocked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full theme-bg shadow-[0_0_8px_var(--tc)]"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;
-    let evHtml='';if(m.events){Object.entries(m.events).forEach(([eid,ev])=>{evHtml+=`<div class="bg-black/60 border border-white/5 rounded-xl p-3 md:p-4 relative overflow-hidden"><div class="absolute top-0 left-0 w-1 h-full theme-bg"></div><h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4><p class="text-[10px] theme-text font-bold uppercase tracking-wider mt-1">${ev.date}</p>${ev.details?`<p class="text-xs text-gray-400 mt-2 leading-relaxed">${ev.details}</p>`:''}</div>`})}else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;
+    let evHtml='';if(m.events){
+      Object.entries(m.events).forEach(([eid,ev])=>{
+        evHtml+=`<div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 relative overflow-hidden group hover:border-djCyan/50 transition-all shadow-lg"><div class="absolute top-0 left-0 w-1.5 h-full theme-bg group-hover:w-2 transition-all"></div><div class="flex flex-col gap-2"><div class="flex items-start justify-between gap-3"><h4 class="text-sm font-display font-black text-white leading-tight flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-djCyan/80"></i> ${ev.place}</h4><span class="bg-black/50 px-2 py-1 rounded-md text-[9px] theme-text font-bold uppercase tracking-wider border border-white/5 whitespace-nowrap"><i class="fa-regular fa-calendar mr-1"></i>${ev.date}</span></div>${ev.details?`<p class="text-xs text-gray-400 mt-1 leading-relaxed bg-black/40 p-2.5 rounded-xl border border-white/5">${ev.details}</p>`:''}</div></div>`;
+      })
+    }else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;
     if(iEvs)iEvs.innerHTML=evHtml;
   }else{
     if($('a-muni-status'))$('a-muni-status').value='locked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;
     if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`;
   }
   let btns = '';
-  if(tourMode !== 'map'){ btns += `<button onclick="window.openMapAndCenter('${id}')" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-2.5 rounded-xl text-center text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button>`; }
-  btns += `<a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djCyan text-black w-full py-3 md:py-3.5 rounded-xl text-center text-xs font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_15px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`;
-  if(iEvs)iEvs.innerHTML+=`<div class="mt-auto shrink-0 flex flex-col gap-2 w-full">${btns}</div>`;
+  if(tourMode !== 'map'){ btns += `<button onclick="window.openMapAndCenter('${id}')" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button>`; }
+  btns += `<a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djCyan text-black w-full py-3 md:py-4 rounded-xl text-center text-sm font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`;
+  if(iEvs)iEvs.innerHTML+=`<div class="mt-auto shrink-0 flex flex-col gap-3 w-full pt-2">${btns}</div>`;
 };
 if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
