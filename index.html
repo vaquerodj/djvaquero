@@ -7,11 +7,18 @@
 <meta name="description" content="Web Oficial de DJ Vaquero. Fechas de tour, setup, mashups y booking.">
 <link rel="icon" type="image/png" sizes="32x32" href="image_d65724.png">
 <link rel="apple-touch-icon" href="image_d65724.png">
+<!-- Optimizaciones de carga -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600',djGreen:'#00ff88'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite','pulse-fast':'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}}}}}};
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root{--tc:#00e5ff;}
@@ -20,13 +27,15 @@ input,textarea,select{user-select:text;-webkit-user-select:text;}
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;height:100dvh;width:100vw;overflow:hidden;display:flex;flex-direction:column;padding:0.5rem;box-sizing:border-box;gap:0.5rem;transition:--tc 0.5s ease;}
 @media(min-width:768px){body{padding:1rem;gap:1rem}}
 ::-webkit-scrollbar{width:0;height:0} .custom-scrollbar::-webkit-scrollbar{width:4px;height:4px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:10px} .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--tc)}
-.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden} .ambient-glow{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.35;will-change:transform;transition:background 0.8s ease}
-.glow-1{top:-10%;left:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} .glow-2{bottom:-10%;right:-10%;width:55vw;height:55vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
-.glass-card{background:linear-gradient(145deg,rgba(10,13,20,0.85) 0%,rgba(5,7,10,0.95) 100%);backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
+.ambient-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden} .ambient-glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.4;will-change:transform;transition:background 0.8s ease}
+.glow-1{top:-15%;left:-10%;width:60vw;height:60vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} .glow-2{bottom:-15%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
+/* Estética mejorada: cristales más limpios y con más profundidad */
+.glass-card{background:linear-gradient(145deg,rgba(15,20,30,0.65) 0%,rgba(5,7,10,0.85) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s ease;}
+.glass-card:hover{box-shadow:0 15px 35px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.15);}
 .social-icon{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,0.03);color:#a1a1aa;transition:all 0.2s ease-out} 
 @media(min-width:768px){.social-icon{width:38px;height:38px;border-radius:10px;}}
-.social-icon:hover{color:#fff;transform:translate3d(0,-2px,0) scale(1.1)}
-.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.3)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea} .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.3)} .social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.4)}
+.social-icon:hover{color:#fff;transform:translate3d(0,-3px,0) scale(1.15)}
+.social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.4)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea} .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.4)} .social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.5)}
 .app-view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform:translate3d(0,10px,0) scale(0.99);z-index:0;display:flex;flex-direction:column;border-radius:16px;overflow:hidden} .app-view.active{opacity:1;pointer-events:auto;transform:translate3d(0,0,0) scale(1);z-index:10}
 .nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative} .zoom-layer{position:absolute;inset:0;touch-action:none}
 .muni{pointer-events:all;transition:all 0.3s ease} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
@@ -44,11 +53,13 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
 .theme-text{color:var(--tc);transition:color 0.3s ease;} .theme-drop{filter:drop-shadow(0 0 10px color-mix(in srgb, var(--tc) 40%, transparent));} .theme-bg{background:color-mix(in srgb, var(--tc) 20%, transparent);color:var(--tc);box-shadow:0 0 10px color-mix(in srgb, var(--tc) 30%, transparent)} .theme-border{border-color:var(--tc)}
 .ee-word { opacity: 0; transform: translateY(30px) scale(0.8); animation: ee-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 @keyframes ee-pop { to { opacity: 1; transform: translateY(0) scale(1); } }
+/* Optimizaciones de rendimiento visual */
+img { content-visibility: auto; }
 </style>
 </head>
 <body class="antialiased font-body">
 
-<div id="loader" class="fixed inset-0 z-[999] bg-[#030408] flex items-center justify-center transition-opacity duration-500">
+<div id="loader" class="fixed inset-0 z-[999] bg-[#030408] flex items-center justify-center transition-opacity duration-300">
   <div class="flex flex-col items-center">
     <h1 class="font-display font-black text-3xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
     <div class="mt-6 w-10 h-10 border-4 theme-border border-t-transparent rounded-full animate-spin"></div>
@@ -82,7 +93,7 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
     </div>
   </div>
   
-  <div class="flex-grow w-full md:w-auto overflow-hidden mx-0 md:mx-6 h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container hover:bg-white/5 transition-colors cursor-pointer" onclick="window.switchView('tour')">
+  <div class="flex-grow w-full md:w-auto overflow-hidden mx-0 md:mx-6 h-8 relative flex items-center bg-black/40 rounded-lg border border-white/5 marquee-container hover:bg-white/10 transition-colors cursor-pointer shadow-inner" onclick="window.switchView('tour')">
      <div id="ticker-display" class="whitespace-nowrap text-[10px] md:text-xs text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
         <div class="animate-marquee shrink-0 px-4"><span class="theme-text"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
         <div class="animate-marquee shrink-0 px-4" aria-hidden="true"><span class="theme-text"><i class="fa-solid fa-bolt mr-1"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -100,16 +111,16 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
 <main class="w-full flex-grow flex flex-col md:flex-row gap-2 md:gap-4 relative z-10 overflow-hidden">
   <nav class="glass-card flex md:flex-col justify-around md:justify-center gap-1 md:gap-5 p-1.5 md:p-3 md:w-28 shrink-0 order-2 md:order-1 z-50">
     <button id="btn-nav-tour" onclick="window.switchView('tour')" class="nav-btn w-full py-1.5 text-djCyan font-bold uppercase tracking-widest text-[10px] sm:text-xs">
-      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-djCyan/20 text-djCyan flex items-center justify-center transition-colors shadow-[0_0_10px_var(--tc)]"><i class="fa-solid fa-map-location-dot text-sm md:text-xl"></i></div><span class="mt-1">Tour</span>
+      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-djCyan/20 text-djCyan flex items-center justify-center transition-colors shadow-[0_0_12px_var(--tc)]"><i class="fa-solid fa-map-location-dot text-sm md:text-xl"></i></div><span class="mt-1">Tour</span>
     </button>
     <button id="btn-nav-setup" onclick="window.switchView('setup')" class="nav-btn group w-full py-1.5 text-gray-400 hover:text-djMagenta font-bold uppercase tracking-widest text-[10px] sm:text-xs">
-      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djMagenta/10 group-hover:text-djMagenta flex items-center justify-center transition-colors"><i class="fa-solid fa-sliders text-sm md:text-xl"></i></div><span class="mt-1">Equipo</span>
+      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djMagenta/15 group-hover:text-djMagenta flex items-center justify-center transition-all"><i class="fa-solid fa-sliders text-sm md:text-xl"></i></div><span class="mt-1">Equipo</span>
     </button>
     <button id="btn-nav-mashups" onclick="window.switchView('mashups')" class="nav-btn group w-full py-1.5 text-gray-400 hover:text-djYellow font-bold uppercase tracking-widest text-[10px] sm:text-xs">
-      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djYellow/10 group-hover:text-djYellow flex items-center justify-center transition-colors"><i class="fa-solid fa-compact-disc text-sm md:text-xl"></i></div><span class="mt-1">Mashups</span>
+      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djYellow/15 group-hover:text-djYellow flex items-center justify-center transition-all"><i class="fa-solid fa-compact-disc text-sm md:text-xl"></i></div><span class="mt-1">Tracks</span>
     </button>
     <button id="btn-nav-booking" onclick="window.switchView('booking')" class="nav-btn group w-full py-1.5 text-gray-400 hover:text-djGreen font-bold uppercase tracking-widest text-[10px] sm:text-xs">
-      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djGreen/10 group-hover:text-djGreen flex items-center justify-center transition-colors"><i class="fa-solid fa-calculator text-sm md:text-xl"></i></div><span class="mt-1 truncate max-w-full">Booking</span>
+      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 text-gray-400 group-hover:bg-djGreen/15 group-hover:text-djGreen flex items-center justify-center transition-all"><i class="fa-solid fa-calculator text-sm md:text-xl"></i></div><span class="mt-1 truncate max-w-full">Booking</span>
     </button>
   </nav>
 
@@ -125,13 +136,13 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
       </div>
       <div class="flex flex-wrap md:flex-nowrap items-center gap-3 p-3 md:p-4 bg-white/[0.02] border-b border-white/5 shrink-0 z-30 relative">
         <div class="relative flex-grow w-full md:max-w-sm">
-          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-9 pr-3 py-2.5 text-xs md:text-sm rounded-xl text-white focus:border-djCyan transition-colors shadow-lg">
+          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/80 border border-white/10 pl-9 pr-3 py-2 text-xs md:text-sm rounded-xl text-white focus:border-djCyan transition-colors shadow-lg">
           <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
           <ul id="search-results" class="absolute top-full left-0 w-full mt-1.5 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-xl"></ul>
         </div>
         <div class="flex gap-2 shrink-0 w-full md:w-auto">
-          <button id="btn-toggle-tour" class="flex-grow md:flex-none bg-black/80 border border-white/10 hover:border-djCyan text-djCyan w-auto md:w-28 py-2.5 rounded-xl flex items-center justify-center text-[11px] md:text-xs font-bold uppercase tracking-widest transition-colors shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-1.5"></i> Mapa</button>
-          <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-12 py-2.5 rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-colors shadow-lg opacity-0 pointer-events-none transition-opacity duration-300"><i class="fa-solid fa-expand text-sm md:text-base"></i></button>
+          <button id="btn-toggle-tour" class="flex-grow md:flex-none bg-black/80 border border-white/10 hover:border-djCyan text-djCyan w-auto md:w-28 py-2 rounded-xl flex items-center justify-center text-[11px] md:text-xs font-bold uppercase tracking-widest transition-all shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-1.5"></i> Mapa</button>
+          <button id="btn-reset-map" class="bg-black/80 border border-white/10 hover:border-djCyan hover:text-djCyan w-12 py-2 rounded-xl flex items-center justify-center text-gray-400 shrink-0 transition-all shadow-lg opacity-0 pointer-events-none duration-300"><i class="fa-solid fa-expand text-sm md:text-base"></i></button>
         </div>
       </div>
       <div id="tour-album-container" class="w-full flex-grow relative overflow-y-auto custom-scrollbar p-4 md:p-6">
@@ -146,7 +157,7 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
             <h3 id="info-title" class="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tighter mb-1">TOUR</h3>
             <div id="info-status" class="flex items-center gap-1.5"><div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Selecciona</span></div>
           </div>
-          <button id="btn-close-tour" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-times text-sm"></i></button>
+          <button id="btn-close-tour" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center transition-colors"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
         <div id="info-events" class="flex-grow flex flex-col gap-3 p-5 overflow-y-auto custom-scrollbar"></div>
       </div>
@@ -173,7 +184,7 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
       <div id="setup-overlay" class="slide-panel">
         <div class="p-5 border-b border-white/5 bg-white/[0.02] flex justify-between items-start shrink-0">
           <div><div id="setup-status" class="flex items-center gap-1.5 mb-1.5"><div class="w-2 h-2 rounded-full theme-bg"></div><span class="theme-text text-[10px] font-bold uppercase tracking-widest">Activo</span></div><h3 id="setup-t" class="text-lg md:text-xl font-display font-black text-white uppercase tracking-tighter"></h3></div>
-          <button id="btn-close-setup" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-times text-sm"></i></button>
+          <button id="btn-close-setup" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 flex items-center justify-center shrink-0 transition-colors"><i class="fa-solid fa-times text-sm"></i></button>
         </div>
         <div class="flex-grow p-5 overflow-y-auto custom-scrollbar"><p id="setup-d" class="text-gray-300 text-sm md:text-base leading-relaxed whitespace-pre-wrap"></p></div>
       </div>
@@ -185,12 +196,12 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
         <h2 class="font-display font-black theme-text theme-drop text-xl md:text-2xl uppercase tracking-widest flex items-center">
           <i class="fa-solid fa-compact-disc mr-2 ee-trigger cursor-pointer transition-transform animate-spin" style="animation-duration: 4s;"></i> Mashups & Edits
         </h2>
-        <p class="text-xs text-gray-400 mt-1">Tracks exclusivos, mixes y descargas directas.</p>
+        <p class="text-xs text-gray-400 mt-1">Tracks exclusivos, descargas directas y Sesiones DJ.</p>
       </div>
       <div id="mashups-grid" class="flex-grow p-4 md:p-6 overflow-y-auto custom-scrollbar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 content-start"></div>
     </div>
 
-    <!-- BOOKING VIEW -->
+    <!-- BOOKING VIEW COMPACTADO (SIN SCROLL) -->
     <div id="view-booking" class="app-view bg-black/40 flex flex-col overflow-hidden">
       <div class="p-4 md:p-6 border-b border-white/5 bg-white/[0.01] shrink-0">
         <h2 class="font-display font-black theme-text theme-drop text-xl md:text-2xl uppercase tracking-widest flex items-center">
@@ -198,59 +209,65 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
         </h2>
         <p class="text-xs text-gray-400 mt-1">Calculadora inteligente y solicitud de fechas.</p>
       </div>
-      <div class="flex-grow flex items-start md:items-center justify-center p-4 w-full overflow-y-auto custom-scrollbar">
-        <div class="glass-card w-full max-w-xl p-5 md:p-6 flex flex-col gap-4 border-djGreen/20 shadow-2xl my-auto">
+      <!-- Ajustado padding y centrado para encajar -->
+      <div class="flex-grow flex items-center justify-center p-2 md:p-4 w-full overflow-y-auto custom-scrollbar">
+        <div class="glass-card w-full max-w-xl p-4 md:p-5 flex flex-col gap-3 md:gap-4 border-djGreen/20 shadow-2xl my-auto">
           
-          <div>
-            <label class="block text-[11px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1.5"><i class="fa-solid fa-compact-disc mr-1 text-djGreen/70"></i> Tipo de Evento</label>
-            <select id="p-type" class="admin-input text-sm md:text-base py-2.5" onchange="window.updateBookingUI()">
-              <option value="pub">Discotecas / Pubs</option>
-              <option value="pueblo">Fiestas de Pueblo / Quintos</option>
-              <option value="privada">Fiestas Privadas (Cumpleaños/Boda/Otros)</option>
-            </select>
-          </div>
-
-          <div id="div-eq" class="hidden">
-            <label class="block text-[11px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1.5"><i class="fa-solid fa-volume-high mr-1 text-djGreen/70"></i> ¿Requiere equipo de sonido/luces?</label>
-            <select id="p-eq" class="admin-input text-sm md:text-base py-2.5" onchange="window.updateBookingUI()">
-              <option value="no">No (Solo controladora)</option>
-              <option value="si">Sí (Equipo Completo)</option>
-            </select>
-          </div>
-
-          <div>
-            <div class="flex justify-between items-center mb-2">
-              <label class="block text-[11px] md:text-xs uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-clock mr-1 text-djGreen/70"></i> Duración</label>
-              <span id="dur-val" class="text-xs md:text-sm text-djGreen font-bold bg-djGreen/10 px-3 py-1 rounded-md border border-djGreen/30 shadow-[0_0_8px_rgba(0,255,136,0.2)]">2 Horas</span>
+          <!-- Fila 1: Evento y Equipo en Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+            <div>
+              <label class="block text-[10px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1"><i class="fa-solid fa-compact-disc mr-1 text-djGreen/70"></i> Tipo de Evento</label>
+              <select id="p-type" class="admin-input text-xs md:text-sm py-2" onchange="window.updateBookingUI()">
+                <option value="pub">Discotecas / Pubs</option>
+                <option value="pueblo">Fiestas de Pueblo / Quintos</option>
+                <option value="privada">Fiestas Privadas (Otras)</option>
+              </select>
             </div>
-            <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full mt-2" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
+            <div id="div-eq" class="hidden">
+              <label class="block text-[10px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1"><i class="fa-solid fa-volume-high mr-1 text-djGreen/70"></i> ¿Requiere equipo?</label>
+              <select id="p-eq" class="admin-input text-xs md:text-sm py-2" onchange="window.updateBookingUI()">
+                <option value="no">No (Solo controladora)</option>
+                <option value="si">Sí (Equipo Completo)</option>
+              </select>
+            </div>
           </div>
 
-          <div id="div-time" class="hidden">
-            <label class="block text-[11px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1.5"><i class="fa-solid fa-hourglass-start mr-1 text-djGreen/70"></i> Hora de comienzo (Aprox.)</label>
-            <input type="time" id="p-time" value="00:00" class="admin-input text-sm md:text-base py-2.5 [color-scheme:dark]" onchange="window.calcBudget()">
-          </div>
-
-          <div>
-            <label class="block text-[11px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1.5"><i class="fa-solid fa-map-location-dot mr-1 text-djGreen/70"></i> Municipio del Evento</label>
-            <div class="flex flex-col sm:flex-row gap-2 relative">
-              <div class="relative flex-1">
-                <i class="fa-solid fa-city absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
-                <input type="text" id="p-city" placeholder="Ej: Salamanca, Peñaranda..." class="admin-input pl-9 text-sm md:text-base py-2.5 w-full" onchange="window.calcDist()">
+          <!-- Fila 2: Duración y Hora en Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 items-end">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <label class="block text-[10px] md:text-xs uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-clock mr-1 text-djGreen/70"></i> Duración</label>
+                <span id="dur-val" class="text-[10px] md:text-xs text-djGreen font-bold bg-djGreen/10 px-2 py-0.5 rounded border border-djGreen/30 shadow-[0_0_8px_rgba(0,255,136,0.2)]">2 Horas</span>
               </div>
-              <span id="dist-lbl" class="bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 sm:py-0 flex items-center justify-center text-xs md:text-sm text-djGreen font-bold shrink-0 min-w-[95px] shadow-inner">-- km</span>
+              <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full mt-1" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
+            </div>
+            <div id="div-time" class="hidden">
+              <label class="block text-[10px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1"><i class="fa-solid fa-hourglass-start mr-1 text-djGreen/70"></i> Inicio (Aprox.)</label>
+              <input type="time" id="p-time" value="00:00" class="admin-input text-xs md:text-sm py-2 [color-scheme:dark]" onchange="window.calcBudget()">
+            </div>
+          </div>
+
+          <!-- Fila 3: Municipio -->
+          <div>
+            <label class="block text-[10px] md:text-xs uppercase font-bold tracking-wider text-gray-400 mb-1"><i class="fa-solid fa-map-location-dot mr-1 text-djGreen/70"></i> Municipio del Evento</label>
+            <div class="flex flex-row gap-2 relative">
+              <div class="relative flex-1">
+                <i class="fa-solid fa-city absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs md:text-sm"></i>
+                <input type="text" id="p-city" placeholder="Ej: Salamanca..." class="admin-input pl-8 text-xs md:text-sm py-2 w-full" onchange="window.calcDist()">
+              </div>
+              <span id="dist-lbl" class="bg-black/60 border border-white/10 rounded-lg px-3 flex items-center justify-center text-[10px] md:text-xs text-djGreen font-bold shrink-0 min-w-[80px] shadow-inner">-- km</span>
             </div>
           </div>
           
-          <div class="pt-4 mt-2 border-t border-white/10 flex flex-col items-center text-center shrink-0 bg-white/[0.01] rounded-xl pb-2">
-            <span class="text-[11px] md:text-xs uppercase font-bold tracking-widest text-gray-400"><i class="fa-solid fa-money-bill-wave mr-1"></i> Inversión Estimada</span>
-            <div id="p-result" class="text-3xl md:text-4xl font-display font-black text-djGreen my-2 drop-shadow-[0_0_15px_rgba(0,255,136,0.4)] transition-all">---</div>
-            <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djGreen text-black font-black w-full py-3 md:py-4 mt-2 rounded-xl text-sm md:text-base uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,136,0.3)]">
+          <!-- Bloque de Resultado más compacto -->
+          <div class="pt-3 mt-1 border-t border-white/10 flex flex-col items-center text-center shrink-0 bg-white/[0.01] rounded-xl pb-1">
+            <span class="text-[10px] md:text-xs uppercase font-bold tracking-widest text-gray-400"><i class="fa-solid fa-money-bill-wave mr-1"></i> Inversión Estimada</span>
+            <div id="p-result" class="text-2xl md:text-3xl font-display font-black text-djGreen my-1 drop-shadow-[0_0_15px_rgba(0,255,136,0.4)] transition-all">---</div>
+            <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-djGreen text-black font-black w-full py-2.5 md:py-3 mt-1 rounded-xl text-xs md:text-sm uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,136,0.3)]">
               <i class="fa-solid fa-paper-plane"></i> Solicitar Fecha
             </a>
-            <!-- AVISO DE PRECIOS ORIENTATIVOS AÑADIDO -->
-            <p class="text-[10px] md:text-[11px] text-gray-500 mt-3 mx-2 leading-tight text-balance">
-              * Los precios indicados son orientativos y pueden variar dependiendo de la fecha elegida, la disponibilidad y otros factores logísticos.
+            <p class="text-[9px] md:text-[10px] text-gray-500 mt-2 mx-2 leading-tight text-balance">
+              * Los precios son orientativos. Pueden variar dependiendo de fecha, disponibilidad y logística.
             </p>
           </div>
 
@@ -260,10 +277,11 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
   </div>
 </main>
 
+<!-- ADMIN PANEL MEJORADO -->
 <div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[150] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
     <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
-    <button id="btn-close-admin" class="w-8 h-8 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center"><i class="fa-solid fa-power-off text-sm"></i></button>
+    <button id="btn-close-admin" class="w-8 h-8 rounded-lg hover:bg-white/10 text-gray-400 flex items-center justify-center transition-colors"><i class="fa-solid fa-power-off text-sm"></i></button>
   </div>
   <div class="flex bg-black/40 text-[10px] font-bold uppercase tracking-widest border-b border-white/5">
     <button id="tab-tour" class="flex-1 py-3 text-djCyan border-b-2 border-djCyan bg-white/[0.02]">Gira</button>
@@ -281,7 +299,7 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
         <label id="a-ev-t" class="text-[10px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Añadir Fecha</label>
         <div class="grid grid-cols-2 gap-2"><input type="text" id="a-ev-p" placeholder="Sala" class="admin-input text-xs"><input type="date" id="a-ev-d" class="admin-input text-xs [color-scheme:dark]"></div>
         <textarea id="a-ev-desc" placeholder="Detalles..." class="admin-input h-14 resize-none text-xs"></textarea>
-        <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar Info Pueblo</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10"><i class="fa-solid fa-rotate-left"></i></button></div>
+        <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar Info Pueblo</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"><i class="fa-solid fa-rotate-left"></i></button></div>
       </div>
     </div>
     <div id="sec-a-setup" class="space-y-3 hidden">
@@ -289,23 +307,38 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
       <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input text-xs focus:border-djMagenta">
       <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input text-xs h-20 resize-none focus:border-djMagenta"></textarea>
       <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
-        <div class="flex justify-between items-center mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span><button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1.5 rounded border border-djMagenta/30 text-[10px] font-bold"><i class="fa-solid fa-plus mr-1"></i> Añadir</button></div>
+        <div class="flex justify-between items-center mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span><button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1.5 rounded border border-djMagenta/30 text-[10px] font-bold transition-colors"><i class="fa-solid fa-plus mr-1"></i> Añadir</button></div>
         <ul id="a-comp-figs" class="space-y-1 max-h-28 overflow-y-auto text-xs custom-scrollbar"></ul>
         <div id="draw-controls" class="hidden flex-col gap-2 mt-2 p-2 border border-djMagenta/30 bg-djMagenta/5 rounded-lg shadow-inner">
           <span class="text-[10px] text-djMagenta font-bold text-center block mb-1">Toca la imagen</span>
           <ul id="a-comp-pts" class="space-y-1 max-h-28 overflow-y-auto text-[10px] text-gray-300 custom-scrollbar"></ul>
-          <div class="flex gap-2 pt-1"><button id="btn-close-fig" class="flex-[2] bg-djMagenta text-black font-black py-2 rounded-lg text-[10px] uppercase tracking-wider"><i class="fa-solid fa-check mr-1"></i> Cerrar</button><button id="btn-cancel-fig" class="flex-[1] bg-white/10 hover:bg-white/20 text-white font-bold py-2 rounded-lg text-[10px]">Cancelar</button></div>
+          <div class="flex gap-2 pt-1"><button id="btn-close-fig" class="flex-[2] bg-djMagenta text-black font-black py-2 rounded-lg text-[10px] uppercase tracking-wider"><i class="fa-solid fa-check mr-1"></i> Cerrar</button><button id="btn-cancel-fig" class="flex-[1] bg-white/10 hover:bg-white/20 text-white font-bold py-2 rounded-lg text-[10px] transition-colors">Cancelar</button></div>
         </div>
       </div>
-      <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[3] bg-djMagenta text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,0,234,0.3)]">Guardar</button><button id="btn-dl-cp" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px]">Borrar</button></div>
+      <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[3] bg-djMagenta text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,0,234,0.3)]">Guardar</button><button id="btn-dl-cp" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px] hover:bg-red-500/20 transition-colors">Borrar</button></div>
     </div>
+    
+    <!-- MASHUPS / SESIONES ADMIN ACTUALIZADO -->
     <div id="sec-a-mashups" class="space-y-3 hidden">
-      <select id="a-mash-sel" class="admin-input text-xs"><option value="NEW">✨ NUEVO TRACK</option></select>
+      <select id="a-mash-sel" class="admin-input text-xs"><option value="NEW">✨ NUEVO TRACK / SESIÓN</option></select>
+      <select id="a-mash-type" class="admin-input text-xs" onchange="window.toggleMashType()">
+        <option value="mashup">Mashup / Edit (SoundCloud)</option>
+        <option value="session">Sesión DJ (Vídeo de YouTube)</option>
+      </select>
       <input type="text" id="a-mash-t" placeholder="Título" class="admin-input text-xs focus:border-djYellow">
-      <input type="text" id="a-mash-dl" placeholder="Enlace descarga" class="admin-input text-xs focus:border-djYellow">
-      <input type="text" id="a-mash-sc" placeholder="URL SoundCloud" class="admin-input text-xs focus:border-djYellow">
-      <div class="flex gap-2 pt-2"><button id="btn-sv-ms" class="flex-[3] bg-djYellow text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,214,0,0.3)]">Publicar</button><button id="btn-dl-ms" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px]">Borrar</button></div>
+      
+      <div id="a-mash-fields-audio" class="space-y-3">
+        <input type="text" id="a-mash-dl" placeholder="Enlace descarga (Opcional)" class="admin-input text-xs focus:border-djYellow">
+        <input type="text" id="a-mash-sc" placeholder="URL SoundCloud" class="admin-input text-xs focus:border-djYellow">
+      </div>
+      
+      <div id="a-mash-fields-yt" class="space-y-3 hidden">
+        <input type="text" id="a-mash-yt" placeholder="ID del Vídeo de YouTube (Ej: dQw4w9WgXcQ)" class="admin-input text-xs focus:border-djYellow">
+      </div>
+
+      <div class="flex gap-2 pt-2"><button id="btn-sv-ms" class="flex-[3] bg-djYellow text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,214,0,0.3)]">Publicar</button><button id="btn-dl-ms" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px] hover:bg-red-500/20 transition-colors">Borrar</button></div>
     </div>
+
     <div id="sec-a-general" class="space-y-3 hidden">
       <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
         <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-chart-simple mr-1"></i> Analíticas Rápidas</span>
@@ -397,7 +430,7 @@ window.switchView=v=>{
   ['tour','setup','mashups','booking'].forEach(x=>{
     const el=$(`view-${x}`), b=$(`btn-nav-${x}`), a=x===v; tog(el,'active',a); if(!b)return;
     b.className=a?`nav-btn w-full py-1.5 text-${cl[x]} font-bold uppercase tracking-widest text-[10px] sm:text-xs`:`nav-btn group w-full py-1.5 text-gray-400 hover:text-${cl[x]} font-bold uppercase tracking-widest text-[10px] sm:text-xs`;
-    b.querySelector('div').className=a?`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center transition-colors bg-${cl[x]}/20 text-${cl[x]} shadow-[0_0_10px_var(--tc)]`:`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-${cl[x]}/10 group-hover:text-${cl[x]} transition-colors text-gray-400`;
+    b.querySelector('div').className=a?`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center transition-colors bg-${cl[x]}/20 text-${cl[x]} shadow-[0_0_12px_var(--tc)]`:`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-${cl[x]}/15 group-hover:text-${cl[x]} transition-all text-gray-400`;
     if(a&&x==='tour'&&!document.body.classList.contains('admin-active')) setTimeout(()=>$('btn-reset-map')?.click(),100); 
     if(a&&x==='booking') window.updateBookingUI();
   });
@@ -425,7 +458,7 @@ onValue(ref(db,'/'),s=>{
   const tk=dbData.config.ticker||"PRÓXIMAS FECHAS POR CONFIRMAR";
   if($('ticker-text-1')) $('ticker-text-1').innerText=tk; if($('ticker-text-2')) $('ticker-text-2').innerText=tk; if($('a-ticker-input')) $('a-ticker-input').value=tk;
   if($('stat-contract')) $('stat-contract').innerText=dbData.analytics.contract||0; if($('stat-mashups')) $('stat-mashups').innerText=dbData.analytics.mashup||0;
-  if(fL){fL=false;const ld=$('loader');if(ld){ld.style.opacity='0';setTimeout(()=>ld.remove(),500);}}
+  if(fL){fL=false;const ld=$('loader');if(ld){ld.style.opacity='0';setTimeout(()=>ld.remove(),300);}}
   try{renderMap();renderComp();renderMash();renderAlbum();updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
 });
 
@@ -461,7 +494,6 @@ const uLbls=()=>{if(!lgEl||!vp)return;
   lgEl.className.baseVal=sc<1.5?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';
   if(sc<1.5)return;
   
-  // OPTIMIZACIÓN DEL MAPA - ESCALADO MÁS LEGIBLE Y ORGANIZADO
   const fS = Math.max(12 / sc, 1.5); 
   const vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
   
@@ -492,7 +524,6 @@ const uLbls=()=>{if(!lgEl||!vp)return;
     if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');
     
     const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
-    // Algoritmo Anti-Colisión mejorado (mayor holgura visual)
     if(!occ.some(o=>b.l-3<o.r&&b.r+3>o.l&&b.t-3<o.b&&b.b+3>o.t)){
       l.style.opacity='1';
       occ.push(b);
@@ -580,7 +611,31 @@ window.selMuni=id=>{
 if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
-const renderMash=()=>{const g=$('mashups-grid');if(!g)return;const e=Object.entries(dbData.mashups||{}).sort();g.innerHTML=e.length?e.map(([_,d])=>`<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30"><div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div><div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div><div class="relative z-10 space-y-2.5">${d.scUrl?`<div class="w-full h-36 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}</div></div>`).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks disponibles.</p>'};
+/* RENDER DE MASHUPS ACTUALIZADO (Soporte YouTube) */
+const renderMash=()=>{
+  const g=$('mashups-grid');if(!g)return;
+  const e=Object.entries(dbData.mashups||{}).sort();
+  g.innerHTML=e.length?e.map(([_,d])=>{
+    if(d.type === 'session'){
+      return `<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div>
+        <div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-video text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div>
+        <div class="relative z-10 w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-inner">
+           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${d.ytId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>`;
+    }else{
+      return `<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-djYellow/30">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-djYellow/5 rounded-full blur-xl group-hover:bg-djYellow/20 transition-colors"></div>
+        <div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-djYellow mr-1.5 text-xs"></i>${d.title}</h4></div>
+        <div class="relative z-10 space-y-2.5">
+          ${d.scUrl?`<div class="w-full h-36 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}
+          ${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-djYellow/10 hover:bg-djYellow text-djYellow hover:text-black border border-djYellow/30 py-2.5 rounded-lg text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar</a>`:''}
+        </div>
+      </div>`;
+    }
+  }).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks ni sesiones disponibles.</p>'
+};
 
 window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);$('view-setup').classList.add('panel-active');if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-djMagenta shadow-[0_0_8px_#ff00ea]"></div><span class="text-djMagenta text-[10px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
 const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();window.selComp(id)};ov.appendChild(p)}})})};
@@ -597,15 +652,58 @@ if($('a-comp-sel')) $('a-comp-sel').onchange=e=>{const v=e.target.value;if(v==='
 
 window.delEv=(mid,eid)=>{if(confirm('¿Borrar fecha?')){const u={};getGroup(mid).forEach(gid=>u[`municipalities/${gid}/events/${eid}`]=null);update(ref(db),u)}};
 window.edEv=(m,e)=>{const v=(dbData.municipalities[m]||{}).events[e]||{};if($('a-ev-id'))$('a-ev-id').value=e;if($('a-ev-p'))$('a-ev-p').value=v.place||'';if($('a-ev-d'))$('a-ev-d').value=v.date||'';if($('a-ev-desc'))$('a-ev-desc').value=v.details||'';tog($('btn-cl-ev'),'hidden',false);if($('btn-sv-ev'))$('btn-sv-ev').innerText='OK';if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-pen mr-1"></i> Editando';};
-const popEv=id=>{const m=dbData.municipalities[id]||{},l=$('a-ev-list');if(!l)return;l.innerHTML='';if(m.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-3 py-2 rounded-lg text-[10px] border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-3 shrink-0"><button class="text-djCyan hover:text-white" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);};
+const popEv=id=>{const m=dbData.municipalities[id]||{},l=$('a-ev-list');if(!l)return;l.innerHTML='';if(m.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-3 py-2 rounded-lg text-[10px] border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-3 shrink-0"><button class="text-djCyan hover:text-white transition-colors" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);};
 const clrEv=()=>{['a-ev-id','a-ev-p','a-ev-d','a-ev-desc'].forEach(i=>{if($(i))$(i).value=''});if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-plus mr-1"></i> Añadir Fecha';if($('btn-sv-ev'))$('btn-sv-ev').innerText='Guardar Info Pueblo';tog($('btn-cl-ev'),'hidden',true)};
 if($('btn-cl-ev')) $('btn-cl-ev').onclick=clrEv;
 if($('btn-sv-ev')) $('btn-sv-ev').onclick=()=>{const id=$('a-muni-id')?.value,p=$('a-ev-p')?.value,eid=$('a-ev-id')?.value;if(!id)return;const u={},n=$('a-muni-name')?.value||id,s=$('a-muni-status')?.value,i=$('a-muni-img')?.value||null,eI=eid||push(ref(db,`municipalities/${id}/events`)).key,pd=(p||eid)?{place:p,date:$('a-ev-d')?.value,details:$('a-ev-desc')?.value}:null;getGroup(id).forEach(g=>{u[`municipalities/${g}/status`]=s;u[`municipalities/${g}/name`]=n;u[`municipalities/${g}/img`]=i;if(pd)u[`municipalities/${g}/events/${eI}`]=pd});update(ref(db),u).then(()=>{clrEv();selMuni(id)})};
 
-const updateDds=()=>{const c=$('a-comp-sel'),m=$('a-mash-sel');if(!c||!m)return;const cv=c.value,mv=m.value;let ch='<option value="NEW">✨ NUEVO HARDWARE</option>',mh='<option value="NEW">✨ NUEVO TRACK</option>';Object.entries(dbData.components||{}).forEach(([i,d])=>ch+=`<option value="${i}">${d.title}</option>`);Object.entries(dbData.mashups||{}).forEach(([i,d])=>mh+=`<option value="${i}">${d.title}</option>`);c.innerHTML=ch;m.innerHTML=mh;if((dbData.components||{})[cv])c.value=cv;if((dbData.mashups||{})[mv])m.value=mv};
-if($('a-mash-sel')) $('a-mash-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-mash-t','a-mash-dl','a-mash-sc'].forEach(i=>{if($(i))$(i).value=''});tog($('btn-dl-ms'),'hidden',true)}else{const d=dbData.mashups[v]||{};if($('a-mash-t'))$('a-mash-t').value=d.title||'';if($('a-mash-dl'))$('a-mash-dl').value=d.dl||'';if($('a-mash-sc'))$('a-mash-sc').value=d.scUrl||'';tog($('btn-dl-ms'),'hidden',false)}};
-if($('btn-sv-ms')) $('btn-sv-ms').onclick=async()=>{const t=$('a-mash-t')?.value;if(!t)return;const b=$('btn-sv-ms');b.disabled=true;b.innerHTML='...';try{await set(ref(db,`mashups/${$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value}`),{title:t,dl:$('a-mash-dl')?.value,scUrl:$('a-mash-sc')?.value});b.innerText='¡OK!';setTimeout(()=>{b.innerText='Publicar';b.disabled=false},1500)}catch(e){b.disabled=false;b.innerText='Publicar'}};
-if($('btn-dl-ms')) $('btn-dl-ms').onclick=()=>{if(confirm('¿Eliminar track?'))remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{if($('a-mash-sel')){$('a-mash-sel').value='NEW';$('a-mash-sel').dispatchEvent(new Event('change'))}})};
+/* LOGICA MASHUPS/YOUTUBE ADMIN */
+window.toggleMashType = () => {
+  const isYt = $('a-mash-type').value === 'session';
+  tog($('a-mash-fields-audio'), 'hidden', isYt);
+  tog($('a-mash-fields-yt'), 'hidden', !isYt);
+};
+const updateDds=()=>{
+  const c=$('a-comp-sel'),m=$('a-mash-sel');if(!c||!m)return;
+  const cv=c.value,mv=m.value;
+  let ch='<option value="NEW">✨ NUEVO HARDWARE</option>',mh='<option value="NEW">✨ NUEVO TRACK / SESIÓN</option>';
+  Object.entries(dbData.components||{}).forEach(([i,d])=>ch+=`<option value="${i}">${d.title}</option>`);
+  Object.entries(dbData.mashups||{}).forEach(([i,d])=>mh+=`<option value="${i}">${d.title}</option>`);
+  c.innerHTML=ch;m.innerHTML=mh;
+  if((dbData.components||{})[cv])c.value=cv;
+  if((dbData.mashups||{})[mv])m.value=mv;
+};
+if($('a-mash-sel')) $('a-mash-sel').onchange=e=>{
+  const v=e.target.value;
+  if(v==='NEW'){
+    ['a-mash-t','a-mash-dl','a-mash-sc','a-mash-yt'].forEach(i=>{if($(i))$(i).value=''});
+    $('a-mash-type').value = 'mashup'; window.toggleMashType();
+    tog($('btn-dl-ms'),'hidden',true);
+  }else{
+    const d=dbData.mashups[v]||{};
+    if($('a-mash-t'))$('a-mash-t').value=d.title||'';
+    $('a-mash-type').value=d.type||'mashup'; window.toggleMashType();
+    if($('a-mash-dl'))$('a-mash-dl').value=d.dl||'';
+    if($('a-mash-sc'))$('a-mash-sc').value=d.scUrl||'';
+    if($('a-mash-yt'))$('a-mash-yt').value=d.ytId||'';
+    tog($('btn-dl-ms'),'hidden',false);
+  }
+};
+if($('btn-sv-ms')) $('btn-sv-ms').onclick=async()=>{
+  const t=$('a-mash-t')?.value;if(!t)return;
+  const b=$('btn-sv-ms');b.disabled=true;b.innerHTML='...';
+  try{
+    await set(ref(db,`mashups/${$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value}`),{
+      title:t,
+      type:$('a-mash-type').value,
+      dl:$('a-mash-dl')?.value,
+      scUrl:$('a-mash-sc')?.value,
+      ytId:$('a-mash-yt')?.value
+    });
+    b.innerText='¡OK!';setTimeout(()=>{b.innerText='Publicar';b.disabled=false},1500);
+  }catch(e){b.disabled=false;b.innerText='Publicar'}
+};
+if($('btn-dl-ms')) $('btn-dl-ms').onclick=()=>{if(confirm('¿Eliminar track/sesión?'))remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{if($('a-mash-sel')){$('a-mash-sel').value='NEW';$('a-mash-sel').dispatchEvent(new Event('change'))}})};
 
 if($('btn-sv-ticker')) $('btn-sv-ticker').onclick=()=>{const v=$('a-ticker-input')?.value; if(!v)return; set(ref(db,`config/ticker`),v).then(()=>{const b=$('btn-sv-ticker'); b.innerText='¡Guardado!'; setTimeout(()=>b.innerText='Guardar Ajustes',1500)})};
 if($('btn-reset-stats')) $('btn-reset-stats').onclick=()=>{if(confirm('¿Poner contadores a 0?')) set(ref(db,'analytics'),{contract:0,mashup:0});};
