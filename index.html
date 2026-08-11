@@ -7,6 +7,7 @@
 <meta name="description" content="Web Oficial de DJ Vaquero. Fechas de tour, setup, mashups y booking.">
 <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
 <link rel="apple-touch-icon" href="logo.png">
+<!-- Optimizaciones de carga -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -21,7 +22,7 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root{--tc:#ffffff; scroll-behavior: smooth;}
-*{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;outline:none; box-sizing: border-box;}
+*{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;outline:none;box-sizing:border-box;}
 input,textarea,select{user-select:text;-webkit-user-select:text;}
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;overflow-x:hidden;transition:--tc 0.5s ease; font-size: 14px;}
 ::-webkit-scrollbar{width:6px;height:6px} ::-webkit-scrollbar-track{background:#030408} ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:10px} ::-webkit-scrollbar-thumb:hover{background:var(--tc)}
@@ -31,9 +32,9 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .glow-1{top:-10%;left:-10%;width:60vw;height:60vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} 
 .glow-2{bottom:20%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
 
-/* Bordes más estéticos y sin solapamientos */
-.glass-card{background:linear-gradient(145deg,rgba(15,20,30,0.65) 0%,rgba(5,7,10,0.85) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s ease; overflow: hidden;}
-.glass-card:hover{box-shadow:0 12px 35px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.15);}
+/* Bordes más suaves y refinados */
+.glass-card{background:linear-gradient(145deg,rgba(15,20,30,0.65) 0%,rgba(5,7,10,0.85) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s ease;}
+.glass-card:hover{box-shadow:0 12px 35px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.15);}
 
 .glass-nav { background: rgba(3, 4, 8, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
 
@@ -41,9 +42,8 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .social-icon:hover{color:#fff;transform:translate3d(0,-3px,0) scale(1.15)}
 .social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.4)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea} .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.4)} .social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.5)}
 
-/* Control de espacios ajustados */
-.section-container { display: flex; flex-direction: column; justify-content: center; padding-top: 60px; padding-bottom: 30px; }
-#view-hero { min-height: 100vh; padding-top: 80px; margin-bottom: 12vh; justify-content: center; }
+/* Espacios reducidos para secciones */
+.section-container { display: flex; flex-direction: column; justify-content: center; padding-top: 70px; padding-bottom: 20px; }
 
 .nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative; cursor:pointer;} 
 .zoom-layer{position:absolute;inset:0;touch-action:none}
@@ -56,7 +56,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 22px
 input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
 
 /* Modales */
-.custom-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 1rem; }
+.custom-modal { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 1rem; }
 .custom-modal.open { opacity: 1; pointer-events: auto; }
 .modal-content { background: rgba(10, 12, 18, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 100%; max-width: 500px; max-height: 85vh; display: flex; flex-direction: column; transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; }
 .custom-modal.open .modal-content { transform: scale(1) translateY(0); }
@@ -73,12 +73,23 @@ section { content-visibility: auto; }
 /* Botones universales IG */
 .btn-ig { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: white; transition: all 0.2s ease-in-out; }
 .btn-ig:hover { box-shadow: 0 8px 20px rgba(220,39,67,0.5); transform: scale(1.03); }
-
-/* Suggestion List */
-.song-suggestion-item:hover { background-color: rgba(255,255,255,0.1); }
 </style>
 </head>
 <body class="antialiased font-body relative">
+
+<!-- Databse de canciones simulada para el autocompletado -->
+<datalist id="song-db">
+  <option value="Quevedo - Columbia">
+  <option value="Don Omar - Danza Kuduro">
+  <option value="Bizarrap, Quevedo - Bzrp Music Sessions, Vol. 52">
+  <option value="Mora - La Inocente">
+  <option value="Feid - Classy 101">
+  <option value="Bad Bunny - Tití Me Preguntó">
+  <option value="Saiko - Supernova">
+  <option value="Rauw Alejandro - Todo De Ti">
+  <option value="Myke Towers - LALA">
+  <option value="Eladio Carrion - Kemba Walker">
+</datalist>
 
 <div id="loader" class="fixed inset-0 z-[9999] bg-[#030408] flex items-center justify-center transition-opacity duration-500">
   <div class="flex flex-col items-center">
@@ -132,8 +143,8 @@ section { content-visibility: auto; }
 
 <main class="w-full relative z-10 flex flex-col px-4 md:px-8 max-w-7xl mx-auto pb-10">
   
-  <!-- HERO SECTION -->
-  <section id="view-hero" class="section-container items-center text-center animate-fade-in-up relative">
+  <!-- HERO SECTION - Full screen and large bottom margin -->
+  <section id="view-hero" class="min-h-screen flex flex-col justify-center items-center text-center animate-fade-in-up relative mb-[15vh]">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
 
     <h2 class="font-display font-black text-3xl md:text-5xl uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 drop-shadow-2xl mb-4 leading-none relative z-10">EL DJ QUE TU EVENTO NECESITA.</h2>
@@ -145,9 +156,9 @@ section { content-visibility: auto; }
        </div>
     </div>
     
-    <div class="flex flex-col md:flex-row gap-4 justify-center items-center z-10 w-full max-w-2xl mx-auto">
-        <a href="https://instagram.com/djvaquero__" target="_blank" class="btn-ig px-8 py-3.5 rounded-full text-sm uppercase tracking-widest flex justify-center items-center font-black whitespace-nowrap w-full md:w-auto"><i class="fa-brands fa-instagram mr-2 text-lg"></i> IG</a>
-        <button disabled class="bg-black/40 border border-white/10 text-gray-500 font-bold px-8 py-3.5 rounded-full text-sm uppercase tracking-widest cursor-not-allowed shadow-inner flex justify-center items-center gap-2 whitespace-nowrap w-full md:w-auto"><i class="fa-solid fa-lock"></i> AL RODEO #1 | DJ Vaquero Session</button>
+    <div class="flex flex-wrap gap-4 justify-center z-10 w-full max-w-3xl">
+        <a href="https://instagram.com/djvaquero__" target="_blank" class="btn-ig px-8 py-3.5 rounded-full text-sm font-black uppercase tracking-widest flex justify-center items-center whitespace-nowrap w-auto"><i class="fa-brands fa-instagram mr-2 text-lg"></i> Contactar vía IG</a>
+        <button disabled class="bg-black/40 border border-white/10 text-gray-500 font-bold px-8 py-3.5 rounded-full text-sm uppercase tracking-widest cursor-not-allowed shadow-inner flex justify-center items-center gap-2 whitespace-nowrap w-auto"><i class="fa-solid fa-lock"></i> AL RODEO #1 | DJ Vaquero Session</button>
     </div>
   </section>
 
@@ -166,7 +177,7 @@ section { content-visibility: auto; }
         <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
         <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-2xl"></ul>
       </div>
-      <button id="btn-toggle-tour" class="bg-[#00e5ff]/10 border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff] hover:text-black px-6 py-2.5 rounded-full text-sm font-black uppercase tracking-widest transition-all shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-2"></i> Mapa interactivo</button>
+      <button id="btn-toggle-tour" class="bg-[#00e5ff]/10 border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff] hover:text-black px-6 py-2.5 rounded-full text-sm font-black uppercase tracking-widest transition-all shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-2"></i> Mapa</button>
     </div>
 
     <div class="glass-card w-full relative overflow-hidden flex flex-col border-[#00e5ff]/20">
@@ -174,15 +185,15 @@ section { content-visibility: auto; }
         <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
       </div>
       
-      <div id="tour-map-container" class="w-full relative hidden min-h-[50vh]">
+      <div id="tour-map-container" class="w-full relative hidden min-h-[50vh] transition-all duration-300">
         <!-- Botón para expandir -->
-        <button onclick="toggleFullscreenMap()" class="absolute top-4 right-4 z-40 bg-black/80 border border-white/10 hover:border-[#00e5ff] hover:text-[#00e5ff] px-4 py-2 rounded-full flex items-center justify-center text-gray-400 shadow-lg transition-all text-xs font-bold uppercase tracking-widest"><i class="fa-solid fa-expand mr-2"></i> Ampliar Mapa</button>
+        <button id="btn-max-map" class="absolute top-4 left-4 z-40 bg-black/80 border border-white/10 hover:border-[#00e5ff] hover:text-[#00e5ff] w-10 h-10 rounded-full flex items-center justify-center text-gray-400 shadow-lg transition-all"><i class="fa-solid fa-expand text-base"></i></button>
+        <!-- Botón para resetear zoom -->
+        <button id="btn-reset-map" class="absolute top-4 right-4 z-40 bg-black/80 border border-white/10 hover:border-[#00e5ff] hover:text-[#00e5ff] w-10 h-10 rounded-full flex items-center justify-center text-gray-400 shadow-lg transition-all"><i class="fa-solid fa-crosshairs text-base"></i></button>
         
-        <div class="w-full h-[50vh] relative overflow-hidden flex items-center justify-center bg-[#06080d]" id="tour-viewport-container">
-            <div id="tour-viewport" class="w-full h-full relative">
-                <div class="zoom-layer flex items-center justify-center w-full h-full" id="tour-layer">
-                    <span class="text-gray-500 font-bold opacity-50"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando mapa interactivo...</span>
-                </div>
+        <div class="w-full h-[50vh] min-h-[50vh] relative overflow-hidden flex items-center justify-center" id="tour-viewport" style="height: 100%;">
+            <div class="zoom-layer flex items-center justify-center w-full h-full" id="tour-layer">
+                <span class="text-gray-500 font-bold opacity-50"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando mapa interactivo...</span>
             </div>
         </div>
       </div>
@@ -217,25 +228,30 @@ section { content-visibility: auto; }
       <p class="text-sm text-gray-400 mt-2 max-w-xl text-center">Descargas directas, mashups exclusivos y sesiones en directo para que calientes motores antes del bolo.</p>
     </div>
     
-    <div class="glass-card w-full p-5 md:p-6 border-[#ffd600]/30 flex flex-col gap-8">
+    <div class="glass-card w-full p-5 md:p-6 border-[#ffd600]/30 flex flex-col gap-6">
       
-      <!-- Cuadrícula de Mashups Actuales -->
+      <!-- Cuadrícula de Mashups (Aparece primero) -->
       <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 content-start"></div>
 
-      <!-- Cuestionario de Mashups Sutil -->
-      <div class="mt-4 pt-6 border-t border-white/5 mx-auto w-full max-w-2xl opacity-75 hover:opacity-100 transition-opacity">
-        <h3 class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest"><i class="fa-solid fa-lightbulb text-[#ffd600] mr-1"></i> Sugerir una mezcla</h3>
-        <p class="text-[11px] text-gray-500 mb-4">¿Tienes alguna idea para un mashup? Selecciona las canciones y envíamelo por IG.</p>
+      <!-- Formulario simple debajo -->
+      <div class="w-full max-w-xl mx-auto pt-8 mt-2 border-t border-white/5 flex flex-col items-center">
+        <h3 class="text-sm font-bold text-gray-300 mb-1 flex items-center"><i class="fa-solid fa-wand-magic-sparkles text-[#ffd600] mr-2"></i> ¿Alguna sugerencia de Mashup?</h3>
+        <p class="text-xs text-gray-500 text-center mb-4">Añade las canciones y envíamelas por DM.</p>
         
-        <div id="mashup-form" class="flex flex-col gap-3">
-          <div id="songs-container" class="flex flex-col gap-2 relative">
-              <!-- Inputs iniciales generados en JS -->
+        <div id="mashup-form" class="flex flex-col gap-3 w-full">
+          <div id="songs-container" class="flex flex-col gap-2">
+              <div class="flex items-center gap-2">
+                  <input type="text" list="song-db" placeholder="Canción 1 (Ej: Quevedo...)" class="admin-input py-2 text-sm flex-1 focus:border-[#ffd600]">
+                  <span class="text-[#ffd600] font-black text-xs px-2">X</span>
+                  <input type="text" list="song-db" placeholder="Canción 2 (Ej: Danza Kuduro...)" class="admin-input py-2 text-sm flex-1 focus:border-[#ffd600]">
+              </div>
           </div>
-          <button type="button" onclick="addSongInput()" class="text-[#ffd600] hover:text-white py-1 rounded-lg text-xs font-bold transition-colors w-max mt-1 bg-transparent border-0 self-start"><i class="fa-solid fa-plus mr-1"></i> Añadir pista</button>
+          <button type="button" onclick="window.addSongInput()" class="text-[#ffd600]/70 hover:text-[#ffd600] py-2 text-xs font-bold transition-colors w-full flex items-center justify-center gap-1"><i class="fa-solid fa-plus"></i> Añadir otra canción</button>
           
-          <a href="https://instagram.com/djvaquero__" target="_blank" class="btn-ig inline-flex justify-center items-center text-white py-2 px-6 rounded-lg font-black mt-3 shadow-lg text-xs uppercase tracking-widest w-max"><i class="fa-brands fa-instagram mr-2"></i> Enviar</a>
+          <a href="https://instagram.com/djvaquero__" target="_blank" class="btn-ig flex justify-center items-center text-white py-3 rounded-full font-black mt-2 shadow-lg text-xs uppercase tracking-widest w-full"><i class="fa-brands fa-instagram mr-2 text-[14px]"></i> Enviar Petición por IG</a>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -249,7 +265,7 @@ section { content-visibility: auto; }
     </div>
     
     <div class="flex items-center justify-center w-full">
-      <div class="glass-card w-full p-6 md:p-10 flex flex-col gap-8 border-[#00ff88]/40 shadow-[0_0_40px_rgba(0,255,136,0.1)]">
+      <div class="glass-card w-full p-6 md:p-10 flex flex-col gap-8 border-[#00ff88]/20 shadow-[0_0_40px_rgba(0,255,136,0.05)]">
         
         <div class="flex flex-col gap-6 w-full">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -313,26 +329,12 @@ section { content-visibility: auto; }
 
 </main>
 
-<!-- BOTON SUBIR ARRIBA -->
-<button id="scrollTopBtn" class="fixed bottom-6 right-6 z-50 bg-black/60 backdrop-blur-md border border-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:bg-white/20 hover:scale-110 pointer-events-none">
-  <i class="fa-solid fa-chevron-up"></i>
+<!-- BOTÓN SCROLL TO TOP -->
+<button id="scroll-top-btn" class="fixed bottom-6 right-6 z-[99] w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 pointer-events-none hover:bg-white/20 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+  <i class="fa-solid fa-arrow-up"></i>
 </button>
 
-<!-- MODAL MAPA FULLSCREEN -->
-<div id="fullscreen-map-modal" class="custom-modal">
-  <div class="modal-content w-[95vw] max-w-[1400px] h-[90vh] max-h-[90vh] bg-[#030408] rounded-2xl border border-white/10 flex flex-col overflow-hidden">
-    <div class="flex justify-between items-center p-4 border-b border-white/10 bg-black/50 z-50">
-      <h3 class="font-display font-black text-[#00e5ff] uppercase tracking-tighter text-lg"><i class="fa-solid fa-map-location-dot mr-2"></i> MAPA INTERACTIVO</h3>
-      <div class="flex gap-3">
-        <button id="btn-fs-reset" class="bg-white/5 hover:bg-white/10 text-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors border border-white/10"><i class="fa-solid fa-crosshairs mr-1"></i> Centrar</button>
-        <button onclick="toggleFullscreenMap()" class="text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-red-500/20 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-times"></i></button>
-      </div>
-    </div>
-    <div id="fullscreen-map-anchor" class="flex-grow w-full relative bg-[#06080d]"></div>
-  </div>
-</div>
-
-<!-- MODAL TOUR (Info Pueblo) -->
+<!-- MODAL TOUR -->
 <div id="info-overlay" class="custom-modal">
   <div class="modal-content">
     <div class="p-4 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
@@ -362,7 +364,7 @@ section { content-visibility: auto; }
   </div>
 </div>
 
-<!-- ADMIN PANEL OMITTED FOR BREVITY BUT REMAINS THE SAME -->
+<!-- ADMIN PANEL -->
 <div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[9999] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
     <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
@@ -374,7 +376,70 @@ section { content-visibility: auto; }
     <button id="tab-mashups" class="flex-1 py-3 text-gray-500 hover:text-white transition-colors border-b-2 border-transparent">Tracks</button>
     <button id="tab-general" class="flex-1 py-3 text-gray-500 hover:text-white transition-colors border-b-2 border-transparent">Ajustes</button>
   </div>
-  <!-- OMITIMOS EL CONTENIDO DEL ADMIN AQUÍ POR LONGITUD, PERO NO SE TOCA NADA -->
+  <div class="p-4 overflow-y-auto max-h-[65vh] space-y-3 custom-scrollbar">
+    <!-- ... (El contenido de los tabs de admin se mantiene intacto) ... -->
+    <div id="sec-a-tour" class="space-y-3">
+      <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
+      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input py-2.5 text-xs flex-1"><select id="a-muni-status" class="admin-input py-2.5 px-2 text-xs w-24"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
+      <input type="text" id="a-muni-img" placeholder="URL Imagen Cromo Pueblo" class="admin-input py-2.5 text-xs">
+      <div id="a-ev-list" class="space-y-1 bg-black/30 p-2 rounded-xl border border-white/5 max-h-28 overflow-y-auto custom-scrollbar"></div>
+      <div class="pt-2 border-t border-white/5 space-y-2">
+        <label id="a-ev-t" class="text-[10px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Añadir Fecha</label>
+        <div class="grid grid-cols-2 gap-2"><input type="text" id="a-ev-p" placeholder="Sala" class="admin-input py-2.5 text-xs"><input type="date" id="a-ev-d" class="admin-input py-2.5 text-xs [color-scheme:dark]"></div>
+        <textarea id="a-ev-desc" placeholder="Detalles..." class="admin-input py-2.5 h-12 resize-none text-xs"></textarea>
+        <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar Info Pueblo</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"><i class="fa-solid fa-rotate-left"></i></button></div>
+      </div>
+    </div>
+    <div id="sec-a-setup" class="space-y-3 hidden">
+      <select id="a-comp-sel" class="admin-input py-2.5 text-xs"><option value="NEW">✨ NUEVO HARDWARE</option></select>
+      <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input py-2.5 text-xs focus:border-djMagenta">
+      <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input py-2.5 text-xs h-16 resize-none focus:border-djMagenta"></textarea>
+      <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
+        <div class="flex justify-between items-center mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span><button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1 rounded border border-djMagenta/30 text-[9px] font-bold transition-colors"><i class="fa-solid fa-plus mr-1"></i> Añadir</button></div>
+        <ul id="a-comp-figs" class="space-y-1 max-h-24 overflow-y-auto text-xs custom-scrollbar"></ul>
+        <div id="draw-controls" class="hidden flex-col gap-2 mt-2 p-2 border border-djMagenta/30 bg-djMagenta/5 rounded-lg shadow-inner">
+          <span class="text-[10px] text-djMagenta font-bold text-center block mb-1">Toca la imagen</span>
+          <ul id="a-comp-pts" class="space-y-1 max-h-24 overflow-y-auto text-[10px] text-gray-300 custom-scrollbar"></ul>
+          <div class="flex gap-2 pt-1"><button id="btn-close-fig" class="flex-[2] bg-djMagenta text-black font-black py-1.5 rounded-lg text-[10px] uppercase tracking-wider"><i class="fa-solid fa-check mr-1"></i> Cerrar</button><button id="btn-cancel-fig" class="flex-[1] bg-white/10 hover:bg-white/20 text-white font-bold py-1.5 rounded-lg text-[10px] transition-colors">Cancelar</button></div>
+        </div>
+      </div>
+      <div class="flex gap-2"><button id="btn-sv-cp" class="flex-[3] bg-djMagenta text-black font-black py-2 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,0,234,0.3)]">Guardar</button><button id="btn-dl-cp" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px] hover:bg-red-500/20 transition-colors">Borrar</button></div>
+    </div>
+    
+    <div id="sec-a-mashups" class="space-y-3 hidden">
+      <select id="a-mash-sel" class="admin-input py-2.5 text-xs"><option value="NEW">✨ NUEVO TRACK / SESIÓN</option></select>
+      <select id="a-mash-type" class="admin-input py-2.5 text-xs" onchange="window.toggleMashType()">
+        <option value="mashup">Mashup / Edit (SoundCloud)</option>
+        <option value="session">Sesión DJ (Vídeo de YouTube)</option>
+      </select>
+      <input type="text" id="a-mash-t" placeholder="Título" class="admin-input py-2.5 text-xs focus:border-djYellow">
+      
+      <div id="a-mash-fields-audio" class="space-y-3">
+        <input type="text" id="a-mash-dl" placeholder="Enlace descarga (Opcional)" class="admin-input py-2.5 text-xs focus:border-djYellow">
+        <input type="text" id="a-mash-sc" placeholder="URL SoundCloud" class="admin-input py-2.5 text-xs focus:border-djYellow">
+      </div>
+      
+      <div id="a-mash-fields-yt" class="space-y-3 hidden">
+        <input type="text" id="a-mash-yt" placeholder="ID del Vídeo de YouTube (Ej: dQw4w9WgXcQ)" class="admin-input py-2.5 text-xs focus:border-djYellow">
+      </div>
+
+      <div class="flex gap-2 pt-2"><button id="btn-sv-ms" class="flex-[3] bg-djYellow text-black font-black py-2 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,214,0,0.3)]">Publicar</button><button id="btn-dl-ms" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px] hover:bg-red-500/20 transition-colors">Borrar</button></div>
+    </div>
+
+    <div id="sec-a-general" class="space-y-3 hidden">
+      <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
+        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-chart-simple mr-1"></i> Analíticas Rápidas</span>
+        <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg text-xs"><span class="text-gray-300">Clics 'Contratar'</span><span id="stat-contract" class="font-black text-djCyan">0</span></div>
+        <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg text-xs"><span class="text-gray-300">Clics 'Descargar'</span><span id="stat-mashups" class="font-black text-djYellow">0</span></div>
+        <button id="btn-reset-stats" class="w-full mt-2 bg-red-500/10 text-red-500 hover:bg-red-500/30 py-1.5 rounded-lg text-[10px] font-bold transition-colors"><i class="fa-solid fa-rotate-left mr-1"></i>Resetear</button>
+      </div>
+      <div class="space-y-2">
+        <label class="text-[10px] text-gray-400 font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-bolt mr-1"></i> Marquesina Promocional</label>
+        <textarea id="a-ticker-input" class="admin-input py-2.5 h-20 resize-none text-xs focus:border-white"></textarea>
+      </div>
+      <button id="btn-sv-ticker" class="w-full bg-white text-black font-black py-2 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,255,255,0.3)]">Guardar Ajustes</button>
+    </div>
+  </div>
 </div>
 
 <script type="module">
@@ -392,112 +457,37 @@ const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('
 let eeC=0; const au=new Audio('tag.flac'); 
 window.bookingKm=0; window.isSalamanca=true;
 
-/* Scroll to top logic */
-window.addEventListener('scroll', () => {
-  const b = document.getElementById('scrollTopBtn');
-  if(window.scrollY > 350) { 
-    b.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); 
-  } else { 
-    b.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); 
-  }
-});
-document.getElementById('scrollTopBtn').onclick = () => window.scrollTo({top:0, behavior:'smooth'});
-
-/* Fullscreen Map Logic */
-let isMapFullscreen = false;
-window.toggleFullscreenMap = () => {
-    isMapFullscreen = !isMapFullscreen;
-    const modal = document.getElementById('fullscreen-map-modal');
-    const normalContainer = document.getElementById('tour-viewport-container');
-    const fullscreenAnchor = document.getElementById('fullscreen-map-anchor');
-    const viewport = document.getElementById('tour-viewport');
-    
-    if(isMapFullscreen) {
-        modal.classList.add('open');
-        fullscreenAnchor.appendChild(viewport);
-    } else {
-        modal.classList.remove('open');
-        normalContainer.appendChild(viewport);
-    }
-    // Forzar recalculo de vista
-    setTimeout(() => { document.getElementById('btn-reset-map')?.click(); }, 300);
-};
-
-if(document.getElementById('btn-fs-reset')) document.getElementById('btn-fs-reset').onclick = () => document.getElementById('btn-reset-map')?.click();
-
-/* Mashup Form logic & Database Simulation */
-const fakeSongDB = [
-    { title: "Bzrp Music Sessions, Vol. 52", artist: "Bizarrap, Quevedo" },
-    { title: "Danza Kuduro", artist: "Don Omar, Lucenzo" },
-    { title: "La Bachata", artist: "Manuel Turizo" },
-    { title: "Nochentera", artist: "Vicco" },
-    { title: "Tití Me Preguntó", artist: "Bad Bunny" },
-    { title: "Despacito", artist: "Luis Fonsi, Daddy Yankee" },
-    { title: "Potra Salvaje", artist: "Isabel Aaiún" },
-    { title: "Zorra", artist: "Nebulossa" }
-];
-
-window.showSuggestions = (input) => {
-    const val = input.value.toLowerCase().trim();
-    const suggBox = input.nextElementSibling;
-    suggBox.innerHTML = '';
-    
-    if (val.length < 2) {
-        suggBox.classList.add('hidden');
-        return;
-    }
-    
-    const matches = fakeSongDB.filter(s => s.title.toLowerCase().includes(val) || s.artist.toLowerCase().includes(val)).slice(0, 5);
-    
-    if(matches.length > 0) {
-        matches.forEach(m => {
-            const div = document.createElement('div');
-            div.className = "px-3 py-2 cursor-pointer song-suggestion-item border-b border-white/5 last:border-0";
-            div.innerHTML = `<p class="text-sm font-bold text-white truncate">${m.title}</p><p class="text-[10px] text-gray-400 truncate">${m.artist}</p>`;
-            div.onclick = () => {
-                input.value = `${m.title} - ${m.artist}`;
-                suggBox.classList.add('hidden');
-            };
-            suggBox.appendChild(div);
-        });
-        suggBox.classList.remove('hidden');
-    } else {
-        suggBox.classList.add('hidden');
-    }
-};
-
+/* Mashup Form logic */
+window.removeSongInput = (btn) => { btn.parentElement.remove(); };
 window.addSongInput = () => {
     const container = document.getElementById('songs-container');
-    const count = container.querySelectorAll('.song-row').length + 1;
     const row = document.createElement('div');
-    row.className = 'flex items-center gap-2 relative mt-2 group song-row';
-    row.innerHTML = `
-        <div class="flex-1 relative">
-            <input type="text" placeholder="Buscar canción ${count}..." class="admin-input bg-transparent border-white/20 py-2.5 text-xs w-full focus:border-[#ffd600]" oninput="window.showSuggestions(this)">
-            <div class="absolute top-full left-0 w-full bg-[#0a0c12] border border-white/10 rounded-b-lg hidden z-50 max-h-40 overflow-y-auto shadow-2xl"></div>
-        </div>
-        <button type="button" onclick="this.parentElement.remove()" class="text-gray-500 hover:text-red-500 transition-colors px-2"><i class="fa-solid fa-trash"></i></button>
-    `;
+    row.className = 'flex items-center gap-2 mt-2';
+    row.innerHTML = `<input type="text" list="song-db" placeholder="Añadir otra canción..." class="admin-input py-2 text-sm flex-1 focus:border-[#ffd600]"><button type="button" onclick="window.removeSongInput(this)" class="text-red-500 hover:text-red-400 w-8 flex justify-center transition-colors"><i class="fa-solid fa-trash"></i></button>`;
     container.appendChild(row);
 };
-
-// Cerrar sugerencias al hacer clic fuera
-document.addEventListener('click', (e) => {
-    document.querySelectorAll('#songs-container .absolute').forEach(box => {
-        if(!box.parentElement.contains(e.target)) box.classList.add('hidden');
-    });
-});
 
 window.setThemeColor = (v) => {
     const c={default:'#ffffff', tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',booking:'#00ff88'};
     document.documentElement.style.setProperty('--tc',c[v] || c['default']);
 };
 
+/* Scroll To Top Logic */
+const stBtn = $('scroll-top-btn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) {
+    stBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+    stBtn.classList.add('opacity-100', 'pointer-events-auto');
+  } else {
+    stBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    stBtn.classList.remove('opacity-100', 'pointer-events-auto');
+  }
+});
+stBtn.addEventListener('click', () => {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Iniciar con dos inputs de canciones
-    window.addSongInput();
-    window.addSongInput();
-    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if(entry.isIntersecting) {
@@ -524,14 +514,377 @@ $$('.ee-trigger').forEach(el=>{
   }
 });
 
-// (EL RESTO DEL SCRIPT JS SIGUE EXACTAMENTE IGUAL, MANTENIENDO EL MAPA, FIREBASE Y FUNCIONES INTERNAS)
-// Aquí iría el resto de lógica de arrastre y carga del SVG como estaba originalmente.
-// Se ha añadido un id "btn-reset-map" virtualmente o aprovechado el de la UI si hace falta para el reset del mapa al mover al FS modal.
-window.calcDist = async () => { /* ... idéntico ... */ };
-window.calcBudget = () => { /* ... idéntico ... */ };
-window.selMuni = id => { /* ... idéntico ... */ };
-// Omitido visualmente en esta respuesta por simplicidad de lectura, pero debe mantenerse.
+window.calcDist = async () => {
+  const c = $('p-city')?.value, lbl = $('dist-lbl');
+  if(!c){ window.bookingKm=0; window.isSalamanca=true; lbl.innerText='-- km'; window.calcBudget(); return; }
+  lbl.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i>';
+  try {
+    let r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(c)}, España`);
+    let d = await r.json();
+    if(d&&d[0]){
+      if(d[0].display_name.toLowerCase().includes("salamanca")) {
+          window.isSalamanca = true; window.bookingKm = 0; lbl.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Local';
+      } else {
+          window.isSalamanca = false;
+          let a = 0.5 - Math.cos((parseFloat(d[0].lat) - 40.9701) * 0.0174532925) / 2 + Math.cos(40.9701 * 0.0174532925) * Math.cos(parseFloat(d[0].lat) * 0.0174532925) * (1 - Math.cos((parseFloat(d[0].lon) - -5.6635) * 0.0174532925)) / 2;
+          window.bookingKm = Math.round(12742 * Math.asin(Math.sqrt(a)) * 1.25);
+          lbl.innerText = window.bookingKm + ' km';
+      }
+    } else { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Error'; }
+  } catch(e) { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Error'; }
+  window.calcBudget();
+};
 
+window.updateBookingUI=()=>{
+  const t=$('p-type').value;
+  $('div-eq').classList.toggle('hidden',t!=='pub');
+  window.calcBudget();
+};
+
+window.calcBudget=()=>{
+  const t=$('p-type')?.value, d=parseInt($('p-dur')?.value)||2, e=$('p-eq')?.value;
+  let r=25; 
+  if(t==='privada') r=75; 
+  else if(t==='pueblo'||(t==='pub'&&e==='si')) r=60;
+  
+  let tot=r*d;
+  
+  const tm=$('p-time')?.value;
+  if(tm){
+      const hh=parseInt(tm.split(':')[0]); 
+      if(hh>0&&hh<=12) tot+=(15*hh);
+  }
+  
+  if(!window.isSalamanca && window.bookingKm > 0) tot += 100 + (window.bookingKm * 0.25);
+  if($('p-result')) $('p-result').innerText=`${tot.toFixed(2).replace(/\.00$/,'')}€`;
+};
+
+function toggleAdminMode(a){tog(document.body,'admin-active',a);tog($('setup-img'),'opacity-50',a);tog($('admin-pts'),'hidden',!a);if(!a){isDrawing=false;cPts=[];editFigIdx=-1};a?renderAdminPts():renderComp()}
+
+const togTourView=(f)=>{
+  tourMode=f||(tourMode==='album'?'map':'album'); const isM=tourMode==='map', bt=$('btn-toggle-tour');
+  tog($('tour-album-container'),'hidden',isM); tog($('tour-map-container'),'hidden',!isM);
+  if(bt) bt.innerHTML=isM?'<i class="fa-solid fa-book-open mr-2"></i> Álbum':'<i class="fa-solid fa-map mr-2"></i> Mapa interactivo';
+  if(isM) setTimeout(()=>$('btn-reset-map')?.click(),50); else clTour();
+};
+if($('btn-toggle-tour')) $('btn-toggle-tour').onclick=()=>togTourView();
+window.openMapAndCenter=id=>{togTourView('map'); selMuni(id); $('view-tour').scrollIntoView({behavior: 'smooth'})};
+
+/* Maximize Map logic */
+if($('btn-max-map')) $('btn-max-map').onclick = () => {
+    const mc = $('tour-map-container');
+    mc.classList.toggle('fixed'); mc.classList.toggle('inset-0'); mc.classList.toggle('z-[100]'); mc.classList.toggle('bg-black'); mc.classList.toggle('p-6');
+    $('btn-max-map').innerHTML = mc.classList.contains('fixed') ? '<i class="fa-solid fa-compress text-base"></i>' : '<i class="fa-solid fa-expand text-base"></i>';
+    setTimeout(() => $('btn-reset-map')?.click(), 300);
+};
+
+const clTour=()=>{currMuni=null;renderMap();tog(iAnc,'open',false);setTimeout(()=>{if(iTit)iTit.innerText='TOUR';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Selecciona</span>`;if(iEvs)iEvs.innerHTML='';},300)};
+const clSetup=()=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));tog(sAnc,'open',false);setTimeout(()=>{if(sTit)sTit.innerText='';if(sDesc)sDesc.innerText='';if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Hardware</span>`;},300)};
+if($('btn-close-tour')) $('btn-close-tour').onclick=clTour; if($('btn-close-setup')) $('btn-close-setup').onclick=clSetup;
+[iAnc, sAnc].forEach(m => {
+    if(m) m.addEventListener('click', (e) => {
+        if (e.target === m) { m.id === 'info-overlay' ? clTour() : clSetup(); }
+    });
+});
+
+let fL=true;
+onValue(ref(db,'/'),s=>{
+  const v=s.val()||{}; dbData={municipalities:v.municipalities||{},components:v.components||{},mashups:v.mashups||{},config:v.config||{},analytics:v.analytics||{}};
+  const tk=dbData.config.ticker||"PRÓXIMAS FECHAS POR CONFIRMAR";
+  if($('ticker-text-1')) $('ticker-text-1').innerText=tk; if($('ticker-text-2')) $('ticker-text-2').innerText=tk; if($('a-ticker-input')) $('a-ticker-input').value=tk;
+  if($('stat-contract')) $('stat-contract').innerText=dbData.analytics.contract||0; if($('stat-mashups')) $('stat-mashups').innerText=dbData.analytics.mashup||0;
+  if(fL){fL=false;const ld=$('loader');if(ld){ld.style.opacity='0';setTimeout(()=>ld.remove(),500);}}
+  try{renderMap();renderComp();renderMash();renderAlbum();updateDds();}catch(e){} if($('a-muni-id')&&$('a-muni-id').value)popEv($('a-muni-id').value);
+});
+
+const getGroup=id=>{const m=dbData.municipalities||{},n=m[id]?.name;return !n||/^zona/i.test(n)?[id]:Object.keys(m).filter(k=>m[k]?.name===n)};
+
+const renderAlbum=()=>{
+  const g=$('album-grid'); if(!g)return;
+  const m=Object.entries(dbData.municipalities||{}).filter(([_,d])=>d.status==='unlocked');
+  let html = m.length?m.map(([id,d])=>{
+    if(!d.img||d.img.trim()==='') return '';
+    const n=/^zona/i.test(d.name||id)?id.replace(/_/g,' '):(d.name||id.replace(/_/g,' '));
+    return `<div class="glass-card overflow-hidden cursor-pointer group hover:border-[#00e5ff] transition-all duration-300 flex flex-col relative shadow-xl hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transform hover:-translate-y-1 aspect-[3/4] rounded-xl border-white/10" onclick="window.selMuni('${id}')">
+      <img src="${d.img}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform duration-700 ease-out z-0">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute top-3 right-3 w-2 h-2 rounded-full bg-[#00e5ff] shadow-[0_0_10px_#00e5ff] z-20"></div>
+      <div class="absolute bottom-0 left-0 w-full p-4 z-20 flex flex-col justify-end">
+         <h3 class="font-display font-black text-white text-sm md:text-base uppercase tracking-tight drop-shadow-md leading-tight">${n}</h3>
+         <p class="text-[10px] text-[#00e5ff] mt-1 uppercase tracking-widest font-bold"><i class="fa-solid fa-bolt mr-1"></i>Conquistado</p>
+      </div>
+    </div>`;
+  }).join(''):'';
+
+  const secretCard = `<div class="glass-card overflow-hidden flex flex-col relative shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-dashed border-white/20 hover:border-[#00e5ff]/50 transition-all duration-300 aspect-[3/4] rounded-xl items-center justify-center text-center p-4 bg-black/60 group">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-0"></div>
+    <i class="fa-solid fa-user-secret text-4xl text-gray-500 mb-3 z-10 group-hover:text-[#00e5ff] transition-colors"></i>
+    <h3 class="font-display font-black text-white text-sm md:text-base uppercase tracking-tight drop-shadow-md leading-tight mb-2 z-10">¿MISTERIO?</h3>
+    <p class="text-[10px] text-gray-400 mb-4 z-10 px-1 leading-tight">El próximo pueblo podría ser el tuyo.</p>
+    <a href="#view-booking" onclick="setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}),100)" class="z-10 btn-ig font-bold py-2 px-4 rounded-full text-xs uppercase shadow-lg active:scale-95 flex items-center"><i class="fa-brands fa-instagram mr-2 text-[14px]"></i> IG</a>
+  </div>`;
+
+  g.innerHTML = html + secretCard;
+};
+
+const uLbls = () => {
+  if(!lgEl || !vp) return;
+  lgEl.className.baseVal = 'opacity-100 transition-opacity duration-300 pointer-events-none';
+  const fS = Math.max(8 / sc, 2.5); 
+  const r = vp.getBoundingClientRect();
+  const occ = [];
+  const srt = [...mLbls].sort((a,b) => ((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
+  
+  srt.forEach(l => {
+    const m = dbData.municipalities[l.dataset.id] || {};
+    const n = m.name || l.dataset.id.replace(/_/g, ' ');
+    if(/^zona/i.test(n) && !m.name) return void(l.style.opacity = '0');
+    
+    const un = m.status === 'unlocked';
+    l.setAttribute('fill', un ? '#ffffff' : 'rgba(255,255,255,0.4)'); 
+    l.setAttribute('stroke', '#000000'); 
+    l.setAttribute('stroke-width', `${fS * 0.15}px`); 
+    l.setAttribute('font-size', `${fS}px`); 
+    l.setAttribute('font-weight', un ? '900' : '500'); 
+    if(un) { l.setAttribute('filter', 'drop-shadow(0px 1px 3px rgba(0,0,0,0.8))'); } else { l.removeAttribute('filter'); }
+    l.setAttribute('paint-order', 'stroke fill');
+    l.setAttribute('stroke-linejoin', 'round');
+    
+    const br = l.getBoundingClientRect();
+    const x = br.left - r.left + br.width / 2;
+    const y = br.top - r.top + br.height / 2;
+    
+    if(x < 0 || x > vp.clientWidth || y < 0 || y > vp.clientHeight) return void(l.style.opacity = '0');
+    
+    const b = { l: br.left + 2, r: br.right - 2, t: br.top + 2, b: br.bottom - 2 };
+    if(!occ.some(o => b.l < o.r && b.r > o.l && b.t < o.b && b.b > o.t)) {
+      l.style.opacity = '1';
+      occ.push(b);
+    } else {
+      l.style.opacity = '0.15';
+    }
+  });
+};
+
+const chkBounds=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>15)sc=15;const minPx=rW-(svgW*sc),minPy=rH-(svgH*sc);if(svgW*sc<=rW)pX=(rW-svgW*sc)/2;else pX=Math.min(0,Math.max(minPx,pX));if(svgH*sc<=rH)pY=(rH-svgH*sc)/2;else pY=Math.min(0,Math.max(minPy,pY))};
+
+const uTrans=()=>{
+  if(!vp)return; 
+  const s = tLay.querySelector('svg');
+  if(s){
+    const vW=vp.clientWidth, vH=vp.clientHeight;
+    const vbX = -pX/sc, vbY = -pY/sc, vbW = vW/sc, vbH = vH/sc;
+    s.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+    s.setAttribute('preserveAspectRatio', 'none');
+  }
+  uLbls(); reqFr=null;
+};
+
+const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;mStartX=x;mStartY=y;pan=true;isMov=false;};
+const mvPan=(x,y)=>{if(!pan)return;if(Math.abs(x-mStartX)>4||Math.abs(y-mStartY)>4)isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
+
+if(vp){
+  on(vp,'mousedown',e=>{isMov=false; stPan(e.clientX,e.clientY)}); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false});
+  on(vp,'touchstart',e=>{isMov=false;if(e.touches.length===1)stPan(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
+  on(vp,'touchmove',e=>{if(pan&&e.touches.length===1)mvPan(e.touches[0].clientX,e.touches[0].clientY);else if(e.touches.length===2){e.preventDefault();const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY),rb=vp.getBoundingClientRect(),mx=((t1.clientX+t2.clientX)/2)-rb.left,my=((t1.clientY+t2.clientY)/2)-rb.top,tx=(mx-pX)/sc,ty=(my-pY)/sc;sc=sc*(d/(vp.dataset.sd||d));vp.dataset.sd=d;chkBounds();pX=mx-tx*sc;pY=my-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)}},{passive:false});
+  on(vp,'touchend',()=>{pan=false;delete vp.dataset.sd});
+  on(vp,'wheel',e=>{e.preventDefault();const rb=vp.getBoundingClientRect(),tx=(e.clientX-rb.left-pX)/sc,ty=(e.clientY-rb.top-pY)/sc;sc=e.deltaY<0?sc*1.1:sc/1.1;chkBounds();pX=(e.clientX-rb.left)-tx*sc;pY=(e.clientY-rb.top)-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)},{passive:false});
+}
+if($('btn-reset-map')) $('btn-reset-map').onclick=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight;sc=Math.min(rW/svgW,rH/svgH)*0.95;pX=(rW-svgW*sc)/2;pY=(rH-svgH*sc)/2;if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
+
+fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
+  if(!tLay||!h)return; tLay.innerHTML=h; const s=tLay.querySelector('svg'); if(!s)return; const g=crSvg('g');
+  try{const vb=s.viewBox.baseVal;if(vb&&vb.width){svgW=vb.width;svgH=vb.height}else{const b=s.getBBox();svgW=b.width;svgH=b.height}}catch(e){svgW=1000;svgH=1000}
+  s.style.width='100%'; s.style.height='100%'; s.style.pointerEvents='none';
+  g.id='labels-group';g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none';s.appendChild(g);
+  s.querySelectorAll('path,polygon').forEach((el,i)=>{const id=el.id||`zona_${i}`;el.id=id;el.className.baseVal='muni muni-base';try{const b=el.getBBox();if(b.width>0){const t=crSvg("text");t.setAttribute("x",b.x+b.width/2);t.setAttribute("y",b.y+b.height/2);t.setAttribute("class","muni-label transition-opacity duration-300");t.setAttribute("data-id",id);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');t.setAttribute('font-family',"'Montserrat',sans-serif");t.setAttribute('style','pointer-events:none');g.appendChild(t)}}catch(e){}el.onclick=e=>{if(isMov)return;e.stopPropagation();window.selMuni(id)}});
+  lgEl=g;mLbls=Array.from(g.querySelectorAll('.muni-label')); setTimeout(()=>$('btn-reset-map')?.click(),100); renderMap();
+}).catch(e=>{
+  if(tLay) tLay.innerHTML='<span class="text-gray-500 font-bold opacity-50"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Error al cargar el mapa</span>';
+});
+
+const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
+
+window.selMuni=id=>{
+  currMuni=id; renderMap(); const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));
+  if(iTit)iTit.innerText=n; if($('a-muni-id'))$('a-muni-id').value=id; if($('a-muni-name'))$('a-muni-name').value=n; if($('a-muni-img'))$('a-muni-img').value=m.img||''; clrEv(); popEv(id); tog(iAnc,'open',true); 
+  if(m.status==='unlocked'){
+    if($('a-muni-status'))$('a-muni-status').value='unlocked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-[#00e5ff] shadow-[0_0_8px_#00e5ff]"></div><span class="text-[#00e5ff] text-[10px] font-bold uppercase tracking-widest">Confirmadas</span>`;
+    let evHtml='';
+    if(m.events){
+      let evs = Object.entries(m.events).sort((a,b)=>new Date(a[1].date)-new Date(b[1].date));
+      evHtml = evs.map(([eid,ev])=>{
+        let dStr = ev.date;
+        try { let d=new Date(ev.date); if(!isNaN(d)) dStr=d.toLocaleDateString('es-ES',{day:'2-digit',month:'short'}).toUpperCase(); }catch(e){}
+        let [day, month] = dStr.split(' ');
+        
+        return `<div class="bg-black/60 border border-white/10 rounded-xl p-3 flex gap-3 relative overflow-hidden group hover:border-[#00e5ff]/50 transition-all shadow-lg items-center">
+            <div class="absolute top-0 left-0 w-1 h-full bg-[#00e5ff] group-hover:w-1.5 transition-all"></div>
+            <div class="flex-shrink-0 w-12 h-12 bg-white/5 rounded-xl flex flex-col items-center justify-center border border-white/10 text-[#00e5ff] shadow-inner">
+               <span class="text-lg font-black leading-none">${day||''}</span>
+               <span class="text-[9px] font-bold uppercase tracking-widest mt-1">${month||dStr}</span>
+            </div>
+            <div class="flex flex-col gap-0.5 w-full">
+              <h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4>
+              ${ev.details?`<div class="w-full mt-1">
+                <p class="text-[11px] text-gray-300 leading-snug line-clamp-2 transition-all duration-300">${ev.details}</p>
+                <span class="text-[#00e5ff] text-[9px] cursor-pointer font-bold uppercase mt-1 inline-block hover:text-white transition-colors" onclick="const p=this.previousElementSibling; p.classList.toggle('line-clamp-2'); this.innerText=p.classList.contains('line-clamp-2')?'+ LEER MÁS':'- LEER MENOS';">+ LEER MÁS</span>
+              </div>`:''}
+            </div>
+          </div>`;
+      }).join('');
+    }else evHtml=`<p class="text-gray-500 text-sm text-center py-6">Próximamente.</p>`;
+    if(iEvs)iEvs.innerHTML=evHtml;
+  }else{
+    if($('a-muni-status'))$('a-muni-status').value='locked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;
+    if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-3"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`;
+  }
+  let btns = '';
+  if(tourMode !== 'map'){ btns += `<button onclick="clTour(); setTimeout(()=>window.openMapAndCenter('${id}'), 100)" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-3 rounded-full text-center text-xs font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button>`; }
+  
+  btns += `<a href="#view-booking" onclick="clTour(); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}), 100)" class="btn-ig flex items-center justify-center gap-2 w-full py-3 rounded-full text-center text-xs font-black uppercase tracking-widest shadow-[0_0_20px_rgba(220,39,67,0.4)] animate-pulse hover:animate-none"><i class="fa-brands fa-instagram text-[14px]"></i> Contactar vía IG</a>`;
+  
+  if(iEvs)iEvs.innerHTML+=`<div class="mt-auto shrink-0 flex flex-col gap-2 w-full pt-3">${btns}</div>`;
+};
+
+if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-2.5 hover:bg-white/10 text-sm cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-2.5 text-gray-500 text-sm italic">Sin resultados</li>`};
+on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
+
+const renderMash=()=>{
+  const g=$('mashups-grid');if(!g)return;
+  const e=Object.entries(dbData.mashups||{}).sort();
+  g.innerHTML=e.length?e.map(([_,d])=>{
+    if(d.type === 'session'){
+      return `<div class="bg-black/60 border border-white/10 p-4 rounded-xl flex flex-col group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-[#ffd600]/30 shadow-xl">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-[#ffd600]/5 rounded-full blur-xl group-hover:bg-[#ffd600]/20 transition-colors"></div>
+        <div class="relative z-10"><h4 class="font-display font-black text-sm md:text-base text-white leading-tight mb-1"><i class="fa-solid fa-video text-[#ffd600] mr-1.5 text-sm"></i>${d.title}</h4></div>
+        <div class="relative z-10 w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-inner">
+           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${d.ytId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>`;
+    }else{
+      return `<div class="bg-black/60 border border-white/10 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-[#ffd600]/30 shadow-xl">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-[#ffd600]/5 rounded-full blur-xl group-hover:bg-[#ffd600]/20 transition-colors"></div>
+        <div class="relative z-10"><h4 class="font-display font-black text-sm md:text-base text-white leading-tight mb-1"><i class="fa-solid fa-music text-[#ffd600] mr-1.5 text-sm"></i>${d.title}</h4></div>
+        <div class="relative z-10 space-y-3">
+          ${d.scUrl?`<div class="w-full h-32 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}
+          ${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-[#ffd600]/10 hover:bg-[#ffd600] text-[#ffd600] hover:text-black border border-[#ffd600]/30 py-2.5 rounded-full text-center text-xs font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar Audio</a>`:''}
+        </div>
+      </div>`;
+    }
+  }).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks ni sesiones disponibles.</p>'
+};
+
+window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);if(sStat)sStat.innerHTML=`<div class="w-1.5 h-1.5 rounded-full bg-[#ff00ea] shadow-[0_0_8px_#ff00ea]"></div><span class="text-[#ff00ea] text-[9px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
+const renderComp=()=>{const ov=$('setup-svg');if(!ov)return;ov.innerHTML='';if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden'))return;Object.entries(dbData.components||{}).forEach(([id,c])=>{(c.figures||[]).forEach(f=>{if(f.length>2){const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("class",`comp-polygon comp-id-${id}`);p.onclick=e=>{e.stopPropagation();window.selComp(id)};ov.appendChild(p)}})})};
+
+const crDot=(pts,idx,pEl,dc)=>{const dt=document.createElement('div');dt.className="absolute w-2.5 h-2.5 bg-djCyan rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white admin-drag-dot hover:scale-125 transition-transform shadow-lg";dt.style.left=pts[idx].x+'%';dt.style.top=pts[idx].y+'%';on(dt,'contextmenu',e=>{e.preventDefault();e.stopPropagation();pts.splice(idx,1);renderAdminPts()});const mm=e=>{e.preventDefault();const w=$('setup-wrapper');if(!w)return;const r=w.getBoundingClientRect(),x=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)),y=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));dt.style.left=x+'%';dt.style.top=y+'%';pts[idx]={x:parseFloat(x.toFixed(1)),y:parseFloat(y.toFixed(1))};if(pEl)pEl.setAttribute("points",pts.map(p=>`${p.x},${p.y}`).join(' '))},mu=()=>{window.removeEventListener('pointermove',mm);window.removeEventListener('pointerup',mu)};on(dt,'pointerdown',e=>{e.stopPropagation();e.target.setPointerCapture(e.pointerId);on(window,'pointermove',mm);on(window,'pointerup',mu)});dc.appendChild(dt)};
+const renderAdminPts=()=>{const figsUl=$('a-comp-figs'),ptsUl=$('a-comp-pts'),dc=$('admin-pts'),ov=$('setup-svg');if(!figsUl||!ptsUl||!dc||!ov)return;dc.innerHTML=''; ov.innerHTML='';tog($('draw-controls'),'hidden',!isDrawing);tog($('btn-add-fig'),'hidden',isDrawing);figsUl.innerHTML=cFigs.map((f,i)=>editFigIdx===i?'':`<li class="flex justify-between items-center bg-black/40 px-2.5 py-1.5 rounded-lg border border-white/10 text-[10px] transition-colors hover:border-djMagenta/50"><span class="text-gray-300"><i class="fa-solid fa-draw-polygon text-djMagenta/50 mr-1.5"></i>Polígono ${i+1}</span><div class="flex gap-2"><button class="text-djCyan hover:text-white transition-colors" onclick="window.editFig(${i})"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delFig(${i})"><i class="fa-solid fa-trash"></i></button></div></li>`).join('');cFigs.forEach((f,i)=>{if(editFigIdx===i) return;const p=crSvg("polygon");p.setAttribute("points",f.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(255,0,234,0.1)");p.setAttribute("stroke","rgba(255,0,234,0.6)");p.setAttribute("stroke-width","0.5");ov.appendChild(p);});if(isDrawing){if(cPts.length>0){if(cPts.length>2){const p=crSvg("polygon");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","rgba(0,229,255,0.1)");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}else{const p=crSvg("polyline");p.setAttribute("points",cPts.map(pt=>`${pt.x},${pt.y}`).join(' '));p.setAttribute("fill","none");p.setAttribute("stroke","#00e5ff");p.setAttribute("stroke-width","1");p.setAttribute("stroke-dasharray","4");ov.appendChild(p);cPts.forEach((_,ni)=>crDot(cPts,ni,p,dc));}}ptsUl.innerHTML=cPts.length?cPts.map((pt,i)=>`<li class="flex justify-between items-center bg-black/30 px-2.5 py-1 rounded-lg border border-white/5"><span class="font-mono text-[9px] text-gray-400"><span class="text-djCyan font-bold mr-1">${i+1}.</span> X: ${pt.x}% | Y: ${pt.y}%</span><button class="text-red-500/70 hover:text-red-500 transition-colors" onclick="window.delNode(${i})"><i class="fa-solid fa-times"></i></button></li>`).join(''):'<li class="text-gray-500 text-center py-2 text-[10px] italic border border-dashed border-white/10 rounded-lg"><i class="fa-solid fa-hand-pointer block mb-1 text-[12px]"></i>Clic en la imagen</li>'}else ptsUl.innerHTML=''};
+
+window.editFig=i=>{isDrawing=true; editFigIdx=i; cPts=[...cFigs[i]]; renderAdminPts()}; window.delFig=i=>{if(!confirm('¿Eliminar polígono?'))return; cFigs.splice(i,1); if(editFigIdx===i){isDrawing=false; editFigIdx=-1; cPts=[]}else if(editFigIdx>i)editFigIdx--; renderAdminPts()}; window.delNode=i=>{cPts.splice(i,1); renderAdminPts()};
+if($('btn-add-fig')) $('btn-add-fig').onclick=()=>{isDrawing=true; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-cancel-fig')) $('btn-cancel-fig').onclick=()=>{isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()}; if($('btn-close-fig')) $('btn-close-fig').onclick=()=>{if(cPts.length<3) return alert("Añade al menos 3 nodos."); if(editFigIdx>=0) cFigs[editFigIdx]=[...cPts]; else cFigs.push([...cPts]); isDrawing=false; cPts=[]; editFigIdx=-1; renderAdminPts()};
+if($('setup-wrapper')) $('setup-wrapper').onclick=e=>{if(actTab==='setup'&&!$('admin-panel').classList.contains('hidden')&&isDrawing&&!e.target.classList.contains('admin-drag-dot')){const r=$('setup-wrapper').getBoundingClientRect();cPts.push({x:parseFloat(Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100)).toFixed(1)),y:parseFloat(Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100)).toFixed(1))});renderAdminPts()}};
+if($('btn-sv-cp')) $('btn-sv-cp').onclick=()=>{if(!$('a-comp-t')||!$('a-comp-t').value)return;const aF=[...cFigs];if(isDrawing&&cPts.length>2)aF.push([...cPts]);set(ref(db,`components/${$('a-comp-sel').value==='NEW'?`comp_${Date.now()}`:$('a-comp-sel').value}`),{title:$('a-comp-t').value,desc:$('a-comp-d').value,figures:aF});isDrawing=false;cPts=[];editFigIdx=-1;renderAdminPts()};
+if($('btn-dl-cp')) $('btn-dl-cp').onclick=()=>{if(confirm('¿Borrar equipo?'))remove(ref(db,`components/${$('a-comp-sel').value}`)).then(()=>{if($('a-comp-sel')){$('a-comp-sel').value='NEW';$('a-comp-sel').dispatchEvent(new Event('change'))}})};
+if($('a-comp-sel')) $('a-comp-sel').onchange=e=>{const v=e.target.value;if(v==='NEW'){['a-comp-t','a-comp-d'].forEach(i=>{if($(i))$(i).value=''});cFigs=[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',true)}else{const d=dbData.components[v]||{};if($('a-comp-t'))$('a-comp-t').value=d.title||'';if($('a-comp-d'))$('a-comp-d').value=d.desc||'';cFigs=d.figures?d.figures.map(f=>[...f]):[];cPts=[];isDrawing=false;editFigIdx=-1;tog($('btn-dl-cp'),'hidden',false)}renderAdminPts()};
+
+window.delEv=(mid,eid)=>{if(confirm('¿Borrar fecha?')){const u={};getGroup(mid).forEach(gid=>u[`municipalities/${gid}/events/${eid}`]=null);update(ref(db),u)}};
+window.edEv=(m,e)=>{const v=(dbData.municipalities[m]||{}).events[e]||{};if($('a-ev-id'))$('a-ev-id').value=e;if($('a-ev-p'))$('a-ev-p').value=v.place||'';if($('a-ev-d'))$('a-ev-d').value=v.date||'';if($('a-ev-desc'))$('a-ev-desc').value=v.details||'';tog($('btn-cl-ev'),'hidden',false);if($('btn-sv-ev'))$('btn-sv-ev').innerText='OK';if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-pen mr-1"></i> Editando';};
+const popEv=id=>{const m=dbData.municipalities[id]||{},l=$('a-ev-list');if(!l)return;l.innerHTML='';if(m.events)Object.entries(m.events).forEach(([eid,ev])=>l.innerHTML+=`<div class="flex justify-between items-center bg-black/50 px-2.5 py-1.5 rounded-lg text-[10px] border border-white/5"><span class="truncate pr-2 font-bold text-gray-200">${ev.place}</span><div class="flex gap-2 shrink-0"><button class="text-djCyan hover:text-white transition-colors" onclick="window.edEv('${id}','${eid}')"><i class="fa-solid fa-pen"></i></button><button class="text-red-500 hover:text-red-400 transition-colors" onclick="window.delEv('${id}','${eid}')"><i class="fa-solid fa-trash"></i></button></div></div>`);};
+const clrEv=()=>{['a-ev-id','a-ev-p','a-ev-d','a-ev-desc'].forEach(i=>{if($(i))$(i).value=''});if($('a-ev-t'))$('a-ev-t').innerHTML='<i class="fa-solid fa-plus mr-1"></i> Añadir Fecha';if($('btn-sv-ev'))$('btn-sv-ev').innerText='Guardar Info Pueblo';tog($('btn-cl-ev'),'hidden',true)};
+if($('btn-cl-ev')) $('btn-cl-ev').onclick=clrEv;
+if($('btn-sv-ev')) $('btn-sv-ev').onclick=()=>{const id=$('a-muni-id')?.value,p=$('a-ev-p')?.value,eid=$('a-ev-id')?.value;if(!id)return;const u={},n=$('a-muni-name')?.value||id,s=$('a-muni-status')?.value,i=$('a-muni-img')?.value||null,eI=eid||push(ref(db,`municipalities/${id}/events`)).key,pd=(p||eid)?{place:p,date:$('a-ev-d')?.value,details:$('a-ev-desc')?.value}:null;getGroup(id).forEach(g=>{u[`municipalities/${g}/status`]=s;u[`municipalities/${g}/name`]=n;u[`municipalities/${g}/img`]=i;if(pd)u[`municipalities/${g}/events/${eI}`]=pd});update(ref(db),u).then(()=>{clrEv();selMuni(id)})};
+
+window.toggleMashType = () => {
+  const isYt = $('a-mash-type').value === 'session';
+  tog($('a-mash-fields-audio'), 'hidden', isYt);
+  tog($('a-mash-fields-yt'), 'hidden', !isYt);
+};
+const updateDds=()=>{
+  const c=$('a-comp-sel'),m=$('a-mash-sel');if(!c||!m)return;
+  const cv=c.value,mv=m.value;
+  let ch='<option value="NEW">✨ NUEVO HARDWARE</option>',mh='<option value="NEW">✨ NUEVO TRACK / SESIÓN</option>';
+  Object.entries(dbData.components||{}).forEach(([i,d])=>ch+=`<option value="${i}">${d.title}</option>`);
+  Object.entries(dbData.mashups||{}).forEach(([i,d])=>mh+=`<option value="${i}">${d.title}</option>`);
+  c.innerHTML=ch;m.innerHTML=mh;
+  if((dbData.components||{})[cv])c.value=cv;
+  if((dbData.mashups||{})[mv])m.value=mv;
+};
+if($('a-mash-sel')) $('a-mash-sel').onchange=e=>{
+  const v=e.target.value;
+  if(v==='NEW'){
+    ['a-mash-t','a-mash-dl','a-mash-sc','a-mash-yt'].forEach(i=>{if($(i))$(i).value=''});
+    $('a-mash-type').value = 'mashup'; window.toggleMashType();
+    tog($('btn-dl-ms'),'hidden',true);
+  }else{
+    const d=dbData.mashups[v]||{};
+    if($('a-mash-t'))$('a-mash-t').value=d.title||'';
+    $('a-mash-type').value=d.type||'mashup'; window.toggleMashType();
+    if($('a-mash-dl'))$('a-mash-dl').value=d.dl||'';
+    if($('a-mash-sc'))$('a-mash-sc').value=d.scUrl||'';
+    if($('a-mash-yt'))$('a-mash-yt').value=d.ytId||'';
+    tog($('btn-dl-ms'),'hidden',false);
+  }
+};
+if($('btn-sv-ms')) $('btn-sv-ms').onclick=async()=>{
+  const t=$('a-mash-t')?.value;if(!t)return;
+  const b=$('btn-sv-ms');b.disabled=true;b.innerHTML='...';
+  try{
+    await set(ref(db,`mashups/${$('a-mash-sel').value==='NEW'?`mash_${Date.now()}`:$('a-mash-sel').value}`),{
+      title:t,
+      type:$('a-mash-type').value,
+      dl:$('a-mash-dl')?.value,
+      scUrl:$('a-mash-sc')?.value,
+      ytId:$('a-mash-yt')?.value
+    });
+    b.innerText='¡OK!';setTimeout(()=>{b.innerText='Publicar';b.disabled=false},1500);
+  }catch(e){b.disabled=false;b.innerText='Publicar'}
+};
+if($('btn-dl-ms')) $('btn-dl-ms').onclick=()=>{if(confirm('¿Eliminar track/sesión?'))remove(ref(db,`mashups/${$('a-mash-sel').value}`)).then(()=>{if($('a-mash-sel')){$('a-mash-sel').value='NEW';$('a-mash-sel').dispatchEvent(new Event('change'))}})};
+
+if($('btn-sv-ticker')) $('btn-sv-ticker').onclick=()=>{const v=$('a-ticker-input')?.value; if(!v)return; set(ref(db,`config/ticker`),v).then(()=>{const b=$('btn-sv-ticker'); b.innerText='¡Guardado!'; setTimeout(()=>b.innerText='Guardar Ajustes',1500)})};
+if($('btn-reset-stats')) $('btn-reset-stats').onclick=()=>{if(confirm('¿Poner contadores a 0?')) set(ref(db,'analytics'),{contract:0,mashup:0});};
+
+onAuthStateChanged(auth,(user)=>{if(!user||user.email!==EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',true);toggleAdminMode(false)}});
+
+let cc=0;
+let clkTimer;
+if($('site-title')) {
+  $('site-title').onclick = () => {
+    cc++;
+    if(cc === 1) {
+      clkTimer = setTimeout(() => {
+        if(cc === 1) { window.scrollTo({top: 0, behavior: 'smooth'}); }
+        cc = 0;
+      }, 300);
+    } else if(cc === 3) {
+      clearTimeout(clkTimer);
+      cc = 0;
+      const u = auth.currentUser;
+      if(u && u.email === EMAIL_ADMINISTRADOR) {
+        tog($('admin-panel'), 'hidden', false);
+        toggleAdminMode(actTab === 'setup');
+      } else {
+        signInWithPopup(auth, provider).then((res) => {
+          if(res.user.email === EMAIL_ADMINISTRADOR) {
+            tog($('admin-panel'), 'hidden', false);
+            toggleAdminMode(actTab === 'setup');
+          } else {
+            alert("Acceso Denegado.");
+            signOut(auth);
+          }
+        }).catch(e => {});
+      }
+    }
+  };
+}
+
+if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{if(confirm("¿Cerrar panel de administración?")){tog($('admin-panel'),'hidden',true);toggleAdminMode(false);}};
+
+if($('admin-header')) on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;const p=$('admin-panel'),r=p.getBoundingClientRect();p.style.transform='none';p.style.left=r.left+'px';p.style.top=r.top+'px';dX=e.clientX-r.left;dY=e.clientY-r.top;});
+on(window,'mousemove',e=>{if(drA&&$('admin-panel')){$('admin-panel').style.left=`${e.clientX-dX}px`;$('admin-panel').style.top=`${e.clientY-dY}px`}}); on(window,'mouseup',()=>drA=false);
+
+['tour','setup','mashups','general'].forEach(t=>{if($(`tab-${t}`))$(`tab-${t}`).onclick=()=>{actTab=t;const c={tour:'djCyan',setup:'djMagenta',mashups:'djYellow',general:'white'}[t];['tour','setup','mashups','general'].forEach(o=>{if($(`tab-${o}`))$(`tab-${o}`).className=o===t?`flex-1 py-3 text-${c} border-b-2 border-${c} bg-white/[0.02] transition-colors`:'flex-1 py-3 text-gray-500 border-b-2 border-transparent hover:text-white transition-colors';tog($(`sec-a-${o}`),'hidden',o!==t)});toggleAdminMode(t==='setup')}});
 </script>
 </body>
 </html>
