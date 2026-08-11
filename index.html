@@ -16,12 +16,12 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600',djGreen:'#00ff88'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite','pulse-fast':'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite','fade-in-up':'fadeInUp 0.8s ease-out forwards'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}},fadeInUp:{'0%':{opacity:0,transform:'translateY(20px)'},'100%':{opacity:1,transform:'translateY(0)'}}}}}};
+tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'#00e5ff',djMagenta:'#ff00ea',djYellow:'#ffd600',djGreen:'#00ff88'},fontFamily:{display:['Montserrat','sans-serif'],body:['Inter','sans-serif']},animation:{'float':'float 6s ease-in-out infinite','marquee':'marquee 25s linear infinite','pulse-fast':'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite','fade-in-up':'fadeInUp 0.8s ease-out forwards'},keyframes:{float:{'0%, 100%':{transform:'translateY(0)'},'50%':{transform:'translateY(-10px)'}},marquee:{'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}},fadeInUp:{'0%':{opacity:0,transform:'translateY(20px)'},'100%':{transform:'translateY(0)'}}}}}};
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
-:root{--tc:#00e5ff; scroll-behavior: smooth;}
+:root{--tc:#ffffff; scroll-behavior: smooth;}
 *{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;outline:none}
 input,textarea,select{user-select:text;-webkit-user-select:text;}
 body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;overflow-x:hidden;transition:--tc 0.5s ease;}
@@ -32,7 +32,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .glow-1{top:-10%;left:-10%;width:60vw;height:60vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 35%, transparent) 0%, transparent 70%);animation:float 12s infinite alternate} 
 .glow-2{bottom:20%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle, color-mix(in srgb, var(--tc) 20%, transparent) 0%, transparent 70%);animation:float 15s infinite alternate-reverse}
 
-.glass-card{background:linear-gradient(145deg,rgba(15,20,30,0.65) 0%,rgba(5,7,10,0.85) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;box-shadow:0 15px 35px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s ease;}
+.glass-card{background:linear-gradient(145deg,rgba(15,20,30,0.65) 0%,rgba(5,7,10,0.85) 100%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;box-shadow:0 15px 35px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s ease;}
 .glass-card:hover{box-shadow:0 15px 35px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.15);}
 
 .glass-nav { background: rgba(3, 4, 8, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -41,19 +41,19 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .social-icon:hover{color:#fff;transform:translate3d(0,-3px,0) scale(1.15)}
 .social-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 8px 16px rgba(220,39,67,0.4)} .social-tk:hover{background:#000;color:#fff;box-shadow:-2px 2px 8px rgba(0,229,255,0.6),2px -2px 8px rgba(255,0,234,0.6);text-shadow:-1px 1px 0 #00e5ff,1px -1px 0 #ff00ea} .social-sc:hover{background:#ff5500;box-shadow:0 8px 16px rgba(255,85,0,0.4)} .social-yt:hover{background:#f00;box-shadow:0 8px 16px rgba(255,0,0,0.5)}
 
-.section-container { padding-top: 100px; min-height: 100vh; display: flex; flex-direction: column; }
+.section-container { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 80px; padding-bottom: 40px; }
 
 .nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;position:relative; cursor:pointer;} 
 .zoom-layer{position:absolute;inset:0;touch-action:none}
 .muni{pointer-events:all;transition:all 0.3s ease} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
 .comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s; cursor:pointer;} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 15%, transparent);stroke:var(--tc);stroke-width:0.6px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 50%, transparent))}
-.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);padding:0.75rem;color:#fff;border-radius:10px;font-size:0.85rem;transition:all 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.9);box-shadow:0 0 8px color-mix(in srgb, var(--tc) 30%, transparent)} .admin-input option{background:#0e1118}
+.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);padding:0.85rem 1rem;color:#fff;border-radius:12px;font-size:0.9rem;transition:all 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.9);box-shadow:0 0 12px color-mix(in srgb, var(--tc) 30%, transparent)} .admin-input option{background:#0e1118}
 input[type=range] { -webkit-appearance: none; background: transparent; }
-input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: var(--tc); margin-top: -6px; box-shadow: 0 0 12px var(--tc); cursor: pointer; transition: transform 0.1s; }
+input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: var(--tc); margin-top: -7px; box-shadow: 0 0 12px var(--tc); cursor: pointer; transition: transform 0.1s; }
 input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
 
-/* Modales en lugar de Slide Panels */
+/* Modales */
 .custom-modal { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 1rem; }
 .custom-modal.open { opacity: 1; pointer-events: auto; }
 .modal-content { background: rgba(10, 12, 18, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 100%; max-width: 500px; max-height: 85vh; display: flex; flex-direction: column; transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; }
@@ -65,7 +65,6 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
 @keyframes ee-pop { to { opacity: 1; transform: translateY(0) scale(1); } }
 img { content-visibility: auto; }
 
-/* Para aislar eventos táctiles en el mapa interactivo */
 #tour-viewport { touch-action: none; }
 </style>
 </head>
@@ -98,7 +97,7 @@ img { content-visibility: auto; }
 <header class="fixed top-0 left-0 right-0 w-full px-4 py-3 z-50 glass-nav flex flex-col md:flex-row justify-between items-center gap-3 shadow-lg">
   <div class="flex items-center justify-between w-full md:w-auto">
     <div id="site-title" class="active:scale-95 transition-transform flex items-center cursor-pointer" onclick="window.scrollTo({top: 0})">
-      <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
+      <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="text-white">VAQUERO</span></h1>
     </div>
     <div class="flex md:hidden gap-3">
       <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
@@ -107,10 +106,10 @@ img { content-visibility: auto; }
   </div>
   
   <nav class="flex justify-center gap-4 md:gap-8 w-full md:w-auto overflow-x-auto custom-scrollbar pb-1 md:pb-0">
-    <a href="#view-tour" onclick="window.setThemeColor('tour')" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djCyan transition-colors whitespace-nowrap"><i class="fa-solid fa-map-location-dot mr-1"></i> Tour</a>
-    <a href="#view-setup" onclick="window.setThemeColor('setup')" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djMagenta transition-colors whitespace-nowrap"><i class="fa-solid fa-sliders mr-1"></i> Equipo</a>
-    <a href="#view-mashups" onclick="window.setThemeColor('mashups')" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djYellow transition-colors whitespace-nowrap"><i class="fa-solid fa-compact-disc mr-1"></i> Tracks</a>
-    <a href="#view-booking" onclick="window.setThemeColor('booking')" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djGreen transition-colors whitespace-nowrap"><i class="fa-solid fa-calculator mr-1"></i> Booking</a>
+    <a href="#view-tour" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djCyan transition-colors whitespace-nowrap"><i class="fa-solid fa-map-location-dot mr-1"></i> Tour</a>
+    <a href="#view-setup" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djMagenta transition-colors whitespace-nowrap"><i class="fa-solid fa-sliders mr-1"></i> Equipo</a>
+    <a href="#view-mashups" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djYellow transition-colors whitespace-nowrap"><i class="fa-solid fa-compact-disc mr-1"></i> Tracks</a>
+    <a href="#view-booking" class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-djGreen transition-colors whitespace-nowrap"><i class="fa-solid fa-calculator mr-1"></i> Booking</a>
   </nav>
 
   <div class="hidden md:flex gap-2">
@@ -121,157 +120,153 @@ img { content-visibility: auto; }
   </div>
 </header>
 
-<main class="w-full relative z-10 flex flex-col px-4 md:px-8 pb-24 max-w-7xl mx-auto">
+<main class="w-full relative z-10 flex flex-col px-4 md:px-8 max-w-7xl mx-auto">
   
   <!-- HERO SECTION -->
-  <section class="min-h-[60vh] md:min-h-[70vh] flex flex-col items-center justify-center pt-32 pb-10 text-center animate-fade-in-up">
-    <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-6 border-4 border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-        <!-- Reemplaza src con logo.png o una foto tuya -->
-        <img src="logo.png" alt="DJ Vaquero" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzIyMiIvPjwvc3ZnPg=='">
-    </div>
-    <h2 class="font-display font-black text-4xl md:text-7xl uppercase tracking-tighter text-white drop-shadow-2xl mb-4">La fiesta <br/><span class="theme-text theme-drop">no se negocia.</span></h2>
+  <section id="view-hero" class="section-container items-center text-center animate-fade-in-up">
+    <h2 class="font-display font-black text-5xl md:text-8xl uppercase tracking-tighter text-white drop-shadow-2xl mb-6">La fiesta <br/><span class="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">no se negocia.</span></h2>
     
-    <div class="w-full max-w-lg overflow-hidden h-10 relative flex items-center bg-white/5 rounded-full border border-white/10 marquee-container hover:bg-white/10 transition-colors shadow-inner mt-4 mb-8">
-       <div id="ticker-display" class="whitespace-nowrap text-xs md:text-sm text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
-          <div class="animate-marquee shrink-0 px-6"><span class="theme-text"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
-          <div class="animate-marquee shrink-0 px-6" aria-hidden="true"><span class="theme-text"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <div class="w-full max-w-4xl overflow-hidden h-12 relative flex items-center bg-white/5 rounded-full border border-white/10 marquee-container hover:bg-white/10 transition-colors shadow-inner mt-4 mb-10">
+       <div id="ticker-display" class="whitespace-nowrap text-sm md:text-base text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
+          <div class="animate-marquee shrink-0 px-8"><span class="text-white opacity-80"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+          <div class="animate-marquee shrink-0 px-8" aria-hidden="true"><span class="text-white opacity-80"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
        </div>
     </div>
     
-    <div class="flex flex-wrap gap-4 justify-center">
-        <a href="#view-booking" onclick="window.setThemeColor('booking')" class="bg-white text-black font-black px-8 py-3.5 rounded-full text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"><i class="fa-solid fa-calendar-check mr-2"></i> Solicitar Fecha</a>
-        <a href="#view-mashups" onclick="window.setThemeColor('mashups')" class="bg-white/5 border border-white/20 text-white font-bold px-8 py-3.5 rounded-full text-sm uppercase tracking-widest hover:bg-white/10 hover:border-white/40 transition-all"><i class="fa-solid fa-headphones mr-2"></i> Escuchar Tracks</a>
+    <div class="flex flex-wrap gap-5 justify-center">
+        <a href="#view-booking" class="bg-white text-black font-black px-10 py-4 rounded-full text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"><i class="fa-solid fa-calendar-check mr-2"></i> Solicitar Fecha</a>
+        <a href="#view-mashups" class="bg-white/5 border border-white/20 text-white font-bold px-10 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-white/10 hover:border-white/40 transition-all"><i class="fa-solid fa-headphones mr-2"></i> Escuchar Tracks</a>
     </div>
   </section>
 
   <!-- TOUR SECTION -->
-  <section id="view-tour" class="section-container relative scroll-mt-20">
-    <div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+  <section id="view-tour" class="section-container relative">
+    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
-        <h2 class="font-display font-black text-[#00e5ff] text-3xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,229,255,0.4)] flex items-center">
-          <i class="fa-solid fa-map-location-dot mr-3 ee-trigger cursor-pointer transition-transform"></i> Tour Oficial
+        <h2 class="font-display font-black text-[#00e5ff] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,229,255,0.4)] flex items-center">
+          <i class="fa-solid fa-map-location-dot mr-4 ee-trigger cursor-pointer transition-transform"></i> Tour Oficial
         </h2>
-        <p class="text-sm md:text-base text-gray-400 mt-2 max-w-xl">Descubre los pueblos conquistados y las próximas fechas. Explora el mapa interactivo o busca tu zona.</p>
+        <p class="text-base text-gray-400 mt-2 max-w-xl">Descubre los pueblos conquistados y las próximas fechas. Explora el mapa interactivo o busca tu zona.</p>
       </div>
       
       <div class="flex items-center gap-3 shrink-0">
-        <div class="relative w-full md:w-64">
-          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/60 border border-white/10 pl-10 pr-4 py-2.5 text-sm rounded-full text-white focus:border-[#00e5ff] transition-colors shadow-lg">
-          <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        <div class="relative w-full md:w-72">
+          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/60 border border-white/10 pl-12 pr-4 py-3 text-sm rounded-full text-white focus:border-[#00e5ff] transition-colors shadow-lg">
+          <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
           <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-2xl"></ul>
         </div>
-        <button id="btn-toggle-tour" class="bg-[#00e5ff]/10 border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff] hover:text-black px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-1.5"></i> Mapa</button>
+        <button id="btn-toggle-tour" class="bg-[#00e5ff]/10 border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff] hover:text-black px-6 py-3 rounded-full text-sm font-black uppercase tracking-widest transition-all shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-2"></i> Mapa</button>
       </div>
     </div>
 
-    <div class="glass-card w-full relative overflow-hidden flex-grow flex flex-col min-h-[60vh] border-[#00e5ff]/20">
-      <div id="tour-album-container" class="w-full h-full p-6">
+    <div class="glass-card w-full relative overflow-hidden flex-grow flex flex-col min-h-[65vh] border-[#00e5ff]/20">
+      <div id="tour-album-container" class="w-full h-full p-6 md:p-8">
         <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6"></div>
       </div>
       
-      <div id="tour-map-container" class="w-full h-full relative hidden min-h-[60vh]">
-        <button id="btn-reset-map" class="absolute top-4 right-4 z-40 bg-black/80 border border-white/10 hover:border-[#00e5ff] hover:text-[#00e5ff] w-10 h-10 rounded-full flex items-center justify-center text-gray-400 shadow-lg transition-all"><i class="fa-solid fa-expand"></i></button>
+      <div id="tour-map-container" class="w-full h-full relative hidden min-h-[65vh]">
+        <button id="btn-reset-map" class="absolute top-6 right-6 z-40 bg-black/80 border border-white/10 hover:border-[#00e5ff] hover:text-[#00e5ff] w-12 h-12 rounded-full flex items-center justify-center text-gray-400 shadow-lg transition-all"><i class="fa-solid fa-expand text-lg"></i></button>
         <div class="w-full h-full relative overflow-hidden" id="tour-viewport"><div class="zoom-layer" id="tour-layer"></div></div>
       </div>
     </div>
   </section>
 
   <!-- SETUP SECTION -->
-  <section id="view-setup" class="section-container relative scroll-mt-20">
-    <div class="mb-6">
-      <h2 class="font-display font-black text-[#ff00ea] text-3xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,0,234,0.4)] flex items-center">
-        <i class="fa-solid fa-sliders mr-3 ee-trigger cursor-pointer transition-transform"></i> Equipo Técnico
+  <section id="view-setup" class="section-container relative">
+    <div class="mb-8">
+      <h2 class="font-display font-black text-[#ff00ea] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,0,234,0.4)] flex items-center">
+        <i class="fa-solid fa-sliders mr-4 ee-trigger cursor-pointer transition-transform"></i> Equipo Técnico
       </h2>
-      <p class="text-sm md:text-base text-gray-400 mt-2 max-w-xl">Toca los elementos del hardware en la cabina para ver las especificaciones de lo que uso en cada show.</p>
+      <p class="text-base text-gray-400 mt-2 max-w-xl">Toca los elementos del hardware en la cabina para ver las especificaciones de lo que uso en cada show.</p>
     </div>
     
-    <div class="glass-card w-full flex justify-center items-center p-6 border-[#ff00ea]/20 relative overflow-hidden min-h-[50vh]">
+    <div class="glass-card w-full flex justify-center items-center p-8 border-[#ff00ea]/20 relative overflow-hidden min-h-[60vh]">
       <div id="setup-wrapper" class="relative max-w-full inline-block touch-none rounded-2xl">
-        <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[70vh] object-contain drop-shadow-2xl rounded-xl" id="setup-img" draggable="false">
+        <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[75vh] object-contain drop-shadow-2xl rounded-xl" id="setup-img" draggable="false">
         <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
         <div id="admin-pts" class="absolute inset-0 pointer-events-none z-40 hidden"></div>
       </div>
-      <p id="admin-hint" class="absolute bottom-4 left-4 text-djMagenta text-[10px] hidden font-bold bg-black/90 px-3 py-1.5 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-1"></i> EDICIÓN DE NODOS</p>
+      <p id="admin-hint" class="absolute bottom-6 left-6 text-djMagenta text-xs hidden font-bold bg-black/90 px-4 py-2 rounded-lg border border-djMagenta/30 z-50 shadow-[0_0_15px_rgba(255,0,234,0.2)]"><i class="fa-solid fa-wrench mr-2"></i> EDICIÓN DE NODOS</p>
     </div>
   </section>
 
   <!-- MASHUPS SECTION -->
-  <section id="view-mashups" class="section-container relative scroll-mt-20">
-    <div class="mb-6">
-      <h2 class="font-display font-black text-[#ffd600] text-3xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,214,0,0.4)] flex items-center">
-        <i class="fa-solid fa-compact-disc mr-3 ee-trigger cursor-pointer transition-transform animate-spin" style="animation-duration: 4s;"></i> Tracks & Edits
+  <section id="view-mashups" class="section-container relative">
+    <div class="mb-8">
+      <h2 class="font-display font-black text-[#ffd600] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,214,0,0.4)] flex items-center">
+        <i class="fa-solid fa-compact-disc mr-4 ee-trigger cursor-pointer transition-transform animate-spin" style="animation-duration: 4s;"></i> Tracks & Edits
       </h2>
-      <p class="text-sm md:text-base text-gray-400 mt-2 max-w-xl">Descargas directas, mashups exclusivos y sesiones en directo para que calientes motores antes del bolo.</p>
+      <p class="text-base text-gray-400 mt-2 max-w-xl">Descargas directas, mashups exclusivos y sesiones en directo para que calientes motores antes del bolo.</p>
     </div>
     
-    <div class="glass-card w-full p-6 border-[#ffd600]/20">
-      <div id="mashups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 content-start"></div>
+    <div class="glass-card w-full p-8 border-[#ffd600]/20 min-h-[60vh]">
+      <div id="mashups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 content-start"></div>
     </div>
   </section>
 
   <!-- BOOKING SECTION -->
-  <section id="view-booking" class="section-container relative scroll-mt-20">
-    <div class="mb-6 text-center">
-      <h2 class="font-display font-black text-[#00ff88] text-3xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,136,0.4)] flex items-center justify-center">
-        <i class="fa-solid fa-file-invoice-dollar mr-3 ee-trigger cursor-pointer transition-transform"></i> Booking
+  <section id="view-booking" class="section-container relative">
+    <div class="mb-8 text-center">
+      <h2 class="font-display font-black text-[#00ff88] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,136,0.4)] flex items-center justify-center">
+        <i class="fa-solid fa-file-invoice-dollar mr-4 ee-trigger cursor-pointer transition-transform"></i> Booking
       </h2>
-      <p class="text-sm md:text-base text-gray-400 mt-2 max-w-xl mx-auto">Calcula tu presupuesto estimado y solicita tu fecha. Sin compromisos.</p>
+      <p class="text-base text-gray-400 mt-2 max-w-2xl mx-auto">Calcula tu presupuesto estimado y solicita tu fecha. Sin compromisos, rellenando el siguiente formulario.</p>
     </div>
     
-    <div class="flex items-center justify-center w-full">
-      <div class="glass-card w-full max-w-2xl p-6 md:p-8 flex flex-col gap-6 border-[#00ff88]/30 shadow-[0_0_30px_rgba(0,255,136,0.1)]">
+    <div class="flex items-center justify-center w-full min-h-[60vh]">
+      <div class="glass-card w-full max-w-4xl p-8 md:p-12 flex flex-col gap-8 border-[#00ff88]/30 shadow-[0_0_40px_rgba(0,255,136,0.15)]">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div>
-            <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-compact-disc mr-1 text-[#00ff88]"></i> Tipo de Evento</label>
-            <select id="p-type" class="admin-input py-3" onchange="window.updateBookingUI()">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-2">
+            <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-compact-disc mr-2 text-[#00ff88]"></i> Tipo de Evento</label>
+            <select id="p-type" class="admin-input" onchange="window.updateBookingUI()">
               <option value="pub">Discotecas / Pubs</option>
               <option value="pueblo">Fiestas de Pueblo / Quintos</option>
               <option value="privada">Fiestas Privadas (Otras)</option>
             </select>
           </div>
-          <div id="div-eq" class="hidden">
-            <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-volume-high mr-1 text-[#00ff88]"></i> ¿Requiere equipo?</label>
-            <select id="p-eq" class="admin-input py-3" onchange="window.updateBookingUI()">
+          <div id="div-eq" class="space-y-2 hidden">
+            <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-volume-high mr-2 text-[#00ff88]"></i> ¿Requiere equipo?</label>
+            <select id="p-eq" class="admin-input" onchange="window.updateBookingUI()">
               <option value="no">No (Solo controladora)</option>
               <option value="si">Sí (Equipo Completo)</option>
             </select>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-end">
-          <div>
-            <div class="flex justify-between items-center mb-2">
-              <label class="block text-xs uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-clock mr-1 text-[#00ff88]"></i> Duración</label>
-              <span id="dur-val" class="text-xs text-[#00ff88] font-bold bg-[#00ff88]/10 px-2 py-1 rounded border border-[#00ff88]/30">2 Horas</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-clock mr-2 text-[#00ff88]"></i> Duración del Set</label>
+              <span id="dur-val" class="text-sm text-black font-black bg-[#00ff88] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,255,136,0.4)]">2 Horas</span>
             </div>
-            <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full mt-2" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
+            <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full cursor-pointer" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
           </div>
-          <div id="div-time" class="hidden">
-            <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-hourglass-start mr-1 text-[#00ff88]"></i> Inicio (Aprox.)</label>
-            <input type="time" id="p-time" value="00:00" class="admin-input py-3 [color-scheme:dark]" onchange="window.calcBudget()">
+          <div id="div-time" class="space-y-2 hidden">
+            <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-hourglass-start mr-2 text-[#00ff88]"></i> Hora de Inicio (Aprox.)</label>
+            <input type="time" id="p-time" value="00:00" class="admin-input [color-scheme:dark]" onchange="window.calcBudget()">
           </div>
         </div>
 
-        <div>
-          <label class="block text-xs uppercase font-bold tracking-wider text-gray-400 mb-2"><i class="fa-solid fa-map-location-dot mr-1 text-[#00ff88]"></i> Municipio del Evento</label>
-          <div class="flex flex-row gap-3 relative">
+        <div class="space-y-2">
+          <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-map-location-dot mr-2 text-[#00ff88]"></i> Localización del Evento</label>
+          <div class="flex flex-col sm:flex-row gap-4 relative">
             <div class="relative flex-1">
-              <i class="fa-solid fa-city absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
-              <input type="text" id="p-city" placeholder="Ej: Salamanca..." class="admin-input pl-10 py-3 w-full" onchange="window.calcDist()">
+              <i class="fa-solid fa-city absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
+              <input type="text" id="p-city" placeholder="Ej: Salamanca, Peñaranda..." class="admin-input pl-12 w-full" onchange="window.calcDist()">
             </div>
-            <span id="dist-lbl" class="bg-black/60 border border-white/10 rounded-xl px-4 flex items-center justify-center text-sm text-[#00ff88] font-bold shrink-0 min-w-[100px] shadow-inner">-- km</span>
+            <span id="dist-lbl" class="bg-black/60 border border-white/10 rounded-xl px-6 flex items-center justify-center text-base text-[#00ff88] font-bold shrink-0 min-w-[120px] shadow-inner py-3 sm:py-0">-- km</span>
           </div>
         </div>
         
-        <div class="pt-5 mt-2 border-t border-white/10 flex flex-col items-center text-center bg-black/20 rounded-2xl p-6 shadow-inner">
-          <span class="text-xs uppercase font-bold tracking-widest text-gray-400 mb-2"><i class="fa-solid fa-money-bill-wave mr-1"></i> Inversión Estimada</span>
-          <div id="p-result" class="text-4xl md:text-5xl font-display font-black text-[#00ff88] my-2 drop-shadow-[0_0_15px_rgba(0,255,136,0.4)] transition-all">---</div>
-          <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-2 bg-[#00ff88] text-black font-black w-full max-w-sm py-4 mt-4 rounded-full text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,136,0.4)]">
-            <i class="fa-solid fa-paper-plane"></i> Enviar Solicitud Directa
+        <div class="pt-8 mt-4 border-t border-white/10 flex flex-col items-center text-center bg-gradient-to-b from-black/40 to-black/10 rounded-3xl p-8 shadow-inner">
+          <span class="text-sm uppercase font-bold tracking-widest text-gray-400 mb-3"><i class="fa-solid fa-money-bill-wave mr-2"></i> Inversión Estimada</span>
+          <div id="p-result" class="text-6xl md:text-7xl font-display font-black text-[#00ff88] my-4 drop-shadow-[0_0_20px_rgba(0,255,136,0.5)] transition-all">---</div>
+          <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-3 bg-[#00ff88] text-black font-black w-full max-w-md py-5 mt-6 rounded-full text-base uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_25px_rgba(0,255,136,0.5)]">
+            <i class="fa-solid fa-paper-plane text-xl"></i> Enviar Solicitud Directa
           </a>
-          <p class="text-[10px] text-gray-500 mt-4 leading-tight max-w-sm">
-            * Precios orientativos. Sujetos a fecha, logística y disponibilidad. Contactar para presupuesto final y cerrado.
+          <p class="text-xs text-gray-500 mt-6 leading-relaxed max-w-lg">
+            * Precios orientativos. Sujetos a la fecha exacta, logística y disponibilidad. Contactar para presupuesto final y cerrado.
           </p>
         </div>
       </div>
@@ -310,7 +305,7 @@ img { content-visibility: auto; }
   </div>
 </div>
 
-<!-- ADMIN PANEL MEJORADO (Se mantiene igual estructuralmente, adaptado a CSS) -->
+<!-- ADMIN PANEL -->
 <div id="admin-panel" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-[420px] bg-[#07090e]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl z-[9999] flex flex-col text-gray-200">
   <div id="admin-header" class="bg-black/60 border-b border-white/10 p-3 flex justify-between items-center touch-none cursor-move">
     <div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div><span class="font-display font-black text-[10px] uppercase tracking-widest">Panel Admin</span></div>
@@ -403,9 +398,26 @@ let eeC=0; const au=new Audio('tag.flac');
 window.bookingKm=0; window.isSalamanca=true;
 
 window.setThemeColor = (v) => {
-    const c={tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',booking:'#00ff88'};
-    document.documentElement.style.setProperty('--tc',c[v]);
+    const c={default:'#ffffff', tour:'#00e5ff',setup:'#ff00ea',mashups:'#ffd600',booking:'#00ff88'};
+    document.documentElement.style.setProperty('--tc',c[v] || c['default']);
 };
+
+// Intersection Observer para cambiar colores al scrollear
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                const id = entry.target.id;
+                if(id === 'view-hero') window.setThemeColor('default');
+                else if(id === 'view-tour') window.setThemeColor('tour');
+                else if(id === 'view-setup') window.setThemeColor('setup');
+                else if(id === 'view-mashups') window.setThemeColor('mashups');
+                else if(id === 'view-booking') window.setThemeColor('booking');
+            }
+        });
+    }, { threshold: 0.45 });
+    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+});
 
 $$('.ee-trigger').forEach(el=>{
   el.onclick=e=>{
@@ -427,15 +439,15 @@ window.calcDist = async () => {
     let d = await r.json();
     if(d&&d[0]){
       if(d[0].display_name.toLowerCase().includes("salamanca")) {
-          window.isSalamanca = true; window.bookingKm = 0; lbl.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Local';
+          window.isSalamanca = true; window.bookingKm = 0; lbl.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Local';
       } else {
           window.isSalamanca = false;
           let a = 0.5 - Math.cos((parseFloat(d[0].lat) - 40.9701) * 0.0174532925) / 2 + Math.cos(40.9701 * 0.0174532925) * Math.cos(parseFloat(d[0].lat) * 0.0174532925) * (1 - Math.cos((parseFloat(d[0].lon) - -5.6635) * 0.0174532925)) / 2;
           window.bookingKm = Math.round(12742 * Math.asin(Math.sqrt(a)) * 1.25);
           lbl.innerText = window.bookingKm + ' km';
       }
-    } else { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Err'; }
-  } catch(e) { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Err'; }
+    } else { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Error'; }
+  } catch(e) { window.bookingKm=0; window.isSalamanca=true; lbl.innerText='Error'; }
   window.calcBudget();
 };
 
@@ -463,7 +475,7 @@ function toggleAdminMode(a){tog(document.body,'admin-active',a);tog($('setup-img
 const togTourView=(f)=>{
   tourMode=f||(tourMode==='album'?'map':'album'); const isM=tourMode==='map', bt=$('btn-toggle-tour');
   tog($('tour-album-container'),'hidden',isM); tog($('tour-map-container'),'hidden',!isM);
-  if(bt) bt.innerHTML=isM?'<i class="fa-solid fa-book-open mr-1.5"></i> Álbum':'<i class="fa-solid fa-map mr-1.5"></i> Mapa';
+  if(bt) bt.innerHTML=isM?'<i class="fa-solid fa-book-open mr-2"></i> Álbum':'<i class="fa-solid fa-map mr-2"></i> Mapa';
   if(isM) setTimeout(()=>$('btn-reset-map')?.click(),50); else clTour();
 };
 if($('btn-toggle-tour')) $('btn-toggle-tour').onclick=()=>togTourView();
@@ -500,66 +512,74 @@ const renderAlbum=()=>{
     return `<div class="glass-card overflow-hidden cursor-pointer group hover:border-[#00e5ff] transition-all duration-300 flex flex-col relative shadow-xl hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transform hover:-translate-y-1 aspect-[3/4] rounded-2xl" onclick="window.selMuni('${id}')">
       <img src="${d.img}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform duration-700 ease-out z-0">
       <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none"></div>
-      <div class="absolute top-3 right-3 w-2 h-2 rounded-full bg-[#00e5ff] shadow-[0_0_8px_#00e5ff] z-20"></div>
-      <div class="absolute bottom-0 left-0 w-full p-3 md:p-4 z-20 flex flex-col justify-end">
-         <h3 class="font-display font-black text-white text-sm md:text-base uppercase tracking-tight drop-shadow-md leading-tight">${n}</h3>
-         <p class="text-[9px] md:text-[10px] text-[#00e5ff] mt-0.5 uppercase tracking-widest font-bold"><i class="fa-solid fa-bolt mr-1"></i>Conquistado</p>
+      <div class="absolute top-4 right-4 w-2.5 h-2.5 rounded-full bg-[#00e5ff] shadow-[0_0_10px_#00e5ff] z-20"></div>
+      <div class="absolute bottom-0 left-0 w-full p-4 md:p-5 z-20 flex flex-col justify-end">
+         <h3 class="font-display font-black text-white text-base md:text-lg uppercase tracking-tight drop-shadow-md leading-tight">${n}</h3>
+         <p class="text-[10px] md:text-xs text-[#00e5ff] mt-1 uppercase tracking-widest font-bold"><i class="fa-solid fa-bolt mr-1"></i>Conquistado</p>
       </div>
     </div>`;
   }).join(''):'';
 
-  const secretCard = `<div class="glass-card overflow-hidden flex flex-col relative shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-dashed border-white/20 hover:border-[#00e5ff]/50 transition-all duration-300 aspect-[3/4] rounded-2xl items-center justify-center text-center p-4 bg-black/60 group">
+  const secretCard = `<div class="glass-card overflow-hidden flex flex-col relative shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-dashed border-white/20 hover:border-[#00e5ff]/50 transition-all duration-300 aspect-[3/4] rounded-2xl items-center justify-center text-center p-5 bg-black/60 group">
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-0"></div>
-    <i class="fa-solid fa-user-secret text-4xl text-gray-500 mb-3 z-10 group-hover:text-[#00e5ff] transition-colors"></i>
-    <h3 class="font-display font-black text-white text-sm md:text-base uppercase tracking-tight drop-shadow-md leading-tight mb-1 z-10">¿MISTERIO?</h3>
-    <p class="text-[10px] text-gray-400 mb-4 z-10 px-2 leading-tight">El próximo pueblo podría ser el tuyo.</p>
-    <a href="#view-booking" onclick="window.setThemeColor('booking'); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}),100)" class="z-10 bg-white/10 hover:bg-[#00e5ff] hover:text-black text-white border border-white/20 hover:border-[#00e5ff] font-bold py-2.5 px-5 rounded-full text-xs uppercase transition-all shadow-lg active:scale-95"><i class="fa-solid fa-bolt mr-1"></i> Contratar</a>
+    <i class="fa-solid fa-user-secret text-5xl text-gray-500 mb-4 z-10 group-hover:text-[#00e5ff] transition-colors"></i>
+    <h3 class="font-display font-black text-white text-base md:text-lg uppercase tracking-tight drop-shadow-md leading-tight mb-2 z-10">¿MISTERIO?</h3>
+    <p class="text-[11px] text-gray-400 mb-5 z-10 px-2 leading-tight">El próximo pueblo podría ser el tuyo.</p>
+    <a href="#view-booking" onclick="setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}),100)" class="z-10 bg-white/10 hover:bg-[#00e5ff] hover:text-black text-white border border-white/20 hover:border-[#00e5ff] font-bold py-3 px-6 rounded-full text-xs uppercase transition-all shadow-lg active:scale-95"><i class="fa-solid fa-bolt mr-2"></i> Contratar</a>
   </div>`;
 
   g.innerHTML = html + secretCard;
 };
 
-const uLbls=()=>{if(!lgEl||!vp)return;
-  lgEl.className.baseVal=sc<1.5?'opacity-0 transition-opacity duration-300 pointer-events-none':'opacity-100 transition-opacity duration-300 pointer-events-none';
-  if(sc<1.5)return;
+// uLbls modificado para mostrar siempre los nombres fluidamente y leer todas las zonas
+const uLbls = () => {
+  if(!lgEl || !vp) return;
   
-  const fS = Math.max(12 / sc, 1.5); 
-  const vW=vp.clientWidth,vH=vp.clientHeight,r=vp.getBoundingClientRect(),occ=[],srt=[...mLbls].sort((a,b)=>((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
+  lgEl.className.baseVal = 'opacity-100 transition-opacity duration-300 pointer-events-none';
   
-  srt.forEach(l=>{
-    const m=dbData.municipalities[l.dataset.id]||{};
-    if(!m.name||/^zona/i.test(m.name))return void(l.style.opacity='0');
+  const fS = Math.max(8 / sc, 2.5); // Escala fluida y tamaño base menor para que quepan todos
+  const r = vp.getBoundingClientRect();
+  const occ = [];
+  const srt = [...mLbls].sort((a,b) => ((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
+  
+  srt.forEach(l => {
+    const m = dbData.municipalities[l.dataset.id] || {};
+    const n = m.name || l.dataset.id.replace(/_/g, ' ');
+    // Excluir si su nombre es exactamente como el ID (no seteado) o es una zona genérica sin nombre claro
+    if(/^zona/i.test(n) && !m.name) return void(l.style.opacity = '0');
     
-    const un=m.status==='unlocked';
-    if(un){
-      l.setAttribute('fill','#ffffff'); 
-      l.setAttribute('stroke','#000000'); 
-      l.setAttribute('stroke-width',`${fS*0.2}px`); 
-      l.setAttribute('font-size',`${fS}px`); 
-      l.setAttribute('font-weight','900'); 
-      l.setAttribute('filter','drop-shadow(0px 1px 3px rgba(0,0,0,0.8))');
-    }else{
-      l.setAttribute('fill','rgba(255,255,255,0.6)'); 
-      l.setAttribute('stroke','#000000'); 
-      l.setAttribute('stroke-width',`${fS*0.05}px`);
-      l.setAttribute('font-size',`${fS*0.75}px`); 
-      l.setAttribute('font-weight','600'); 
-      l.removeAttribute('filter');
+    const un = m.status === 'unlocked';
+    
+    // Configuración visual dependiente del estado (Desbloqueado o Bloqueado)
+    l.setAttribute('fill', un ? '#ffffff' : 'rgba(255,255,255,0.4)'); 
+    l.setAttribute('stroke', '#000000'); 
+    l.setAttribute('stroke-width', `${fS * 0.15}px`); 
+    l.setAttribute('font-size', `${fS}px`); 
+    l.setAttribute('font-weight', un ? '900' : '500'); 
+    if(un) {
+        l.setAttribute('filter', 'drop-shadow(0px 1px 3px rgba(0,0,0,0.8))');
+    } else {
+        l.removeAttribute('filter');
     }
-    l.setAttribute('paint-order','stroke fill');
-    l.setAttribute('stroke-linejoin','round');
     
-    const br=l.getBoundingClientRect(),x=br.left-r.left+br.width/2,y=br.top-r.top+br.height/2;
-    if(x<0||x>vW||y<0||y>vH)return void(l.style.opacity='0');
+    l.setAttribute('paint-order', 'stroke fill');
+    l.setAttribute('stroke-linejoin', 'round');
     
-    const b={l:br.left,r:br.right,t:br.top,b:br.bottom};
-    if(!occ.some(o=>b.l-3<o.r&&b.r+3>o.l&&b.t-3<o.b&&b.b+3>o.t)){
-      l.style.opacity='1';
+    const br = l.getBoundingClientRect();
+    const x = br.left - r.left + br.width / 2;
+    const y = br.top - r.top + br.height / 2;
+    
+    if(x < 0 || x > vp.clientWidth || y < 0 || y > vp.clientHeight) return void(l.style.opacity = '0');
+    
+    // Detector de colisión relajado para asegurar que la mayoría sean legibles
+    const b = { l: br.left + 2, r: br.right - 2, t: br.top + 2, b: br.bottom - 2 };
+    if(!occ.some(o => b.l < o.r && b.r > o.l && b.t < o.b && b.b > o.t)) {
+      l.style.opacity = '1';
       occ.push(b);
-    }else{
-      l.style.opacity='0';
+    } else {
+      l.style.opacity = '0.15'; // En caso de colisión, se muestran pero de fondo y translúcidos
     }
-  })
+  });
 };
 
 const chkBounds=()=>{if(!svgW||!vp)return;const rW=vp.clientWidth,rH=vp.clientHeight,mS=Math.min(rW/svgW,rH/svgH)*0.95;if(sc<mS)sc=mS;if(sc>15)sc=15;const minPx=rW-(svgW*sc),minPy=rH-(svgH*sc);if(svgW*sc<=rW)pX=(rW-svgW*sc)/2;else pX=Math.min(0,Math.max(minPx,pX));if(svgH*sc<=rH)pY=(rH-svgH*sc)/2;else pY=Math.min(0,Math.max(minPy,pY))};
@@ -611,17 +631,17 @@ window.selMuni=id=>{
         try { let d=new Date(ev.date); if(!isNaN(d)) dStr=d.toLocaleDateString('es-ES',{day:'2-digit',month:'short'}).toUpperCase(); }catch(e){}
         let [day, month] = dStr.split(' ');
         
-        return `<div class="bg-black/60 border border-white/10 rounded-xl p-3 flex gap-3 relative overflow-hidden group hover:border-[#00e5ff]/50 transition-all shadow-lg items-center">
-            <div class="absolute top-0 left-0 w-1 h-full bg-[#00e5ff] group-hover:w-1.5 transition-all"></div>
-            <div class="flex-shrink-0 w-12 h-12 bg-white/5 rounded-lg flex flex-col items-center justify-center border border-white/10 text-[#00e5ff] shadow-inner">
-               <span class="text-lg font-black leading-none">${day||''}</span>
-               <span class="text-[9px] font-bold uppercase tracking-widest mt-0.5">${month||dStr}</span>
+        return `<div class="bg-black/60 border border-white/10 rounded-xl p-4 flex gap-4 relative overflow-hidden group hover:border-[#00e5ff]/50 transition-all shadow-lg items-center">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-[#00e5ff] group-hover:w-2 transition-all"></div>
+            <div class="flex-shrink-0 w-14 h-14 bg-white/5 rounded-xl flex flex-col items-center justify-center border border-white/10 text-[#00e5ff] shadow-inner">
+               <span class="text-xl font-black leading-none">${day||''}</span>
+               <span class="text-[10px] font-bold uppercase tracking-widest mt-1">${month||dStr}</span>
             </div>
             <div class="flex flex-col gap-1 w-full">
-              <h4 class="text-sm font-display font-black text-white leading-tight">${ev.place}</h4>
+              <h4 class="text-base font-display font-black text-white leading-tight">${ev.place}</h4>
               ${ev.details?`<div class="w-full">
-                <p class="text-[11px] text-gray-300 leading-snug line-clamp-2 transition-all duration-300">${ev.details}</p>
-                <span class="text-[#00e5ff] text-[9px] cursor-pointer font-bold uppercase mt-1 inline-block hover:text-white transition-colors" onclick="const p=this.previousElementSibling; p.classList.toggle('line-clamp-2'); this.innerText=p.classList.contains('line-clamp-2')?'+ LEER MÁS':'- LEER MENOS';">+ LEER MÁS</span>
+                <p class="text-[12px] text-gray-300 leading-snug line-clamp-2 transition-all duration-300">${ev.details}</p>
+                <span class="text-[#00e5ff] text-[10px] cursor-pointer font-bold uppercase mt-1 inline-block hover:text-white transition-colors" onclick="const p=this.previousElementSibling; p.classList.toggle('line-clamp-2'); this.innerText=p.classList.contains('line-clamp-2')?'+ LEER MÁS':'- LEER MENOS';">+ LEER MÁS</span>
               </div>`:''}
             </div>
           </div>`;
@@ -630,15 +650,15 @@ window.selMuni=id=>{
     if(iEvs)iEvs.innerHTML=evHtml;
   }else{
     if($('a-muni-status'))$('a-muni-status').value='locked'; if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Libre</span>`;
-    if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-3xl text-gray-600 mb-4"></i><p class="text-gray-400 text-xs">Sin fechas confirmadas aquí.</p></div>`;
+    if(iEvs)iEvs.innerHTML=`<div class="flex flex-col items-center justify-center py-10 text-center"><i class="fa-solid fa-envelope-open-text text-4xl text-gray-600 mb-4"></i><p class="text-gray-400 text-sm">Sin fechas confirmadas aquí.</p></div>`;
   }
   let btns = '';
-  if(tourMode !== 'map'){ btns += `<button onclick="clTour(); setTimeout(()=>window.openMapAndCenter('${id}'), 100)" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-3 rounded-full text-center text-xs font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button>`; }
-  btns += `<a href="#view-booking" onclick="clTour(); window.setThemeColor('booking'); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}), 100)" class="flex items-center justify-center gap-2 bg-[#00e5ff] text-black w-full py-3 md:py-4 rounded-full text-center text-sm font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`;
+  if(tourMode !== 'map'){ btns += `<button onclick="clTour(); setTimeout(()=>window.openMapAndCenter('${id}'), 100)" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-3.5 rounded-full text-center text-xs font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button>`; }
+  btns += `<a href="#view-booking" onclick="clTour(); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}), 100)" class="flex items-center justify-center gap-2 bg-[#00e5ff] text-black w-full py-4 rounded-full text-center text-sm font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_25px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`;
   if(iEvs)iEvs.innerHTML+=`<div class="mt-auto shrink-0 flex flex-col gap-3 w-full pt-4">${btns}</div>`;
 };
 
-if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-4 py-3 hover:bg-white/10 text-xs cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-4 py-3 text-gray-500 text-xs italic">Sin resultados</li>`};
+if($('search-muni')) $('search-muni').oninput=e=>{const v=e.target.value.toLowerCase().trim(),rL=$('search-results');rL.innerHTML='';if(v.length<2)return tog(rL,'hidden',true);const grp={};Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{if(d?.name&&!/^zona/i.test(d.name)&&d.name.toLowerCase().includes(v))grp[d.name]=grp[d.name]||id});const m=Object.entries(grp).slice(0,6);tog(rL,'hidden',false);if(m.length)m.forEach(([n,id])=>{const li=document.createElement('li');li.className="px-5 py-3 hover:bg-white/10 text-sm cursor-pointer border-b border-white/5 font-medium transition-colors text-gray-200";li.innerHTML=`<i class="fa-solid fa-location-dot theme-text mr-2 opacity-80"></i>${n}`;li.onclick=()=>{selMuni(id);$('search-muni').value='';tog(rL,'hidden',true)};rL.appendChild(li)});else rL.innerHTML=`<li class="px-5 py-3 text-gray-500 text-sm italic">Sin resultados</li>`};
 on(document,'click',e=>{if($('search-muni')&&!$('search-muni').contains(e.target)&&$('search-results'))tog($('search-results'),'hidden',true)});
 
 const renderMash=()=>{
@@ -646,24 +666,24 @@ const renderMash=()=>{
   const e=Object.entries(dbData.mashups||{}).sort();
   g.innerHTML=e.length?e.map(([_,d])=>{
     if(d.type === 'session'){
-      return `<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-[#ffd600]/30 shadow-lg">
-        <div class="absolute -right-4 -top-4 w-20 h-20 bg-[#ffd600]/5 rounded-full blur-xl group-hover:bg-[#ffd600]/20 transition-colors"></div>
-        <div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-video text-[#ffd600] mr-1.5 text-xs"></i>${d.title}</h4></div>
-        <div class="relative z-10 w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-inner">
+      return `<div class="bg-black/60 border border-white/5 p-5 rounded-2xl flex flex-col group overflow-hidden gap-4 relative transition-all hover:bg-black/80 hover:border-[#ffd600]/30 shadow-xl">
+        <div class="absolute -right-6 -top-6 w-24 h-24 bg-[#ffd600]/5 rounded-full blur-2xl group-hover:bg-[#ffd600]/20 transition-colors"></div>
+        <div class="relative z-10"><h4 class="font-display font-black text-base text-white leading-tight mb-2"><i class="fa-solid fa-video text-[#ffd600] mr-2 text-sm"></i>${d.title}</h4></div>
+        <div class="relative z-10 w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-inner">
            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${d.ytId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>`;
     }else{
-      return `<div class="bg-black/60 border border-white/5 p-4 rounded-xl flex flex-col justify-between group overflow-hidden gap-3 relative transition-all hover:bg-black/80 hover:border-[#ffd600]/30 shadow-lg">
-        <div class="absolute -right-4 -top-4 w-20 h-20 bg-[#ffd600]/5 rounded-full blur-xl group-hover:bg-[#ffd600]/20 transition-colors"></div>
-        <div class="relative z-10"><h4 class="font-display font-black text-sm text-white leading-tight mb-2"><i class="fa-solid fa-music text-[#ffd600] mr-1.5 text-xs"></i>${d.title}</h4></div>
-        <div class="relative z-10 space-y-3">
-          ${d.scUrl?`<div class="w-full h-36 rounded-lg overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}
-          ${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-[#ffd600]/10 hover:bg-[#ffd600] text-[#ffd600] hover:text-black border border-[#ffd600]/30 py-3 rounded-full text-center text-[10px] font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-1.5"></i>Descargar Audio</a>`:''}
+      return `<div class="bg-black/60 border border-white/5 p-5 rounded-2xl flex flex-col justify-between group overflow-hidden gap-4 relative transition-all hover:bg-black/80 hover:border-[#ffd600]/30 shadow-xl">
+        <div class="absolute -right-6 -top-6 w-24 h-24 bg-[#ffd600]/5 rounded-full blur-2xl group-hover:bg-[#ffd600]/20 transition-colors"></div>
+        <div class="relative z-10"><h4 class="font-display font-black text-base text-white leading-tight mb-2"><i class="fa-solid fa-music text-[#ffd600] mr-2 text-sm"></i>${d.title}</h4></div>
+        <div class="relative z-10 space-y-4">
+          ${d.scUrl?`<div class="w-full h-40 rounded-xl overflow-hidden border border-white/10 shadow-inner"><iframe width="100%" height="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(d.scUrl)}&color=%23ffd600&auto_play=false&hide_related=true&show_comments=false&show_teaser=false&visual=true"></iframe></div>`:''}
+          ${d.dl?`<a href="${d.dl}" target="_blank" onclick="window.trackClick('mashup')" class="w-full bg-[#ffd600]/10 hover:bg-[#ffd600] text-[#ffd600] hover:text-black border border-[#ffd600]/30 py-3 rounded-full text-center text-xs font-black uppercase tracking-wider block transition-all shadow-lg"><i class="fa-solid fa-download mr-2"></i>Descargar Audio</a>`:''}
         </div>
       </div>`;
     }
-  }).join(''):'<p class="text-gray-500 text-sm p-4 col-span-full text-center">Aún no hay tracks ni sesiones disponibles.</p>'
+  }).join(''):'<p class="text-gray-500 text-base p-6 col-span-full text-center">Aún no hay tracks ni sesiones disponibles.</p>'
 };
 
 window.selComp=id=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));$$(`.comp-id-${id}`).forEach(h=>h.classList.add('hotspot-active'));const c=dbData.components[id];if(!c)return;tog(sAnc,'open',true);if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-[#ff00ea] shadow-[0_0_8px_#ff00ea]"></div><span class="text-[#ff00ea] text-[10px] font-bold uppercase tracking-widest">Activo</span>`;if(sTit)sTit.innerText=c.title;if(sDesc)sDesc.innerText=c.desc};
