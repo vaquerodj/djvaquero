@@ -24,7 +24,7 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{djBg:'#030408',djCyan:'
 :root{--tc:#ffffff; scroll-behavior: smooth;}
 *{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;outline:none}
 input,textarea,select{user-select:text;-webkit-user-select:text;}
-body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;overflow-x:hidden;transition:--tc 0.5s ease;}
+body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margin:0;overflow-x:hidden;transition:--tc 0.5s ease; font-size: 14px;}
 ::-webkit-scrollbar{width:6px;height:6px} ::-webkit-scrollbar-track{background:#030408} ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:10px} ::-webkit-scrollbar-thumb:hover{background:var(--tc)}
 .custom-scrollbar::-webkit-scrollbar{width:4px;height:4px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent}
 .ambient-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden} 
@@ -47,7 +47,7 @@ body{background-color:#030408;color:#f3f4f6;font-family:'Inter',sans-serif;margi
 .zoom-layer{position:absolute;inset:0;touch-action:none}
 .muni{pointer-events:all;transition:all 0.3s ease} .muni-base{fill:#06080d;stroke:rgba(255,255,255,0.03);stroke-width:1px} .muni-base:hover{fill:#111624;stroke:rgba(255,255,255,0.15)} .muni-base.muni-selected{fill:color-mix(in srgb, var(--tc) 15%, #06080d);stroke:var(--tc);stroke-width:1.5px;filter:drop-shadow(0 0 5px color-mix(in srgb, var(--tc) 40%, transparent))} .muni-unlocked{fill:color-mix(in srgb, var(--tc) 12%, #000);stroke:color-mix(in srgb, var(--tc) 40%, transparent);stroke-width:1px} .muni-unlocked:hover{fill:color-mix(in srgb, var(--tc) 25%, #000);stroke:var(--tc)} .muni-unlocked.muni-selected{fill:var(--tc)!important;stroke:#fff;stroke-width:1.5px;filter:drop-shadow(0 0 12px var(--tc))}
 .comp-polygon{fill:transparent;stroke:transparent;stroke-width:0;pointer-events:auto;transition:all 0.2s; cursor:pointer;} .comp-polygon:hover,.hotspot-active{fill:color-mix(in srgb, var(--tc) 15%, transparent);stroke:var(--tc);stroke-width:0.6px!important;filter:drop-shadow(0 0 4px color-mix(in srgb, var(--tc) 50%, transparent))}
-.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);padding:0.85rem 1rem;color:#fff;border-radius:12px;font-size:0.9rem;transition:all 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.9);box-shadow:0 0 12px color-mix(in srgb, var(--tc) 30%, transparent)} .admin-input option{background:#0e1118}
+.admin-input{width:100%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);padding:1rem;color:#fff;border-radius:12px;font-size:0.9rem;transition:all 0.2s} .admin-input:focus{border-color:var(--tc);background:rgba(0,0,0,0.9);box-shadow:0 0 12px color-mix(in srgb, var(--tc) 30%, transparent)} .admin-input option{background:#0e1118}
 input[type=range] { -webkit-appearance: none; background: transparent; }
 input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; }
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: var(--tc); margin-top: -7px; box-shadow: 0 0 12px var(--tc); cursor: pointer; transition: transform 0.1s; }
@@ -72,7 +72,7 @@ img { content-visibility: auto; }
 
 <div id="loader" class="fixed inset-0 z-[9999] bg-[#030408] flex items-center justify-center transition-opacity duration-500">
   <div class="flex flex-col items-center">
-    <h1 class="font-display font-black text-4xl md:text-6xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
+    <h1 class="font-display font-black text-4xl md:text-5xl tracking-tighter text-white uppercase animate-pulse drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
     <div class="mt-8 w-12 h-12 border-4 theme-border border-t-transparent rounded-full animate-spin"></div>
   </div>
 </div>
@@ -120,48 +120,50 @@ img { content-visibility: auto; }
   </div>
 </header>
 
-<main class="w-full relative z-10 flex flex-col px-4 md:px-8 max-w-7xl mx-auto">
+<main class="w-full relative z-10 flex flex-col px-4 md:px-8 max-w-5xl mx-auto">
   
   <!-- HERO SECTION -->
-  <section id="view-hero" class="section-container items-center text-center animate-fade-in-up">
-    <h2 class="font-display font-black text-5xl md:text-8xl uppercase tracking-tighter text-white drop-shadow-2xl mb-6">La fiesta <br/><span class="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">no se negocia.</span></h2>
+  <section id="view-hero" class="section-container items-center text-center animate-fade-in-up relative">
     
-    <div class="w-full max-w-4xl overflow-hidden h-12 relative flex items-center bg-white/5 rounded-full border border-white/10 marquee-container hover:bg-white/10 transition-colors shadow-inner mt-4 mb-10">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <h2 class="font-display font-black text-5xl md:text-7xl uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 drop-shadow-2xl mb-6 leading-none relative z-10">La fiesta <br/><span class="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">no se negocia.</span></h2>
+    
+    <div class="w-full max-w-full overflow-hidden h-12 relative flex items-center bg-white/5 rounded-full border border-white/10 marquee-container hover:bg-white/10 transition-colors shadow-inner mt-4 mb-10 z-10">
        <div id="ticker-display" class="whitespace-nowrap text-sm md:text-base text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
           <div class="animate-marquee shrink-0 px-8"><span class="text-white opacity-80"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
           <div class="animate-marquee shrink-0 px-8" aria-hidden="true"><span class="text-white opacity-80"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
        </div>
     </div>
     
-    <div class="flex flex-wrap gap-5 justify-center">
-        <a href="#view-booking" class="bg-white text-black font-black px-10 py-4 rounded-full text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"><i class="fa-solid fa-calendar-check mr-2"></i> Solicitar Fecha</a>
-        <a href="#view-mashups" class="bg-white/5 border border-white/20 text-white font-bold px-10 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-white/10 hover:border-white/40 transition-all"><i class="fa-solid fa-headphones mr-2"></i> Escuchar Tracks</a>
+    <div class="flex flex-wrap gap-5 justify-center z-10 w-full max-w-3xl">
+        <a href="https://instagram.com/djvaquero__" target="_blank" class="flex-1 min-w-[250px] bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] text-white font-black px-10 py-4 rounded-full text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-[0_0_20px_rgba(220,39,67,0.3)]"><i class="fa-brands fa-instagram mr-2 text-lg"></i> Contactar vía IG</a>
+        <button disabled class="flex-1 min-w-[250px] bg-black/40 border border-white/10 text-gray-500 font-bold px-10 py-4 rounded-full text-sm uppercase tracking-widest cursor-not-allowed shadow-inner flex justify-center items-center gap-2"><i class="fa-solid fa-lock"></i> Nueva Sesión</button>
     </div>
   </section>
 
   <!-- TOUR SECTION -->
   <section id="view-tour" class="section-container relative">
-    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-      <div>
-        <h2 class="font-display font-black text-[#00e5ff] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,229,255,0.4)] flex items-center">
-          <i class="fa-solid fa-map-location-dot mr-4 ee-trigger cursor-pointer transition-transform"></i> Tour Oficial
-        </h2>
-        <p class="text-base text-gray-400 mt-2 max-w-xl">Descubre los pueblos conquistados y las próximas fechas. Explora el mapa interactivo o busca tu zona.</p>
+    <div class="mb-10 flex flex-col items-center text-center justify-center">
+      <h2 class="font-display font-black text-[#00e5ff] text-4xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,229,255,0.4)] flex items-center justify-center">
+        <i class="fa-solid fa-map-location-dot mr-4 ee-trigger cursor-pointer transition-transform"></i> Tour Oficial
+      </h2>
+      <p class="text-sm md:text-base text-gray-400 mt-3 max-w-xl text-center">Descubre los pueblos conquistados y las próximas fechas. Explora el mapa interactivo o busca tu zona.</p>
+    </div>
+
+    <!-- Controles mapa centrados -->
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8 w-full">
+      <div class="relative w-full max-w-sm">
+        <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/60 border border-white/10 pl-12 pr-4 py-3 text-sm rounded-full text-white focus:border-[#00e5ff] transition-colors shadow-lg">
+        <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-2xl"></ul>
       </div>
-      
-      <div class="flex items-center gap-3 shrink-0">
-        <div class="relative w-full md:w-72">
-          <input type="text" id="search-muni" autocomplete="off" placeholder="Buscar zona..." class="w-full bg-black/60 border border-white/10 pl-12 pr-4 py-3 text-sm rounded-full text-white focus:border-[#00e5ff] transition-colors shadow-lg">
-          <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <ul id="search-results" class="absolute top-full left-0 w-full mt-2 bg-black/95 border border-white/10 rounded-xl hidden max-h-48 overflow-y-auto custom-scrollbar z-50 shadow-2xl"></ul>
-        </div>
-        <button id="btn-toggle-tour" class="bg-[#00e5ff]/10 border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff] hover:text-black px-6 py-3 rounded-full text-sm font-black uppercase tracking-widest transition-all shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-2"></i> Mapa</button>
-      </div>
+      <button id="btn-toggle-tour" class="bg-[#00e5ff]/10 border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff] hover:text-black px-8 py-3 rounded-full text-sm font-black uppercase tracking-widest transition-all shadow-lg whitespace-nowrap"><i class="fa-solid fa-map mr-2"></i> Mapa</button>
     </div>
 
     <div class="glass-card w-full relative overflow-hidden flex-grow flex flex-col min-h-[65vh] border-[#00e5ff]/20">
       <div id="tour-album-container" class="w-full h-full p-6 md:p-8">
-        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6"></div>
+        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></div>
       </div>
       
       <div id="tour-map-container" class="w-full h-full relative hidden min-h-[65vh]">
@@ -173,14 +175,14 @@ img { content-visibility: auto; }
 
   <!-- SETUP SECTION -->
   <section id="view-setup" class="section-container relative">
-    <div class="mb-8">
-      <h2 class="font-display font-black text-[#ff00ea] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,0,234,0.4)] flex items-center">
+    <div class="mb-10 flex flex-col items-center text-center justify-center">
+      <h2 class="font-display font-black text-[#ff00ea] text-4xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,0,234,0.4)] flex items-center justify-center">
         <i class="fa-solid fa-sliders mr-4 ee-trigger cursor-pointer transition-transform"></i> Equipo Técnico
       </h2>
-      <p class="text-base text-gray-400 mt-2 max-w-xl">Toca los elementos del hardware en la cabina para ver las especificaciones de lo que uso en cada show.</p>
+      <p class="text-sm md:text-base text-gray-400 mt-3 max-w-xl text-center">Toca los elementos del hardware en la cabina para ver las especificaciones de lo que uso en cada show.</p>
     </div>
     
-    <div class="glass-card w-full flex justify-center items-center p-8 border-[#ff00ea]/20 relative overflow-hidden min-h-[60vh]">
+    <div class="glass-card w-full flex justify-center items-center p-8 border-[#ff00ea]/20 relative overflow-hidden min-h-[65vh]">
       <div id="setup-wrapper" class="relative max-w-full inline-block touch-none rounded-2xl">
         <img src="setup.png" alt="Setup" class="w-auto h-auto max-w-full max-h-[75vh] object-contain drop-shadow-2xl rounded-xl" id="setup-img" draggable="false">
         <svg id="setup-svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 w-full h-full pointer-events-none z-20"></svg>
@@ -192,74 +194,80 @@ img { content-visibility: auto; }
 
   <!-- MASHUPS SECTION -->
   <section id="view-mashups" class="section-container relative">
-    <div class="mb-8">
-      <h2 class="font-display font-black text-[#ffd600] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,214,0,0.4)] flex items-center">
+    <div class="mb-10 flex flex-col items-center text-center justify-center">
+      <h2 class="font-display font-black text-[#ffd600] text-4xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(255,214,0,0.4)] flex items-center justify-center">
         <i class="fa-solid fa-compact-disc mr-4 ee-trigger cursor-pointer transition-transform animate-spin" style="animation-duration: 4s;"></i> Tracks & Edits
       </h2>
-      <p class="text-base text-gray-400 mt-2 max-w-xl">Descargas directas, mashups exclusivos y sesiones en directo para que calientes motores antes del bolo.</p>
+      <p class="text-sm md:text-base text-gray-400 mt-3 max-w-xl text-center">Descargas directas, mashups exclusivos y sesiones en directo para que calientes motores antes del bolo.</p>
     </div>
     
-    <div class="glass-card w-full p-8 border-[#ffd600]/20 min-h-[60vh]">
-      <div id="mashups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 content-start"></div>
+    <div class="glass-card w-full p-8 border-[#ffd600]/20 min-h-[65vh]">
+      <div id="mashups-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 content-start"></div>
     </div>
   </section>
 
   <!-- BOOKING SECTION -->
   <section id="view-booking" class="section-container relative">
-    <div class="mb-8 text-center">
-      <h2 class="font-display font-black text-[#00ff88] text-4xl md:text-6xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,136,0.4)] flex items-center justify-center">
+    <div class="mb-10 flex flex-col items-center text-center justify-center">
+      <h2 class="font-display font-black text-[#00ff88] text-4xl md:text-5xl uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,136,0.4)] flex items-center justify-center">
         <i class="fa-solid fa-file-invoice-dollar mr-4 ee-trigger cursor-pointer transition-transform"></i> Booking
       </h2>
-      <p class="text-base text-gray-400 mt-2 max-w-2xl mx-auto">Calcula tu presupuesto estimado y solicita tu fecha. Sin compromisos, rellenando el siguiente formulario.</p>
+      <p class="text-sm md:text-base text-gray-400 mt-3 max-w-2xl text-center">Calcula tu presupuesto estimado y solicita tu fecha. Sin compromisos, rellenando el siguiente formulario.</p>
     </div>
     
-    <div class="flex items-center justify-center w-full min-h-[60vh]">
-      <div class="glass-card w-full max-w-4xl p-8 md:p-12 flex flex-col gap-8 border-[#00ff88]/30 shadow-[0_0_40px_rgba(0,255,136,0.15)]">
+    <div class="flex items-center justify-center w-full min-h-[65vh]">
+      <div class="glass-card w-full p-8 md:p-14 flex flex-col gap-10 border-[#00ff88]/30 shadow-[0_0_40px_rgba(0,255,136,0.15)]">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="space-y-2">
-            <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-compact-disc mr-2 text-[#00ff88]"></i> Tipo de Evento</label>
-            <select id="p-type" class="admin-input" onchange="window.updateBookingUI()">
-              <option value="pub">Discotecas / Pubs</option>
-              <option value="pueblo">Fiestas de Pueblo / Quintos</option>
-              <option value="privada">Fiestas Privadas (Otras)</option>
-            </select>
-          </div>
-          <div id="div-eq" class="space-y-2 hidden">
-            <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-volume-high mr-2 text-[#00ff88]"></i> ¿Requiere equipo?</label>
-            <select id="p-eq" class="admin-input" onchange="window.updateBookingUI()">
-              <option value="no">No (Solo controladora)</option>
-              <option value="si">Sí (Equipo Completo)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div class="space-y-3">
-            <div class="flex justify-between items-center">
-              <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-clock mr-2 text-[#00ff88]"></i> Duración del Set</label>
-              <span id="dur-val" class="text-sm text-black font-black bg-[#00ff88] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,255,136,0.4)]">2 Horas</span>
+        <div class="flex flex-col gap-8 w-full">
+          <!-- Bloque 1: Tipo y Equipo -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <div class="space-y-3">
+              <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-compact-disc mr-2 text-[#00ff88]"></i> Tipo de Evento</label>
+              <select id="p-type" class="admin-input py-4 text-base" onchange="window.updateBookingUI()">
+                <option value="pub">Discotecas / Pubs</option>
+                <option value="pueblo">Fiestas de Pueblo / Quintos</option>
+                <option value="privada">Fiestas Privadas (Otras)</option>
+              </select>
             </div>
-            <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full cursor-pointer" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
-          </div>
-          <div id="div-time" class="space-y-2 hidden">
-            <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-hourglass-start mr-2 text-[#00ff88]"></i> Hora de Inicio (Aprox.)</label>
-            <input type="time" id="p-time" value="00:00" class="admin-input [color-scheme:dark]" onchange="window.calcBudget()">
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-map-location-dot mr-2 text-[#00ff88]"></i> Localización del Evento</label>
-          <div class="flex flex-col sm:flex-row gap-4 relative">
-            <div class="relative flex-1">
-              <i class="fa-solid fa-city absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
-              <input type="text" id="p-city" placeholder="Ej: Salamanca, Peñaranda..." class="admin-input pl-12 w-full" onchange="window.calcDist()">
+            <div id="div-eq" class="space-y-3 hidden">
+              <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-volume-high mr-2 text-[#00ff88]"></i> ¿Requiere equipo?</label>
+              <select id="p-eq" class="admin-input py-4 text-base" onchange="window.updateBookingUI()">
+                <option value="no">No (Solo controladora)</option>
+                <option value="si">Sí (Equipo Completo)</option>
+              </select>
             </div>
-            <span id="dist-lbl" class="bg-black/60 border border-white/10 rounded-xl px-6 flex items-center justify-center text-base text-[#00ff88] font-bold shrink-0 min-w-[120px] shadow-inner py-3 sm:py-0">-- km</span>
+          </div>
+
+          <!-- Bloque 2: Localización -->
+          <div class="space-y-3 w-full">
+            <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-map-location-dot mr-2 text-[#00ff88]"></i> Localización del Evento</label>
+            <div class="flex flex-col sm:flex-row gap-4 relative">
+              <div class="relative flex-1">
+                <i class="fa-solid fa-city absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                <input type="text" id="p-city" placeholder="Ej: Salamanca, Peñaranda..." class="admin-input py-4 pl-12 w-full text-base" onchange="window.calcDist()">
+              </div>
+              <span id="dist-lbl" class="bg-black/60 border border-white/10 rounded-xl px-6 flex items-center justify-center text-base text-[#00ff88] font-bold shrink-0 min-w-[140px] shadow-inner py-4 sm:py-0">-- km</span>
+            </div>
+          </div>
+
+          <!-- Bloque 3: Tiempos -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
+            <div class="space-y-4">
+              <div class="flex justify-between items-center mb-2">
+                <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-clock mr-2 text-[#00ff88]"></i> Duración del Set</label>
+                <span id="dur-val" class="text-sm text-black font-black bg-[#00ff88] px-4 py-1.5 rounded-full shadow-[0_0_10px_rgba(0,255,136,0.4)]">2 Horas</span>
+              </div>
+              <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full cursor-pointer h-2" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
+            </div>
+            <div id="div-time" class="space-y-3 hidden">
+              <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-hourglass-start mr-2 text-[#00ff88]"></i> Hora de Inicio (Aprox.)</label>
+              <input type="time" id="p-time" value="00:00" class="admin-input py-4 text-base [color-scheme:dark]" onchange="window.calcBudget()">
+            </div>
           </div>
         </div>
         
-        <div class="pt-8 mt-4 border-t border-white/10 flex flex-col items-center text-center bg-gradient-to-b from-black/40 to-black/10 rounded-3xl p-8 shadow-inner">
+        <!-- Bloque 4: Resultado -->
+        <div class="pt-10 border-t border-white/10 flex flex-col items-center text-center bg-gradient-to-b from-black/40 to-black/10 rounded-3xl p-8 shadow-inner mt-4">
           <span class="text-sm uppercase font-bold tracking-widest text-gray-400 mb-3"><i class="fa-solid fa-money-bill-wave mr-2"></i> Inversión Estimada</span>
           <div id="p-result" class="text-6xl md:text-7xl font-display font-black text-[#00ff88] my-4 drop-shadow-[0_0_20px_rgba(0,255,136,0.5)] transition-all">---</div>
           <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-3 bg-[#00ff88] text-black font-black w-full max-w-md py-5 mt-6 rounded-full text-base uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_25px_rgba(0,255,136,0.5)]">
@@ -269,6 +277,7 @@ img { content-visibility: auto; }
             * Precios orientativos. Sujetos a la fecha exacta, logística y disponibilidad. Contactar para presupuesto final y cerrado.
           </p>
         </div>
+
       </div>
     </div>
   </section>
@@ -320,20 +329,20 @@ img { content-visibility: auto; }
   <div class="p-4 overflow-y-auto max-h-[65vh] space-y-3 custom-scrollbar">
     <div id="sec-a-tour" class="space-y-3">
       <input type="hidden" id="a-muni-id"><input type="hidden" id="a-ev-id">
-      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input text-xs flex-1"><select id="a-muni-status" class="admin-input px-1 text-xs w-24"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
-      <input type="text" id="a-muni-img" placeholder="URL Imagen Cromo Pueblo" class="admin-input text-xs">
+      <div class="flex gap-2"><input type="text" id="a-muni-name" placeholder="ID Zona" class="admin-input py-3 text-xs flex-1"><select id="a-muni-status" class="admin-input py-3 px-2 text-xs w-24"><option value="locked">Oculto</option><option value="unlocked">Activo</option></select></div>
+      <input type="text" id="a-muni-img" placeholder="URL Imagen Cromo Pueblo" class="admin-input py-3 text-xs">
       <div id="a-ev-list" class="space-y-1 bg-black/30 p-2 rounded-xl border border-white/5 max-h-28 overflow-y-auto custom-scrollbar"></div>
       <div class="pt-2 border-t border-white/5 space-y-2">
         <label id="a-ev-t" class="text-[10px] text-djCyan font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-plus mr-1"></i> Añadir Fecha</label>
-        <div class="grid grid-cols-2 gap-2"><input type="text" id="a-ev-p" placeholder="Sala" class="admin-input text-xs"><input type="date" id="a-ev-d" class="admin-input text-xs [color-scheme:dark]"></div>
-        <textarea id="a-ev-desc" placeholder="Detalles..." class="admin-input h-14 resize-none text-xs"></textarea>
+        <div class="grid grid-cols-2 gap-2"><input type="text" id="a-ev-p" placeholder="Sala" class="admin-input py-3 text-xs"><input type="date" id="a-ev-d" class="admin-input py-3 text-xs [color-scheme:dark]"></div>
+        <textarea id="a-ev-desc" placeholder="Detalles..." class="admin-input py-3 h-14 resize-none text-xs"></textarea>
         <div class="flex gap-2"><button id="btn-sv-ev" class="flex-[3] bg-djCyan text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(0,229,255,0.3)]">Guardar Info Pueblo</button><button id="btn-cl-ev" class="hidden flex-[1] bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"><i class="fa-solid fa-rotate-left"></i></button></div>
       </div>
     </div>
     <div id="sec-a-setup" class="space-y-3 hidden">
-      <select id="a-comp-sel" class="admin-input text-xs"><option value="NEW">✨ NUEVO HARDWARE</option></select>
-      <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input text-xs focus:border-djMagenta">
-      <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input text-xs h-20 resize-none focus:border-djMagenta"></textarea>
+      <select id="a-comp-sel" class="admin-input py-3 text-xs"><option value="NEW">✨ NUEVO HARDWARE</option></select>
+      <input type="text" id="a-comp-t" placeholder="Modelo" class="admin-input py-3 text-xs focus:border-djMagenta">
+      <textarea id="a-comp-d" placeholder="Especificaciones..." class="admin-input py-3 text-xs h-20 resize-none focus:border-djMagenta"></textarea>
       <div class="bg-black/40 p-3 rounded-xl border border-white/5 space-y-2">
         <div class="flex justify-between items-center mb-1"><span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-draw-polygon mr-1"></i> Polígonos</span><button id="btn-add-fig" class="bg-djMagenta/20 hover:bg-djMagenta/30 text-djMagenta px-2 py-1.5 rounded border border-djMagenta/30 text-[10px] font-bold transition-colors"><i class="fa-solid fa-plus mr-1"></i> Añadir</button></div>
         <ul id="a-comp-figs" class="space-y-1 max-h-28 overflow-y-auto text-xs custom-scrollbar"></ul>
@@ -347,20 +356,20 @@ img { content-visibility: auto; }
     </div>
     
     <div id="sec-a-mashups" class="space-y-3 hidden">
-      <select id="a-mash-sel" class="admin-input text-xs"><option value="NEW">✨ NUEVO TRACK / SESIÓN</option></select>
-      <select id="a-mash-type" class="admin-input text-xs" onchange="window.toggleMashType()">
+      <select id="a-mash-sel" class="admin-input py-3 text-xs"><option value="NEW">✨ NUEVO TRACK / SESIÓN</option></select>
+      <select id="a-mash-type" class="admin-input py-3 text-xs" onchange="window.toggleMashType()">
         <option value="mashup">Mashup / Edit (SoundCloud)</option>
         <option value="session">Sesión DJ (Vídeo de YouTube)</option>
       </select>
-      <input type="text" id="a-mash-t" placeholder="Título" class="admin-input text-xs focus:border-djYellow">
+      <input type="text" id="a-mash-t" placeholder="Título" class="admin-input py-3 text-xs focus:border-djYellow">
       
       <div id="a-mash-fields-audio" class="space-y-3">
-        <input type="text" id="a-mash-dl" placeholder="Enlace descarga (Opcional)" class="admin-input text-xs focus:border-djYellow">
-        <input type="text" id="a-mash-sc" placeholder="URL SoundCloud" class="admin-input text-xs focus:border-djYellow">
+        <input type="text" id="a-mash-dl" placeholder="Enlace descarga (Opcional)" class="admin-input py-3 text-xs focus:border-djYellow">
+        <input type="text" id="a-mash-sc" placeholder="URL SoundCloud" class="admin-input py-3 text-xs focus:border-djYellow">
       </div>
       
       <div id="a-mash-fields-yt" class="space-y-3 hidden">
-        <input type="text" id="a-mash-yt" placeholder="ID del Vídeo de YouTube (Ej: dQw4w9WgXcQ)" class="admin-input text-xs focus:border-djYellow">
+        <input type="text" id="a-mash-yt" placeholder="ID del Vídeo de YouTube (Ej: dQw4w9WgXcQ)" class="admin-input py-3 text-xs focus:border-djYellow">
       </div>
 
       <div class="flex gap-2 pt-2"><button id="btn-sv-ms" class="flex-[3] bg-djYellow text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,214,0,0.3)]">Publicar</button><button id="btn-dl-ms" class="hidden flex-[1] bg-red-500/10 text-red-500 border border-red-500/20 font-bold rounded-xl text-[10px] hover:bg-red-500/20 transition-colors">Borrar</button></div>
@@ -375,7 +384,7 @@ img { content-visibility: auto; }
       </div>
       <div class="space-y-2">
         <label class="text-[10px] text-gray-400 font-bold flex items-center uppercase tracking-widest"><i class="fa-solid fa-bolt mr-1"></i> Marquesina Promocional</label>
-        <textarea id="a-ticker-input" class="admin-input h-24 resize-none text-xs focus:border-white"></textarea>
+        <textarea id="a-ticker-input" class="admin-input py-3 h-24 resize-none text-xs focus:border-white"></textarea>
       </div>
       <button id="btn-sv-ticker" class="w-full bg-white text-black font-black py-2.5 rounded-xl text-xs uppercase shadow-[0_0_10px_rgba(255,255,255,0.3)]">Guardar Ajustes</button>
     </div>
@@ -391,7 +400,7 @@ import{getAuth,signInWithPopup,GoogleAuthProvider,signOut,onAuthStateChanged}fro
 const app=initializeApp({apiKey:"AIzaSyB5TFM9ZN-X1dvLdIGJX9quK_2jhq_8gqI",authDomain:"djvaquero-851e8.firebaseapp.com",databaseURL:"https://djvaquero-851e8-default-rtdb.europe-west1.firebasedatabase.app",projectId:"djvaquero-851e8",storageBucket:"djvaquero-851e8.firebasestorage.app",messagingSenderId:"943264468873",appId:"1:943264468873:web:30725455620a5f737bdb58"});
 const db=getDatabase(app),auth=getAuth(app),provider=new GoogleAuthProvider(),$=i=>document.getElementById(i),$$=q=>document.querySelectorAll(q),on=(e,t,c,o)=>e.addEventListener(t,c,o),tog=(e,c,f)=>e?.classList[f?'add':'remove'](c),crSvg=t=>document.createElementNS("http://www.w3.org/2000/svg",t);
 
-let dbData={municipalities:{},components:{},mashups:{},config:{},analytics:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false,tourMode='album';
+let dbData={municipalities:{},components:{},mashups:{},config:{},analytics:{}},currMuni=null,isMov=false,actTab='tour',sc=1,pX=0,pY=0,reqFr=null,pan=false,sX=0,sY=0,mStartX=0,mStartY=0,svgW=1000,svgH=1000,lgEl=null,mLbls=[],cFigs=[],cPts=[],editFigIdx=-1,drA=false,dX,dY,isDrawing=false,tourMode='album';
 const vp=$('tour-viewport'),tLay=$('tour-layer'),iAnc=$('info-overlay'),iTit=$('info-title'),iEvs=$('info-events'),iStat=$('info-status'),sAnc=$('setup-overlay'),sTit=$('setup-t'),sDesc=$('setup-d'),sStat=$('setup-status');
 
 let eeC=0; const au=new Audio('tag.flac'); 
@@ -402,7 +411,6 @@ window.setThemeColor = (v) => {
     document.documentElement.style.setProperty('--tc',c[v] || c['default']);
 };
 
-// Intersection Observer para cambiar colores al scrollear
 document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -475,7 +483,7 @@ function toggleAdminMode(a){tog(document.body,'admin-active',a);tog($('setup-img
 const togTourView=(f)=>{
   tourMode=f||(tourMode==='album'?'map':'album'); const isM=tourMode==='map', bt=$('btn-toggle-tour');
   tog($('tour-album-container'),'hidden',isM); tog($('tour-map-container'),'hidden',!isM);
-  if(bt) bt.innerHTML=isM?'<i class="fa-solid fa-book-open mr-2"></i> Álbum':'<i class="fa-solid fa-map mr-2"></i> Mapa';
+  if(bt) bt.innerHTML=isM?'<i class="fa-solid fa-book-open mr-2"></i> Álbum':'<i class="fa-solid fa-map mr-2"></i> Mapa interactivo';
   if(isM) setTimeout(()=>$('btn-reset-map')?.click(),50); else clTour();
 };
 if($('btn-toggle-tour')) $('btn-toggle-tour').onclick=()=>togTourView();
@@ -484,7 +492,6 @@ window.openMapAndCenter=id=>{togTourView('map'); selMuni(id); $('view-tour').scr
 const clTour=()=>{currMuni=null;renderMap();tog(iAnc,'open',false);setTimeout(()=>{if(iTit)iTit.innerText='TOUR';if(iStat)iStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Selecciona</span>`;if(iEvs)iEvs.innerHTML='';},300)};
 const clSetup=()=>{$$('.comp-polygon').forEach(h=>h.classList.remove('hotspot-active'));tog(sAnc,'open',false);setTimeout(()=>{if(sTit)sTit.innerText='';if(sDesc)sDesc.innerText='';if(sStat)sStat.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-600"></div><span class="text-gray-400 text-[10px] font-bold uppercase">Hardware</span>`;},300)};
 if($('btn-close-tour')) $('btn-close-tour').onclick=clTour; if($('btn-close-setup')) $('btn-close-setup').onclick=clSetup;
-// Cerrar modal pulsando fuera
 [iAnc, sAnc].forEach(m => {
     if(m) m.addEventListener('click', (e) => {
         if (e.target === m) { m.id === 'info-overlay' ? clTour() : clSetup(); }
@@ -531,13 +538,10 @@ const renderAlbum=()=>{
   g.innerHTML = html + secretCard;
 };
 
-// uLbls modificado para mostrar siempre los nombres fluidamente y leer todas las zonas
 const uLbls = () => {
   if(!lgEl || !vp) return;
-  
   lgEl.className.baseVal = 'opacity-100 transition-opacity duration-300 pointer-events-none';
-  
-  const fS = Math.max(8 / sc, 2.5); // Escala fluida y tamaño base menor para que quepan todos
+  const fS = Math.max(8 / sc, 2.5); 
   const r = vp.getBoundingClientRect();
   const occ = [];
   const srt = [...mLbls].sort((a,b) => ((dbData.municipalities[b.dataset.id]||{}).status==='unlocked'?1:0)-((dbData.municipalities[a.dataset.id]||{}).status==='unlocked'?1:0));
@@ -545,23 +549,15 @@ const uLbls = () => {
   srt.forEach(l => {
     const m = dbData.municipalities[l.dataset.id] || {};
     const n = m.name || l.dataset.id.replace(/_/g, ' ');
-    // Excluir si su nombre es exactamente como el ID (no seteado) o es una zona genérica sin nombre claro
     if(/^zona/i.test(n) && !m.name) return void(l.style.opacity = '0');
     
     const un = m.status === 'unlocked';
-    
-    // Configuración visual dependiente del estado (Desbloqueado o Bloqueado)
     l.setAttribute('fill', un ? '#ffffff' : 'rgba(255,255,255,0.4)'); 
     l.setAttribute('stroke', '#000000'); 
     l.setAttribute('stroke-width', `${fS * 0.15}px`); 
     l.setAttribute('font-size', `${fS}px`); 
     l.setAttribute('font-weight', un ? '900' : '500'); 
-    if(un) {
-        l.setAttribute('filter', 'drop-shadow(0px 1px 3px rgba(0,0,0,0.8))');
-    } else {
-        l.removeAttribute('filter');
-    }
-    
+    if(un) { l.setAttribute('filter', 'drop-shadow(0px 1px 3px rgba(0,0,0,0.8))'); } else { l.removeAttribute('filter'); }
     l.setAttribute('paint-order', 'stroke fill');
     l.setAttribute('stroke-linejoin', 'round');
     
@@ -571,13 +567,12 @@ const uLbls = () => {
     
     if(x < 0 || x > vp.clientWidth || y < 0 || y > vp.clientHeight) return void(l.style.opacity = '0');
     
-    // Detector de colisión relajado para asegurar que la mayoría sean legibles
     const b = { l: br.left + 2, r: br.right - 2, t: br.top + 2, b: br.bottom - 2 };
     if(!occ.some(o => b.l < o.r && b.r > o.l && b.t < o.b && b.b > o.t)) {
       l.style.opacity = '1';
       occ.push(b);
     } else {
-      l.style.opacity = '0.15'; // En caso de colisión, se muestran pero de fondo y translúcidos
+      l.style.opacity = '0.15';
     }
   });
 };
@@ -596,11 +591,12 @@ const uTrans=()=>{
   uLbls(); reqFr=null;
 };
 
-const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;pan=true;isMov=false;};
-const mvPan=(x,y)=>{if(!pan)return;isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
+// Ajustada tolerancia de movimiento en isMov para el mapa
+const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;mStartX=x;mStartY=y;pan=true;isMov=false;};
+const mvPan=(x,y)=>{if(!pan)return;if(Math.abs(x-mStartX)>4||Math.abs(y-mStartY)>4)isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
 
 if(vp){
-  on(vp,'mousedown',e=>stPan(e.clientX,e.clientY)); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false});
+  on(vp,'mousedown',e=>{isMov=false; stPan(e.clientX,e.clientY)}); on(window,'mousemove',e=>mvPan(e.clientX,e.clientY)); on(window,'mouseup',()=>{pan=false});
   on(vp,'touchstart',e=>{isMov=false;if(e.touches.length===1)stPan(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
   on(vp,'touchmove',e=>{if(pan&&e.touches.length===1)mvPan(e.touches[0].clientX,e.touches[0].clientY);else if(e.touches.length===2){e.preventDefault();const t1=e.touches[0],t2=e.touches[1],d=Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY),rb=vp.getBoundingClientRect(),mx=((t1.clientX+t2.clientX)/2)-rb.left,my=((t1.clientY+t2.clientY)/2)-rb.top,tx=(mx-pX)/sc,ty=(my-pY)/sc;sc=sc*(d/(vp.dataset.sd||d));vp.dataset.sd=d;chkBounds();pX=mx-tx*sc;pY=my-ty*sc;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)}},{passive:false});
   on(vp,'touchend',()=>{pan=false;delete vp.dataset.sd});
@@ -618,6 +614,7 @@ fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
 });
 
 const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
+
 window.selMuni=id=>{
   currMuni=id; renderMap(); const m=dbData.municipalities[id]||{},n=/^zona/i.test(m.name||id)?id.replace(/_/g,' '):(m.name||id.replace(/_/g,' '));
   if(iTit)iTit.innerText=n; if($('a-muni-id'))$('a-muni-id').value=id; if($('a-muni-name'))$('a-muni-name').value=n; if($('a-muni-img'))$('a-muni-img').value=m.img||''; clrEv(); popEv(id); tog(iAnc,'open',true); 
@@ -654,7 +651,10 @@ window.selMuni=id=>{
   }
   let btns = '';
   if(tourMode !== 'map'){ btns += `<button onclick="clTour(); setTimeout(()=>window.openMapAndCenter('${id}'), 100)" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-3.5 rounded-full text-center text-xs font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button>`; }
-  btns += `<a href="#view-booking" onclick="clTour(); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}), 100)" class="flex items-center justify-center gap-2 bg-[#00e5ff] text-black w-full py-4 rounded-full text-center text-sm font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_25px_rgba(0,229,255,0.4)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`;
+  
+  // Botón Contratar Ahora Mejorado en Tour
+  btns += `<a href="#view-booking" onclick="clTour(); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}), 100)" class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-black w-full py-4 rounded-full text-center text-sm font-black uppercase tracking-widest hover:scale-[1.03] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,255,136,0.6)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`;
+  
   if(iEvs)iEvs.innerHTML+=`<div class="mt-auto shrink-0 flex flex-col gap-3 w-full pt-4">${btns}</div>`;
 };
 
