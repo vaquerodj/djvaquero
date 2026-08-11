@@ -65,7 +65,8 @@ input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); }
 @keyframes ee-pop { to { opacity: 1; transform: translateY(0) scale(1); } }
 img { content-visibility: auto; }
 
-#tour-viewport { touch-action: none; }
+#tour-viewport { touch-action: none; min-height: 60vh; }
+section { content-visibility: auto; }
 </style>
 </head>
 <body class="antialiased font-body">
@@ -96,8 +97,8 @@ img { content-visibility: auto; }
 <!-- HEADER STICKY -->
 <header class="fixed top-0 left-0 right-0 w-full px-4 py-3 z-50 glass-nav flex flex-col md:flex-row justify-between items-center gap-3 shadow-lg">
   <div class="flex items-center justify-between w-full md:w-auto">
-    <div id="site-title" class="active:scale-95 transition-transform flex items-center cursor-pointer" onclick="window.scrollTo({top: 0})">
-      <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="text-white">VAQUERO</span></h1>
+    <div id="site-title" class="active:scale-95 transition-transform flex items-center cursor-pointer">
+      <h1 class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white uppercase drop-shadow-lg">DJ <span class="theme-text">VAQUERO</span></h1>
     </div>
     <div class="flex md:hidden gap-3">
       <a href="https://instagram.com/djvaquero__" target="_blank" class="social-icon social-ig"><i class="fa-brands fa-instagram text-lg"></i></a>
@@ -120,16 +121,16 @@ img { content-visibility: auto; }
   </div>
 </header>
 
-<main class="w-full relative z-10 flex flex-col px-4 md:px-8 max-w-5xl mx-auto">
+<main class="w-full relative z-10 flex flex-col px-4 md:px-8 max-w-7xl mx-auto">
   
   <!-- HERO SECTION -->
   <section id="view-hero" class="section-container items-center text-center animate-fade-in-up relative">
     
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-    <h2 class="font-display font-black text-5xl md:text-7xl uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 drop-shadow-2xl mb-6 leading-none relative z-10">La fiesta <br/><span class="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">no se negocia.</span></h2>
+    <h2 class="font-display font-black text-5xl md:text-7xl uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 drop-shadow-2xl mb-6 leading-none relative z-10">[NUEVO LEMA <br/><span class="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">AQUÍ]</span></h2>
     
-    <div class="w-full max-w-full overflow-hidden h-12 relative flex items-center bg-white/5 rounded-full border border-white/10 marquee-container hover:bg-white/10 transition-colors shadow-inner mt-4 mb-10 z-10">
+    <div class="w-full md:w-3/4 lg:w-full overflow-hidden h-12 relative flex items-center bg-white/5 rounded-full border border-white/10 marquee-container hover:bg-white/10 transition-colors shadow-inner mt-4 mb-10 z-10">
        <div id="ticker-display" class="whitespace-nowrap text-sm md:text-base text-white font-bold uppercase tracking-widest absolute flex pointer-events-none">
           <div class="animate-marquee shrink-0 px-8"><span class="text-white opacity-80"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-1">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
           <div class="animate-marquee shrink-0 px-8" aria-hidden="true"><span class="text-white opacity-80"><i class="fa-solid fa-bolt mr-2"></i>PRÓXIMAS FECHAS:</span> <span id="ticker-text-2">Cargando...</span> &nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -168,7 +169,11 @@ img { content-visibility: auto; }
       
       <div id="tour-map-container" class="w-full h-full relative hidden min-h-[65vh]">
         <button id="btn-reset-map" class="absolute top-6 right-6 z-40 bg-black/80 border border-white/10 hover:border-[#00e5ff] hover:text-[#00e5ff] w-12 h-12 rounded-full flex items-center justify-center text-gray-400 shadow-lg transition-all"><i class="fa-solid fa-expand text-lg"></i></button>
-        <div class="w-full h-full relative overflow-hidden" id="tour-viewport"><div class="zoom-layer" id="tour-layer"></div></div>
+        <div class="w-full h-full relative overflow-hidden flex items-center justify-center min-h-[60vh]" id="tour-viewport">
+            <div class="zoom-layer flex items-center justify-center w-full h-full" id="tour-layer">
+                <span class="text-gray-500 font-bold opacity-50"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando mapa interactivo...</span>
+            </div>
+        </div>
       </div>
     </div>
   </section>
@@ -226,7 +231,7 @@ img { content-visibility: auto; }
               <select id="p-type" class="admin-input py-4 text-base" onchange="window.updateBookingUI()">
                 <option value="pub">Discotecas / Pubs</option>
                 <option value="pueblo">Fiestas de Pueblo / Quintos</option>
-                <option value="privada">Fiestas Privadas (Otras)</option>
+                <option value="privada">Fiestas Privadas</option>
               </select>
             </div>
             <div id="div-eq" class="space-y-3 hidden">
@@ -259,7 +264,7 @@ img { content-visibility: auto; }
               </div>
               <input type="range" id="p-dur" min="2" max="6" value="2" class="w-full cursor-pointer h-2" oninput="document.getElementById('dur-val').innerText=this.value+' Horas'; window.calcBudget()">
             </div>
-            <div id="div-time" class="space-y-3 hidden">
+            <div id="div-time" class="space-y-3">
               <label class="block text-sm uppercase font-bold tracking-wider text-gray-400"><i class="fa-solid fa-hourglass-start mr-2 text-[#00ff88]"></i> Hora de Inicio (Aprox.)</label>
               <input type="time" id="p-time" value="00:00" class="admin-input py-4 text-base [color-scheme:dark]" onchange="window.calcBudget()">
             </div>
@@ -271,7 +276,7 @@ img { content-visibility: auto; }
           <span class="text-sm uppercase font-bold tracking-widest text-gray-400 mb-3"><i class="fa-solid fa-money-bill-wave mr-2"></i> Inversión Estimada</span>
           <div id="p-result" class="text-6xl md:text-7xl font-display font-black text-[#00ff88] my-4 drop-shadow-[0_0_20px_rgba(0,255,136,0.5)] transition-all">---</div>
           <a href="https://instagram.com/djvaquero__" target="_blank" onclick="window.trackClick('contract')" class="flex items-center justify-center gap-3 bg-[#00ff88] text-black font-black w-full max-w-md py-5 mt-6 rounded-full text-base uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_25px_rgba(0,255,136,0.5)]">
-            <i class="fa-solid fa-paper-plane text-xl"></i> Enviar Solicitud Directa
+            <i class="fa-brands fa-instagram text-xl"></i> Contactar vía IG
           </a>
           <p class="text-xs text-gray-500 mt-6 leading-relaxed max-w-lg">
             * Precios orientativos. Sujetos a la fecha exacta, logística y disponibilidad. Contactar para presupuesto final y cerrado.
@@ -460,20 +465,26 @@ window.calcDist = async () => {
 };
 
 window.updateBookingUI=()=>{
-  const t=$('p-type').value, e=$('p-eq').value;
+  const t=$('p-type').value;
+  // Solo los pubs preguntan por equipo; privadas y pueblos lo llevan implícito.
   $('div-eq').classList.toggle('hidden',t!=='pub');
-  $('div-time').classList.toggle('hidden',!(t==='pueblo'||(t==='pub'&&e==='si')));
   window.calcBudget();
 };
 
 window.calcBudget=()=>{
   const t=$('p-type')?.value, d=parseInt($('p-dur')?.value)||2, e=$('p-eq')?.value;
-  let r=25; if(t==='privada') r=75; else if(t==='pueblo'||(t==='pub'&&e==='si')) r=60;
+  let r=25; 
+  if(t==='privada') r=75; 
+  else if(t==='pueblo'||(t==='pub'&&e==='si')) r=60;
+  
   let tot=r*d;
-  if(t==='pueblo'||(t==='pub'&&e==='si')){
-    const tm=$('p-time')?.value;
-    if(tm){const hh=parseInt(tm.split(':')[0]); if(hh>0&&hh<=12)tot+=(15*hh);}
+  
+  const tm=$('p-time')?.value;
+  if(tm){
+      const hh=parseInt(tm.split(':')[0]); 
+      if(hh>0&&hh<=12) tot+=(15*hh);
   }
+  
   if(!window.isSalamanca && window.bookingKm > 0) tot += 100 + (window.bookingKm * 0.25);
   if($('p-result')) $('p-result').innerText=`${tot.toFixed(2).replace(/\.00$/,'')}€`;
 };
@@ -532,7 +543,7 @@ const renderAlbum=()=>{
     <i class="fa-solid fa-user-secret text-5xl text-gray-500 mb-4 z-10 group-hover:text-[#00e5ff] transition-colors"></i>
     <h3 class="font-display font-black text-white text-base md:text-lg uppercase tracking-tight drop-shadow-md leading-tight mb-2 z-10">¿MISTERIO?</h3>
     <p class="text-[11px] text-gray-400 mb-5 z-10 px-2 leading-tight">El próximo pueblo podría ser el tuyo.</p>
-    <a href="#view-booking" onclick="setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}),100)" class="z-10 bg-white/10 hover:bg-[#00e5ff] hover:text-black text-white border border-white/20 hover:border-[#00e5ff] font-bold py-3 px-6 rounded-full text-xs uppercase transition-all shadow-lg active:scale-95"><i class="fa-solid fa-bolt mr-2"></i> Contratar</a>
+    <a href="#view-booking" onclick="setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}),100)" class="z-10 bg-white/10 hover:bg-[#00e5ff] hover:text-black text-white border border-white/20 hover:border-[#00e5ff] font-bold py-3 px-6 rounded-full text-xs uppercase transition-all shadow-lg active:scale-95"><i class="fa-brands fa-instagram mr-2 text-[14px]"></i> Contactar vía IG</a>
   </div>`;
 
   g.innerHTML = html + secretCard;
@@ -591,7 +602,6 @@ const uTrans=()=>{
   uLbls(); reqFr=null;
 };
 
-// Ajustada tolerancia de movimiento en isMov para el mapa
 const stPan=(x,y)=>{if(!vp)return;sX=x-pX;sY=y-pY;mStartX=x;mStartY=y;pan=true;isMov=false;};
 const mvPan=(x,y)=>{if(!pan)return;if(Math.abs(x-mStartX)>4||Math.abs(y-mStartY)>4)isMov=true;pX=x-sX;pY=y-sY;chkBounds();if(!reqFr)reqFr=requestAnimationFrame(uTrans)};
 
@@ -611,6 +621,8 @@ fetch('salamanca.svg').then(r=>r.ok?r.text():'').then(h=>{
   g.id='labels-group';g.className.baseVal='opacity-0 transition-opacity duration-300 pointer-events-none';s.appendChild(g);
   s.querySelectorAll('path,polygon').forEach((el,i)=>{const id=el.id||`zona_${i}`;el.id=id;el.className.baseVal='muni muni-base';try{const b=el.getBBox();if(b.width>0){const t=crSvg("text");t.setAttribute("x",b.x+b.width/2);t.setAttribute("y",b.y+b.height/2);t.setAttribute("class","muni-label transition-opacity duration-300");t.setAttribute("data-id",id);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');t.setAttribute('font-family',"'Montserrat',sans-serif");t.setAttribute('style','pointer-events:none');g.appendChild(t)}}catch(e){}el.onclick=e=>{if(isMov)return;e.stopPropagation();window.selMuni(id)}});
   lgEl=g;mLbls=Array.from(g.querySelectorAll('.muni-label')); setTimeout(()=>$('btn-reset-map')?.click(),100); renderMap();
+}).catch(e=>{
+  if(tLay) tLay.innerHTML='<span class="text-gray-500 font-bold opacity-50"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Error al cargar el mapa</span>';
 });
 
 const renderMap=()=>{const grp=currMuni?getGroup(currMuni):[];Object.entries(dbData.municipalities||{}).forEach(([id,d])=>{const e=$(id);if(!e)return;const isSel=grp.includes(id);e.className.baseVal=`muni muni-${d.status==='unlocked'?'unlocked':'base'} ${isSel?'muni-selected':''}`;if((d.status==='unlocked'||isSel)&&e.parentNode)e.parentNode.appendChild(e)});mLbls.forEach(l=>{const n=(dbData.municipalities[l.dataset.id]||{}).name;l.textContent=(!n||/^zona/i.test(n))?'':n});uLbls()};
@@ -652,8 +664,7 @@ window.selMuni=id=>{
   let btns = '';
   if(tourMode !== 'map'){ btns += `<button onclick="clTour(); setTimeout(()=>window.openMapAndCenter('${id}'), 100)" class="flex items-center justify-center gap-2 bg-white/5 text-gray-300 w-full py-3.5 rounded-full text-center text-xs font-bold uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all"><i class="fa-solid fa-map-location"></i> Ver en Mapa</button>`; }
   
-  // Botón Contratar Ahora Mejorado en Tour
-  btns += `<a href="#view-booking" onclick="clTour(); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}), 100)" class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-black w-full py-4 rounded-full text-center text-sm font-black uppercase tracking-widest hover:scale-[1.03] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,255,136,0.6)] animate-pulse hover:animate-none"><i class="fa-solid fa-bolt"></i> ¡Contratar Ahora!</a>`;
+  btns += `<a href="#view-booking" onclick="clTour(); setTimeout(()=>document.getElementById('view-booking').scrollIntoView({behavior:'smooth'}), 100)" class="flex items-center justify-center gap-2 bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-black w-full py-4 rounded-full text-center text-sm font-black uppercase tracking-widest hover:scale-[1.03] active:scale-95 transition-all shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(0,255,136,0.6)] animate-pulse hover:animate-none"><i class="fa-brands fa-instagram text-[14px] mr-1"></i> Contactar vía IG</a>`;
   
   if(iEvs)iEvs.innerHTML+=`<div class="mt-auto shrink-0 flex flex-col gap-3 w-full pt-4">${btns}</div>`;
 };
@@ -757,7 +768,39 @@ if($('btn-sv-ticker')) $('btn-sv-ticker').onclick=()=>{const v=$('a-ticker-input
 if($('btn-reset-stats')) $('btn-reset-stats').onclick=()=>{if(confirm('¿Poner contadores a 0?')) set(ref(db,'analytics'),{contract:0,mashup:0});};
 
 onAuthStateChanged(auth,(user)=>{if(!user||user.email!==EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',true);toggleAdminMode(false)}});
-let cc=0;if($('site-title'))$('site-title').onclick=()=>{if(++cc>=3){const u=auth.currentUser;if(u&&u.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false);toggleAdminMode(actTab==='setup');}else{signInWithPopup(auth,provider).then((res)=>{if(res.user.email===EMAIL_ADMINISTRADOR){tog($('admin-panel'),'hidden',false);toggleAdminMode(actTab==='setup');}else{alert("Acceso Denegado.");signOut(auth)}}).catch(e=>{})}}setTimeout(()=>cc=0,800)};
+
+let cc=0;
+let clkTimer;
+if($('site-title')) {
+  $('site-title').onclick = () => {
+    cc++;
+    if(cc === 1) {
+      clkTimer = setTimeout(() => {
+        if(cc === 1) { window.scrollTo({top: 0, behavior: 'smooth'}); }
+        cc = 0;
+      }, 300);
+    } else if(cc === 3) {
+      clearTimeout(clkTimer);
+      cc = 0;
+      const u = auth.currentUser;
+      if(u && u.email === EMAIL_ADMINISTRADOR) {
+        tog($('admin-panel'), 'hidden', false);
+        toggleAdminMode(actTab === 'setup');
+      } else {
+        signInWithPopup(auth, provider).then((res) => {
+          if(res.user.email === EMAIL_ADMINISTRADOR) {
+            tog($('admin-panel'), 'hidden', false);
+            toggleAdminMode(actTab === 'setup');
+          } else {
+            alert("Acceso Denegado.");
+            signOut(auth);
+          }
+        }).catch(e => {});
+      }
+    }
+  };
+}
+
 if($('btn-close-admin'))$('btn-close-admin').onclick=()=>{if(confirm("¿Cerrar panel de administración?")){tog($('admin-panel'),'hidden',true);toggleAdminMode(false);}};
 
 if($('admin-header')) on($('admin-header'),'mousedown',e=>{if(e.target.closest('button'))return;drA=true;const p=$('admin-panel'),r=p.getBoundingClientRect();p.style.transform='none';p.style.left=r.left+'px';p.style.top=r.top+'px';dX=e.clientX-r.left;dY=e.clientY-r.top;});
